@@ -10,9 +10,7 @@ export default function user(state = initialState, action) {
   case USER:
     return {
       ...state,
-      user: {
-        email: action.payload,
-      },
+      email: action.payload,
     };
   default:
     return state;
