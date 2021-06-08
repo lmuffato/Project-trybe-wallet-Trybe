@@ -28,9 +28,10 @@ class Login extends React.Component {
     const passwordLength = 6;
     return (
       <form>
-        <label htmlFor="email-input" data-testid="email-input">
+        <label htmlFor="email-input">
           Email:
           <input
+            data-testid="email-input"
             type="text"
             value={ email }
             id="email-input"
@@ -38,9 +39,10 @@ class Login extends React.Component {
             name="email"
           />
         </label>
-        <label htmlFor="password-input" data-testid="password-input">
+        <label htmlFor="password-input">
           Password:
           <input
+            data-testid="password-input"
             type="password"
             value={ password }
             id="password-input"
@@ -51,7 +53,7 @@ class Login extends React.Component {
         <button
           type="button"
           onClick={ this.handleSubmit }
-          disabled={ !email.match(regex) && !password.length < passwordLength }
+          disabled={ !email.match(regex) || password.length < passwordLength }
         >
           Entrar
         </button>
