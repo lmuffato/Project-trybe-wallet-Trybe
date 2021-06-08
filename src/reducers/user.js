@@ -2,10 +2,6 @@ const INITIAL_STATE = {
   user: {
     email: '',
   },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
 };
 
 const LOGIN = 'LOGIN';
@@ -13,7 +9,7 @@ const LOGIN = 'LOGIN';
 function user(state = INITIAL_STATE, action) {
   switch (action.type) {
   case LOGIN:
-    return action.value;
+    return { ...state, email: action.email };
   default:
     return state;
   }

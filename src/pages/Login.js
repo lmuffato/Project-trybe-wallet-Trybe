@@ -1,41 +1,94 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
+import { login as loginAction } from '../actions';
 
 class Login extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     email: '',
-  //     password: '',
-  //   };
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      submitted: false,
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.validateEmail = this.validateEmail.bind(this);
+    this.handleSubmmit = this.handleSubmmit.bind(this);
+  }
+
+  handleChange({ target: { name, value } }) {
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  validateEmail() {
+    const { email } = this.state;
+    return (/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(email));
+  }
+
+  validatePassword() {
+    const { password } = this.state;
+    return (/[a-z0-9._%+-]{6}/.test(password));
+  }
+
+  handleSubmmit() {
+    const { email } = this.state;
+    const { loginToStore } = this.props;
+    loginToStore(email);
+    this.setState({
+      submitted: true,
+    });
+  }
 
   render() {
-    // const { email, password } = this.state;
+    const { email, password, submitted } = this.state;
+    if (submitted) return <Redirect to="/carteira" />;
     return (
       <div>
-        <div>
+        <label htmlFor="email-input">
+          E-mail:
           <input
             type="text"
-            placeholder="E-mail"
+            id="email-input"
+            name="email"
+            value={ email }
             data-testid="email-input"
-            // onChange={ (e) => this.setState({ email: e.target.value }) }
+            onChange={ this.handleChange }
           />
-        </div>
-        <div>
+        </label>
+        <label htmlFor="password-input">
+          Senha:
           <input
             type="password"
-            placeholder="Senha"
+            id="password-input"
+            name="password"
+            value={ password }
             data-testid="password-input"
-            // onChange={ (e) => this.setState({ password: e.target.value }) }
+            onChange={ this.handleChange }
           />
-        </div>
+        </label>
         <div>
-          <Link to="/carteira">Entrar</Link>
+          <button
+            type="button"
+            disabled={ !(this.validatePassword() && this.validateEmail()) }
+            onClick={ this.handleSubmmit }
+          >
+            Entrar
+          </button>
         </div>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  loginToStore: (email) => dispatch((loginAction(email))),
+});
+
+Login.propTypes = {
+  loginToStore: PropTypes.func,
+}.isRequired;
+export default connect(null, mapDispatchToProps)(Login);
