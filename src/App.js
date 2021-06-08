@@ -1,7 +1,7 @@
-import React from 'react';
+// import React from 'react';
 
-function App() {
-  return <div>Hello, TrybeWallet!</div>;
-}
+// function App() {
+//   return <div>Hello, TrybeWallet!</div>;
+// }
 
-export default App;
+// export default App;
