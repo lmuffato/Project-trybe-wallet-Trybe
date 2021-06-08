@@ -10,6 +10,7 @@ class Login extends React.Component {
       {inputEmail.contains '@' && inputPassW.lenght >= 6) ? { buttonLogin: Enable } : { buttonLogin: Disable }};
     */
     return (
+      // const { typedEmail, typedPassW } = this.props
       <section>
         <div>Login</div>
         <label htmlFor="user-email">
@@ -18,7 +19,7 @@ class Login extends React.Component {
             placeholder="nome@email.com"
             id="user-email"
             type="email"
-            value={ typedEmail }
+            // value={ typedEmail }
             // onChance=
           />
         </label>
@@ -29,7 +30,7 @@ class Login extends React.Component {
             placeholder="nome@email.com"
             id="user-passw"
             type="text"
-            value={ typedPassW }
+            // value={ typedPassW }
             // onChance=
           />
         </label>
