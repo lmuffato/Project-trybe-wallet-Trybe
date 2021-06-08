@@ -12,29 +12,28 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      btnDisable: true,
     };
   }
 
   handleChange(e) {
-    const { email, password } = this.state;
     const { type, value } = e.target;
     this.setState({
       [type]: value,
     });
     // https://stackoverflow.com/questions/201323/how-to-validate-an-email-address-using-a-regular-expression onde peguei regex
     // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript onde aprendi a usar o .test
-    const passwordMinimumLength = 6;
-    if (password.length >= passwordMinimumLength && /^\S+@\S+\.\S+$/.test(email)) {
-      this.setState({ btnDisable: false });
-    } else {
-      this.setState({ btnDisable: true });
-    }
   }
 
   render() {
-    const { email, password, btnDisable } = this.state;
-    const { handleChange, handleClick } = this;
+    const { email, password } = this.state;
+    const { handleChange } = this;
+    let btnDisable = true;
+    const passwordMinimumLength = 6;
+    if (password.length >= passwordMinimumLength && /^\S+@\S+\.\S+$/.test(email)) {
+      btnDisable = false;
+    } else {
+      btnDisable = true;
+    }
     return (
       <form>
 
@@ -52,10 +51,9 @@ class Login extends React.Component {
           testId="password-input"
           onChange={ handleChange }
         />
-        <Link to="/wallet">
+        <Link to="/carteira">
           <LoginBtn
             type="submit"
-            onClick={ handleClick }
             btnDisable={ btnDisable }
           />
         </Link>
