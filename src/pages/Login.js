@@ -42,8 +42,7 @@ class Login extends React.Component {
   }
 
   handleLogin() {
-    const { email } = this.state;
-    const { login, history } = this.props;
+    const { state: { email }, props: { login, history } } = this;
     login(email);
     history.push('/carteira');
   }
@@ -52,7 +51,7 @@ class Login extends React.Component {
     const { email, password, isDisabled } = this.state;
 
     return (
-      <div>
+      <section>
         <h1>Login</h1>
         <input
           type="email"
@@ -73,7 +72,7 @@ class Login extends React.Component {
         >
           Entrar
         </button>
-      </div>
+      </section>
     );
   }
 }
