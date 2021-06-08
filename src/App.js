@@ -4,11 +4,9 @@ import Login from './pages/Login';
 
 function App() {
   return (
-    <>
       <Switch>
         <Route path="/" component={ Login } />
       </Switch>
-    </>
   );
 }
 
