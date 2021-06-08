@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import login from '../actions/index';
 
 class Login extends React.Component {
@@ -60,7 +61,7 @@ class Login extends React.Component {
               type="email"
               name="email"
               data-testid="email-input"
-              onChange={ this.handleChange }
+              onChange={this.handleChange}
             />
           </label>
           <label htmlFor="password">
@@ -69,15 +70,17 @@ class Login extends React.Component {
               type="password"
               name="password"
               data-testid="password-input"
-              onChange={ this.handleChange }
+              onChange={this.handleChange}
             />
-            <button
-              type="button"
-              disabled={ !validated }
-              onClick={ this.toStore }
-            >
-              Entrar
-            </button>
+            <Link to="/carteira">
+              <button
+                type="button"
+                disabled={!validated}
+                onClick={this.toStore}
+              >
+                Entrar
+              </button>
+            </Link>
           </label>
         </form>
       </div>
