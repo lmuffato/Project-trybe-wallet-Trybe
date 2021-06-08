@@ -1,29 +1,27 @@
 const elements = {
   inputs: [
     {
-      id: 'value',
+      control: 'value',
       text: 'Valor',
       type: 'number',
-      testid: 'value-input',
     },
     {
-      id: 'description',
+      control: 'description',
       text: 'Descrição',
       type: 'text',
-      testid: 'description-input',
     },
   ],
   selects: [
     {
-      id: 'coin',
+      control: 'currency',
       text: 'Moeda',
     },
     {
-      id: 'payment',
+      control: 'method',
       text: 'Método de pagamento',
     },
     {
-      id: 'tag',
+      control: 'tag',
       text: 'Tag',
     },
   ],

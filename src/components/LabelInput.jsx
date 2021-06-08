@@ -1,14 +1,19 @@
 import React from 'react';
-import { string, shape } from 'prop-types';
+import { string, shape, func } from 'prop-types';
 
 const LabelInput = (props) => {
-  const { input } = props;
-  const { text, type, testid, id } = input;
+  const { input, getExpense } = props;
+  const { text, type, control } = input;
 
   return (
-    <label htmlFor={ id }>
+    <label htmlFor={ control }>
       {text}
-      <input type={ type } data-testid={ testid } id={ id } />
+      <input
+        type={ type }
+        id={ control }
+        name={ control }
+        onChange={ getExpense }
+      />
     </label>
   );
 };
@@ -19,7 +24,8 @@ LabelInput.propTypes = {
   input: shape({
     text: string,
     testid: string,
-    id: string,
+    control: string,
     type: string,
   }),
+  getExpense: func,
 }.isRequired;

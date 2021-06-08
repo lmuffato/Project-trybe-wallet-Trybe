@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { fetchCurrency } from '../actions';
 import FormWallet from '../components/FormWallet';
 
 const Wallet = () => {
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const dispatch = useDispatch();
-
   const globalState = useSelector((state) => state);
-  const { user } = globalState;
+  const { user, wallet } = globalState;
+
+  const getTotalPrice = () => {
+    const totalPriceRedux = wallet.expenses.reduce((acc, expense) => {
+      const { value, currency, exchangeRates } = expense;
+      const { ask } = exchangeRates[currency];
+      const total = acc + (ask * value);
+      return total;
+    }, 0);
+
+    setTotalPrice(totalPriceRedux);
+  };
 
   useEffect(() => {
-    dispatch(fetchCurrency());
-  }, []);
+    getTotalPrice();
+  }, [wallet]);
 
   return (
     <section>

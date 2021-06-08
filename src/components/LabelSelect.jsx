@@ -1,15 +1,19 @@
 import React from 'react';
-import { string, shape } from 'prop-types';
+import { string, shape, func } from 'prop-types';
 
 const LabelSelect = (props) => {
-  const { select, options } = props;
-  const { text, id } = select;
+  const { select, options, getExpense } = props;
+  const { text, control } = select;
 
   return (
-    <label htmlFor={ id }>
+    <label htmlFor={ control }>
       {text}
 
-      <select id={ id }>
+      <select
+        id={ control }
+        name={ control }
+        onChange={ getExpense }
+      >
         {options.map((value) => (
           <option key={ value } data-testid={ value }>
             {value}
@@ -26,6 +30,7 @@ LabelSelect.propTypes = {
   select: shape({
     text: string,
     testid: string,
-    id: string,
+    control: string,
   }),
+  getExpense: func,
 }.isRequired;

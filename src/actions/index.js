@@ -1,20 +1,11 @@
 import currencyAPI from '../services/api';
+import filterCurrencies from '../utils/wallet';
 
 export const USER_LOGIN = 'USER_LOGIN';
+export const ADD_EXPENSES = 'ADD_EXPENSES';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const WALLET_CURRENCIES = 'WALLET_CURRENCIES';
 export const FAILED_CURRENCIES = 'FAILED_CURRENCIES';
-
-const filterCurrencies = (currencies) => {
-  const filteredCurrencies = Object.keys(currencies).filter(
-    (currency) => currency !== 'USDT',
-  );
-
-  return filteredCurrencies.map((currency) => {
-    const { code } = currencies[currency];
-    return code;
-  });
-};
 
 const requestCurrency = () => ({ type: REQUEST_CURRENCIES });
 
@@ -37,6 +28,21 @@ export const fetchCurrency = () => async (dispatch) => {
   } catch (error) {
     dispatch(failedRequestCurrencies(error));
   }
+};
+
+const addExpenses = (payload) => ({
+  type: ADD_EXPENSES,
+  payload,
+});
+
+export const fetchExpenses = (expense) => async (dispatch) => {
+  const exchangeRates = await currencyAPI();
+  const updatedExpense = {
+    ...expense,
+    exchangeRates,
+  };
+
+  dispatch(addExpenses(updatedExpense));
 };
 
 export const userLogin = (payload) => ({
