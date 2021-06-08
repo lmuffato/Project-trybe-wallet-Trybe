@@ -15,7 +15,7 @@ class Header extends React.Component {
   }
 }
 
-HeaderWallet.propTypes = {
+Header.propTypes = {
   userEmail: PropTypes.string.isRequired,
 };
 
