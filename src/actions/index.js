@@ -1,1 +1,3 @@
-// Coloque aqui suas actions
+const actionGen = (type) => (payload) => ({ type, payload });
+
+export const loginAction = actionGen('LOGIN');
