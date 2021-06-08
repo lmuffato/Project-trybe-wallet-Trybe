@@ -5,5 +5,4 @@ class Login extends React.Component {
     return <div>Login</div>;
   }
 }
-
 export default Login;
