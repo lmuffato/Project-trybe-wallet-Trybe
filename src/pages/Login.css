@@ -1,0 +1,48 @@
+.login-container {
+  align-items: center;
+  background-color: lightgreen;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+}
+
+.input-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-height: 90%;
+  max-width: 50%;
+}
+
+.wallet-picture {
+  margin-bottom: 1vh;
+  max-width: 70%;
+}
+
+.labels {
+  align-items: center;
+  color: blue;
+  display: flex;
+  font-size: x-large;
+  flex-direction: column;
+  margin: 1vh;
+  max-height: 10vh;
+  max-width: 15vh;
+}
+
+.inputs {
+  background-color: lightgray;
+  border-radius: 16px;
+  font-size: large;
+  text-align: center;
+  margin: 1vh;
+  padding: 1vh;
+}
+
+.buttons {
+  background-color: lightgray;
+  border-radius: 15px;
+  padding: 1vh;
+}
