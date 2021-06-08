@@ -1,5 +1,5 @@
 import {
-  REQUEST_CURRENCIES, ADD_EXPENSE, IS_FETCHING, TOTAL_VALUE,
+  REQUEST_CURRENCIES, ADD_EXPENSE, IS_FETCHING,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -29,11 +29,7 @@ export default function wallet(state = INITIAL_STATE, action) {
       isFetching: false,
       expenses: [...state.expenses, action.payload.localState],
       id: action.payload.id,
-    };
-  case TOTAL_VALUE:
-    return {
-      ...state,
-      totalValue: state.totalValue + action.payload,
+      totalValue: Number(state.totalValue) + Number(action.payload.totalAmount),
     };
   default:
     return state;

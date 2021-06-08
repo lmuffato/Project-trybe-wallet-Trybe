@@ -5,8 +5,7 @@ import wallet from '../images/wallet.png';
 
 class Header extends React.Component {
   render() {
-    const { email } = this.props;
-    const total = 0;
+    const { email, totalValue } = this.props;
     return (
       <header>
         <div>
@@ -19,7 +18,7 @@ class Header extends React.Component {
           </p>
           <p data-testid="total-field">
             Despesa total:
-            { total }
+            { totalValue }
           </p>
           <p data-testid="header-currency-field">
             BRL
@@ -32,6 +31,7 @@ class Header extends React.Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  totalValue: state.wallet.totalValue,
 });
 
 Header.propTypes = {

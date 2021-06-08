@@ -7,9 +7,9 @@ const INITIAL_STATE = {
   id: '',
   value: '',
   description: '',
-  currency: '',
-  method: '',
-  tag: '',
+  currency: 'USD',
+  method: 'Dinheiro',
+  tag: 'Alimentação',
 };
 
 class ExpensesForm extends React.Component {
@@ -27,10 +27,17 @@ class ExpensesForm extends React.Component {
   getState() {
     const { sendExpense, currencies } = this.props;
     const localState = { ...this.state, exchangeRates: currencies };
+    const totalAmount = this.headerSum(localState);
     const { id } = this.state;
-    const payload = { localState, id };
+    const payload = { localState, id, totalAmount };
     sendExpense(payload);
     this.setState(INITIAL_STATE);
+  }
+
+  headerSum({ currency, value, exchangeRates }) {
+    const currInfo = Object.values(exchangeRates)
+      .filter((curr) => curr.code === currency);
+    return Number(currInfo[0].ask * value).toFixed(2);
   }
 
   handleChange({ target }) {
@@ -91,14 +98,13 @@ class ExpensesForm extends React.Component {
       .filter((curr) => curr.codein !== 'BRLT');
     return (
       <label htmlFor="moeda">
-        moeda
+        Moeda
         <select
           name="currency"
           value={ currency }
           id="moeda"
           onChange={ this.handleChange }
         >
-          {/* <option>Moeda</option> */}
           {
             currenciesArray.map((e) => (
               <option
@@ -125,7 +131,6 @@ class ExpensesForm extends React.Component {
           onChange={ this.handleChange }
           id="Método de pagamento"
         >
-          <option>Pagamento</option>
           <option value="Dinheiro">Dinheiro</option>
           <option value="Cartão de crédito">Cartão de crédito</option>
           <option value="Cartão de débito">Cartão de débito</option>
@@ -145,7 +150,6 @@ class ExpensesForm extends React.Component {
           id="tag"
           value={ tag }
         >
-          <option>TAG</option>
           <option value="Alimentação">Alimentação</option>
           <option value="Lazer">Lazer</option>
           <option value="Trabalho">Trabalho</option>
@@ -195,8 +199,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 ExpensesForm.propTypes = {
   currencies: PropTypes.object,
-  getCurrencies: PropTypes.func.isRequired,
-  sendExpense: PropTypes.object.isRequired,
+  getCurrencies: PropTypes.func,
+  sendExpense: PropTypes.object,
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);

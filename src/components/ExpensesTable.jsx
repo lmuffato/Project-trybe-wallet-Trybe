@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { totalValue } from '../actions';
 
 class ExpensesTable extends React.Component {
   getCurrencyName(currency) {
@@ -78,12 +77,8 @@ const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  sendvalue: (value) => dispatch(totalValue(value)),
-});
-
 ExpensesTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object),
 }.isRequired;
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExpensesTable);
+export default connect(mapStateToProps)(ExpensesTable);
