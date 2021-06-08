@@ -5,8 +5,8 @@ class Login extends React.Component {
     /*
       // componenetDidUpdate ?????
       const inputEmail =
-      const inputPassW = 
-      const buttonLogin = 
+      const inputPassW =
+      const buttonLogin =
       {inputEmail.contains '@' && inputPassW.lenght >= 6) ? { buttonLogin: Enable } : { buttonLogin: Disable }};
     */
     return (
@@ -29,12 +29,12 @@ class Login extends React.Component {
             placeholder="nome@email.com"
             id="user-passw"
             type="text"
-            value= { typedPassW }
+            value={ typedPassW }
             // onChance=
           />
         </label>
         <button type="button"/* onCLick= */>Entrar</button>
-        {/* Adicionar LINK para /carteira ao clicar no botão & dispatch de action para salvar email,*/}
+        { /* Add LINK p /carteira ao click btn & dispatch action p salvar email */ }
       </section>
     );
   }
