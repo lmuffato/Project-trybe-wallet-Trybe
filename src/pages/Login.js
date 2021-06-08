@@ -1,5 +1,5 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { func, objectOf, array, oneOfType, object, node } from 'prop-types';
 import { connect } from 'react-redux';
 import { submitUser } from '../actions';
 
@@ -8,6 +8,7 @@ class Login extends React.Component {
     super();
 
     this.handleInput = this.handleInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
       email: '',
@@ -20,11 +21,16 @@ class Login extends React.Component {
     this.setState({ [name]: value });
   }
 
+  handleSubmit(email, password) {
+    const { submit, history } = this.props;
+    submit(email, password);
+    history.push('/carteira');
+  }
+
   render() {
     const { email, password } = this.state;
     const regex = /^\w+([.-_]?\w+)*@\w+([.-_]?\w+)*(\.\w{2,3})+$/;
     const passwordLength = 6;
-    const { submit } = this.props;
     return (
       <form>
         <label htmlFor="email-input">
@@ -51,7 +57,7 @@ class Login extends React.Component {
         </label>
         <button
           type="button"
-          onClick={ () => submit(email, password) }
+          onClick={ () => this.handleSubmit(email, password) }
           disabled={ !email.match(regex) || password.length < passwordLength }
         >
           Entrar
@@ -63,6 +69,7 @@ class Login extends React.Component {
 
 Login.propTypes = {
   submit: func.isRequired,
+  history: objectOf(oneOfType([node, object, array, func])).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
