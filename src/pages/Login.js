@@ -4,6 +4,7 @@ class Login extends React.Component {
   render() {
     return (
       <form>
+        <h1>Login</h1>
         <label htmlFor="id_login_email">
           Email
           <input
@@ -21,7 +22,9 @@ class Login extends React.Component {
             id="id_login_password"
             data-testid="password-input"
           />
+
         </label>
+        <button type="button">Entrar</button>
       </form>
     );
   }
