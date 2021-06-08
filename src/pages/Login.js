@@ -80,7 +80,7 @@ class Login extends React.Component {
   }
 }
 
-const mapDispatchToProps = () => (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
   toLogin: (email, password) => dispatch(login(email, password)),
 });
 

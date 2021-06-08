@@ -1,6 +1,7 @@
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  selectedExchange: 'BRL',
 };
 
 const walletReducer = (state = INITIAL_STATE, action) => {
