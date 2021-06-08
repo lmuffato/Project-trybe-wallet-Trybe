@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { func } from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import { saveUserEmail } from '../../actions';
 import { Form, Button, Input } from './style';
+import { saveUserEmail } from '../../actions';
 
 const verifyInputs = (email, password) => {
   const minimumOfCharacters = 6;
@@ -67,3 +68,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(null, mapDispatchToProps)(LoginForm);
+
+LoginForm.propTypes = {
+  saveEmail: func.isRequired,
+};
