@@ -1,27 +1,23 @@
 import React from 'react';
 import { func } from 'prop-types';
 import { connect } from 'react-redux';
-import { Header, UserEmail, TotalDebits, Currency } from './style';
+// import { Header as header, UserEmail, TotalDebits, Currency } from './style';
 
 export const WalletHeader = ({ userEmail }) => (
-  <Header>
-    <UserEmail
-      data-testid="email-field"
-    >
-      { userEmail }
-    </UserEmail>
+  <header>
 
-    <TotalDebits
-      data-testid="total-field"
-    >
+    <span data-testid="email-field">
+      { userEmail }
+    </span>
+
+    <span data-testid="total-field">
       0
-    </TotalDebits>
-    <Currency
-      data-testid="header-currency-field"
-    >
+    </span>
+
+    <span data-testid="header-currency-field">
       BRL
-    </Currency>
-  </Header>
+    </span>
+  </header>
 );
 
 WalletHeader.propTypes = {

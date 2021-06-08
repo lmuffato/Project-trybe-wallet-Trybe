@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { func } from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import { Form, Button, Input } from './style';
+// import { Form, Button, Input } from './style';
 import { saveUserEmail } from '../../actions';
 
 const verifyInputs = (email, password) => {
@@ -29,21 +29,21 @@ const LoginForm = ({ saveEmail }) => {
   });
 
   return (
-    <Form
+    <form
       onSubmit={ (e) => {
         e.preventDefault();
         saveEmail(email);
         setShouldRedirect(true);
       } }
     >
-      <Input
+      <input
         type="email"
         placeholder="Email:"
         data-testid="email-input"
         onChange={ ({ target }) => setEmail(target.value) }
         value={ email }
       />
-      <Input
+      <input
         type="password"
         placeholder="Senha:"
         data-testid="password-input"
@@ -51,15 +51,15 @@ const LoginForm = ({ saveEmail }) => {
         value={ password }
       />
 
-      <Button
+      <button
         type="submit"
         disabled
       >
         Entrar
-      </Button>
+      </button>
 
       {shouldRedirect && <Redirect to="/carteira" />}
-    </Form>
+    </form>
   );
 };
 

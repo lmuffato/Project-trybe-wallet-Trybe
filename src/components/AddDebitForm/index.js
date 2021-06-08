@@ -1,47 +1,47 @@
 import React from 'react';
-import { Form, Label, Input, Select, Option } from './style';
+// import { Form, Label, input, Select, Option } from './style';
 
 const AddDebitForm = () => (
-  <Form>
-    <Label htmlFor="value">
+  <form>
+    <label htmlFor="value">
       Valor:
-      <Input type="text" id="value" />
-    </Label>
+      <input type="text" id="value" />
+    </label>
 
-    <Label htmlFor="description">
+    <label htmlFor="description">
       Descrição:
-      <Input type="text" id="description" />
-    </Label>
+      <input type="text" id="description" />
+    </label>
 
-    <Label htmlFor="currency">
+    <label htmlFor="currency">
       Moeda:
-      <Select id="currency">
-        <Option value="" selected disabled>Selecione uma moeda</Option>
-      </Select>
-    </Label>
+      <select id="currency">
+        <option value="" selected disabled>Selecione uma moeda</option>
+      </select>
+    </label>
 
-    <Label htmlFor="payment">
+    <label htmlFor="payment">
       Método de pagamento:
-      <Select id="payment">
-        <Option value="" selected disabled>Selecione</Option>
-        <Option value="">Dinheiro</Option>
-        <Option value="">Cartão de crédito</Option>
-        <Option value="">Cartão de débito</Option>
-      </Select>
-    </Label>
+      <select id="payment">
+        <option value="" selected disabled>Selecione</option>
+        <option value="">Dinheiro</option>
+        <option value="">Cartão de crédito</option>
+        <option value="">Cartão de débito</option>
+      </select>
+    </label>
 
-    <Label htmlFor="category">
+    <label htmlFor="category">
       Tag:
-      <Select id="category">
-        <Option value="" selected disabled>Selecione uma tag</Option>
-        <Option value="">Alimentação</Option>
-        <Option value="">Lazer</Option>
-        <Option value="">Trabalho</Option>
-        <Option value="">Transporte</Option>
-        <Option value="">Saúde</Option>
-      </Select>
-    </Label>
-  </Form>
+      <select id="category">
+        <option value="" selected disabled>Selecione uma tag</option>
+        <option value="">Alimentação</option>
+        <option value="">Lazer</option>
+        <option value="">Trabalho</option>
+        <option value="">Transporte</option>
+        <option value="">Saúde</option>
+      </select>
+    </label>
+  </form>
 );
 
 export default AddDebitForm;
