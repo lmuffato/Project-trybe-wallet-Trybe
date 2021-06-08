@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { login } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -33,6 +35,7 @@ class Login extends React.Component {
 
   render() {
     const { email, password, emailIsValid, passwordIsValid } = this.state;
+    const { history, toLogin } = this.props;
     return (
       <div className="container">
         <section className="logo">
@@ -60,6 +63,11 @@ class Login extends React.Component {
             <button
               disabled={ !(emailIsValid && passwordIsValid) }
               type="button"
+              onClick={ (e) => {
+                e.preventDefault();
+                toLogin(email, password);
+                history.push('/carteira');
+              } }
             >
               Entrar
 
@@ -71,4 +79,8 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = () => (dispatch) => ({
+  toLogin: (email, password) => dispatch(login(email, password)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
