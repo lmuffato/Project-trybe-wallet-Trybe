@@ -1,9 +1,9 @@
 .login-form-container {
-  display: flex;
   align-items: center;
-  flex-direction: column;
   border: 1px solid black;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
   padding: 5rem 2rem;
 }
 
