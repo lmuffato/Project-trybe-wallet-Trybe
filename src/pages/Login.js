@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class Login extends React.Component {
   constructor(props) {
@@ -8,14 +10,15 @@ class Login extends React.Component {
       password: '',
       formErrors: true,
     };
-    this.isValidData = this.isValidData.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleErrors = this.handleErrors.bind(this);
   }
 
-  isValidData() {
-    return (
-      console.log(this.state)
-    );
+  handleChange({ target }) {
+    const { value, name } = target;
+    this.setState({
+      [name]: value,
+    }, () => { this.handleErrors(); });
   }
 
   handleErrors() {
@@ -23,7 +26,7 @@ class Login extends React.Component {
     const { email, password } = this.state;
     const errorCases = [
       !email.match(/^\w+@\w+.com$/),
-      !password.length > passwordLength,
+      password.length < passwordLength,
     ];
     const formComplete = errorCases.every((error) => error !== true);
     this.setState({
@@ -32,6 +35,7 @@ class Login extends React.Component {
   }
 
   render() {
+    const { formErrors } = this.state;
     return (
       <div>
         <h1>Bem Vindo a Trybe Wallet</h1>
@@ -40,28 +44,33 @@ class Login extends React.Component {
             <input
               data-testid="email-input"
               type="text"
-              onChange={ (e) => this.setState({ email: e.target.value }) }
+              onChange={ this.handleChange }
               placeholder="Insert a valid email"
+              name="email"
             />
             <input
               data-testid="password-input"
               type="text"
-              onChange={ (e) => this.setState({ password: e.target.value }) }
+              onChange={ this.handleChange }
               placeholder="Insert your password"
+              name="password"
             />
           </div>
           <div>
-            <button
-              type="button"
-              onClick={ this.handleErrors }
-            >
-              Entrar
+            <Link to="/carteira">
+              <button
+                type="button"
+                disabled={ formErrors }
+              >
+                Entrar
+              </button>
+            </Link>
 
-            </button>
           </div>
         </form>
       </div>
     );
   }
 }
-export default Login;
+
+export default connect()(Login);
