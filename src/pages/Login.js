@@ -42,13 +42,3 @@ function Login() {
 }
 
 export default Login;
-
-// class Login extends React.Component {
-//   render() {
-//     return (
-//       <div>
-
-//       </div>
-//     );
-//   }
-// }
