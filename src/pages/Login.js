@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { validadeEmail, validadePassword } from '../actions';
+import { Link } from 'react-router-dom';
+import { validadeEmail, validadePassword, emailUser } from '../actions';
+
 import validadeLogin from '../utils/funtions';
 
 class Login extends Component {
   render() {
-    const { email, password, validade } = this.props;
+    const { user, password, validade, email } = this.props;
     const validadeButton = validadeLogin(validade);
     return (
       <form>
@@ -16,7 +18,7 @@ class Login extends Component {
             type="email"
             id="email"
             placeholder="Digite seu E-mail"
-            onChange={ ({ target }) => email(target.value) }
+            onChange={ ({ target }) => user(target.value) }
           />
         </label>
         <label htmlFor="senha">
@@ -29,15 +31,24 @@ class Login extends Component {
             onChange={ ({ target }) => password(target.value) }
           />
         </label>
-        <button disabled={ validadeButton } type="button">Entrar</button>
+        <Link to="/carteira">
+          <button
+            disabled={ validadeButton }
+            type="button"
+            onClick={ () => email(validade.user) }
+          >
+            Entrar
+          </button>
+        </Link>
       </form>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  email: (payload) => dispatch(validadeEmail(payload)),
+  user: (payload) => dispatch(validadeEmail(payload)),
   password: (payload) => dispatch(validadePassword(payload)),
+  email: (payload) => dispatch(emailUser(payload))
 });
 
 const mapStateToProps = (state) => ({

@@ -1,5 +1,5 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
-import { UPDATE_EMAIL, UPDATE_PASSWORD } from '../actions';
+import { UPDATE_EMAIL, UPDATE_PASSWORD, UPDATE_EMAIL_USER } from '../actions';
 
 const INITIAL_STATE = {
   email: '',
@@ -26,6 +26,11 @@ function user(state = INITIAL_STATE, action) {
         ...state.validade,
         password: action.payload,
       },
+    };
+  case UPDATE_EMAIL_USER:
+    return {
+      ...state,
+      email: action.payload,
     };
   default:
     return state;
