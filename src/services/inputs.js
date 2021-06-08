@@ -29,6 +29,17 @@ const elements = {
     ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'],
     ['Alimentação', 'Lazer', 'Saúde', 'Trabalho', 'Transporte'],
   ],
+  th: [
+    'Descrição',
+    'Tag',
+    'Método de pagamento',
+    'Valor',
+    'Moeda',
+    'Câmbio utilizado',
+    'Valor convertido',
+    'Moeda de conversão',
+    'Editar/Excluir',
+  ],
 };
 
 export default elements;

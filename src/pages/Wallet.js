@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import FormWallet from '../components/FormWallet';
+import Table from '../components/Table';
 
 const Wallet = () => {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -34,6 +35,7 @@ const Wallet = () => {
         </div>
       </header>
       <FormWallet />
+      <Table />
     </section>
   );
 };
