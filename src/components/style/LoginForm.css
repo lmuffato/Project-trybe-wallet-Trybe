@@ -1,0 +1,12 @@
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 5rem 2rem;
+}
+
+.login-form-container input {
+  margin-bottom: 1rem;
+}
