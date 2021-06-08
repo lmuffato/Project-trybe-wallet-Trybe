@@ -21,12 +21,14 @@ class Login extends React.Component {
         <div>
           <input
             type="text"
+            value={ email }
             placeholder="email"
             data-testid="email-input"
             onChange={ (event) => this.setState({ email: event.target.value }) }
           />
           <input
             type="password"
+            value={ senha }
             placeholder="senha"
             data-testid="password-input"
             onChange={ (event) => this.setState({ senha: event.target.value }) }
