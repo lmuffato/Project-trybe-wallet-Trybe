@@ -17,20 +17,11 @@ class Login extends React.Component {
     };
   }
 
-  handleChange({ target }) {
-    const { name } = target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-
-    this.setState({
-      [name]: value,
-    });
-  }
-
   validateForm() {
     const { email, password } = this.state;
     const minPasswordSize = 6;
 
-    const Vemail = (/\S+@\S+\.\S+/).test(email);
+    const Vemail = (/\S+@\S+\.\S+/i).test(email);
     // FONTE: https://www.horadecodar.com.br/2020/09/07/expressao-regular-para-validar-e-mail-javascript-regex/
     const Vpassword = password.length >= minPasswordSize;
 
@@ -41,8 +32,16 @@ class Login extends React.Component {
     }
   }
 
+  handleChange({ target }) {
+    const { name } = target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+
+    this.setState({
+      [name]: value,
+    }, () => this.validateForm());
+  }
+
   toStore() {
-    this.validateForm();
     const { validated, email, password } = this.state;
     const { userInfo } = this.props;
     if (validated) {
