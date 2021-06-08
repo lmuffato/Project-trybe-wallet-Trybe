@@ -51,6 +51,7 @@ class Login extends React.Component {
   }
 
   render() {
+    const { validated } = this.state;
     return (
       <div>
         <form>
@@ -60,7 +61,7 @@ class Login extends React.Component {
               type="email"
               name="email"
               data-testid="email-input"
-              onChange={this.handleChange}
+              onChange={ this.handleChange }
             />
           </label>
           <label htmlFor="password">
@@ -69,9 +70,15 @@ class Login extends React.Component {
               type="password"
               name="password"
               data-testid="password-input"
-              onChange={this.handleChange}
+              onChange={ this.handleChange }
             />
-            <button type="button" onClick={ this.toStore }>Entrar</button>
+            <button
+              type="button"
+              disabled={ !validated }
+              onClick={ this.toStore }
+            >
+              Entrar
+            </button>
           </label>
         </form>
       </div>
