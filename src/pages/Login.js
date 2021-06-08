@@ -7,7 +7,7 @@ class Login extends React.Component {
       <div>
         <section>
           <input
-            type="text"
+            type="email"
             placeholder="email"
             data-testid="email-input"
           />
