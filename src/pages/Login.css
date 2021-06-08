@@ -25,8 +25,8 @@
   align-items: center;
   color: blue;
   display: flex;
-  font-size: x-large;
   flex-direction: column;
+  font-size: x-large;
   margin: 1vh;
   max-height: 10vh;
   max-width: 15vh;
@@ -36,8 +36,8 @@
   background-color: lightgray;
   border-radius: 16px;
   font-size: large;
-  text-align: center;
   margin: 1vh;
+  text-align: center;
   padding: 1vh;
 }
 

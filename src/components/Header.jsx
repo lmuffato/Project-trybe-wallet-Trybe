@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import wallet from '../images/wallet.png';
 
 class Header extends React.Component {
-  convertValues() {
-    const { expenses } = this.props;
-    // const total = expenses.map((e) => )
-    const currInfo = Object.values(currencies).filter((curr) => curr.code === currency);
-    // sendvalue(currInfo[0].ask * value);
-    return (currInfo[0].ask * value).toFixed(2);
-  }
+  // convertValues() {
+  //   const { expenses } = this.props;
+  //   const total = expenses;
+  //   const currInfo = Object.values(currencies).filter((curr) => curr.code === currency);
+  //   // sendvalue(currInfo[0].ask * value);
+  //   return (currInfo[0].ask * value).toFixed(2);
+  // }
 
   render() {
     const { email } = this.props;
