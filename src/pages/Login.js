@@ -1,5 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import loginAction from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -8,11 +11,13 @@ class Login extends React.Component {
       email: '',
       password: '',
       isButtonDisabled: true,
+      shouldRedirect: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handlePasswordVerification = this.handlePasswordVerification.bind(this);
     this.handleEmailVerification = this.handleEmailVerification.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
   handlePasswordVerification() {
@@ -24,8 +29,7 @@ class Login extends React.Component {
   handleEmailVerification() {
     const { email } = this.state;
     const emailRegex = /^[a-z0-9.]+@[a-z0-9]+.com$/;
-    const regexTest = -1;
-    return email.search(emailRegex) !== regexTest;
+    return emailRegex.test(email);
   }
 
   handleChange(event) {
@@ -39,8 +43,21 @@ class Login extends React.Component {
     });
   }
 
+  handleLogin() {
+    const { email } = this.state;
+    const { authLogin } = this.props;
+    authLogin(email);
+    this.setState({
+      shouldRedirect: true,
+    });
+  }
+
   render() {
-    const { email, password, isButtonDisabled } = this.state;
+    const { email, password, isButtonDisabled, shouldRedirect } = this.state;
+
+    if (shouldRedirect) {
+      return <Redirect to="/carteira" />;
+    }
 
     return (
       <form>
@@ -68,24 +85,32 @@ class Login extends React.Component {
             onChange={ (e) => this.handleChange(e) }
           />
         </label>
-        <Link to="/carteira">
-          <button
-            type="button"
-            disabled={ isButtonDisabled }
-            // onClick={ this.handleLogin }
-          >
-            Entrar
-          </button>
-        </Link>
+        <button
+          type="button"
+          disabled={ isButtonDisabled }
+          onClick={ this.handleLogin }
+        >
+          Entrar
+        </button>
       </form>
     );
   }
 }
 
-export default Login;
+Login.propTypes = {
+  authLogin: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  authLogin: (email) => dispatch(loginAction(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
 
 // Referências consultadas:
 // Esta thread do slack: https://trybecourse.slack.com/archives/C01L16B9XC7/p1623175696043700
 // PR do colega Rafael Medeiros: https://github.com/tryber/sd-010-a-project-trybewallet/pull/45/files
 // Método search do JavaScript: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/String/search
+// Método test do JavaScript: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test
 // Sobre o regex usado: http://www.regexplained.co.uk/
+// PR de Micaela Alves: https://github.com/tryber/sd-09-project-trybewallet/blob/malves0-project-trybe-wallet/src/pages/Login.js
