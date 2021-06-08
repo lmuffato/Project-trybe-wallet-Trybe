@@ -1,5 +1,5 @@
-// import user from './user';
-// import wallet from './wallet';
+import user from './user';
+import wallet from './wallet';
 
 const INITIAL_STATE = {
   user: {
