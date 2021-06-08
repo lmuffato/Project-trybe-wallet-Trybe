@@ -1,4 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { storeUser } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -14,11 +18,13 @@ class Login extends React.Component {
         isValid: false,
       },
       signInIsDisabled: true,
+      shouldRedirect: false,
     };
 
     this.validateEmail = this.validateEmail.bind(this);
     this.validatePassword = this.validatePassword.bind(this);
     this.validateData = this.validateData.bind(this);
+    this.signIn = this.signIn.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -70,10 +76,23 @@ class Login extends React.Component {
     });
   }
 
+  signIn(event) {
+    event.preventDefault();
+    const { email } = this.state;
+    const { storeUser: submit } = this.props;
+    submit({ email: email.typed });
+    this.setState({
+      shouldRedirect: true,
+    });
+  }
+
   render() {
-    const { email, password, signInIsDisabled } = this.state;
+    const { email, password, signInIsDisabled, shouldRedirect } = this.state;
+
+    if (shouldRedirect) return <Redirect to="/carteira" />;
+
     return (
-      <form>
+      <form onSubmit={ this.signIn }>
         <input
           type="text"
           id="email"
@@ -94,4 +113,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  storeUser: (payload) => dispatch(storeUser(payload)),
+});
+
+Login.propTypes = {
+  storeUser: PropTypes.func,
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(Login);
