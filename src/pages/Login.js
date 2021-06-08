@@ -1,29 +1,29 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class Login extends React.Component {
+class Login extends Component {
   render() {
     return (
-      <>
-        <form htmlFor="email">
+      <form>
+        <label htmlFor="email">
+          Email
           <input
             data-testid="email-input"
             type="email"
             id="email"
-            name="email"
             placeholder="Digite seu E-mail"
           />
-        </form>
-        <form htmlFor="senha">
+        </label>
+        <label htmlFor="senha">
+          Password
           <input
             data-testid="password-input"
             type="password"
             id="senha"
-            name="senha"
             placeholder="Digite seu senha"
           />
-        </form>
+        </label>
         <button type="button">Entrar</button>
-      </>
+      </form>
     );
   }
 }
