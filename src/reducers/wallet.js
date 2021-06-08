@@ -11,12 +11,12 @@ export default function wallet(state = initialState, action) {
   case CURRENCIES:
     return {
       ...state,
-      currencies: [...state.currencies, action.payload],
+      currencies: [...state.currencies, ...action.payload],
     };
   case EXPENSES:
     return {
       ...state,
-      expenses: [...state.expenses, action.payload],
+      expenses: [...state.expenses, ...action.payload],
     };
   default:
     return state;

@@ -1,10 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { getCurrencies } from '../actions';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    const { getApi } = this.props;
+    getApi();
+  }
+
   render() {
-    const { user: { email } } = this.props;
+    const { user: { email }, wallet: { currencies } } = this.props;
     return (
       <div>
         <header>
@@ -24,7 +30,7 @@ class Wallet extends React.Component {
           <label htmlFor="moeda">
             Moeda
             <select id="moeda">
-              vazio
+              {currencies.map((element) => <option key={ element }>{element}</option>)}
             </select>
           </label>
           <label htmlFor="metodo">
@@ -52,12 +58,21 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  wallet: state.wallet,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getApi: () => dispatch(getCurrencies()),
 });
 
 Wallet.propTypes = {
   user: PropTypes.shape({
     email: PropTypes.string,
   }).isRequired,
+  getApi: PropTypes.func.isRequired,
+  wallet: PropTypes.shape({
+    currencies: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
 };
 
-export default connect(mapStateToProps, null)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

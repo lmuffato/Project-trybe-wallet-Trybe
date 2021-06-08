@@ -10,3 +10,16 @@ export const userAction = (payload) => ({
   type: USER,
   payload,
 });
+
+const currenciesAciton = (payload) => ({
+  type: CURRENCIES,
+  payload,
+});
+
+export const getCurrencies = () => async (dispatch) => {
+  const fetched = await fetch('https://economia.awesomeapi.com.br/json/all');
+  const json = await fetched.json();
+  const currencies = Object.keys(json);
+  const filtered = currencies.filter((element) => element !== 'USDT');
+  dispatch(currenciesAciton(filtered));
+};
