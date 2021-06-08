@@ -25,8 +25,8 @@ class ExpensesForm extends React.Component {
   }
 
   getState() {
-    const { sendExpense } = this.props;
-    const localState = this.state;
+    const { sendExpense, currencies } = this.props;
+    const localState = { ...this.state, exchangeRates: currencies };
     const { id } = this.state;
     const payload = { localState, id };
     sendExpense(payload);
@@ -43,13 +43,12 @@ class ExpensesForm extends React.Component {
     getCurrencies();
   }
 
-  async newExpense() {
-    const { currencies, globalId } = this.props;
+  newExpense() {
+    const { globalId } = this.props;
     this.requestCurrencies();
     const newId = globalId + 1;
     this.setState({
       id: newId,
-      exchangeRates: currencies,
     }, () => this.getState());
   }
 
@@ -188,8 +187,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 ExpensesForm.propTypes = {
   currencies: PropTypes.object,
-  getCurrencies: PropTypes.func,
-  sendExpense: PropTypes.object,
+  getCurrencies: PropTypes.func.isRequired,
+  sendExpense: PropTypes.object.isRequired,
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);
