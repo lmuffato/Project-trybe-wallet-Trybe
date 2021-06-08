@@ -3,6 +3,7 @@ import {
   WALLET_CURRENCIES,
   FAILED_CURRENCIES,
   ADD_EXPENSES,
+  DELETE_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -25,6 +26,9 @@ function userWalletReducer(state = INITIAL_STATE, action) {
 
   case ADD_EXPENSES:
     return { ...state, expenses: [...state.expenses, action.payload] };
+
+  case DELETE_EXPENSE:
+    return { ...state, expenses: action.payload };
 
   default:
     return state;

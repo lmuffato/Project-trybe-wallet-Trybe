@@ -3,6 +3,7 @@ import filterCurrencies from '../utils/wallet';
 
 export const USER_LOGIN = 'USER_LOGIN';
 export const ADD_EXPENSES = 'ADD_EXPENSES';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const WALLET_CURRENCIES = 'WALLET_CURRENCIES';
 export const FAILED_CURRENCIES = 'FAILED_CURRENCIES';
@@ -32,6 +33,11 @@ export const fetchCurrency = () => async (dispatch) => {
 
 const addExpenses = (payload) => ({
   type: ADD_EXPENSES,
+  payload,
+});
+
+export const deleteExpense = (payload) => ({
+  type: DELETE_EXPENSE,
   payload,
 });
 

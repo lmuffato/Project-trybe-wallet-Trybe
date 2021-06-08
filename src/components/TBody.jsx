@@ -1,8 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteExpense } from '../actions';
 
 const TBody = () => {
   const { expenses } = useSelector((state) => state.wallet);
+  const dispatch = useDispatch();
+  const removeExpense = (id) => {
+    const newExpenses = expenses.filter((expense) => expense.id !== id);
+    dispatch(deleteExpense(newExpenses));
+  };
   const renderTBody = () => expenses.map((expense) => {
     const {
       id, description, method,
@@ -24,10 +30,11 @@ const TBody = () => {
           <td>{parseFloat(ask).toFixed(2)}</td>
           <td>{cointConverted}</td>
           <td>{convertedValue}</td>
+          <td>Real</td>
           <td>
             <button
               type="button"
-              onClick={ () => console.log('oi') }
+              onClick={ () => removeExpense(id) }
               data-testid="delete-btn"
             >
               Deletar
