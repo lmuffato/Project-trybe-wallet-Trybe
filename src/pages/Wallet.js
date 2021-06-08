@@ -34,13 +34,17 @@ const Wallet = () => {
             Descrição
             <input data-testid="description-input" id="description" />
           </label>
-          <select data-testid="currency-input">
-            {wallet.currencies.map((currency) => (
-              <option key={ currency } data-testid={ currency }>
-                {currency}
-              </option>
-            ))}
-          </select>
+
+          <label htmlFor="coin">
+            Moeda
+            <select data-testid="currency-input" id="coin">
+              {wallet.currencies.map((currency) => (
+                <option key={ currency } data-testid={ currency }>
+                  {currency}
+                </option>
+              ))}
+            </select>
+          </label>
         </form>
       </header>
     </section>
