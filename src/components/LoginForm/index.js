@@ -1,20 +1,22 @@
 import React from 'react';
+import { Form, Button, Input } from './style';
 
 export default function LoginForm() {
   return (
-    <form>
-      <input
+    <Form>
+      <Input
         type="text"
         placeholder="Email:"
         data-testid="email-input"
       />
-      <input
+      <Input
         type="password"
         placeholder="Senha:"
         data-testid="password-input"
       />
 
-      <button type="submit">Entrar</button>
-    </form>
+      <Button type="submit">Entrar</Button>
+
+    </Form>
   );
 }
