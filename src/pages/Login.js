@@ -6,16 +6,26 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      disabled: true,
     };
     this.handleOnChange = this.handleOnChange.bind(this);
+    this.validateInputs = this.validateInputs.bind(this);
   }
 
   handleOnChange({ target: { name, value } }) {
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, () => this.validateInputs());
+  }
+
+  validateInputs() {
+    const { email, password } = this.state;
+    const minPasswordLength = 6;
+    const verifyEmail = (/\S+@\S+\.\S+/i).test(email);
+    const verifyPassword = password.length >= minPasswordLength;
+    if (verifyEmail && verifyPassword) this.setState({ disabled: false });
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, disabled } = this.state;
     return (
       <form>
         <label htmlFor="email">
@@ -40,7 +50,7 @@ class Login extends React.Component {
             value={ password }
           />
         </label>
-        <button type="button">Entrar</button>
+        <button type="button" disabled={ disabled }>Entrar</button>
       </form>
     );
   }
