@@ -61,7 +61,7 @@ class Login extends React.Component {
               type="email"
               name="email"
               data-testid="email-input"
-              onChange={this.handleChange}
+              onChange={ this.handleChange }
             />
           </label>
           <label htmlFor="password">
@@ -70,13 +70,13 @@ class Login extends React.Component {
               type="password"
               name="password"
               data-testid="password-input"
-              onChange={this.handleChange}
+              onChange={ this.handleChange }
             />
             <Link to="/carteira">
               <button
                 type="button"
-                disabled={!validated}
-                onClick={this.toStore}
+                disabled={ !validated }
+                onClick={ this.toStore }
               >
                 Entrar
               </button>
