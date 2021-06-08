@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Header extends React.Component {
@@ -13,6 +14,10 @@ class Header extends React.Component {
     );
   }
 }
+
+HeaderWallet.propTypes = {
+  userEmail: PropTypes.string.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
