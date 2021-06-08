@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
+import { saveUserEmail } from '../../actions';
 import { Form, Button, Input } from './style';
 
 const verifyInputs = (email, password) => {
@@ -7,22 +10,31 @@ const verifyInputs = (email, password) => {
   const isEmailValid = emailVerifier.test(email);
   const isPasswordValid = password.length >= minimumOfCharacters;
 
+  const button = document.querySelector('button');
   if (isEmailValid && isPasswordValid) {
-    const button = document.querySelector('button');
     button.disabled = false;
+  } else {
+    button.disabled = true;
   }
 };
 
-export default function LoginForm() {
+const LoginForm = ({ saveEmail }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [shouldRedirect, setShouldRedirect] = useState(false);
 
   useEffect(() => {
     verifyInputs(email, password);
   });
 
   return (
-    <Form>
+    <Form
+      onSubmit={ (e) => {
+        e.preventDefault();
+        saveEmail(email);
+        setShouldRedirect(true);
+      } }
+    >
       <Input
         type="email"
         placeholder="Email:"
@@ -38,7 +50,20 @@ export default function LoginForm() {
         value={ password }
       />
 
-      <Button type="submit" disabled>Entrar</Button>
+      <Button
+        type="submit"
+        disabled
+      >
+        Entrar
+      </Button>
+
+      {shouldRedirect && <Redirect to="/carteira" />}
     </Form>
   );
-}
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  saveEmail: (email) => dispatch(saveUserEmail(email)),
+});
+
+export default connect(null, mapDispatchToProps)(LoginForm);
