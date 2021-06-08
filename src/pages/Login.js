@@ -26,7 +26,7 @@ class Login extends React.Component {
           onChance= */
           />
       </label>);
-      
+      <button type="button" /* onCLick= */> Entrar </button>
     </section>
     )}
 }
