@@ -1,1 +1,1 @@
-// Coloque aqui suas actions
+export const login = (payload) => ({type: 'LOGIN', payload})
