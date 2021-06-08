@@ -4,14 +4,6 @@ import PropTypes from 'prop-types';
 import wallet from '../images/wallet.png';
 
 class Header extends React.Component {
-  // convertValues() {
-  //   const { expenses } = this.props;
-  //   const total = expenses;
-  //   const currInfo = Object.values(currencies).filter((curr) => curr.code === currency);
-  //   // sendvalue(currInfo[0].ask * value);
-  //   return (currInfo[0].ask * value).toFixed(2);
-  // }
-
   render() {
     const { email } = this.props;
     const total = 0;
@@ -40,7 +32,6 @@ class Header extends React.Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
-  expenses: state.wallet.expenses,
 });
 
 Header.propTypes = {

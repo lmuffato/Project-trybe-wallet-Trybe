@@ -20,7 +20,6 @@ class ExpensesTable extends React.Component {
   convertValues(value, currency) {
     const { currencies } = this.props;
     const currInfo = Object.values(currencies).filter((curr) => curr.code === currency);
-    // sendvalue(currInfo[0].ask * value);
     return (currInfo[0].ask * value).toFixed(2);
   }
 
