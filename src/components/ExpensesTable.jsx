@@ -3,21 +3,18 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class ExpensesTable extends React.Component {
-  getCurrencyName(currency) {
-    const { currencies } = this.props;
+  getCurrencyName(currency, currencies) {
     const currName = Object.values(currencies).filter((curr) => curr.code === currency);
     const name = currName[0].name.split('/');
     return name[0];
   }
 
-  getExchangeRate(currency) {
-    const { currencies } = this.props;
+  getExchangeRate(currency, currencies) {
     const value = Object.values(currencies).filter((curr) => curr.code === currency);
     return Number(value[0].ask).toFixed(2);
   }
 
-  convertValues(value, currency) {
-    const { currencies } = this.props;
+  convertValues(value, currency, currencies) {
     const currInfo = Object.values(currencies).filter((curr) => curr.code === currency);
     return (currInfo[0].ask * value).toFixed(2);
   }
@@ -30,11 +27,13 @@ class ExpensesTable extends React.Component {
           <td>{element.description}</td>
           <td>{element.tag}</td>
           <td>{element.method}</td>
-          <td>{Number(element.value).toFixed(2)}</td>
-          <td>{this.getCurrencyName(element.currency)}</td>
-          <td>{this.getExchangeRate(element.currency)}</td>
-          <td>{this.convertValues(element.value, element.currency)}</td>
-          <td>Real Brasileiro</td>
+          <td>{element.value}</td>
+          <td>{this.getCurrencyName(element.currency, element.exchangeRates)}</td>
+          <td>{this.getExchangeRate(element.currency, element.exchangeRates)}</td>
+          <td>
+            {this.convertValues(element.value, element.currency, element.exchangeRates)}
+          </td>
+          <td>Real</td>
         </tr>
       ))
     );
