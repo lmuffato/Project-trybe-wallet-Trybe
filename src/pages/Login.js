@@ -2,16 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     email: '',
+  //     password: '',
+  //   };
+  // }
 
   render() {
-    const { email, password } = this.state;
+    // const { email, password } = this.state;
     return (
       <div>
         <div>
@@ -19,7 +19,7 @@ class Login extends React.Component {
             type="text"
             placeholder="E-mail"
             data-testid="email-input"
-            onChange={ (e) => this.setState({ email: e.target.value }) }
+            // onChange={ (e) => this.setState({ email: e.target.value }) }
           />
         </div>
         <div>
@@ -27,7 +27,7 @@ class Login extends React.Component {
             type="password"
             placeholder="Senha"
             data-testid="password-input"
-            onChange={ (e) => this.setState({ password: e.target.value }) }
+            // onChange={ (e) => this.setState({ password: e.target.value }) }
           />
         </div>
         <div>
