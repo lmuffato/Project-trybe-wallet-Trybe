@@ -1,11 +1,14 @@
+import { LOGIN_DATA } from '../actions';
+
 const INITIAL_STATE = {
-  something: '',
+  email: '',
+  password: '',
 };
 
 function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'SOMETHING':
-    return null;
+  case LOGIN_DATA:
+    return action.payload;
   default:
     return state;
   }
