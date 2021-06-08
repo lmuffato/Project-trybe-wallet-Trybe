@@ -113,4 +113,4 @@ export default connect(null, mapDispatchToProps)(Login);
 // Método search do JavaScript: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/String/search
 // Método test do JavaScript: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test
 // Sobre o regex usado: http://www.regexplained.co.uk/
-// PR de Micaela Alves: https://github.com/tryber/sd-09-project-trybewallet/blob/malves0-project-trybe-wallet/src/pages/Login.js
+// PR de Micaela Alves (uso do Redirect): https://github.com/tryber/sd-09-project-trybewallet/blob/malves0-project-trybe-wallet/src/pages/Login.js
