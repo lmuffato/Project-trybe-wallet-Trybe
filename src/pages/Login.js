@@ -20,13 +20,13 @@ class Login extends React.Component {
     this.setState({
       [type]: value,
     });
-    // https://stackoverflow.com/questions/201323/how-to-validate-an-email-address-using-a-regular-expression onde peguei regex
-    // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript onde aprendi a usar o .test
   }
 
   render() {
     const { email, password } = this.state;
     const { handleChange } = this;
+    // https://stackoverflow.com/questions/201323/how-to-validate-an-email-address-using-a-regular-expression onde peguei regex
+    // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript onde aprendi a usar o .test
     let btnDisable = true;
     const passwordMinimumLength = 6;
     if (password.length >= passwordMinimumLength && /^\S+@\S+\.\S+$/.test(email)) {
