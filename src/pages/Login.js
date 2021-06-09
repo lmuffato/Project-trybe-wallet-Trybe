@@ -1,4 +1,5 @@
 import React from 'react';
+// import userReducer from '../reducers/user';
 
 class Login extends React.Component {
   render() {
@@ -20,7 +21,7 @@ class Login extends React.Component {
             id="user-email"
             type="email"
             // value={ typedEmail }
-            // onChance=
+            // onChange=
           />
         </label>
 
@@ -31,10 +32,10 @@ class Login extends React.Component {
             id="user-passw"
             type="text"
             // value={ typedPassW }
-            // onChance=
+            // onChange=
           />
         </label>
-        <button type="button"/* onCLick= */>Entrar</button>
+        <button type="button" /* onClick={ userReducer(userAction) } */> Entrar</button>
         { /* Add LINK p /carteira ao click btn & dispatch action p salvar email */ }
       </section>
     );
