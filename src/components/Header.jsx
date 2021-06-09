@@ -7,7 +7,6 @@ import { calculoDespesa } from '../utils/funtions';
 class Header extends Component {
   render() {
     const { email, expenses } = this.props;
-    console.log(calculoDespesa(expenses));
     return (
       <header>
         <p data-testid="email-field">{ email }</p>

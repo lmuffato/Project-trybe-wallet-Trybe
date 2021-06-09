@@ -6,7 +6,7 @@ import {
   ADD_DESPESA,
   ADD_DESPESA_SUCESS,
   ADD_DESPESA_ERROR,
-  TOTAL_PRICE,
+  DETELE_DESPESA,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -14,7 +14,6 @@ const INITIAL_STATE = {
   expenses: [],
   isLoading: false,
   error: '',
-  totalPrice: 0,
 };
 
 function wallet(state = INITIAL_STATE, { payload, type }) {
@@ -42,11 +41,10 @@ function wallet(state = INITIAL_STATE, { payload, type }) {
       expenses: [...state.expenses, payload],
       isLoading: false,
     };
-  case TOTAL_PRICE:
+  case DETELE_DESPESA:
     return {
       ...state,
-      totalPrice: payload,
-      isLoading: false,
+      expenses: payload,
     };
   default:
     return state;

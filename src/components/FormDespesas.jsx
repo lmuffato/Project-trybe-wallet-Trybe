@@ -11,7 +11,7 @@ class FormDespesas extends Component {
       id: 0,
       value: '',
       description: '',
-      currency: '',
+      currency: 'USD',
       method: '',
       tag: '',
     };

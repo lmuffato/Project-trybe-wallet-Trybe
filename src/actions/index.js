@@ -1,5 +1,5 @@
 // Coloque aqui suas actions
-import { getAPI, calculoDespesa } from '../utils/funtions';
+import { getAPI } from '../utils/funtions';
 
 export const UPDATE_EMAIL = 'UPDATE_EMAIL';
 export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
@@ -11,6 +11,7 @@ export const ADD_DESPESA = 'ADD_DESPESA';
 export const ADD_DESPESA_SUCESS = 'ADD_DESPESA_SUCESS';
 export const ADD_DESPESA_ERROR = 'ADD_DESPESA_ERROR';
 export const TOTAL_PRICE = 'TOTAL_PRICE';
+export const DETELE_DESPESA = 'DETELE_DESPESA';
 
 export const validadeEmail = (payload) => ({
   type: UPDATE_EMAIL,
@@ -55,13 +56,10 @@ export const addDespesaError = (payload) => ({
   payload,
 });
 
-export const totalPrice = (state, response) => {
-  const payload = calculoDespesa(state, response);
-  return {
-    type: TOTAL_PRICE,
-    payload,
-  };
-};
+export const deleteDespesa = (payload) => ({
+  type: DETELE_DESPESA,
+  payload,
+});
 
 export const addDespesaThunk = (state) => (dispatch) => {
   dispatch(addDespesa);
