@@ -24,7 +24,6 @@ class Login extends React.Component {
     if (checkEmail.test(target.value)) {
       this.setState({
         validEmail: true,
-        email: target.value,
       });
       this.turnOnButton();
     } else {
@@ -32,6 +31,9 @@ class Login extends React.Component {
         validEmail: false,
       });
     }
+    this.setState({
+      email: target.value,
+    });
   }
 
   validatePassword({ target }) {
