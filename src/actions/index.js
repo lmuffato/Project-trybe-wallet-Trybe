@@ -1,1 +1,2 @@
-// Coloque aqui suas actions
+const login = (state) => ({ type: 'LOGIN', state });
+export default login;
