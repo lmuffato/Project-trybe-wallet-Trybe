@@ -4,11 +4,11 @@ import { SAVE_USER } from '../actions';
 
 const INITIAL_STATE = {
   allUsers: [],
-  /* user: {
-    email,
-    password,
+  user: {
+    email: 'seu_email',
+    password: 'sua_senha',
   },
-  login: false, */
+  login: false,
 };
 
 function userReducer(state = INITIAL_STATE, action) {
