@@ -1,22 +1,36 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getCurrencyThunk } from '../actions';
+import Input from './Input';
 
 class Form extends React.Component {
+  componentDidMount() {
+    const { getApiAwesome } = this.props;
+    getApiAwesome();
+  }
+
   render() {
+    const { currencies } = this.props;
+    const filteredCurrencies = currencies.filter((currency) => (
+      currency.codein !== 'BRLT'));
     return (
       <div className="container">
         <form>
-          <label htmlFor="value">
-            Valor
-            <input id="value" type="number" />
-          </label>
-          <label htmlFor="description">
-            Descrição
-            <input id="description" type="text" />
-          </label>
+          <Input id="Valor" type="number" />
+          <Input id="Descrição" type="text" />
           <label htmlFor="currency">
             Moeda
             <select id="currency">
-              <option value="">BRL</option>
+              {filteredCurrencies.map((currency) => (
+                <option
+                  key={ currency.code }
+                  value={ currency.code }
+                >
+                  {currency.code}
+
+                </option>
+              ))}
             </select>
           </label>
           <label htmlFor="payment">
@@ -43,4 +57,19 @@ class Form extends React.Component {
   }
 }
 
-export default Form;
+const mapStateToProps = ({ wallet }) => ({
+  currencies: wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getApiAwesome: () => dispatch(getCurrencyThunk()),
+});
+
+Form.propTypes = {
+  getApiAwesome: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string,
+  })).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
