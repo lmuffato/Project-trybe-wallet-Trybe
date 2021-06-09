@@ -13,6 +13,7 @@ class Wallet extends React.Component {
     this.change = this.change.bind(this);
     this.addExpense = this.addExpense.bind(this);
     this.loadExpenses = this.loadExpenses.bind(this);
+    this.loadTH = this.loadTH.bind();
 
     this.state = {
       value: '1',
@@ -20,7 +21,6 @@ class Wallet extends React.Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      key: 0,
     };
   }
 
@@ -59,58 +59,66 @@ class Wallet extends React.Component {
 
   async addExpense() {
     const { value, description, currency,
-      method, tag, key } = this.state;
+      method, tag } = this.state;
 
-    const { apiEconomia, saveExpense, saveTotal, total = 0 } = this.props;
+    const { getExpenses, apiEconomia, saveExpense, saveTotal, total = 0 } = this.props;
     await apiEconomia();
 
     const { apiResult } = this.props;
-    const obj = apiResult;
-
-    const exchangeRates = obj[currency].ask;
-    const totalValue = total + value * exchangeRates;
+    const totalValue = total + value * apiResult[currency].ask;
     saveTotal(totalValue);
     saveExpense(
-      { id: key,
+      { id: getExpenses.length,
         value,
         description,
         currency,
         method,
         tag,
-        exchangeRates,
+        exchangeRates: apiResult,
       },
     );
-
-    this.setState({ key: key + 1 });
   }
 
   loadExpenses() {
     const { getExpenses } = this.props;
-    const expenses = getExpenses;
     if (getExpenses[0]) {
-      // getExpenses.map(() => )
       return (
-        expenses.map(
-          (expense, index) => (
-            <li key={ index }>
-              {/* {expense.description}
-              {expense.tag}
-              {expense.method}
-              {expense.value}
-              {expense.currency}
-              {expense.exchangeRates} */}
-              {`${expense.description}
-              ${expense.tag}
-              ${expense.method}
-              ${expense.value}
-              ${expense.currency}
-              ${expense.exchangeRates}`}
-            </li>
-          ),
+        getExpenses.map(
+          (expense, index) => {
+            const { description, tag, method, value, currency,
+              exchangeRates } = expense;
+            const rates = Number(exchangeRates[currency].ask);
+            const valueInBRL = Number(exchangeRates[currency].ask) * value;
+            const currencyName = (exchangeRates[currency].name).split('/')[0];
+            return (
+              <tr key={ index }>
+                <td>{description}</td>
+                <td>{tag}</td>
+                <td>{method}</td>
+                <td>{value}</td>
+                <td>{currencyName}</td>
+                <td>{rates.toFixed(2)}</td>
+                <td>{valueInBRL.toFixed(2)}</td>
+                <td>Real</td>
+              </tr>
+            );
+          },
         )
       );
-      // console.log(expenses);
     }
+  }
+
+  loadTH() {
+    const menu = ['Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda',
+      'Câmbio utilizado', 'Valor convertido', 'Moeda de conversão'];
+
+    return (
+      <tbody>
+        <tr>
+          {menu.map((item, index) => <th key={ index }>{item}</th>)}
+        </tr>
+      </tbody>
+    );
   }
 
   render() {
@@ -119,17 +127,15 @@ class Wallet extends React.Component {
       <div>
         Trybe
         <header>
-          <span data-testid="email-field">
+          <p data-testid="email-field">
             Email:
             {myEmail}
-          </span>
-          <span data-testid="total-field">
+          </p>
+          <p data-testid="total-field">
             Despesa total:
             {total}
-          </span>
-          <span data-testid="header-currency-field">
-            BRL
-          </span>
+          </p>
+          <p data-testid="header-currency-field">BRL</p>
         </header>
         <form>
           <label htmlFor="idValue">
@@ -150,13 +156,12 @@ class Wallet extends React.Component {
           <CategorySelect change={ this.change } />
         </form>
         <button type="button" onClick={ this.addExpense }>Adicionar Despesa</button>
-        <ul>
-          <li>
-            Descrição Tag Método de Pagamento Valor Moeda
-            Câmbio Utilizado Valor Convertido Moeda de Conversão
-          </li>
-          {this.loadExpenses()}
-        </ul>
+        <table>
+          {this.loadTH()}
+          <tbody>
+            {this.loadExpenses()}
+          </tbody>
+        </table>
       </div>
     );
   }
