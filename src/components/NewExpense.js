@@ -43,8 +43,8 @@ const NewExpense = () => {
 
   return (
     <>
-    <button type="button" onClick={ handleClick }>Adicionar despesa</button>
-    {teste && console.log(expenses)}
+      <button type="button" onClick={ handleClick }>Adicionar despesa</button>
+      {teste && console.log(expenses)}
     </>
   );
 };
