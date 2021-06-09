@@ -13,6 +13,7 @@ class Login extends React.Component {
   verifyEmail(e) {
     const regex = /\S+@\S+\.\S+/;
     const email = e.target.value;
+    // referência ao Jonathan Fernandes, que me ajudou com esta condição
     if (regex.test(email) === true) {
       this.setState({ emailOk: true });
     }
