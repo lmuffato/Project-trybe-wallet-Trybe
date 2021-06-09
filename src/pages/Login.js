@@ -1,24 +1,21 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import loginAction from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
     super();
 
     this.handleInputsAndVerify = this.handleInputsAndVerify.bind(this);
+    this.loginSucess = this.loginSucess.bind(this);
+
     this.state = {
       email: '',
       password: '',
       disabled: true,
     };
   }
-
-  // handleInputs({ target }) {
-  //   const { name, value } = target;
-  //   this.setState({
-  //     [name]: value,
-  //   });
-  // }
 
   handleInputsAndVerify({ target }) {
     const { name, value } = target;
@@ -33,17 +30,13 @@ class Login extends React.Component {
     }
   }
 
-  // validateForm() {
-  //   const { email, password } = this.state;
-  //   const regex = /\S+@\S+\.\S+/;
-  //   const passCounter = 6;
-  //   if (regex.test(email) === true && password >= passCounter) {
-  //     this.setState({ disabled: false });
-  //   }
-  // }
+  loginSucess() {
+    window.location.href = 'carteira';
+  }
 
   render() {
-    const { disabled } = this.state;
+    const { disabled, email } = this.state;
+    const { loginClick } = this.props;
     return (
       <div>
         <form>
@@ -59,17 +52,23 @@ class Login extends React.Component {
             name="password"
             onChange={ this.handleInputsAndVerify }
           />
-          <button
-            type="button"
-            disabled={ disabled }
-            onClick={ this.loginSucess }
-          >
-            Entrar
-          </button>
+          <Link to="/carteira">
+            <button
+              type="button"
+              disabled={ disabled }
+              onClick={ () => loginClick(email) }
+            >
+              Entrar
+            </button>
+          </Link>
         </form>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  loginClick: (email) => dispatch(loginAction({ email })),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
