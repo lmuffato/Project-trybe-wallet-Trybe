@@ -111,7 +111,6 @@ describe('3 - Utilize o Redux para salvar no estado global as informações da p
     const email = screen.getByTestId(EMAIL_INPUT_TEST_ID);
     const senha = screen.getByTestId(PASSWORD_INPUT_TEST_ID);
     const button = screen.getByText(/Entrar/i);
-
     userEvent.type(email, VALID_EMAIL);
     userEvent.type(senha, VALID_PASSWORD);
     fireEvent.click(button);

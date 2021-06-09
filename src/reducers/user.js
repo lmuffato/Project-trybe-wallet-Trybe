@@ -1,21 +1,15 @@
 import { LOGIN } from '../actions/index';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
 function userReducer(state = INITIAL_STATE, action) {
-  console.log(action);
   switch (action.type) {
   case LOGIN:
     return {
       ...state,
-      user: {
-        ...state.user,
-        email: action.payload.email,
-      },
+      email: action.payload,
     };
   default:
     return state;

@@ -4,7 +4,7 @@ import user from './user';
 
 // Configure os seus reducers.
 const rootReducer = combineReducers({
-  userReducer: user,
+  user,
   // walletReducer: wallet,
 });
 

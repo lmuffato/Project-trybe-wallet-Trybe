@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import { sendLogin } from '../actions/index';
-// import { Link } from 'react-router-dom';
 import './login.css';
 
 class Login extends React.Component {
@@ -12,37 +13,13 @@ class Login extends React.Component {
     this.state = {
       email: '',
       senha: '',
-      disable: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.validateEmail = this.validateEmail.bind(this);
+    this.validateSenha = this.validateSenha.bind(this);
     this.validateLogin = this.validateLogin.bind(this);
     this.saveState = this.saveState.bind(this);
-    this.messageError = this.messageError.bind(this);
-    this.desableChange = this.desableChange.bind(this);
-  }
-
-  desableChange() {
-    const { setState } = this;
-    setState({
-      disable: false,
-    });
-  }
-
-  messageError(name) {
-    if (name === 'email') {
-      const { setState } = this;
-      setState({
-        disable: true,
-      });
-    }
-
-    if (name === 'senha') {
-      const { setState } = this;
-      setState({
-        disable: true,
-      });
-    }
   }
 
   saveState(name, value) {
@@ -51,42 +28,39 @@ class Login extends React.Component {
     });
   }
 
-  validateLogin(name, value) {
-    const validateEmail = /^\w+([.-_]?\w+)*@\w+([.-_]?\w+)*(\.\w{2,3})+$/;
+  validateEmail(email) {
+    const regexEmail = /\S+@\S+\.\S+/;
+    return regexEmail.test(email);
+  }
+
+  validateSenha(senha) {
     const validateSenha = 6;
 
-    const { saveState, messageError, desableChange } = this;
-    // const { disable } = this.state;
+    if (senha.length >= validateSenha) return true;
+    return false;
+  }
 
-    if (name === 'email') {
-      if (validateEmail.test(value)) {
-        saveState(name, value);
-        desableChange();
-      } else {
-        messageError(name);
-      }
-    }
+  validateLogin() {
+    const { validateEmail, validateSenha } = this;
+    const { email, senha } = this.state;
 
-    if (name === 'senha') {
-      if (value.length <= validateSenha) {
-        saveState(name, value);
-        desableChange();
-      } else {
-        messageError(name);
-      }
-    }
+    if (validateEmail(email) && validateSenha(senha)) return false;
+    return true;
   }
 
   handleChange({ target }) {
     const { name } = target;
     const { value } = target;
 
-    this.validateLogin(name, value);
+    const { saveState } = this;
+
+    saveState(name, value);
   }
 
   render() {
-    const { state } = this;
+    const { state, validateLogin } = this;
     const { loginDispatch } = this.props;
+
     return (
       <main>
         <section id="login-container">
@@ -114,19 +88,25 @@ class Login extends React.Component {
             />
           </label>
           <div>
-            <button
-              type="button"
-              disabled={ state.disable }
-              onClick={ () => loginDispatch(state) }
-            >
-              Entrar
-            </button>
+            <Link to="/carteira">
+              <button
+                type="button"
+                disabled={ validateLogin() }
+                onClick={ () => loginDispatch(state.email) }
+              >
+                Entrar
+              </button>
+            </Link>
           </div>
         </section>
       </main>
     );
   }
 }
+
+// const mapStateToProps = (state) => ({
+//   emailStore: state.user.email,
+// });
 
 const mapDispatchToProps = (dispatch) => ({
   loginDispatch: (state) => dispatch(sendLogin(state)),
