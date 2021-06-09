@@ -3,10 +3,9 @@ import {
 } from '../actions/index';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-    password: '',
-  },
+  email: '',
+  password: '',
+
 };
 
 const user = (state = INITIAL_STATE, action) => {
@@ -14,6 +13,7 @@ const user = (state = INITIAL_STATE, action) => {
   case GET_LOGIN:
     console.log(action);
     return {
+      ...state,
       email: action.payload.state.email,
       password: action.payload.state.password,
     };

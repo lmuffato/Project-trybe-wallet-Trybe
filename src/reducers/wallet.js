@@ -1,17 +1,15 @@
 import {
-  QUALQUER_COISA2,
+  GET_CURRENCY,
 } from '../actions/index';
 
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case QUALQUER_COISA2:
+  case GET_CURRENCY:
     return {
       currencies: action.payload,
       expenses: action.payload,

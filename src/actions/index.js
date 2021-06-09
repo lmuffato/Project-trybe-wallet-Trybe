@@ -1,7 +1,7 @@
 import { getExchange } from '../services/exchangeAPI';
 
 export const GET_LOGIN = 'QUALQUER_COISA1';
-export const QUALQUER_COISA2 = 'QUALQUER_COISA1';
+export const GET_CURRENCY = 'GET_CURRENCY';
 
 export const user = (payload) => ({
   type: GET_LOGIN,
@@ -9,7 +9,7 @@ export const user = (payload) => ({
 });
 
 export const wallet = (payload) => ({
-  type: QUALQUER_COISA2,
+  type: GET_CURRENCY,
   payload,
 });
 

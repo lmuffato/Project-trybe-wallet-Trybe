@@ -16,9 +16,9 @@
 .form {
   background: white;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  margin: 28px auto 80px;
+  margin: 188px auto 0;
   max-width: 260px;
-  padding: 18px;
+  padding: 22px;
   position: relative;
   text-align: center;
   z-index: 1;
