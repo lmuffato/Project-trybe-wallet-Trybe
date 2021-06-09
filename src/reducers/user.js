@@ -1,23 +1,14 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  email: '',
 };
 
 export default function movieReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case 'GET_EMAIL':
     return {
-      user: {
-        email: action.email,
-      },
-      ...state,
+      email: action.email,
     };
   default:
     return state;
