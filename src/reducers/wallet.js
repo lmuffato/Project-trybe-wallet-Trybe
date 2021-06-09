@@ -8,6 +8,7 @@ const INITIAL_STATE = {
 const GET_SUCCESS = 'GET_SUCCESS';
 const GET_ERROR = 'GET_ERROR';
 const NEW_EXPENSES = 'NEW_EXPENSES';
+const REMOVE_ITEM = 'REMOVE_ITEM';
 
 const addExpense = (state = INITIAL_STATE, action) => {
   const { id, expenses } = state;
@@ -42,6 +43,11 @@ function wallet(state = INITIAL_STATE, action) {
     };
   case NEW_EXPENSES:
     return addExpense(state, action);
+  case REMOVE_ITEM:
+    return {
+      ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== action.id),
+    };
   default:
     return state;
   }

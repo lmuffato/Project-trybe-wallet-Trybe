@@ -50,3 +50,8 @@ export const fetchCoin = (expense) => async (dispatch) => {
 };
 
 // Referência: ajuda do colega Tiago Emanuel para realizar fetchCoin;
+
+export const removeExpense = (id) => ({
+  type: 'REMOVE_ITEM',
+  id,
+});
