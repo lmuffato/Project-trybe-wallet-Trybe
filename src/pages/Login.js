@@ -7,6 +7,7 @@ import loginAction from '../actions';
 class Login extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       email: '',
       password: '',
@@ -28,9 +29,11 @@ class Login extends React.Component {
 
   handleEmailVerification() {
     const { email } = this.state;
-    const emailRegex = /^[a-z0-9.]+@[a-z0-9]+.com$/;
+    const emailRegex = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm;
     return emailRegex.test(email);
   }
+
+  // Outra opção de regex para validação de email: /^[a-z0-9.]+@[a-z0-9]+.com$/
 
   handleChange(event) {
     const { value, name } = event.target;
@@ -114,3 +117,6 @@ export default connect(null, mapDispatchToProps)(Login);
 // Método test do JavaScript: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test
 // Sobre o regex usado: http://www.regexplained.co.uk/
 // PR de Micaela Alves (uso do Redirect): https://github.com/tryber/sd-09-project-trybewallet/blob/malves0-project-trybe-wallet/src/pages/Login.js
+// Regex para validação de email:
+// https://regex101.com/r/SOgUIV/1
+// https://regex101.com/library/SOgUIV

@@ -1,26 +1,49 @@
 import React from 'react';
-import Currency from '../components/Currency';
-import Description from '../components/Description';
+// import PropTypes from 'prop-types';
+// import { connect } from 'react-redux';
 import Header from '../components/Header';
-import PaymentMethods from '../components/PaymentMethods';
-import Tags from '../components/Tags';
-import Value from '../components/Value';
+import TableWallet from '../components/TableWallet';
+import ExpenseTrackerForm from '../components/ExpenseTrackerForm/ExpenseTrackerForm';
+// import { addingExpense, getExchangeRatesThunk } from '../actions';
 
 class Wallet extends React.Component {
+  // constructor() {
+  //   super();
+  //   // const { expenses } = props;
+  // }
+
+  // async handleExchangeRates() {
+  //   const { addExpense, getCurrencies } = this.props;
+  //   const getExchangeRates = getCurrencies();
+  //   this.setState({ exchangeRates: getExchangeRates });
+  //   addExpense(this.state);
+  // }
+
   render() {
     return (
       <>
         <Header />
-        <form>
-          <Value />
-          <Description />
-          <Currency />
-          <PaymentMethods />
-          <Tags />
-        </form>
+        <ExpenseTrackerForm />
+        <TableWallet />
       </>
     );
   }
 }
 
+// const mapStateToProps = (state) => ({
+//   expenses: state.wallet.expenses,
+// });
+
+// const mapDispatchToProps = (dispatch) => ({
+//   addExpense: (state) => dispatch(addingExpense(state)),
+//   getCurrencies: () => dispatch(getExchangeRatesThunk()),
+// });
+
+// Wallet.propTypes = {
+//   addExpense: PropTypes.func.isRequired,
+//   // expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+//   getCurrencies: PropTypes.func.isRequired,
+// };
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
 export default Wallet;

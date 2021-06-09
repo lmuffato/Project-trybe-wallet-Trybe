@@ -4,12 +4,16 @@ import {
   GET_CURRENCIES,
   GET_CURRENCIES_FAILURE,
   GET_CURRENCIES_SUCCESS,
+  GET_EXCHANGE_RATES,
+  GET_EXCHANGE_RATES_SUCCESS,
+  GET_EXCHANGE_RATES_ERROR,
 } from '../actions';
 
 const initialState = {
   currencies: [],
   expenses: [],
   isLoading: false,
+  isFetching: false,
   error: null,
 };
 
@@ -18,7 +22,7 @@ export default function wallet(state = initialState, { type, payload }) {
   case ADD_EXPENSE:
     return {
       ...state,
-      expenses: payload,
+      expenses: [...state.expenses, payload],
     };
   case GET_CURRENCIES:
     return {
@@ -35,6 +39,23 @@ export default function wallet(state = initialState, { type, payload }) {
     return {
       ...state,
       isLoading: false,
+      error: payload,
+    };
+  case GET_EXCHANGE_RATES:
+    return {
+      ...state,
+      isFetching: true,
+    };
+  case GET_EXCHANGE_RATES_SUCCESS:
+    return {
+      ...state,
+      isFetching: false,
+      expenses: [...state.expenses, { exchangeRates: payload }],
+    };
+  case GET_EXCHANGE_RATES_ERROR:
+    return {
+      ...state,
+      isFetching: false,
       error: payload,
     };
   default:
