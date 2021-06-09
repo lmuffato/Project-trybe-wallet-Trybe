@@ -31,6 +31,7 @@ class Login extends React.Component {
 
   validEmail() {
     const { email } = this.state;
+    // Além dos links abaixo utilizei a expressão do Rafael Medeiros da Turma A, disponibilizada na thread;
     // http://www.regexplained.co.uk/
     // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test
     // https://regexr.com/
