@@ -40,13 +40,11 @@ class Header extends React.Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
-  // currency: state.wallet.currencies,
   // expenses: state.wallet.expenses,
 });
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
-  // currency: PropTypes.string.isRequired,
   // expenses: PropTypes.string.isRequired,
 };
 
