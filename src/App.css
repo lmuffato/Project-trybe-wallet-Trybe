@@ -17,3 +17,7 @@
   height: 50vh;
   width: 50vh;
 }
+
+header {
+  border: 1px solid black;
+}
