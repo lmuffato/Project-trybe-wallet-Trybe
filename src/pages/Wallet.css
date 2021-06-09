@@ -2,3 +2,20 @@
   border: none;
   font-family: sans-serif;
 }
+
+.container-wallet {
+  align-items: center;
+  background: url('https://acegif.com/wp-content/gifs/raining-money-10.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 22.21% 0;
+  width: 100%;
+}
+
+.img-wallet {
+  position: absolute;
+  top: 115px;
+}

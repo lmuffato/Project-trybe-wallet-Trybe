@@ -15,11 +15,13 @@ class Login extends React.Component {
     };
   }
 
+  // validação de email implementada a partir desse link https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
   validaEmail(email) {
     const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.com ?$/i;
     return emailRegex.test(String(email).toLowerCase());
   }
 
+  // validação de senha implementada baseada no code review do Renzo Sevillha
   validaSenha(password) {
     const minLengthPassword = 6;
     const verdadeiro = true;
@@ -27,6 +29,7 @@ class Login extends React.Component {
     // return senhaOk;
   }
 
+  // validação de senha implementada baseada no code review do Renzo Sevillha
   checkLogin() {
     const { email, password } = this.state;
     const check = this.validaEmail(email) && this.validaSenha(password);
@@ -34,13 +37,13 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password } = this.state;
-    const { user } = this.props;
+    const { state } = this;
+    const { userDispatch } = this.props;
     return (
       <div className="login-page">
         <div className="form">
-          <img src="https://media.tenor.com/images/3ce11c29678815f9279e7e94dc808f2a/tenor.gif" width="150px" alt="walletMeme" />
-          <h1>Trybe Wallet</h1>
+          <img className="img-form" src="https://i.pinimg.com/originals/c1/d1/18/c1d1189465512ee563dddd5010d7ec95.gif" alt="walletMeme" />
+          <h2>Trybe Wallet</h2>
           <form className="login-form">
             <input
               onChange={ (e) => this.setState({ email: e.target.value }) }
@@ -56,9 +59,10 @@ class Login extends React.Component {
             />
             <Link
               to="/carteira"
-              onClick={ () => user({ email, password }) }
+              onClick={ () => userDispatch({ state }) }
               disabled={ !this.checkLogin() }
             >
+              {/* atributo disabled implementado com base na seguinte documentação https://www.w3schools.com/tags/att_button_disabled.asp */}
               <button
                 type="button"
                 disabled={ !this.checkLogin() }
@@ -84,7 +88,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  user: (payload) => dispatch(loginAction(payload)),
+  userDispatch: (payload) => dispatch(loginAction(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

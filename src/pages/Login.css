@@ -1,18 +1,32 @@
+/* body {
+  background: url('https://acegif.com/wp-content/gifs/raining-money-8.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+} */
+
 .login-page {
-  margin: auto;
-  padding: 8% 0 0;
-  width: 360px;
+  background: url('https://acegif.com/wp-content/gifs/raining-money-8.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0;
+  padding: 1% 0;
+  width: 100%;
 }
 
 .form {
   background: white;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  margin: 0 auto 100px;
-  max-width: 360px;
-  padding: 45px;
+  margin: 28px auto 80px;
+  max-width: 260px;
+  padding: 18px;
   position: relative;
   text-align: center;
   z-index: 1;
+}
+
+.img-form {
+  border-radius: 30%;
+  width: 100px;
 }
 
 .form input {
@@ -41,12 +55,17 @@
   width: 100%;
 }
 
-.btn-login:disabled {
-  background: #868886;
-  cursor: not-allowed;
-}
 
 .form button:hover , .form button:active , .form button:focus {
   background: #43a047;
 }
 
+.btn-login:disabled {
+  background: #868886;
+  cursor: not-allowed;
+}
+
+.btn-login:disabled:hover {
+  background: #868886;
+  cursor: not-allowed;
+}
