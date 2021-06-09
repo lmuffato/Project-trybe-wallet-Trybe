@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 const Header = () => {
   const email = useSelector((state) => state.user.email);
-  const total = useSelector((state) => state.wallet.total);
+  const [initialValue] = React.useState(0);
 
   return (
     <header className="header">
@@ -17,7 +17,9 @@ const Header = () => {
         <div>
           Despesa Total: R$
           {' '}
-          <span data-testid="total-field">{total}</span>
+          <span data-testid="total-field">
+            {initialValue}
+          </span>
         </div>
         <div>
           <span data-testid="header-currency-field">BRL</span>
