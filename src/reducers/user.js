@@ -1,10 +1,10 @@
 // import { INPUT_CHECK } from '../actions/index';
-import { EMAIL_CHECK, PASSWORD_CHECK } from '../actions/index';
+import { EMAIL_CHECK, PASSWORD_CHECK } from '../actions/loginActions';
 
 // Esse reducer será responsável por tratar as informações da pessoa usuária
-const INITIAL_STATE = { email: '', password: '' };
+const INITIAL_USER_STATE = { email: '', password: '' };
 
-const user = (state = INITIAL_STATE, action) => {
+const user = (state = INITIAL_USER_STATE, action) => {
   switch (action.type) {
   case EMAIL_CHECK:
     return ({

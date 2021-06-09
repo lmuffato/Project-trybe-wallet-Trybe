@@ -13,7 +13,6 @@ class Header extends React.Component {
     const { userEmail } = this.props;
     const { currentExpense } = this.state;
     return (
-      // <div>TrybeWallet</div>
       <header>
         <div>Wellcome to the TrybeWallet!</div>
         <p data-testid="email-field">
