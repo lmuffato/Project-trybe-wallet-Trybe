@@ -14,5 +14,11 @@ export const validadeLogin = (client) => {
 export const getAPI = async () => {
   const request = await fetch('https://economia.awesomeapi.com.br/json/all');
   const data = await request.json();
-  return Object.keys(data);
+  return data;
+};
+
+export const calculoDespesa = (state, response) => {
+  const moeda = state.currency;
+  const price = (response[moeda].ask * state.value).toFixed(2);
+  return Number(price);
 };
