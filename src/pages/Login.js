@@ -1,26 +1,42 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Login extends React.Component {
   constructor() {
     super();
+    this.state = {
+      email: '',
+      password: '',
+      disable: true,
+    };
     this.handleChange = this.handleChange.bind(this);
+    this.handleState = this.handleState.bind(this);
   }
 
-  handleChange({ target: { value } }) {
-    const button = document.querySelector('#loginButton');
-    const lengthNumber = 6;
-    if (!value.includes('.com') && value.length >= lengthNumber) {
-      button.disabled = true;
-    }
-    if (value.includes('.com') && value.length >= lengthNumber) {
-      button.disabled = false;
-    }
-    if (value.includes('.com') && value.length < lengthNumber) {
-      button.disabled = true;
+  // lógica implementada com a ajuda do Adelino, turma 10 - A
+
+  // componentDidUpdate() {
+  //   this.handleChange();
+  //   console.log('lala');
+  // }
+
+  handleState({ target: { value, name } }) {
+    this.setState({ [name]: value });
+    this.handleChange();
+  }
+
+  handleChange() {
+    const lengthNumber = 5;
+    const { email, password } = this.state;
+    if (email.includes('.com') && password.length >= lengthNumber) {
+      this.setState({ disable: false });
+    } else {
+      this.setState({ disable: true });
     }
   }
 
   render() {
+    const { disable } = this.state;
     return (
       <section>
         <form>
@@ -32,7 +48,8 @@ class Login extends React.Component {
               id="Email"
               placeholder="Insert e-mail"
               type="email"
-              onChange={ this.handleChange }
+              name="email"
+              onChange={ this.handleState }
               required
             />
           </label>
@@ -44,14 +61,17 @@ class Login extends React.Component {
               id="Password"
               placeholder="Insert password"
               type="text"
+              name="password"
               min="6"
-              onChange={ this.handleChange }
+              onChange={ this.handleState }
               required
             />
           </label>
-          <button type="submit" id="loginButton" disabled>
-            Entrar
-          </button>
+          <Link to="/carteira">
+            <button type="submit" id="loginButton" disabled={ disable }>
+              Entrar
+            </button>
+          </Link>
         </form>
       </section>
     );
