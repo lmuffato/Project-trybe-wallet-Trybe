@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import emailReg from '../helpers/emailRegex';
+import { loginAction } from '../actions/index';
 
 class Login extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       disabledButton: true,
@@ -41,7 +44,7 @@ class Login extends Component {
 
   render() {
     const { disabledButton, email, password } = this.state;
-
+    const { loginActionProps } = this.props;
     return (
       <form
         style={ {
@@ -71,15 +74,27 @@ class Login extends Component {
           required
         />
         <Link to="/carteira">
-          <button type="button" disabled={ disabledButton }>Entrar</button>
+          <button
+            type="button"
+            onClick={ () => loginActionProps(email) }
+            disabled={ disabledButton }
+          >
+            Entrar
+
+          </button>
         </Link>
       </form>
     );
   }
 }
+// I appreciate my friend's help:
+// https://github.com/RenzoSev
+const mapDispatchToProps = (dispatch) => ({
+  loginActionProps: (email) => dispatch(loginAction(email)),
+});
 
-// const mapDispatchToProps = (dispatch) => ({
-//   email: state => dispatch(action)
-// });
+Login.propTypes = {
+  loginActionProps: PropTypes.func.isRequired,
+};
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
