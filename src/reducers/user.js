@@ -2,19 +2,16 @@
 import { ADD_USER } from '../actions';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  email: '',
 };
 
 function user(state = INITIAL_STATE, action) {
   switch (action.type) {
   case ADD_USER:
-    return state;
+    return {
+      ...state,
+      email: action.user,
+    };
   default:
     return state;
   }
