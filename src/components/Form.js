@@ -1,50 +1,59 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import pagamento from './pagamento';
-import NewExpense from './NewExpense';
-import tag from './tag';
+import { useDispatch, useSelector } from 'react-redux';
 import Label from './Label';
 import Select from './Select';
+import tag from './tag';
+import pagamento from './pagamento';
+import getAsk from './getAsk';
 
 const Form = () => {
-  const [moedas, setMoedas] = React.useState([]);
+  const [coins, setCoins] = React.useState([]);
   const dispatch = useDispatch();
-
-  const reqFetchMoeda = async () => {
+  const expenses = useSelector((state) => state.wallet.expenses);
+  const valor = document.querySelector('#valor');
+  const descricao = document.querySelector('#descricao');
+  const moeda = document.querySelector('#moeda');
+  const pagamentoV = document.querySelector('#pagamento');
+  const tagV = document.querySelector('#tag');
+  const requisicaoFetch = async () => {
     const endpoint = 'https://economia.awesomeapi.com.br/json/all';
-    const resposta = await fetch(endpoint).then((resp) => resp.json());
-    const moedasArr = Object.keys(resposta);
-    const moedasFiltradas = moedasArr.filter((moeda) => moeda !== 'USDT');
+    const json = await fetch(endpoint).then((response) => response.json());
+    const array = Object.keys(json);
+    const filtered = array.filter((coin) => coin !== 'USDT');
+    setCoins(filtered);
+  };
+
+  const handleClick = async () => {
     dispatch({
-      type: 'SET_WALLET',
-      payload: { currencies: moedasFiltradas },
+      type: 'SET_EXPENSES',
+      payload: {
+        expenses: [{
+          id: expenses.length,
+          valueOriginal: valor.value,
+          value: valor.value * await getAsk(moeda.value),
+          description: descricao.value,
+          currency: moeda.value,
+          method: pagamentoV.value,
+          tag: tagV.value,
+        }],
+        total: valor.value * await getAsk(moeda.value),
+      },
     });
-    setMoedas(moedasFiltradas.map((moeda) => (
-      {
-        name: moeda,
-      }
-    )));
   };
 
   React.useEffect(() => {
-    reqFetchMoeda();
+    requisicaoFetch();
   }, []);
 
   return (
-    <div className="form-container">
-      <form className="form">
-        <Label htmlfor="valor" type="number" label="Valor" />
-        <Label htmlfor="descricao" type="text" label="Descrição" />
-        <Select htmlfor="moeda" label="Moeda" options={ moedas } />
-        <Select
-          htmlfor="pagamento"
-          label="Método de pagamento"
-          options={ pagamento }
-        />
-        <Select htmlfor="tag" label="Tag" options={ tag } />
-        <NewExpense />
-      </form>
-    </div>
+    <form>
+      <Label label="Valor" type="number" vid="valor" />
+      <Label label="Descrição" type="text" vid="descricao" />
+      <Select label="Moeda" options={ coins } vid="moeda" />
+      <Select label="Método de pagamento" options={ pagamento } vid="pagamento" />
+      <Select options={ tag } label="Tag" vid="tag" />
+      <button type="button" onClick={ handleClick }>Adicionar despesa</button>
+    </form>
   );
 };
 

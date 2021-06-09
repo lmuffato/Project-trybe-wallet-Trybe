@@ -16,10 +16,8 @@ const Login = () => {
     });
     return (/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(emailInput));
   };
-
-  const maxLength = 6;
-
-  const checkPass = () => passwordInput.length >= maxLength;
+  const minLength = 6;
+  const checkPass = () => passwordInput.length >= minLength;
 
   const handleClick = () => {
     setLogin(true);

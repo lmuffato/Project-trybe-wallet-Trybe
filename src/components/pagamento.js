@@ -1,11 +1,1 @@
-export default [
-  {
-    name: 'Dinheiro',
-  },
-  {
-    name: 'Cartão de crédito',
-  },
-  {
-    name: 'Cartão de débito',
-  },
-];
+export default ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];

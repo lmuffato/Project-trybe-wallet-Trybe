@@ -6,7 +6,7 @@ const initialState = {
 export default function user(state = initialState, action) {
   switch (action.type) {
   case 'SET_EMAIL':
-    return { ...state, email: action.payload.email };
+    return { email: action.payload.email };
   default:
     return state;
   }

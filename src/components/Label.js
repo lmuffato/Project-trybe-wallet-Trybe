@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Label = ({ htmlfor, type, label }) => (
-  <label htmlFor={ htmlfor }>
+const Label = ({ label, type, vid }) => (
+  <label htmlFor={ vid }>
     {label}
     :
-    <input type={ type } name={ htmlfor } id={ htmlfor } />
+    <input type={ type } name={ label } id={ vid } />
   </label>
 );
 
-Label.propTypes = {
-  htmlfor: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-};
-
 export default Label;
+
+Label.propTypes = {
+  label: PropTypes.string.isRequired,
+  vid: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+};

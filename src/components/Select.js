@@ -1,22 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Select = ({ htmlfor, options, label }) => (
-  <label htmlFor={ htmlfor }>
-    {label}
-    :
-    <select name={ htmlfor } id={ htmlfor }>
-      {options.map(({ name }) => (
-        <option key={ name } value={ name }>{name}</option>
-      ))}
-    </select>
-  </label>
+const Select = ({ label, options, vid }) => (
+  <select name={ label } id={ vid }>
+    {options.map((option) => (
+      <option value={ option } key={ option }>{option}</option>
+    ))}
+  </select>
 );
 
-Select.propTypes = {
-  htmlfor: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
-  label: PropTypes.string.isRequired,
-};
-
 export default Select;
+
+Select.propTypes = {
+  label: PropTypes.string.isRequired,
+  vid: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+};

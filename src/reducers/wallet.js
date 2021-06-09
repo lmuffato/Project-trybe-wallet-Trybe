@@ -2,21 +2,19 @@
 const initialState = {
   currencies: [],
   expenses: [],
-  qtd: 0,
   total: 0,
 };
 
-export default function user(state = initialState, action) {
+export default function wallet(state = initialState, action) {
   switch (action.type) {
-  case 'SET_WALLET':
-    return {
-      ...state,
-      currencies: action.payload.currencies,
+  case 'SET_EXPENSES':
+    return { ...state,
+      expenses: [...state.expenses, action.payload.expenses],
+      id: state.id + action.payload.id,
+      total: state.total + action.payload.total,
     };
-  case 'NEW_EXPENSE':
-    return { ...state, expenses: [action.payload.expenses], total: action.payload.total };
-  case 'ADD_QTD':
-    return { qtd: state.qtd + 1 };
+  case 'SET_CURRENCIES':
+    return { ...state, currencies: action.payload.currencies };
   default:
     return state;
   }
