@@ -2,9 +2,10 @@ import React from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
+const minNumber = 6;
+const numberTime = 400;
+
 export default function Login() {
-  const numberSix = 6;
-  const number400 = 400;
   return (
     <Formik
       initialValues={ { email: '', password: '' } }
@@ -14,12 +15,12 @@ export default function Login() {
           .required('Requerido'),
         password: Yup.string()
           .required('Requerido')
-          .min(numberSix),
+          .min(minNumber),
       }) }
       onSubmit={ (values, { setSubmitting }) => {
         setTimeout(() => {
           setSubmitting(false);
-        }, number400);
+        }, numberTime);
       } }
     >
       { (formik) => (
@@ -42,7 +43,7 @@ export default function Login() {
             type="submit"
             disabled={
               !/^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/.test(formik.values.email)
-              || formik.values.password.length < numberSix
+              || formik.values.password.length < minNumber
             }
           >
             Entrar
