@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { string, number } from 'prop-types';
+import { string, arrayOf, shape } from 'prop-types';
+
+import { calculoDespesa } from '../utils/funtions';
 
 class Header extends Component {
   render() {
-    const { email, totalPrice } = this.props;
+    const { email, expenses } = this.props;
+    console.log(calculoDespesa(expenses));
     return (
       <header>
         <p data-testid="email-field">{ email }</p>
         <p>
-          <span data-testid="total-field">{`Despesas Total: ${totalPrice}`}</span>
+          <span data-testid="total-field">
+            { expenses ? calculoDespesa(expenses) : 0 }
+          </span>
         </p>
         <p data-testid="header-currency-field">{`Cambio: ${'BRL'}`}</p>
       </header>
@@ -19,13 +24,12 @@ class Header extends Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
-  totalPrice: state.wallet.totalPrice,
-  isLoading: state.wallet.isLoading,
+  expenses: state.wallet.expenses,
 });
 
 Header.propTypes = {
   email: string.isRequired,
-  totalPrice: number.isRequired,
+  expenses: arrayOf(shape({})).isRequired,
 };
 
 export default connect(mapStateToProps)(Header);

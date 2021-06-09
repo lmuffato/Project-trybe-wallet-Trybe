@@ -63,7 +63,7 @@ export const totalPrice = (state, response) => {
   };
 };
 
-export const addDespesaThunk = (state) => async (dispatch) => {
+export const addDespesaThunk = (state) => (dispatch) => {
   dispatch(addDespesa);
   getAPI()
     .then(async (response) => {
@@ -71,8 +71,7 @@ export const addDespesaThunk = (state) => async (dispatch) => {
         ...state,
         exchangeRates: response,
       };
-      await dispatch(addDespesaSucess(expenses));
-      dispatch(totalPrice(state, response));
+      dispatch(addDespesaSucess(expenses));
     })
     .catch((error) => dispatch(addDespesaError(error)));
 };

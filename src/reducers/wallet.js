@@ -45,7 +45,7 @@ function wallet(state = INITIAL_STATE, { payload, type }) {
   case TOTAL_PRICE:
     return {
       ...state,
-      totalPrice: state.totalPrice + payload,
+      totalPrice: payload,
       isLoading: false,
     };
   default:

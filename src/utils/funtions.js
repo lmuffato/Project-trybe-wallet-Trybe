@@ -17,8 +17,8 @@ export const getAPI = async () => {
   return data;
 };
 
-export const calculoDespesa = (state, response) => {
-  const moeda = state.currency;
-  const price = (response[moeda].ask * state.value).toFixed(2);
-  return Number(price);
-};
+export const calculoDespesa = (expenses) => expenses
+  .reduce((acc, { currency, exchangeRates, value }) => {
+    const price = exchangeRates[currency].ask * value;
+    return acc + price;
+  }, 0);
