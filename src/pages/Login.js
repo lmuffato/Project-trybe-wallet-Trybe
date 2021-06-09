@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import emailReg from '../helpers/emailRegex';
 
 class Login extends Component {
@@ -17,7 +18,6 @@ class Login extends Component {
 
   handleChange({ target }) {
     const { value, name } = target;
-    console.log(name);
     this.setState({
       [name]: value,
     }, () => this.validateInputs());
@@ -27,7 +27,6 @@ class Login extends Component {
     const { email, password } = this.state;
     const minPasswordLength = 6;
     const emailValidate = emailReg.test(email);
-    console.log(emailValidate);
     if (emailValidate
     && password.length >= minPasswordLength) {
       this.setState({
@@ -55,7 +54,7 @@ class Login extends Component {
         <h1 style={ { margin: 'auto' } }>Login</h1>
         <input
           name="email"
-          data-testid="input-email"
+          data-testid="email-input"
           defaultValue={ email }
           onChange={ this.handleChange }
           type="email"
@@ -64,17 +63,23 @@ class Login extends Component {
         />
         <input
           name="password"
-          data-testid="input-password"
+          data-testid="password-input"
           defaultValue={ password }
           onChange={ this.handleChange }
           type="password"
           placeholder="Senha"
           required
         />
-        <button type="button" disabled={ disabledButton }>Entrar</button>
+        <Link to="/carteira">
+          <button type="button" disabled={ disabledButton }>Entrar</button>
+        </Link>
       </form>
     );
   }
 }
+
+// const mapDispatchToProps = (dispatch) => ({
+//   email: state => dispatch(action)
+// });
 
 export default Login;
