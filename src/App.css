@@ -5,3 +5,22 @@
   width: 100%;
   height: 60px;
 }
+.form-container{
+  background-color: rgb(111, 223, 83);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  width: 80%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.email-container {
+  display: flex;
+  justify-content: space-evenly;
+  min-width: 50%
+}

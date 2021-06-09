@@ -30,8 +30,8 @@ const Form = () => {
   }, []);
 
   return (
-    <div>
-      <form>
+    <div className="form-container">
+      <form className="form">
         <Label htmlfor="valor" type="number" label="Valor" />
         <Label htmlfor="descricao" type="text" label="Descrição" />
         <Select htmlfor="moeda" label="Moeda" options={ moedas } />
@@ -41,6 +41,7 @@ const Form = () => {
           options={ pagamento }
         />
         <Select htmlfor="tag" label="Tag" options={ tag } />
+        <button type="button">Adicionar despesa</button>
       </form>
     </div>
   );
