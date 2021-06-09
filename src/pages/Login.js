@@ -19,10 +19,7 @@ class Login extends React.Component {
   checkInputs(email, password) {
     const regexEmail = /\S+@\S+\.\S+/;
     const minCharPassword = 6;
-    return (
-      
-     regexEmail.test(email) && password.length >= minCharPassword - 1;
-    )
+    return regexEmail.test(email) && password.length >= minCharPassword - 1;
   }
 
   handleChange({ target: { name, value } }) {
@@ -35,11 +32,10 @@ class Login extends React.Component {
   }
 
   handleClick(e) {
-    e.prevent.default();
+    e.preventDefault();
     const { email } = this.state;
     const { history, logInUser } = this.props;
     logInUser(email);
-    // this.setState({ validInputs: false });
     history.push('/carteira');
   }
 
