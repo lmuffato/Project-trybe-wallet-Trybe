@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { login } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -9,6 +7,16 @@ class Login extends React.Component {
       email: '',
       senha: '',
     };
+    this.handleEmail = this.handleEmail.bind(this);
+    this.handleSenha = this.handleSenha.bind(this);
+  }
+
+  handleEmail(event) {
+    this.setState({ email: event.target.value });
+  }
+
+  handleSenha(event) {
+    this.setState({ senha: event.target.value });
   }
 
   render() {
@@ -19,13 +27,15 @@ class Login extends React.Component {
           <input
             data-testid="email-input"
             type="text"
-            onChange={ (v) => this.setState({ email: v.target.value }) }
+            onChange={ this.handleEmail }
+            value={ email }
             placeholder="email"
           />
           <input
             data-testid="password-input"
             type="password"
-            onChange={ (v) => this.setState({ senha: v.target.value }) }
+            onChange={ this.handleSenha }
+            value={ senha }
             placeholder="senha"
           />
         </div>
@@ -39,8 +49,4 @@ class Login extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  login: (v) => dispatch(login(v)),
-});
-
-export default connect(null, mapDispatchToProps)(Login);
+export default Login;
