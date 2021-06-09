@@ -5,7 +5,6 @@ import { ADD_EXPENSE } from '../actions/actionsTypes';
 const INNITIAL_STATE = {
   currencies: [],
   expenses: [],
-  total: 0,
   currentCurrency: 'BRL',
 };
 
