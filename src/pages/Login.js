@@ -3,33 +3,35 @@ import { connect } from 'react-redux';
 import { makeLogin } from '../actions';
 
 class Login extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password:'',
+      password: '',
       loginValid: false,
     };
-  };
-  loginIsValid = () => {
+  }
+
+  loginIsValid() {
     const { email, password } = this.state;
-    const validateRegex =  /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
-    if (validateRegex.test(email) && password.length >= 6) {
+    const validateRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    const minCharPassword = 6;
+    if (validateRegex.test(email) && password.length >= minCharPassword) {
       this.setState({ loginValid: true });
     }
-  };
-  handleLogin = ({ target: { value, id } }) => {
-    this.setState({ [id]: value })
-    this.loginIsValid();
-  };
+  }
 
-  submitLogin = (event) => {
+  handleLogin({ target: { value, id } }) {
+    this.setState({ [id]: value });
+    this.loginIsValid();
+  }
+
+  submitLogin(event) {
     event.preventDefault();
-    const{ email, password } = this.state;
+    const { email, password } = this.state;
     const { registerLogin } = this.props;
-    registerLogin( { email, password });
-  };
+    registerLogin({ email, password });
+  }
 
   render() {
     const { email, password, loginValid } = this.state;
@@ -39,29 +41,30 @@ class Login extends React.Component {
         <form>
           <label htmlFor="email">
             E-mail:
-            <input 
-              type="email" 
-              id="email" 
-              testid="email-input" 
-              value={ email } 
+            <input
+              type="email"
+              id="email"
+              testid="email-input"
+              value={ email }
               placeholder="digite o email"
               onChange={ this.handleLogin }
             />
           </label>
           <label htmlFor="password">
             Senha:
-            <input 
-              type="password" 
-              id="password" 
-              data-testid="password-input" 
+            <input
+              type="password"
+              id="password"
+              data-testid="password-input"
               value={ password }
               placeholder="digite a senha"
               onChange={ this.handleLogin }
             />
           </label>
-          <button type="submit" 
-            disabled={ !loginValid } 
-            onClick={this.submitLogin}
+          <button
+            type="submit"
+            disabled={ !loginValid }
+            onClick={ this.submitLogin }
           >
             Entrar
           </button>
@@ -75,56 +78,8 @@ const mapDispatchToProps = (dispatch) => ({
   registerLogin: (userInfo) => dispatch(makeLogin(userInfo)),
 });
 
-export default connect(mapDispatchToProps)(Login);
-
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-
-class Login extends Component {
-  constructor(props) {
-    super(props);
-
-  }
-
-  componentWillMount() {
-
-  }
-
-  componentDidMount() {
-
-  }
-
-  componentWillReceiveProps(nextProps) {
-
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-
-  }
-
-  componentWillUnmount() {
-
-  }
-
-  render() {
-    return (
-      <div>
-
-      </div>
-    );
-  }
-}
-
 Login.propTypes = {
-
+  registerLogin: PropTypes.func.isRequired,
 };
 
-export default Login;
+export default connect(mapDispatchToProps)(Login);
