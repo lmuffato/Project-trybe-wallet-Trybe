@@ -21,16 +21,14 @@ class Login extends React.Component {
 
   handleChange(e) {
     const { type, value } = e.target;
-    const { props: { loginProps }, state: { email } } = this;
     this.setState({
       [type]: value,
     });
-    loginProps(email);
   }
 
   updateUserRedux() {
     const { props: { loginProps }, state: { email } } = this;
-    console.log(email);
+    loginProps(email);
   }
 
   render() {
@@ -53,7 +51,7 @@ class Login extends React.Component {
           name="email"
           value={ email }
           testId="email-input"
-          onChange={ (e) => { handleChange(e); updateUserRedux(); } }
+          onChange={ handleChange }
         />
 
         <Input
@@ -66,6 +64,7 @@ class Login extends React.Component {
           <button
             type="button"
             disabled={ btnDisable }
+            onClick={ updateUserRedux }
           >
             Entrar
           </button>

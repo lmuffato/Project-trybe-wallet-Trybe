@@ -9,9 +9,9 @@ export default class Form extends Component {
     this.state = {
       value: '',
       description: '',
-      currency: '',
-      paymentMethod: 'Dinheiro',
-      tag: 'Alimentação',
+      // currency: '',
+      // paymentMethod: 'Dinheiro',
+      // tag: 'Alimentação',
     };
   }
 
