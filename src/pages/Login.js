@@ -1,21 +1,23 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import { userEmail } from '../actions';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(){
     super();
     this.state = {
         email: '',
         password: '',
         auth: false,
-      };
-    }
+    };
+  }
 
-    handleAuth = () => {
-      const { email, password } = this.state;
-      const regex2Email = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
-      const authValid = regex2Email.test(email) && password.length >= 5;
-      return authValid ? this.setState({ auth: true }) : this.setState({ auth: false });
-    }
+  handleAuth = () => {
+    const { email, password } = this.state;
+    const regex2Email = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    const authValid = regex2Email.test(email) && password.length >= 5;
+    return authValid ? this.setState({ auth: true }) : this.setState({ auth: false });
+  }
 
   updateState = (field, event) => {
     const { value } = event.target;
@@ -54,13 +56,20 @@ export default class Login extends Component {
     );
   }
 
+  dispatchButton = () => {
+    const { email } = this.state;
+    const { sendEmail, history: { push } } = this.props;
+    sendEmail(email);
+    push('/carteira');
+  }
+
   renderEntryButton = () => {
     const { auth } = this.state;
     return(
       <button
         type="button"
         disabled={ !auth }
-        onClick={ this.handleAuth }
+        onClick={ this.dispatchButton }
       >
         Entrar
       </button>
@@ -77,3 +86,9 @@ export default class Login extends Component {
     );
   };
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  sendEmail: (email) => dispatch(userEmail(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
