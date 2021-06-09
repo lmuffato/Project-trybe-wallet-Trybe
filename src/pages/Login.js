@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { mapDispatchToProps } from 'redux';
-import saveValueEmail from '../actions';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { saveValueEmail } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -47,9 +48,10 @@ class Login extends React.Component {
     });
     this.onButton();
   }
-
+  
   render() {
-    const { on } = this.state;
+    const { email } = this.props;
+    const { on, valueEmail } = this.state;
     return (
       <form>
         <input
@@ -62,19 +64,26 @@ class Login extends React.Component {
           data-testid="password-input"
           onChange={ this.passwordCheck }
         />
-        <button
-          type="submit"
-          disabled={ on }
-        >
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button
+            type="submit"
+            disabled={ on }
+            onClick={ () => email(valueEmail) }
+          >
+            Entrar
+          </button>
+        </Link>
       </form>
     );
   }
 }
 
-mapDispatchToProps = (dispatch) => ({
-  saveValueEmail: (email) => dispatch(saveValueEmail(email)),
+const mapDispatchToProps = (dispatch) => ({
+  email: (eMail) => dispatch(saveValueEmail(eMail)),
 });
+
+Login.propTypes = {
+  email: PropTypes.func,
+}.isRequired;
 
 export default connect(null, mapDispatchToProps)(Login);
