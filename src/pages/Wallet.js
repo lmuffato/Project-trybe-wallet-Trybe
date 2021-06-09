@@ -116,6 +116,7 @@ class Wallet extends React.Component {
       <tbody>
         <tr>
           {menu.map((item, index) => <th key={ index }>{item}</th>)}
+          <th>Editar/Excluir</th>
         </tr>
       </tbody>
     );
