@@ -2,13 +2,11 @@
 import { ADD_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
-export default function walletReducer(state = INITIAL_STATE, action) {
+export default function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
   case ADD_EXPENSE:
     return state;

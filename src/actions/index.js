@@ -2,9 +2,11 @@
 export const USER_LOGIN = 'USER_LOGIN';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 
-export const userLogin = (payload) => ({
+export const userLogin = (email) => ({
   type: USER_LOGIN,
-  payload,
+  payload: {
+    email,
+  },
 });
 
 export const addExpense = (payload) => ({

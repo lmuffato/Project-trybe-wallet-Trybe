@@ -1,11 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { userLogin } from '../actions';
 
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.validatePassword = this.validatePassword.bind(this);
     this.validateEmail = this.validateEmail.bind(this);
     this.validateButton = this.validateButton.bind(this);
+    this.btnClick = this.btnClick.bind(this);
     this.state = {
       disabled: true,
       email: '',
@@ -46,6 +52,12 @@ class Login extends React.Component {
     } else { this.setState({ passwordValidation: false }); }
   }
 
+  btnClick() {
+    const { userDispatch } = this.props;
+    const { email } = this.state;
+    userDispatch(email);
+  }
+
   render() {
     const { disabled, password, email } = this.state;
     return (
@@ -66,12 +78,26 @@ class Login extends React.Component {
           placeholder="Password"
           data-testid="password-input"
         />
-        <button type="button" disabled={ disabled }>
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button
+            type="button"
+            disabled={ disabled }
+            onClick={ this.btnClick }
+          >
+            Entrar
+          </button>
+        </Link>
       </>
     );
   }
 }
 
-export default Login;
+Login.propTypes = {
+  userDispatch: PropTypes.string,
+}.isRequired;
+
+const mapDispatchToProps = (dispatch) => ({
+  userDispatch: (email) => dispatch(userLogin(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
