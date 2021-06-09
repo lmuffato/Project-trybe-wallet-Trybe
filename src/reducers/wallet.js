@@ -2,6 +2,7 @@ import {
   GET_CURRENCIES,
   GET_CURRENCIES_SUCCESS,
   GET_CURRENCIES_ERROR,
+  ADD_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -10,6 +11,7 @@ const INITIAL_STATE = {
   selectedExchange: 'BRL',
   isLoading: false,
   error: '',
+  totalExpenses: 0,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -35,6 +37,13 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       isLoading: true,
       error: action.payload.error,
+    };
+  case ADD_EXPENSE:
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses, { id: state.expenses.length, ...action.payload.expense },
+      ],
     };
   default:
     return state;
