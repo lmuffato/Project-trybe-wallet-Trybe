@@ -5,7 +5,7 @@ const Label = ({ label, type, vid }) => (
   <label htmlFor={ vid }>
     {label}
     :
-    <input type={ type } name={ label } id={ vid } />
+    <input type={ type } name={ vid } id={ vid } />
   </label>
 );
 

@@ -5,9 +5,9 @@ const Header = ({ email, total = 0 }) => (
   <header className="header">
     <div>Trybe-Wallet</div>
     <div>
-      <div data-testid="email-field">
+      <span data-testid="email-field">
         {email}
-      </div>
+      </span>
       <div>
         Despesa Total: R$
         <span data-testid="total-field">{total}</span>

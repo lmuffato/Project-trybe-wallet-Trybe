@@ -2,11 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Select = ({ label, options, vid }) => (
-  <select name={ label } id={ vid }>
-    {options.map((option) => (
-      <option value={ option } key={ option }>{option}</option>
-    ))}
-  </select>
+  <label htmlFor={ vid }>
+    {label}
+    :
+    <select id={ vid }>
+      {options.map((option) => (
+        <option value={ option } key={ option }>{option}</option>
+      ))}
+    </select>
+  </label>
 );
 
 export default Select;

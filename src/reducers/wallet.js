@@ -3,6 +3,7 @@ const initialState = {
   currencies: [],
   expenses: [],
   total: 0,
+  loading: true,
 };
 
 export default function wallet(state = initialState, action) {
@@ -12,6 +13,7 @@ export default function wallet(state = initialState, action) {
       expenses: [...state.expenses, action.payload.expenses],
       id: state.id + action.payload.id,
       total: state.total + action.payload.total,
+      loading: action.payload.loading,
     };
   case 'SET_CURRENCIES':
     return { ...state, currencies: action.payload.currencies };
