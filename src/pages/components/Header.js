@@ -49,5 +49,3 @@ Header.propTypes = {
 };
 
 export default connect(mapStateToProps, null)(Header);
-
-// export default Header;

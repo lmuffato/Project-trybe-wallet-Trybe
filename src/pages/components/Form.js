@@ -48,7 +48,7 @@ class Form extends React.Component {
         </label>
         <label htmlFor="descricao">
           Descrição:
-          <input type="texarea" name="descricao" id="descricao" />
+          <input type="texbox" name="descricao" id="descricao" />
         </label>
         <label htmlFor="moeda">
           Moeda:
@@ -77,6 +77,7 @@ class Form extends React.Component {
             <option>Saúde</option>
           </select>
         </label>
+        <button type="button">Adicionar despesa</button>
       </form>
     );
   }
@@ -93,11 +94,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 Form.propTypes = {
   // email: PropTypes.string.isRequired,
-  currencies: PropTypes.objectOf.isRequired,
+  currencies: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)).isRequired,
   // expenses: PropTypes.string.isRequired,
   fetchAPI: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
-
-// export default Header;
