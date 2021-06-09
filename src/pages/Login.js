@@ -80,7 +80,7 @@ class Login extends React.Component {
             <button
               type="submit"
               disabled={ active }
-              onClick={ saveEmailDispatch(email) }
+              onClick={ () => saveEmailDispatch(email) }
             >
               Entrar
             </button>
