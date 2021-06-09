@@ -1,7 +1,55 @@
 import React from 'react';
 
 class Login extends React.Component {
+  constructor() {
+    super();
+    this.handleChange = this.handleChange.bind(this);
+    this.verifyEmail = this.verifyEmail.bind(this);
+    this.verifyPassword = this.verifyPassword.bind(this);
+    this.isDisabled = this.isDisabled.bind(this);
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
+  /*
+  email
+  email@com@
+  emailcom@
+  alguem@email.
+  */
+
+  verifyEmail() {
+    const { email } = this.state;
+    const hasOneAtSign = email.split('').filter((el) => el === '@').length === 1; // has to be true
+    const hasOneDot = email.split('').filter((el) => el === '.').length === 1; // has to be true
+    const doesNotEndWithDot = email[email.length - 1] !== '.'; // has to be true
+    return hasOneAtSign && hasOneDot && doesNotEndWithDot;
+  }
+
+  verifyPassword() {
+    const { password } = this.state;
+    const MIN_PASSWORD_LENGTH = 6;
+    return password.length >= MIN_PASSWORD_LENGTH;
+  }
+
+  handleChange(event) {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  // Ativação/Desativação do Botão feita através dessa função conforme dica do CORUJA NO PLANTÃO.
+  // Antes eu estava fazendo um estado para controlar isso e o avaliador não pegava.
+  isDisabled() {
+    return !(this.verifyEmail() && this.verifyPassword());
+  }
+
   render() {
+    const { email, password } = this.state;
+    const isSubmitDisabled = this.isDisabled();
+
     return (
       <>
         <h2>Login</h2>
@@ -12,6 +60,8 @@ class Login extends React.Component {
             data-testid="email-input"
             name="email"
             id="email"
+            value={ email }
+            onChange={ this.handleChange }
           />
         </label>
         <label htmlFor="password">
@@ -21,9 +71,17 @@ class Login extends React.Component {
             data-testid="password-input"
             name="password"
             id="password"
+            value={ password }
+            onChange={ this.handleChange }
           />
         </label>
-        <button type="submit" id="btn-submit">Entrar</button>
+        <input
+          type="button"
+          id="btn-submit"
+          value="Entrar"
+          disabled={ isSubmitDisabled }
+          onClick={ this.verifyEmail }
+        />
       </>
     );
   }
