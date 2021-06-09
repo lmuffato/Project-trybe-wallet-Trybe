@@ -18,7 +18,9 @@ const receiveCurrencies = (currency) => ({
 
 export const fetchCurrency = () => async (dispatch) => {
   dispatch(requestCurrencies());
-  const response = await fetch('');
-  const currencies = await response.json();
+  const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+  const data = await response.json();
+  const currencies = Object.values(data).filter(({ codein }) => codein !== 'BRLT');
+
   return dispatch(receiveCurrencies(currencies));
 };
