@@ -25,7 +25,10 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       isLoading: false,
-      currencies: action.payload.currencies,
+      currencies: [
+        ...Object.keys(action.payload.currencies)
+          .filter((key) => key !== 'USDT' && key !== 'DOGE'),
+      ],
     };
   case GET_CURRENCIES_ERROR:
     return {

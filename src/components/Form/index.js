@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getCurrenciesThunk } from '../../actions';
 
 class Form extends Component {
+  componentDidMount() {
+    const { getCurrencies } = this.props;
+    getCurrencies();
+  }
+
   render() {
-    const { currencies } = this.props;
+    const { currencies, isLoading } = this.props;
+    if (isLoading) return 'Carregando...';
     return (
       <div>
         <form>
@@ -18,11 +25,13 @@ class Form extends Component {
           </label>
           <label htmlFor="currency">
             Moeda:
-            <select name="currency" id="currency">
+            <select name="currency" id="currency" role="combobox">
               {
-                Object
-                  .keys(currencies)
-                  .map((key, id) => <option key={ id }>{ currencies[key] }</option>)
+                currencies
+                  .map((currency, id) => (
+                    <option key={ id } value={ currency }>
+                      { currency }
+                    </option>))
               }
             </select>
           </label>
@@ -51,13 +60,18 @@ class Form extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  currencies: Object
-    .keys(state.wallet.currencies)
-    .map((key) => state.wallet.currencies[key].code),
+  currencies: state.wallet.currencies,
+  isLoading: state.wallet.isLoading,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(getCurrenciesThunk()),
 });
 
 Form.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  getCurrencies: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

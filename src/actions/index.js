@@ -37,5 +37,5 @@ export const getCurrenciesThunk = () => (dispatch) => {
         dispatch(getCurrenciesSuccess(data));
       });
     })
-    .catch(() => { getCurrenciesError(); });
+    .catch(() => { dispatch(getCurrenciesError()); });
 };
