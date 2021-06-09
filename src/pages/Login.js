@@ -1,5 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import userAction from '../actions/loginAction';
 
 class Login extends React.Component {
   constructor() {
@@ -21,10 +24,12 @@ class Login extends React.Component {
 
   checkInputs() {
     const { email, password } = this.state;
+    const { sendEmail } = this.props;
     const MAX_PASSWORD_LENGTH = 5;
 
     if (this.validateEmail(email) && password.length > MAX_PASSWORD_LENGTH) {
       this.setState({ disabled: false });
+      sendEmail(email);
     } else {
       this.setState({ disabled: true });
     }
@@ -67,4 +72,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  sendEmail: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = {
+  sendEmail: userAction,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
