@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { getCurrencies, sendExpenses } from '../actions';
 import WalletHeader from '../components/walletHeader';
 import WalletForm from '../components/walletForm';
+import WalletTable from '../components/Table';
 
 class Wallet extends React.Component {
   constructor() {
@@ -72,6 +73,7 @@ class Wallet extends React.Component {
           onChange={ this.handleInput }
           onSubmit={ this.handleSubmit }
         />
+        <WalletTable />
       </div>);
   }
 }
