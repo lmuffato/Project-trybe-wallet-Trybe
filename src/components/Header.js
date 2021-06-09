@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 const Header = () => {
   const email = useSelector((state) => state.user.email);
-  const [total] = React.useState(0.00);
+  const total = useSelector((state) => state.wallet.total);
   const [moeda] = React.useState('BRL');
 
   return (
@@ -17,6 +17,7 @@ const Header = () => {
         </div>
         <div data-testid="total-field">
           Despesa Total: R$
+          {' '}
           {total}
         </div>
         <div data-testid="header-currency-field">

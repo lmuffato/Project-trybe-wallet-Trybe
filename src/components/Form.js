@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import pagamento from './pagamento';
+import NewExpense from './NewExpense';
 import tag from './tag';
 import Label from './Label';
 import Select from './Select';
@@ -41,7 +42,7 @@ const Form = () => {
           options={ pagamento }
         />
         <Select htmlfor="tag" label="Tag" options={ tag } />
-        <button type="button">Adicionar despesa</button>
+        <NewExpense />
       </form>
     </div>
   );

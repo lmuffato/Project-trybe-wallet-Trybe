@@ -2,6 +2,8 @@
 const initialState = {
   currencies: [],
   expenses: [],
+  qtd: 0,
+  total: 0.00,
 };
 
 export default function user(state = initialState, action) {
@@ -10,8 +12,15 @@ export default function user(state = initialState, action) {
     return {
       ...state,
       currencies: action.payload.currencies,
-      expenses: action.payload.expenses,
     };
+  case 'NEW_EXPENSE':
+    return {
+      ...state,
+      expenses: [{ ...state.expenses }, action.payload.expenses],
+      total: action.payload.total,
+    };
+  case 'ADD_QTD':
+    return { qtd: state.qtd + 1 };
   default:
     return state;
   }

@@ -5,7 +5,7 @@ const Select = ({ htmlfor, options, label }) => (
   <label htmlFor={ htmlfor }>
     {label}
     :
-    <select name={ htmlfor }>
+    <select name={ htmlfor } id={ htmlfor }>
       {options.map(({ name }) => (
         <option key={ name } value={ name }>{name}</option>
       ))}
