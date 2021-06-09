@@ -93,7 +93,7 @@ export const getCurrenciesThunkTest = () => async (dispatch) => {
   dispatch(getCurrenciesTry());
   try {
     const request = await getCurrencies();
-    console.log(request);
+    // console.log(request);
     // const currencyList = filterCurrencies(request);
     dispatch(getCurrenciesSuccess(request));
   } catch (error) {
