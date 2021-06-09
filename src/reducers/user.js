@@ -11,7 +11,7 @@ const INITIAL_STATE = {
 function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case USER_LOGIN_SUCESS:
-    return { ...state, isLogged: true, email: action.payload.email };
+    return { isLogged: true, email: action.payload };
   default:
     return state;
   }
