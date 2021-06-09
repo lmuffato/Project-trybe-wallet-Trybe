@@ -6,7 +6,7 @@ import Wallet from '../pages/Wallet';
 function Routes() {
   return (
     <Switch>
-      <Route path="/wallet" component={ Wallet } />
+      <Route path="/carteira" component={ Wallet } />
       <Route exactpath="/" component={ Login } />
     </Switch>
   );
