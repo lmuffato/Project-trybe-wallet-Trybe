@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   id: -1,
-  totalValue: 0,
+  // totalValue: 0,
 };
 
 export default function wallet(state = INITIAL_STATE, action) {
@@ -29,13 +29,12 @@ export default function wallet(state = INITIAL_STATE, action) {
       isFetching: false,
       expenses: [...state.expenses, action.payload.localState],
       id: action.payload.id,
-      totalValue: state.totalValue + action.payload.totalAmount,
+      // totalValue: state.totalValue + action.payload.totalAmount,
     };
   case DELETE_EXPENSE:
     return {
       ...state,
-      expenses: action.array,
-      totalValue: state.totalValue - action.value,
+      expenses: state.expenses.filter((e) => e.id !== action.payload),
     };
   default:
     return state;

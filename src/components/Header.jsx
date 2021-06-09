@@ -4,8 +4,21 @@ import PropTypes from 'prop-types';
 import wallet from '../images/wallet.png';
 
 class Header extends React.Component {
+  getExpenses() {
+    const { expenses } = this.props;
+    const allValues = expenses.map((e) => Number(this.headerSum(e)));
+    const totalValue = allValues.reduce((total, value) => total + value, 0);
+    return totalValue;
+  }
+
+  headerSum({ currency, value, exchangeRates }) {
+    const currInfo = Object.values(exchangeRates)
+      .filter((curr) => curr.code === currency && curr.codein !== 'BRLT');
+    return Number(currInfo[0].ask * value).toFixed(2);
+  }
+
   render() {
-    const { email, totalValue } = this.props;
+    const { email } = this.props;
     return (
       <header>
         <div>
@@ -18,7 +31,7 @@ class Header extends React.Component {
           </p>
           <p data-testid="total-field">
             Despesa total:
-            { totalValue > 0 ? totalValue.toFixed(2) : 0 }
+            { this.getExpenses() }
           </p>
           <p data-testid="header-currency-field">
             BRL
@@ -31,7 +44,7 @@ class Header extends React.Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
-  totalValue: state.wallet.totalValue,
+  expenses: state.wallet.expenses,
 });
 
 Header.propTypes = {

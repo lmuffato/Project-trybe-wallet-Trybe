@@ -23,10 +23,9 @@ export const addExpense = (payload) => ({
   payload,
 });
 
-export const deleteExpense = (array, value) => ({
+export const deleteExpense = (payload) => ({
   type: DELETE_EXPENSE,
-  array,
-  value,
+  payload,
 });
 
 export const fetchCurrency = () => (

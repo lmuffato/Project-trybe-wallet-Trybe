@@ -27,17 +27,11 @@ class ExpensesForm extends React.Component {
   getState() {
     const { sendExpense, currencies } = this.props;
     const localState = { ...this.state, exchangeRates: currencies };
-    const totalAmount = Number(this.headerSum(localState));
+    // const totalAmount = Number(this.headerSum(localState));
     const { id } = this.state;
-    const payload = { localState, id, totalAmount };
+    const payload = { localState, id /* , totalAmount */ };
     sendExpense(payload);
     this.setState(INITIAL_STATE);
-  }
-
-  headerSum({ currency, value, exchangeRates }) {
-    const currInfo = Object.values(exchangeRates)
-      .filter((curr) => curr.code === currency);
-    return Number(currInfo[0].ask * value).toFixed(2);
   }
 
   handleChange({ target }) {

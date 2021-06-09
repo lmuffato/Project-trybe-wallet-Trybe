@@ -41,22 +41,23 @@ class ExpensesTable extends React.Component {
     );
   }
 
-  filterIds(id) {
-    const { expenses, sendDeleteAction } = this.props;
-    const expenseToDelete = expenses.filter((e) => e.id === id);
-    const filteredState = expenses.filter((e) => e.id !== id);
-    const exchange = expenseToDelete[0];
-    const exchanges = Object.values(expenseToDelete[0].exchangeRates)
-      .filter((e) => e.code === exchange.currency);
-    const value = exchange.value * exchanges[0].ask;
-    sendDeleteAction(filteredState, Number(value));
-  }
+  // filterIds(id) {
+  //   const { expenses, sendDeleteAction } = this.props;
+  //   const expenseToDelete = expenses.filter((e) => e.id === id);
+  //   const filteredState = expenses.filter((e) => e.id !== id);
+  //   const exchange = expenseToDelete[0];
+  //   const exchanges = Object.values(expenseToDelete[0].exchangeRates)
+  //     .filter((e) => e.code === exchange.currency);
+  //   const value = exchange.value * exchanges[0].ask;
+  //   sendDeleteAction(filteredState, Number(value));
+  // }
 
   renderDeleteButton(id) {
+    const { sendDeleteAction } = this.props;
     return (
       <button
         type="button"
-        onClick={ () => this.filterIds(id) }
+        onClick={ () => sendDeleteAction(id) }
         data-testid="delete-btn"
       >
         Excluir
@@ -102,7 +103,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  sendDeleteAction: (array, value) => dispatch(deleteExpense(array, value)),
+  sendDeleteAction: (id) => dispatch(deleteExpense(id)),
 });
 
 ExpensesTable.propTypes = {
