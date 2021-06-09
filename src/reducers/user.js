@@ -10,6 +10,7 @@ const INITIAL_STATE_USER = {
 const userLogin = (state = INITIAL_STATE_USER, action) => {
   switch (action.type) {
   case SAVE_VALUE_EMAIL:
+    console.log(action.email);
     return {
       ...state,
       email: action.email,
@@ -18,5 +19,4 @@ const userLogin = (state = INITIAL_STATE_USER, action) => {
     return state;
   }
 };
-
 export default userLogin;

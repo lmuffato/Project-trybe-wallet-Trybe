@@ -22,6 +22,7 @@ class Login extends React.Component {
 
   onButton() {
     const { validPassword, validEmail } = this.state;
+    console.log(validEmail, validPassword);
     if (validEmail && validPassword) {
       this.setState({
         on: false,
@@ -48,10 +49,18 @@ class Login extends React.Component {
   }
 
   emailCheck({ target }) {
-    const validation = /^[\S.]+@[a-z]+.\w{2,3}$/g;
-    validation.test(target.value);
+    const validation = /^[\w.]+@[a-z]+.\w{2,3}$/g;
+    if (validation.test(target.value)) {
+      this.setState({
+        validEmail: true,
+      });
+    } else {
+      this.setState({
+        validEmail: false,
+      });
+    }
     this.setState({
-      validEmail: true,
+      valueEmail: target.value,
     });
     this.onButton();
   }
@@ -59,6 +68,7 @@ class Login extends React.Component {
   render() {
     const { email } = this.props;
     const { on, valueEmail } = this.state;
+    console.log(valueEmail);
     return (
       <form>
         <input
@@ -86,7 +96,7 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  email: (eMail) => dispatch(saveValueEmail(eMail)),
+  email: (valorEmail) => dispatch(saveValueEmail(valorEmail)),
 });
 
 Login.propTypes = {
