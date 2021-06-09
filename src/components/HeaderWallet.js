@@ -4,13 +4,12 @@ import { connect } from 'react-redux';
 
 class HeaderWallet extends React.Component {
   render() {
-    const { userEmail } = this.props;
-    const total = 0;
+    const { userEmail, total } = this.props;
     return (
       <div>
         <h1 data-testid="email-field">{`Bem-vindo ${userEmail}`}</h1>
-        <p data-testid="total-field">{` Despesa Total: R$ ${total}`}</p>
-        <p data-testid="header-currency-field">BRL</p>
+        <p data-testid="total-field">{` Despesa Total: R$ ${total || 0}`}</p>
+        <p data-testid="header-currency-field">Cambio: BRL</p>
       </div>
     );
   }
@@ -18,9 +17,12 @@ class HeaderWallet extends React.Component {
 
 HeaderWallet.propTypes = {
   userEmail: PropTypes.string.isRequired,
+  total: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
+  total: state.wallet.total,
 });
+
 export default connect(mapStateToProps, null)(HeaderWallet);

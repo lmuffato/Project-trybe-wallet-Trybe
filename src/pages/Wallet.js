@@ -1,14 +1,16 @@
 import React from 'react';
-import HeaderWalltet from './HeaderWallet';
+import { connect } from 'react-redux';
+import { HeaderWallet, FormExpense } from '../components';
 
 class Wallet extends React.Component {
   render() {
     return (
       <div>
-        <HeaderWalltet />
+        <HeaderWallet />
+        <FormExpense />
       </div>
     );
   }
 }
 
-export default Wallet;
+export default connect(null, null)(Wallet);
