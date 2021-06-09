@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { loginData } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -6,10 +10,12 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      redireciona: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.habClick = this.habClick.bind(this);
+    this.redirect = this.redirect.bind(this);
   }
 
   handleChange({ target }) {
@@ -30,10 +36,23 @@ class Login extends React.Component {
     return disable;
   }
 
+  redirect() {
+    const { sendLogin } = this.props;
+    const { email } = this.state;
+    sendLogin(email);
+    this.setState({
+      redireciona: true,
+    });
+  }
+
   render() {
+    let renderPage;
+    const { redireciona } = this.state;
     this.habClick();
 
-    return (
+    const wallet = <Redirect to={ { pathname: '/carteira' } } />;
+
+    const form = (
       <form>
         <label htmlFor="email">
           Email:
@@ -57,10 +76,29 @@ class Login extends React.Component {
           />
         </label>
 
-        <button type="button" disabled={ this.habClick() }>Entrar</button>
+        <button
+          type="button"
+          onClick={ this.redirect }
+          disabled={ this.habClick() }
+        >
+          Entrar
+        </button>
       </form>
     );
+
+    if (redireciona) renderPage = wallet;
+    else renderPage = form;
+
+    return renderPage;
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  sendLogin: (email) => dispatch(loginData(email)),
+});
+
+Login.propTypes = {
+  sendLogin: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
