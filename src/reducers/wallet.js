@@ -1,1 +1,8 @@
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
+import initialState from './initialState';
+
+const wallet = (state = initialState, action) => {
+  console.log(action);
+  return (state);
+};
+
+export default wallet;
