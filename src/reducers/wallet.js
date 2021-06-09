@@ -1,5 +1,5 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { QUALQUER_COISA2 } from '../actions/index';
+import { WALLET } from '../actions/index';
 
 const WALLET_INITIAL_STATE = {
   wallet: {
@@ -10,7 +10,7 @@ const WALLET_INITIAL_STATE = {
 
 const wallet = (state = WALLET_INITIAL_STATE, action) => {
   switch (action.type) {
-  case QUALQUER_COISA2:
+  case WALLET:
     return { ...state, action };
 
   default:

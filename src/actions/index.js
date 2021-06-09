@@ -1,12 +1,12 @@
-export const QUALQUER_COISA = 'QUALQUER_COISA';
-export const QUALQUER_COISA2 = 'QUALQUER_COISA2';
+export const USER = 'USER';
+export const WALLET = 'WALLET';
 
 export const user = (payload) => ({
-  type: QUALQUER_COISA,
+  type: USER,
   payload,
 });
 
 export const wallet = (payload) => ({
-  type: QUALQUER_COISA2,
+  type: WALLET,
   payload,
 });
