@@ -16,10 +16,22 @@ const currenciesAciton = (payload) => ({
   payload,
 });
 
+const expensesAction = (payload) => ({
+  type: EXPENSES,
+  payload,
+});
+
 export const getCurrencies = () => async (dispatch) => {
   const fetched = await fetch('https://economia.awesomeapi.com.br/json/all');
   const json = await fetched.json();
   const currencies = Object.keys(json);
   const filtered = currencies.filter((element) => element !== 'USDT');
   dispatch(currenciesAciton(filtered));
+};
+
+export const sendExpenses = (obj) => async (dispatch) => {
+  const fetched = await fetch('https://economia.awesomeapi.com.br/json/all');
+  const json = await fetched.json();
+  obj.exchangeRates = json;
+  dispatch(expensesAction(obj));
 };

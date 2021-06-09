@@ -1,57 +1,77 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getCurrencies } from '../actions';
+import { getCurrencies, sendExpenses } from '../actions';
+import WalletHeader from '../components/walletHeader';
+import WalletForm from '../components/walletForm';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      value: '',
+      description: '',
+      currence: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    };
+    this.handleInput = this.handleInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   componentDidMount() {
     const { getApi } = this.props;
     getApi();
   }
 
+  handleInput(event) {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const { sendExpense, wallet: { expenses } } = this.props;
+    const state = { ...this.state };
+    state.id = expenses.length;
+    sendExpense(state);
+    this.setState({
+      value: '',
+      description: '',
+      currence: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    });
+  }
+
+  handleTotal() {
+    const { wallet: { expenses } } = this.props;
+    return expenses.reduce((acumulator, element) => {
+      const value = Number(element.value);
+      const currence = Number(element.exchangeRates[element.currence].ask);
+      const total = Number((value * currence).toFixed(2));
+      return acumulator + total;
+    }, 0);
+  }
+
   render() {
     const { user: { email }, wallet: { currencies } } = this.props;
+    const { value, description, currence, method, tag } = this.state;
     return (
       <div>
-        <header>
-          <h1 data-testid="email-field">{email}</h1>
-          <h1 data-testid="total-field">0</h1>
-          <h1 data-testid="header-currency-field">BRL</h1>
-        </header>
-        <form>
-          <label htmlFor="valor">
-            Valor
-            <input id="valor" type="number" />
-          </label>
-          <label htmlFor="descrição">
-            Descrição
-            <input id="descrição" type="text" />
-          </label>
-          <label htmlFor="moeda">
-            Moeda
-            <select id="moeda">
-              {currencies.map((element) => <option key={ element }>{element}</option>)}
-            </select>
-          </label>
-          <label htmlFor="metodo">
-            Método de pagamento
-            <select id="metodo">
-              <option>Dinheiro</option>
-              <option>Cartão de crédito</option>
-              <option>Cartão de débito</option>
-            </select>
-          </label>
-          <label htmlFor="tag">
-            Tag
-            <select id="tag">
-              <option>Alimentação</option>
-              <option>Lazer</option>
-              <option>Trabalho</option>
-              <option>Transporte</option>
-              <option>Saúde</option>
-            </select>
-          </label>
-        </form>
+        <WalletHeader email={ email } total={ this.handleTotal() } currence="BRL" />
+        <WalletForm
+          currencies={ currencies }
+          value={ value }
+          description={ description }
+          currence={ currence }
+          method={ method }
+          tag={ tag }
+          onChange={ this.handleInput }
+          onSubmit={ this.handleSubmit }
+        />
       </div>);
   }
 }
@@ -63,6 +83,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getApi: () => dispatch(getCurrencies()),
+  sendExpense: (obj) => dispatch(sendExpenses(obj)),
 });
 
 Wallet.propTypes = {
@@ -70,8 +91,10 @@ Wallet.propTypes = {
     email: PropTypes.string,
   }).isRequired,
   getApi: PropTypes.func.isRequired,
+  sendExpense: PropTypes.func.isRequired,
   wallet: PropTypes.shape({
     currencies: PropTypes.arrayOf(PropTypes.string),
+    expenses: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
 };
 

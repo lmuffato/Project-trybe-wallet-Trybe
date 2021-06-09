@@ -16,7 +16,7 @@ export default function wallet(state = initialState, action) {
   case EXPENSES:
     return {
       ...state,
-      expenses: [...state.expenses, ...action.payload],
+      expenses: [...state.expenses, action.payload],
     };
   default:
     return state;
