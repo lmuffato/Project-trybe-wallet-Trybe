@@ -19,7 +19,7 @@ class Login extends React.Component {
   loginIsValid() {
     const { email, password } = this.state;
     const validateRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
-    const minCharPassword = 6;
+    const minCharPassword = 5;
     if (validateRegex.test(email) && password.length >= minCharPassword) {
       this.setState({ loginValid: true });
     }
@@ -49,7 +49,7 @@ class Login extends React.Component {
             <input
               type="email"
               id="email"
-              testid="email-input"
+              data-testid="email-input"
               value={ email }
               placeholder="digite o email"
               onChange={ this.handleLogin }
