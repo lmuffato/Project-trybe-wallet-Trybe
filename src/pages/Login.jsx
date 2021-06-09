@@ -27,11 +27,13 @@ class Login extends React.Component {
               onChange={ (e) => this.setState({ email: e.target.value }) }
               type="text"
               placeholder="email"
+              data-testid="email-input"
             />
             <input
               onChange={ (e) => this.setState({ password: e.target.value }) }
               type="password"
               placeholder="senha"
+              data-testid="password-input"
             />
             <button
               type="button"
