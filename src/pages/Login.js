@@ -3,8 +3,10 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
 export default function Login() {
+  const numberSix = 6;
+  const number400 = 400;
   return (
-    <Formik 
+    <Formik
       initialValues={ { email: '', password: '' } }
       validationSchema={ Yup.object({
         email: Yup.string()
@@ -12,38 +14,35 @@ export default function Login() {
           .required('Requerido'),
         password: Yup.string()
           .required('Requerido')
-          .min(6),
-      })}
+          .min(numberSix),
+      }) }
       onSubmit={ (values, { setSubmitting }) => {
         setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
-        }, 400)
-      }}
+        }, number400);
+      } }
     >
       { (formik) => (
         <Form>
-          <Field 
-            name="email" 
+          <Field
+            name="email"
             type="email"
-            placeholder="name@example.com" 
+            placeholder="name@example.com"
             data-testid="email-input"
           />
           <ErrorMessage name="email" />
-
-          <Field 
-            name="password" 
+          <Field
+            name="password"
             type="password"
-            placeholder="atleast 6 characters" 
+            placeholder="atleast 6 characters"
             data-testid="password-input"
           />
           <ErrorMessage name="password" />
-
-          <button 
+          <button
             type="submit"
             disabled={
               !/^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/.test(formik.values.email)
-              || formik.values.password.length < 6
+              || formik.values.password.length < numberSix
             }
           >
             Entrar
@@ -51,5 +50,5 @@ export default function Login() {
         </Form>
       )}
     </Formik>
-  )
+  );
 }
