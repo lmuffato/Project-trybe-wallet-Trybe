@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { removeExpense } from '../actions/index';
+import './table.css';
 
 class Table extends React.Component {
   render() {
@@ -41,6 +42,9 @@ class Table extends React.Component {
                     type="button"
                   >
                     Excluir
+                  </button>
+                  <button type="button" data-testid="edit-btn">
+                    Editar
                   </button>
                 </td>
               </tr>);
