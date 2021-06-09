@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Input from '../components/Input';
 import Select from '../components/Select';
+import { fetchCurrencies } from '../actions';
 
 const toInputs = [
   { type: 'text', label: 'Valor', name: 'value', testeId: '' },
@@ -30,11 +31,12 @@ const toSelects = (currencies) => ([
 
 class Wallet extends React.Component {
   componentDidMount() {
-
+    const { getCurrencies } = this.props;
+    getCurrencies();
   }
 
   render() {
-    const { email } = this.props;
+    const { email, currencies } = this.props;
     return (
       <div>
         <header>
@@ -56,7 +58,7 @@ class Wallet extends React.Component {
             ))
           }
           {
-            toSelects([]).map((select, index) => (
+            toSelects(currencies).map((select, index) => (
               <Select
                 label={ select.label }
                 id={ select.name }
@@ -78,9 +80,13 @@ Wallet.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string),
 }.isRequired;
 
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(fetchCurrencies()),
+});
+
 const mapStateToProps = (state) => ({
   email: state.user.email,
   currencies: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps, null)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
