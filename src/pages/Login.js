@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { login } from '../actions';
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       email: '',
       senha: '',
@@ -22,15 +22,15 @@ class Login extends React.Component {
 
   changeEmail(event) {
     this.setState({ email: event.target.value });
-    const status = event.target.checkValidity();
+    const statusEmail = event.target.checkValidity();
     const { senhaValid } = this.state;
 
-    if (senhaValid && status) {
+    if (senhaValid && statusEmail) {
       this.setState({
         disabled: false,
         emailValid: true,
       });
-    } else if (status) {
+    } else if (statusEmail) {
       this.setState({ emailValid: true });
     } else {
       this.setState({
@@ -42,15 +42,15 @@ class Login extends React.Component {
 
   changeSenha(event) {
     this.setState({ senha: event.target.value });
-    const status = event.target.checkValidity();
+    const statusSenha = event.target.checkValidity();
     const { emailValid } = this.state;
 
-    if (emailValid && status) {
+    if (emailValid && statusSenha) {
       this.setState({
         disabled: false,
         senhaValid: true,
       });
-    } else if (status) {
+    } else if (statusSenha) {
       this.setState({ senhaValid: true });
     } else {
       this.setState({
@@ -61,10 +61,10 @@ class Login extends React.Component {
   }
 
   handleClick() {
-    const { email, senha } = this.state;
-    this.setState({ redirect: true });
     const { user } = this.props;
-    user({ email, senha });
+    const { email } = this.state;
+    user({ email });
+    this.setState({ redirect: true });
   }
 
   render() {
@@ -77,16 +77,16 @@ class Login extends React.Component {
           value={ email }
           placeholder="email"
           data-testid="email-input"
-          required
           onChange={ (event) => this.changeEmail(event) }
           pattern="(\w\.?)+@[\w\.-]+\.\w{2,4}"
+          required
         />
         <input
           type="password"
           value={ senha }
           placeholder="senha"
           data-testid="password-input"
-          minLength={ 6 }
+          pattern=".{6,}"
           onChange={ (event) => this.changeSenha(event) }
           required
         />
