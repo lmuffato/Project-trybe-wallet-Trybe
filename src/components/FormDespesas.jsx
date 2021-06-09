@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { func, arrayOf, shape } from 'prop-types';
 
-import { addDespesaThunk, totalPrice } from '../actions';
+import { addDespesaThunk } from '../actions';
 
 class FormDespesas extends Component {
   constructor() {
@@ -116,7 +116,7 @@ const mapDispatchToProps = (dispatch) => ({
 FormDespesas.propTypes = {
   addDespesa: func.isRequired,
   currencies: arrayOf(shape({})).isRequired,
-  expenses: arrayOf().isRequired,
+  expenses: arrayOf(shape({})).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormDespesas);

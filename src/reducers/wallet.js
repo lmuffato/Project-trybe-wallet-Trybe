@@ -40,11 +40,13 @@ function wallet(state = INITIAL_STATE, { payload, type }) {
     return {
       ...state,
       expenses: [...state.expenses, payload],
+      isLoading: false,
     };
   case TOTAL_PRICE:
     return {
       ...state,
       totalPrice: state.totalPrice + payload,
+      isLoading: false,
     };
   default:
     return state;

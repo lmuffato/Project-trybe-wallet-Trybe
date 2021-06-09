@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { func } from 'prop-types';
+
+import { getDataThunk } from '../actions';
 
 import Header from '../components/Header';
 import FormDespesas from '../components/FormDespesas';
-import { getDataThunk } from '../actions';
+import Table from '../components/Table';
 
 class Wallet extends Component {
   componentDidMount() {
@@ -16,6 +19,7 @@ class Wallet extends Component {
       <>
         <Header />
         <FormDespesas />
+        <Table />
       </>
     );
   }
@@ -30,5 +34,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getData: () => dispatch(getDataThunk()),
 });
+
+Wallet.propTypes = {
+  getData: func.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(Wallet);
