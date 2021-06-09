@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { makeLogin } from '../actions';
 
@@ -10,6 +11,9 @@ class Login extends React.Component {
       password: '',
       loginValid: false,
     };
+    this.loginIsValid = this.loginIsValid.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.submitLogin = this.submitLogin.bind(this);
   }
 
   loginIsValid() {
@@ -29,8 +33,9 @@ class Login extends React.Component {
   submitLogin(event) {
     event.preventDefault();
     const { email, password } = this.state;
-    const { registerLogin } = this.props;
+    const { registerLogin, history: { push } } = this.props;
     registerLogin({ email, password });
+    push('/carteira');
   }
 
   render() {
@@ -74,12 +79,15 @@ class Login extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  registerLogin: (userInfo) => dispatch(makeLogin(userInfo)),
+const mapDispachToProps = (dispach) => ({
+  registerLogin: (userInfo) => dispach(makeLogin(userInfo)),
 });
 
 Login.propTypes = {
   registerLogin: PropTypes.func.isRequired,
+  history: PropTypes.objectOf(PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  })).isRequired,
 };
 
-export default connect(mapDispatchToProps)(Login);
+export default connect(null, mapDispachToProps)(Login);
