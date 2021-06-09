@@ -12,19 +12,13 @@ class Login extends React.Component {
       loginValid: false,
     };
   };
-
   loginIsValid = () => {
     const { email, password } = this.state;
     const validateRegex =  /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
-    console.log(validateRegex.test(email), 'teste do email');
-    console.log(password.length >= 6, 'teste do password');
-
     if (validateRegex.test(email) && password.length >= 6) {
       this.setState({ loginValid: true });
-      console.log('login foi validado')
     }
   };
-
   handleLogin = ({ target: { value, id } }) => {
     this.setState({ [id]: value })
     this.loginIsValid();
