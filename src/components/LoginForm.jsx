@@ -87,8 +87,8 @@ class LoginForm extends Component {
 }
 
 LoginForm.propTypes = {
-  getEmail: PropTypes.func.isRequired,
-};
+  getEmail: PropTypes.func,
+}.isRequired;
 
 const mapDispatchToProps = (dispatch) => ({
   getEmail: (email) => dispatch(
