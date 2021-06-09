@@ -1,0 +1,11 @@
+.header {
+  align-items: flex-end;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.header span {
+  margin: 5px;
+}
