@@ -1,0 +1,38 @@
+.login-page {
+  align-items: center;
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.login-page img {
+  margin-bottom: 1.4rem;
+  width: 10rem;
+}
+
+.login-page input {
+  font-size: 1.4rem;
+  height: 1.6rem;
+  padding: 0.4rem;
+  width: 16rem;
+}
+
+.login-page button {
+  background-color: green;
+  border: none;
+  border-radius: 0.2rem;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  height: 2rem;
+  margin-top: 1rem;
+  transition: all 0.2s;
+  width: 14rem;
+}
+
+.login-page button:hover {
+  transform: scale(1.2);
+}
