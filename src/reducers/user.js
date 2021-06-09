@@ -13,7 +13,6 @@ const INITIAL_STATE = {
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case VALID_EMAIL:
-    console.log(action);
     return {
       ...state,
       email: action.payload,
