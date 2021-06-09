@@ -1,8 +1,28 @@
-// const INITIAL_STATE = {
-//   email: '',
-//   senha: '',
-// };
+import { VALID_EMAIL } from '../actions/index';
 
-// const userReducer = (state = INITIAL_STATE, action) {
-//     switch()
-// }
+const INITIAL_STATE = {
+  user: {
+    email: '',
+  },
+  wallet: {
+    currencies: [],
+    expenses: [],
+  },
+};
+
+const userReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+  case VALID_EMAIL:
+    console.log(action);
+    return {
+      ...state,
+      email: action.payload,
+    };
+  default:
+    return {
+      ...state,
+    };
+  }
+};
+
+export default userReducer;
