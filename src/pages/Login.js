@@ -44,7 +44,7 @@ class Login extends React.Component {
               name="email"
               id="email"
               type="email"
-              testid="email-input"
+              data-testid="email-input"
               onChange={ this.handleChange }
               value={ email }
               required
@@ -64,7 +64,7 @@ class Login extends React.Component {
           {
             password.length >= maxPassLength && email.match(emailValidation)
               ? this.myButton()
-              : <button type="button" disabled>Entrar</button>
+              : <button type="button" disabled><Link to="/carteira">Entrar</Link></button>
           }
         </form>
       </fieldset>
