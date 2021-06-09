@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 class Wallet extends React.Component {
   render() {
@@ -6,4 +7,7 @@ class Wallet extends React.Component {
   }
 }
 
-export default Wallet;
+// const mapStateToProps = (state) => ({
+//   email: state.user.user.email,
+// });
+export default connect()(Wallet);

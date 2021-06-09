@@ -1,1 +1,8 @@
-// Coloque aqui suas actions
+const LOGIN = 'LOGIN';
+
+const login = (payload) => ({
+  type: LOGIN,
+  payload,
+});
+
+export default login;
