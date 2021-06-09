@@ -1,6 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import
 {
@@ -74,7 +74,7 @@ class Login extends React.Component {
           <br />
           <br />
           <label htmlFor="password-input">
-            Senha:123
+            Senha:
             <input
               type="password"
               minLength="6"
@@ -114,8 +114,8 @@ const mapStateToProps = (state) => ({
 });
 
 Login.propTypes = {
-  setEmail: PropTypes.string.isRequired,
-  setPassword: PropTypes.string.isRequired,
+  setEmail: PropTypes.func.isRequired,
+  setPassword: PropTypes.func.isRequired,
   setEmailValid: PropTypes.func.isRequired,
   setPasswordValid: PropTypes.func.isRequired,
   emailValid: PropTypes.bool.isRequired,
