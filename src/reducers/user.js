@@ -9,6 +9,7 @@ export default function movieReducer(state = INITIAL_STATE, action) {
   case 'GET_EMAIL':
     return {
       email: action.email,
+      ...state,
     };
   default:
     return state;

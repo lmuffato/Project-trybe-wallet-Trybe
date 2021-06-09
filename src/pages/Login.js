@@ -46,7 +46,7 @@ class Login extends React.Component {
 
   render() {
     const { emailInput } = this.state;
-    const { firstDispatchGetEmail = 'abacate', history: { push } } = this.props;
+    const { firstDispatchGetEmail, history: { push } } = this.props;
 
     return (
       <form>
@@ -84,10 +84,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Login.propTypes = {
-  firstDispatchGetEmail: PropTypes.func,
+  firstDispatchGetEmail: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
-  }),
+  }).isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Login);
