@@ -1,8 +1,8 @@
 .header {
   background-color: rgb(194, 194, 194);
   display: flex;
-  justify-content: space-evenly;
   height: 60px;
+  justify-content: space-evenly;
   width: 100%;
 }
 
