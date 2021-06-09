@@ -21,13 +21,16 @@ class Login extends React.Component {
   }
 
   onButton() {
-    const { validPassword, validEmail, valueEmail } = this.state;
+    const { validPassword, validEmail } = this.state;
     if (validEmail && validPassword) {
       this.setState({
         on: false,
       });
+    } else {
+      this.setState({
+        on: true,
+      });
     }
-    this.saveValueEmail(valueEmail);
   }
 
   passwordCheck({ target }) {
@@ -36,8 +39,12 @@ class Login extends React.Component {
       this.setState({
         validPassword: true,
       });
-      this.onButton();
+    } else {
+      this.setState({
+        validPassword: false,
+      });
     }
+    this.onButton();
   }
 
   emailCheck({ target }) {
