@@ -1,17 +1,27 @@
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-    totalValue: 0,
-  },
+  currencies: [],
+  expenses: [],
+  error: '',
 };
 
-const LOGIN = 'LOGIN';
+const GET_SUCCESS = 'GET_SUCCESS';
+const GET_ERROR = 'GET_ERROR';
 
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case LOGIN:
-    return state;
+  case GET_SUCCESS:
+    return {
+      ...state,
+      currencies: [
+        ...Object.keys(action.payload.currencies)
+          .filter((key) => key !== 'USDT' && key !== 'DOGE'),
+      ],
+    };
+  case GET_ERROR:
+    return {
+      ...state,
+      error: action.payload.error,
+    };
   default:
     return state;
   }
