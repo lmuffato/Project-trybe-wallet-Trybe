@@ -3,13 +3,8 @@
 import { ADD_EXPENSE } from '../actions/actionsTypes';
 
 const INNITIAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
 const wallet = (state = INNITIAL_STATE, action) => {

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Login.css';
+import { connect } from 'react-redux';
+import { addUser } from '../actions';
 
 const NUMBERSIX = 6;
 
@@ -32,7 +34,9 @@ class Login extends React.Component {
 
   render() {
     const { email, password } = this.state;
+    const { saveEmail } = this.props;
     const error = <Link to="/carteira" className="Error_link">Entrar</Link>;
+    const result = <Link to="/carteira">Entrar</Link>;
     return (
       <form>
         <label htmlFor="email">
@@ -59,10 +63,14 @@ class Login extends React.Component {
         </label>
         {this.checkEmailAndPassword(email, password)
           ? <button disabled type="button">{error}</button>
-          : <button type="button"><Link to="/carteira">Entrar</Link></button>}
+          : <button type="button" onClick={ () => saveEmail(email) }>{result}</button>}
       </form>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  saveEmail: (email) => dispatch(addUser(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);

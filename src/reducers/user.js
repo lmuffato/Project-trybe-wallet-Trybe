@@ -3,19 +3,15 @@
 import { ADD_USER } from '../actions/actionsTypes';
 
 const INNITIAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  email: '',
 };
 
 const user = (state = INNITIAL_STATE, action) => {
   switch (action.type) {
   case ADD_USER:
-    return state;
+    return {
+      ...state,
+      email: action.user };
   default:
     return state;
   }
