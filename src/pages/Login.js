@@ -13,16 +13,14 @@ class Login extends React.Component {
     };
   }
 
-  verifyEmail() {
-    const { email } = this.state;
+  verifyEmail(email) {
     const hasOneAtSign = email.split('').filter((el) => el === '@').length === 1; // has to be true
     const hasOneDot = email.split('').filter((el) => el === '.').length === 1; // has to be true
     const doesNotEndWithDot = email[email.length - 1] !== '.'; // has to be true
     return hasOneAtSign && hasOneDot && doesNotEndWithDot;
   }
 
-  verifyPassword() {
-    const { password } = this.state;
+  verifyPassword(password) {
     const MIN_PASSWORD_LENGTH = 6;
     return password.length >= MIN_PASSWORD_LENGTH;
   }
@@ -36,13 +34,13 @@ class Login extends React.Component {
 
   // Ativação/Desativação do Botão feita através dessa função conforme dica do CORUJA NO PLANTÃO.
   // Antes eu estava fazendo um estado para controlar isso e o avaliador não pegava.
-  isDisabled() {
-    return !(this.verifyEmail() && this.verifyPassword());
+  isDisabled(email, password) {
+    return !(this.verifyEmail(email) && this.verifyPassword(password));
   }
 
   render() {
     const { email, password } = this.state;
-    const isSubmitDisabled = this.isDisabled();
+    const isSubmitDisabled = this.isDisabled(email, password);
 
     return (
       <>
