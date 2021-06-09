@@ -3,6 +3,7 @@ const LOGIN = 'LOGIN';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const RECEIVE_CURRENCIES = 'RECEIVE_CURRENCIES';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
+export const EXPENSES = 'EXPENSES';
 
 // actions relacionadas ao login
 export const login = (email, password) => ({ type: LOGIN, email, password });
@@ -32,4 +33,22 @@ export function fetchCurrencies() {
 }
 
 // actions relacionadas com novas expenses
-export const changeExpenses = (expenses) => ({ type: 'EXPENSES', expenses });
+export const changeExpenses = (expense, price, exchangeRates) => (
+  {
+    type: 'EXPENSES',
+    expense,
+    price: price * exchangeRates[expense.currency].ask,
+    exchangeRates,
+  });
+
+export function fetchExchageRates(expense, price) {
+  return (dispatch) => {
+    dispatch(requestCurrencies());
+    return fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => response.json()
+        .then(
+          (data) => dispatch(changeExpenses(expense, price, data)),
+          (error) => dispatch(failedRequest(error)),
+        ));
+  };
+}

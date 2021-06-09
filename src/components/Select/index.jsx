@@ -3,11 +3,17 @@ import PropTypes from 'prop-types';
 
 class Select extends React.Component {
   render() {
-    const { label, name, testeId, options } = this.props;
+    const { label, name, testeId, options, onChange, value } = this.props;
     return (
       <label htmlFor={ name }>
         { label}
-        <select name={ name } data-testid={ testeId } id={ name }>
+        <select
+          name={ name }
+          data-testid={ testeId }
+          id={ name }
+          onChange={ onChange }
+          value={ value }
+        >
           {options.map((opition, index) => (
             <option key={ index }>{ opition }</option>
           ))}
