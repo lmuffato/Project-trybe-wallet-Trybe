@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { logInUserAction } from '../actions';
+import { logInUser as logInUserAction } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -19,10 +19,13 @@ class Login extends React.Component {
   checkInputs(email, password) {
     const regexEmail = /\S+@\S+\.\S+/;
     const minCharPassword = 6;
-    return regexEmail.test(email) && password >= minCharPassword;
+    return (
+      
+     regexEmail.test(email) && password.length >= minCharPassword - 1;
+    )
   }
 
-  handleChange({ name, value }) {
+  handleChange({ target: { name, value } }) {
     const { email, password } = this.state;
 
     this.setState({
@@ -31,11 +34,12 @@ class Login extends React.Component {
     });
   }
 
-  handleClick() {
-    prevent.default();
+  handleClick(e) {
+    e.prevent.default();
     const { email } = this.state;
     const { history, logInUser } = this.props;
     logInUser(email);
+    // this.setState({ validInputs: false });
     history.push('/carteira');
   }
 
@@ -46,30 +50,30 @@ class Login extends React.Component {
       <div>
         <h1>Trybe Wallet</h1>
         <form>
-          <label htmlFor="input-email">
+          <label htmlFor="email">
             Login:
             <input
               type="email"
               data-testid="email-input"
-              name="input-email"
-              value={ email }
+              name="email"
               onChange={ (e) => this.handleChange(e) }
+              value={ email }
             />
           </label>
-          <label htmlFor="input-password">
+          <label htmlFor="password">
             Senha:
             <input
               type="password"
               data-testid="password-input"
-              name="input-password"
-              value={ password }
+              name="password"
               onChange={ (e) => this.handleChange(e) }
+              value={ password }
             />
           </label>
           <button
             type="submit"
             disabled={ !validInputs }
-            onClick={ this.handleClick }
+            onClick={ (e) => this.handleClick(e) }
           >
             Entrar
           </button>
