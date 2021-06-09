@@ -28,3 +28,38 @@ export const getCurrenciesThunk = () => async (dispatch) => {
     dispatch(getCurrenciesError(error));
   }
 };
+
+export const SAVE_EXPENSE_SUCCESS = 'SAVE_EXPENSE_SUCCESS';
+export const SAVE_EXPENSE_ERROR = 'SAVE_EXPENSE_ERROR';
+
+export const saveExpenseSuccess = (payload) => ({
+  type: SAVE_EXPENSE_SUCCESS,
+  payload,
+});
+
+export const saveExpenseError = (payload) => ({
+  type: SAVE_EXPENSE_ERROR,
+  payload,
+});
+
+const addTotalToAction = (payload) => {
+  const { currency, exchangeRates, value } = payload;
+  const exchangeRate = exchangeRates[currency].ask;
+  const total = exchangeRate * value;
+  return {
+    data: payload,
+    total,
+  };
+};
+
+export const saveExpenseThunk = (payload) => async (dispatch) => {
+  try {
+    const currencies = await fetchCurrency();
+    const walletActionWithTotal = addTotalToAction(
+      { ...payload, exchangeRates: currencies },
+    );
+    dispatch(saveExpenseSuccess(walletActionWithTotal));
+  } catch (error) {
+    dispatch(saveExpenseError(error));
+  }
+};
