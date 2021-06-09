@@ -1,5 +1,7 @@
 import React from 'react';
-import getCurrencies from '../../../services/api';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getCurrenciesThunk } from '../../../actions';
 
 class ExpensesForm extends React.Component {
   constructor() {
@@ -18,24 +20,18 @@ class ExpensesForm extends React.Component {
         c_credit: 'Cartão de crédito',
         c_debit: 'Cartão de débito',
       },
-      currencies: {},
     };
   }
 
   componentDidMount() {
-    this.loadCurrencies();
-  }
-
-  async loadCurrencies() {
-    // https://stackabuse.com/javascript-remove-a-property-from-an-object
-    const { USDT, ...currencies } = await getCurrencies();
-    this.setState({
-      currencies,
-    });
+    const { getCurrencies } = this.props;
+    getCurrencies();
   }
 
   render() {
-    const { tags, paymentOptions, currencies } = this.state;
+    const { tags, paymentOptions } = this.state;
+    const { currencies } = this.props;
+
     return (
       <form>
         <label htmlFor="value">
@@ -79,4 +75,17 @@ class ExpensesForm extends React.Component {
   }
 }
 
-export default ExpensesForm;
+const mapStateToProps = ({ wallet: { currencies } }) => ({
+  currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(getCurrenciesThunk()),
+});
+
+ExpensesForm.propTypes = {
+  currencies: PropTypes.object,
+  getCurrencies: PropTypes.func,
+}.isRequired;
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);
