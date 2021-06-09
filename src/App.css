@@ -8,9 +8,9 @@
 }
 
 .login-text {
-  text-align: center;
-  font-weight: 700;
   color: #008566;
+  font-weight: 700;
+  text-align: center;
   text-shadow: 2px 2px #024636;
 }
 
