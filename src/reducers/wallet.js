@@ -4,12 +4,14 @@ import { ADD_EXPENSE } from '../actions';
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  total: 0,
+  currentCurrency: 'BRL',
 };
 
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
   case ADD_EXPENSE:
-    return [...state];
+    return state;
   default:
     return state;
   }
