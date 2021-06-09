@@ -71,4 +71,3 @@ export default class Login extends Component {
 // Para validação de email: https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/
 // Para validação de senha: https://stackoverflow.com/questions/53090699/how-to-run-an-alert-on-button-click-react-js
 // Para validação de senha: https://pt.stackoverflow.com/questions/373574/regex-para-senha-forte
-//
