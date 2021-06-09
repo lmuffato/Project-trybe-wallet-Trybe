@@ -1,14 +1,11 @@
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
   wallet: {
     currencies: [],
     expenses: [],
   },
 };
 
-const walletReducer = (state = INITIAL_STATE, action) => {
+const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case 'ALGUMA_COISA':
     return state;
@@ -17,4 +14,4 @@ const walletReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default walletReducer;
+export default wallet;
