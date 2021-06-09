@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { saveCurrencies } from '../actions';
 
 class FormAddDespesas extends React.Component {
   constructor() {
@@ -19,6 +22,11 @@ class FormAddDespesas extends React.Component {
     this.renderTag = this.renderTag.bind(this);
   }
 
+  componentDidMount() {
+    const { getMoedas } = this.props;
+    getMoedas();
+  }
+
   handleInputs({ target }) {
     this.setState({
       [target.name]: target.value,
@@ -26,6 +34,7 @@ class FormAddDespesas extends React.Component {
   }
 
   renderMoeda(value) {
+    const { currencies } = this.props;
     return (
       <label id="currency" htmlFor="currency">
         Moeda
@@ -35,7 +44,20 @@ class FormAddDespesas extends React.Component {
           onChange={ this.handleInputs }
           name="currency"
         >
-          <option value="USD">vazio</option>
+          <option value="USD">USD</option>
+          { currencies.map((coin) => {
+            if (coin !== 'USDT' && coin !== 'USD') {
+              return (
+                <option
+                  value={ coin }
+                  key={ coin }
+                >
+                  {coin}
+                </option>
+              );
+            }
+            return '';
+          })}
         </select>
       </label>
     );
@@ -125,4 +147,16 @@ class FormAddDespesas extends React.Component {
   }
 }
 
-export default FormAddDespesas;
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getMoedas: () => dispatch(saveCurrencies()),
+});
+
+FormAddDespesas.propTypes = {
+  currencies: PropTypes.arrayOf({}),
+}.isRequired;
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormAddDespesas);
