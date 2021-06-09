@@ -1,9 +1,12 @@
 import React from 'react';
-// import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { loginEmail } from '../actions';
 
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       email: '',
@@ -13,6 +16,7 @@ class Login extends React.Component {
 
   render() {
     const { email, password } = this.state;
+    const { login } = this.props;
     const minimunPasswordLength = 6;
 
     return (
@@ -31,26 +35,36 @@ class Login extends React.Component {
             onChange={ (event) => this.setState({ password: event.target.value }) }
             minLength="6"
           />
+          <Link to="/carteira">
+            <button
+              type="submit"
+              onClick={ () => {
+                login(email);
+              } }
+              disabled={
+                email.includes('@') !== true
+                || password.length < minimunPasswordLength
+                || email.includes('.com') !== true
+              }
+            >
+              Entrar
+            </button>
+          </Link>
         </section>
-        <button
-          type="submit"
-          onClick={ () => {
-            console.log(email, password);
-          } }
-          disabled={
-            email.includes('@') !== true
-            || password.length < minimunPasswordLength
-            || email.includes('.com') !== true
-          }
-        >
-          Entrar
-        </button>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  login: (email) => dispatch(loginEmail(email)),
+});
+
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
 
 // Entendi como utilizar a propriedade disabled com uma condição através do:
 // https://reactgo.com/react-disable-button-input-empty/

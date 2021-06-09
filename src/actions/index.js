@@ -1,4 +1,11 @@
 // // Coloque aqui suas actions
 
 // const ADD_TO_WALLET = 'ADD_TO_WALLET';
-// const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const LOGIN = 'LOGIN';
+
+export const loginEmail = (email) => ({
+  type: LOGIN,
+  user: {
+    email,
+  },
+});
