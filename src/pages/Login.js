@@ -22,6 +22,9 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     });
+
+    // lógica de validação baseada nos códigos de Elisa França - Turma 10 - Tribo A
+    // https://github.com/tryber/sd-010-a-project-trybewallet/pull/62/commits/77bf826699b7cb516a1dbaa30dd0ee8eea2a1d01
     const { email, senha } = this.state;
     // regex model encontrado no link da thread https://trybecourse.slack.com/archives/C01L16B9XC7/p1623175696043700
     const emailRegex = /^\w+@\w+.com$/;
