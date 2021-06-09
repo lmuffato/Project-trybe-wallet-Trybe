@@ -1,7 +1,25 @@
 import React from 'react';
+import SignInButton from '../components/SignInButton';
 
 class Login extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      emailOk: false,
+    };
+    this.verifyEmail = this.verifyEmail.bind(this);
+  }
+
+  verifyEmail(e) {
+    const regex = /\S+@\S+\.\S+/;
+    const email = e.target.value;
+    if (regex.test(email) === true) {
+      this.setState({ emailOk: true });
+    }
+  }
+
   render() {
+    const { emailOk } = this.state;
     return (
       <main className="login-main">
         <form method="POST" className="form-login box">
@@ -15,6 +33,7 @@ class Login extends React.Component {
                 name="login"
                 placeholder="adalovelace@trybe.com"
                 data-testid="email-input"
+                onChange={ this.verifyEmail }
               />
             </div>
             <div className="field">
@@ -28,7 +47,7 @@ class Login extends React.Component {
               />
             </div>
           </label>
-          <button type="button" className="button is-success"> Entrar </button>
+          <SignInButton emailCorrect={ emailOk } />
         </form>
       </main>);
   }
