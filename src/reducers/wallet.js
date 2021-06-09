@@ -9,13 +9,18 @@ const INITIAL_STATE = {
   wallet: {
     currencies: [],
     expenses: [],
+    totalExpended: '',
   },
 };
 
 function user(state = INITIAL_STATE, action) {
   switch (action.type) {
   case ADD_OUTLAY:
-    return state;
+    return { ...state,
+      currencies: [...state.wallet, action.payload.currencies],
+      expenses: [...state.wallet.expenses, action.payload.expenses],
+      totalExpended: state.wallet.totalExpended + action.payload.expended,
+    };
   case REMOVE_OUTLAY:
     return state;
   case EDIT_OUTLAY:

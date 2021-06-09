@@ -1,10 +1,11 @@
 export const LOGIN = 'LOGIN';
 
-// const login = () => ({
-//   type: LOGIN,
-//   payload,
-// });
-//
+export const login = (data) => ({
+  type: LOGIN,
+  payload: {
+    data,
+  },
+});
 
 export const ADD_OUTLAY = 'ADD_OUTLAY';
 export const REMOVE_OUTLAY = 'REMOVE_OUTLAY';
