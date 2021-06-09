@@ -5,16 +5,21 @@ import Form from '../components/Form';
 import './wallet.css';
 
 class Wallet extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      total: 0,
-    };
+  handleValue() {
+    const { expenses } = this.props;
+    const allValues = expenses.map((expense) => {
+      const coin = expense.currency;
+      const rate = expense.exchangeRates[coin].ask;
+      const myValue = parseFloat(expense.value) * parseFloat(rate);
+      return myValue;
+    });
+    const valuesSum = allValues.reduce(((acc, cur) => acc + parseFloat(cur)), 0);
+    return valuesSum;
   }
 
   render() {
     const { userEmail } = this.props;
-    const { total } = this.state;
+    const total = this.handleValue();
     return (
       <>
         <header className="wallet-header">
@@ -42,10 +47,12 @@ class Wallet extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
   userEmail: state.user.email });
 
 Wallet.propTypes = {
   userEmail: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, null)(Wallet);

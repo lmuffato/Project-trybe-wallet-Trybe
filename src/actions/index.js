@@ -3,4 +3,7 @@ export const newEmail = (email) => ({
   payload: email,
 });
 
-export const otherAction = { not: '' };
+export const addExpense = (obj) => ({
+  type: 'NEW_EXPENSE',
+  payload: obj,
+});
