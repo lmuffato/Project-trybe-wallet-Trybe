@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { saveCurrencies } from '../actions';
+import { saveCurrencies, setExpense } from '../actions';
 
 class FormAddDespesas extends React.Component {
   constructor() {
@@ -20,6 +20,8 @@ class FormAddDespesas extends React.Component {
     this.renderDescricao = this.renderDescricao.bind(this);
     this.renderMethod = this.renderMethod.bind(this);
     this.renderTag = this.renderTag.bind(this);
+    this.renderButton = this.renderButton.bind(this);
+    this.saveExpense = this.saveExpense.bind(this);
   }
 
   componentDidMount() {
@@ -31,6 +33,18 @@ class FormAddDespesas extends React.Component {
     this.setState({
       [target.name]: target.value,
     });
+  }
+
+  saveExpense() {
+    const { saveExpense } = this.props;
+    this.setState({
+      value: '',
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
+    });
+    saveExpense(this.state);
   }
 
   renderMoeda(value) {
@@ -131,6 +145,17 @@ class FormAddDespesas extends React.Component {
     );
   }
 
+  renderButton() {
+    return (
+      <button
+        type="button"
+        onClick={ this.saveExpense }
+      >
+        Adicionar despesa
+      </button>
+    );
+  }
+
   render() {
     const { value, description, currency, method, tag } = this.state;
     return (
@@ -142,6 +167,7 @@ class FormAddDespesas extends React.Component {
           { this.renderMethod(method) }
           { this.renderTag(tag) }
         </form>
+        { this.renderButton() }
       </div>
     );
   }
@@ -153,6 +179,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getMoedas: () => dispatch(saveCurrencies()),
+  saveExpense: (expense) => dispatch(setExpense(expense)),
 });
 
 FormAddDespesas.propTypes = {

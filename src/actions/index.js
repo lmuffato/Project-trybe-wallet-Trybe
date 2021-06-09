@@ -36,3 +36,33 @@ export const saveCurrencies = () => async (dispatch) => {
     dispatch(reject(error));
   }
 };
+
+export const REQUEST_EXPENSE = 'REQUEST_EXPENSE';
+export const RESOLVED_EXPENSE = 'RESOLVED_EXPENSE';
+export const REJECT_EXPENSE = 'REJECT_EXPENSE';
+
+export const requestExpense = () => ({
+  type: REQUEST_EXPENSE,
+});
+
+export const resolveExpense = (expense, response) => ({
+  type: RESOLVED_EXPENSE,
+  expense,
+  response,
+});
+
+export const rejectExpense = (error) => ({
+  type: REJECT_EXPENSE,
+  error,
+});
+
+export const setExpense = (expense) => async (dispatch) => {
+  dispatch(requestExpense());
+  try {
+    const response = await requestAPI();
+    expense.exchangeRates = response;
+    dispatch(resolveExpense(expense, response));
+  } catch (error) {
+    dispatch(rejectExpense(error));
+  }
+};
