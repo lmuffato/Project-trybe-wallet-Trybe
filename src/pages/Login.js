@@ -36,6 +36,7 @@ class Login extends React.Component {
   }
 
   render() {
+    const { user } = this.props; // recebe a funçao do mapsdispatchToPros
     const { email, password, button } = this.state;
     return (
       <div>
@@ -58,7 +59,7 @@ class Login extends React.Component {
         </div>
         <Link to="/carteira">
           <button
-            onClick={ () => login(email) }
+            onClick={ () => user(email) } // chama  função user envia o state para a mapdispacthtoProps
             disabled={ button }
             type="button"
           >
