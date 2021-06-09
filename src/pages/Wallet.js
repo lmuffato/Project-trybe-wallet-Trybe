@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Form from '../components/Form';
+import Table from '../components/Table';
 import './wallet.css';
 
 class Wallet extends React.Component {
@@ -19,7 +20,7 @@ class Wallet extends React.Component {
 
   render() {
     const { userEmail } = this.props;
-    const total = this.handleValue();
+    const total = parseFloat(this.handleValue()).toFixed(2);
     return (
       <>
         <header className="wallet-header">
@@ -41,6 +42,8 @@ class Wallet extends React.Component {
           </p>
         </header>
         <Form />
+        <br />
+        <Table />
       </>
     );
   }
