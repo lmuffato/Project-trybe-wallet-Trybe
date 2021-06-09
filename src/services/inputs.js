@@ -4,25 +4,30 @@ const elements = {
       control: 'value',
       text: 'Valor',
       type: 'number',
+      testid: 'value-input',
     },
     {
       control: 'description',
       text: 'Descrição',
       type: 'text',
+      testid: 'description-input',
     },
   ],
   selects: [
     {
       control: 'currency',
       text: 'Moeda',
+      testid: 'currency-input',
     },
     {
       control: 'method',
       text: 'Método de pagamento',
+      testid: 'method-input',
     },
     {
       control: 'tag',
       text: 'Tag',
+      testid: 'tag-input',
     },
   ],
   options: [

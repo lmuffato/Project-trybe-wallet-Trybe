@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteExpense } from '../actions';
+import { deleteExpense, editExpenses } from '../actions';
 
 const TBody = () => {
   const { expenses } = useSelector((state) => state.wallet);
@@ -38,7 +38,7 @@ const TBody = () => {
             </button>
             <button
               type="button"
-              onClick={ () => removeExpense(id) }
+              onClick={ () => dispatch(editExpenses(true, id)) }
               data-testid="edit-btn"
             >
               Editar

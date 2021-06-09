@@ -3,7 +3,7 @@ import { string, shape, func } from 'prop-types';
 
 const LabelSelect = (props) => {
   const { select, options, getExpense } = props;
-  const { text, control } = select;
+  const { text, control, testid } = select;
 
   return (
     <label htmlFor={ control }>
@@ -13,6 +13,7 @@ const LabelSelect = (props) => {
         id={ control }
         name={ control }
         onChange={ getExpense }
+        data-testid={ testid }
       >
         {options.map((value) => (
           <option key={ value } data-testid={ value }>

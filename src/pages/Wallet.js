@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import EditFormWallet from '../components/EditFormWallet';
 
 import FormWallet from '../components/FormWallet';
 import Table from '../components/Table';
@@ -34,7 +35,7 @@ const Wallet = () => {
           <p data-testid="header-currency-field">BRL</p>
         </div>
       </header>
-      <FormWallet />
+      {wallet.edit ? <EditFormWallet /> : <FormWallet />}
       <Table />
     </section>
   );

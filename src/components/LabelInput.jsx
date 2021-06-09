@@ -3,7 +3,7 @@ import { string, shape, func } from 'prop-types';
 
 const LabelInput = (props) => {
   const { input, getExpense } = props;
-  const { text, type, control } = input;
+  const { text, type, control, testid } = input;
 
   return (
     <label htmlFor={ control }>
@@ -13,6 +13,7 @@ const LabelInput = (props) => {
         id={ control }
         name={ control }
         onChange={ getExpense }
+        data-testid={ testid }
       />
     </label>
   );
