@@ -2,10 +2,28 @@ const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   error: '',
+  id: 0,
 };
 
 const GET_SUCCESS = 'GET_SUCCESS';
 const GET_ERROR = 'GET_ERROR';
+const NEW_EXPENSES = 'NEW_EXPENSES';
+
+const addExpense = (state = INITIAL_STATE, action) => {
+  const { id, expenses } = state;
+  const expense = {
+    id,
+    ...action.expenses,
+  };
+  return {
+    ...state,
+    expenses: [
+      ...expenses,
+      expense,
+    ],
+    id: id + 1,
+  };
+};
 
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -22,6 +40,8 @@ function wallet(state = INITIAL_STATE, action) {
       ...state,
       error: action.payload.error,
     };
+  case NEW_EXPENSES:
+    return addExpense(state, action);
   default:
     return state;
   }
