@@ -15,6 +15,24 @@ class Login extends React.Component {
     };
   }
 
+  validaEmail(email) {
+    const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.com ?$/i;
+    return emailRegex.test(String(email).toLowerCase());
+  }
+
+  validaSenha(password) {
+    const minLengthPassword = 6;
+    const verdadeiro = true;
+    return password.length >= minLengthPassword ? verdadeiro : false;
+    // return senhaOk;
+  }
+
+  checkLogin() {
+    const { email, password } = this.state;
+    const check = this.validaEmail(email) && this.validaSenha(password);
+    return check;
+  }
+
   render() {
     const { email, password } = this.state;
     const { user } = this.props;
@@ -37,11 +55,14 @@ class Login extends React.Component {
               data-testid="password-input"
             />
             <Link
-              to="/wallet"
+              to="/carteira"
               onClick={ () => user({ email, password }) }
+              disabled={ !this.checkLogin() }
             >
               <button
                 type="button"
+                disabled={ !this.checkLogin() }
+                className="btn-login nohover"
               >
                 Entrar
               </button>

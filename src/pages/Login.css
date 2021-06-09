@@ -41,6 +41,11 @@
   width: 100%;
 }
 
+.btn-login:disabled {
+  background: #868886;
+  cursor: not-allowed;
+}
+
 .form button:hover , .form button:active , .form button:focus {
   background: #43a047;
 }
