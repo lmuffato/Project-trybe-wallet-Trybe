@@ -1,0 +1,20 @@
+html, body {
+  height: 100%;
+  min-height: 100%;
+}
+
+#login-container {
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 15px;
+  display: -webkit-flex;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  min-height: 100%;
+  -webkit-align-items: center;
+  -webkit-justify-content: center;
+  width: 400px;
+}
