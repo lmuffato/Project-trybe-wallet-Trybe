@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { walletAddCurrencie, walletAddExpense } from '../actions';
+import ExpendForm from '../components/ExpendForm';
 
 class Wallet extends React.Component {
   render() {
@@ -9,13 +10,16 @@ class Wallet extends React.Component {
     const { email, isLogged } = this.props;
     const expend = 0;
     return (
-      <header>
-        <h2>Trybe Wallet</h2>
-        <p data-testid="email-field">{email}</p>
-        <p>Despesas Totais: </p>
-        <p data-testid="total-field">{expend}</p>
-        <p data-testid="header-currency-field">BRL</p>
-      </header>
+      <>
+        <header>
+          <h2>Trybe Wallet</h2>
+          <p data-testid="email-field">{email}</p>
+          <p>Despesas Totais: </p>
+          <p data-testid="total-field">{expend}</p>
+          <p data-testid="header-currency-field">BRL</p>
+        </header>
+        <ExpendForm />
+      </>
     );
   }
 }
@@ -27,11 +31,11 @@ const secondMapDispatchToProps = (dispatch) => ({
 
 const secondMapStateToProps = ({ wallet: { currencies, expenses },
   user: { email, isLogged } }) => ({
-  currencies,
-  expenses,
-  email,
-  isLogged,
-});
+    currencies,
+    expenses,
+    email,
+    isLogged,
+  });
 
 Wallet.propTypes = {
   userAddExpense: PropTypes.func.isRequired,
