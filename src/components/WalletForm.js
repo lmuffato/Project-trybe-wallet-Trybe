@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { func } from 'prop-types';
+import { func, objectOf, object } from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrenciesThunk } from '../actions/index';
 
@@ -10,6 +10,8 @@ class WalletForm extends Component {
   }
 
   render() {
+    const { currencies } = this.props;
+    const currenciesKeys = Object.keys(currencies);
     return (
       <form>
         <label htmlFor="expense-value">
@@ -23,7 +25,8 @@ class WalletForm extends Component {
         <label htmlFor="expense-currency">
           Moeda:
           <select id="expense-currency" name="currency">
-            <option value=""> </option>
+            { currenciesKeys.map((currency) => (
+              <option key={ currency } value={ currency }>{ currency }</option>)) }
           </select>
         </label>
         <label htmlFor="expense-payment-option">
@@ -58,7 +61,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 WalletForm.propTypes = {
-  setCurrencies: func.isRequired,
-};
+  setCurrencies: func,
+  currencies: objectOf(object),
+}.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
