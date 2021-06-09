@@ -6,14 +6,23 @@ export default class Login extends Component {
     this.state = {
         email: '',
         password: '',
+        auth: false,
       };
     }
 
+    handleAuth = () => {
+      const { email, password } = this.state;
+      const regex2Email = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+      const authValid = regex2Email.test(email) && password.length >= 5;
+      return authValid ? this.setState({ auth: true }) : this.setState({ auth: false });
+    }
 
   updateState = (field, event) => {
     const { value } = event.target;
     this.setState({ [field]: value });
+    this.handleAuth();
   }
+
 
   renderEmailInput = () => {
     return(
@@ -46,9 +55,12 @@ export default class Login extends Component {
   }
 
   renderEntryButton = () => {
+    const { auth } = this.state;
     return(
       <button
         type="button"
+        disabled={ !auth }
+        onClick={ this.handleAuth }
       >
         Entrar
       </button>
