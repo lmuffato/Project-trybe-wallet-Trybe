@@ -12,12 +12,6 @@ class Login extends React.Component {
       password: '',
     };
   }
-  /*
-  email
-  email@com@
-  emailcom@
-  alguem@email.
-  */
 
   verifyEmail() {
     const { email } = this.state;
