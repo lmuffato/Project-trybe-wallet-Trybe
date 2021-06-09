@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { deleteExpense } from '../actions';
 
 class Expense extends React.Component {
   render() {
@@ -10,6 +12,9 @@ class Expense extends React.Component {
       method,
       currency,
       exchangeRates,
+      deleteCost,
+      id,
+      expenses,
     } = this.props;
     const currencyName = exchangeRates[currency].name.split('/')[0];
     const exchangeRateUsed = exchangeRates[currency].ask;
@@ -25,13 +30,30 @@ class Expense extends React.Component {
         <td>{exchangeRateUsedFloat}</td>
         <td>{valueInBRL}</td>
         <td>Real</td>
+        <td>
+          <button
+            data-testid="delete-btn"
+            type="button"
+            onClick={ () => deleteCost(id, expenses) }
+          >
+            Apagar
+          </button>
+        </td>
       </tr>
 
     );
   }
 }
 
-export default (Expense);
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  deleteCost: (id, expenses) => dispatch(deleteExpense(id, expenses)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Expense);
 
 Expense.propTypes = {
   description: PropTypes.string,
@@ -40,4 +62,5 @@ Expense.propTypes = {
   method: PropTypes.string,
   currency: PropTypes.string,
   exchangeRates: PropTypes.object,
+  deleteExpense: PropTypes.func,
 }.isRequired;

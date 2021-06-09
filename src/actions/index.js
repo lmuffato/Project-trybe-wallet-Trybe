@@ -63,3 +63,22 @@ export const saveExpenseThunk = (payload) => async (dispatch) => {
     dispatch(saveExpenseError(error));
   }
 };
+
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+
+export const deleteExpense = (id, expenses) => {
+  const newExpenses = expenses.filter((expense) => expense.id !== id);
+  // newExpenses.forEach((expense, index) => {
+  //   expense.id = index;
+  // });
+  const total = newExpenses.reduce((acc, curr) => (
+    acc + curr.exchangeRates[curr.currency].ask * curr.value
+  ), 0);
+  return {
+    type: DELETE_EXPENSE,
+    payload: {
+      data: newExpenses,
+      total,
+    },
+  };
+};

@@ -3,6 +3,7 @@ import {
   GET_CURRENCIES_ERROR,
   SAVE_EXPENSE_SUCCESS,
   SAVE_EXPENSE_ERROR,
+  DELETE_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -32,6 +33,12 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       expenses: [...state.expenses, action.payload.data],
       total: state.total + action.payload.total,
+    };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: action.payload.data,
+      total: action.payload.total,
     };
   default:
     return state;
