@@ -9,12 +9,12 @@ const Header = () => {
     <header className="header">
       <div>Trybe-Wallet</div>
       <div className="email-container">
-        <div data-testid="email-field">
+        <div>
           Email :
           {' '}
           <span data-testid="email-field">{email}</span>
         </div>
-        <div data-testid="total-field">
+        <div>
           Despesa Total: R$
           {' '}
           <span data-testid="total-field">{total}</span>
