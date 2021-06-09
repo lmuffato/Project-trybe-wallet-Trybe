@@ -11,7 +11,8 @@ class WalletForm extends Component {
 
   render() {
     const { currencies } = this.props;
-    const currenciesKeys = Object.keys(currencies);
+    const currenciesKeys = Object.keys(currencies).filter((key) => key !== 'USDT');
+    console.log(currenciesKeys);
     return (
       <form>
         <label htmlFor="expense-value">
