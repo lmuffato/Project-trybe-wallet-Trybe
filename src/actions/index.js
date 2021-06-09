@@ -1,8 +1,12 @@
 const LOGIN = 'LOGIN';
+const ADD_EXPENSE = 'ADD_EXPENSE';
 
-const login = (payload) => ({
+export const login = (payload) => ({
   type: LOGIN,
   payload,
 });
 
-export default login;
+export const addExpense = (payload) => ({
+  type: ADD_EXPENSE,
+  payload,
+});
