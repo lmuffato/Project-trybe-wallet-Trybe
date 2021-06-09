@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { func, shape, string } from 'prop-types';
 
 import { validadeEmail, validadePassword, emailUser } from '../actions';
-import validadeLogin from '../utils/funtions';
+import { validadeLogin } from '../utils/funtions';
 
 class Login extends Component {
   render() {

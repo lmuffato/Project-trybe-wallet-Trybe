@@ -1,7 +1,27 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class FormDespesas extends Component {
+class FormDespesas extends Component {
+  constructor() {
+    super();
+    this.renderOptions = this.renderOptions.bind(this);
+  }
+
+  renderOptions() {
+    const { currencies } = this.props;
+    return (
+      <select name="moeda" id="moeda">
+        { currencies.map((moeda) => (
+          <option key={ moeda }>{moeda}</option>
+        )) }
+      </select>
+    );
+  }
+
   render() {
+    const { currencies, isLoading } = this.props;
+    console.log(currencies, isLoading);
+
     return (
       <form>
         <label htmlFor="valor">
@@ -14,9 +34,7 @@ export default class FormDespesas extends Component {
         </label>
         <label htmlFor="moeda">
           Moeda:
-          <select name="moeda" id="moeda">
-            <option value="1">1</option>
-          </select>
+          { this.renderOptions() }
         </label>
         <label htmlFor="pagamento">
           Método de pagamento:
@@ -36,7 +54,15 @@ export default class FormDespesas extends Component {
             <option value="saude">Saúde</option>
           </select>
         </label>
+        <button type="button">Adicionar Despesa</button>
       </form>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+  isLoading: state.wallet.isLoading,
+});
+
+export default connect(mapStateToProps)(FormDespesas);
