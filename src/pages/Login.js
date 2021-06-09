@@ -29,6 +29,8 @@ class Login extends React.Component {
   }
 
   validateEmail(email) {
+    // Link do Regex usado na linha 34.
+    // https://www.horadecodar.com.br/2020/09/07/expressao-regular-para-validar-e-mail-javascript-regex/
     const regexEmail = /\S+@\S+\.\S+/;
     return regexEmail.test(email);
   }
