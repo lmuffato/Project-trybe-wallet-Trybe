@@ -9,8 +9,8 @@ const toInputs = [
   { type: 'text', label: 'Descrição', name: 'description', testeId: '' },
 ];
 
-const toSelects = [
-  { label: 'Moeda', name: 'currency', testeId: '', options: ['real', 'dollar'] },
+const toSelects = (currencies) => ([
+  { label: 'Moeda', name: 'currency', testeId: '', options: currencies },
   {
     label: 'Método de pagamento',
     name: 'pay-mode',
@@ -26,9 +26,13 @@ const toSelects = [
     options: [
       'Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'],
   },
-];
+]);
 
 class Wallet extends React.Component {
+  componentDidMount() {
+
+  }
+
   render() {
     const { email } = this.props;
     return (
@@ -42,24 +46,24 @@ class Wallet extends React.Component {
           {
             toInputs.map((input, index) => (
               <Input
-                type={input.type }
+                type={ input.type }
                 id={ input.name }
-                label={input.label}
-                name={input.name}
-                testeId={input.testeId}
-                key={index}
+                label={ input.label }
+                name={ input.name }
+                testeId={ input.testeId }
+                key={ index }
               />
             ))
           }
           {
-            toSelects.map((select, index) => (
+            toSelects([]).map((select, index) => (
               <Select
-                label={select.label}
+                label={ select.label }
                 id={ select.name }
-                name={select.name}
-                testeId={select.testeId}
-                options={select.options}
-                key={index}
+                name={ select.name }
+                testeId={ select.testeId }
+                options={ select.options }
+                key={ index }
               />
             ))
           }
@@ -71,10 +75,12 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
-};
+  currencies: PropTypes.arrayOf(PropTypes.string),
+}.isRequired;
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  currencies: state.wallet.currencies,
 });
 
 export default connect(mapStateToProps, null)(Wallet);
