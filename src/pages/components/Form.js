@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -9,9 +10,17 @@ class Form extends React.Component {
 
     this.state = ({
       currencies: [],
+      value: '',
+      description: '',
+      moeda: '',
+      payment: '',
+      category: '',
+      paymentMethods: ['cartão de Crédito', 'Dinheiro', 'Cartão de débito'],
+      tagArray: ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'],
     });
 
     this.handleCurrencies = this.handleCurrencies.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   async componentDidMount() {
@@ -36,47 +45,58 @@ class Form extends React.Component {
     });
   }
 
+  handleChange(event, key) {
+    this.setState({ [key]: event.target.value });
+  }
+
+  makeSelect(label, array, name, chave) {
+    return (
+      <label htmlFor={ name }>
+        { label }
+        <select
+          name={ name }
+          id={ name }
+          value={ chave }
+          onChange={ (event) => this.handleChange(event, name) }
+        >
+          {array.map((item, key) => (
+            <option value={ item } key={ key }>{ item }</option>
+          ))}
+        </select>
+      </label>
+    );
+  }
+
   render() {
-    const { currencies } = this.state;
+    const { currencies, value, description, paymentMethods,
+      tagArray, moeda, payment, category } = this.state;
 
     return (
       <form>
         <h4>Nova Despesa</h4>
         <label htmlFor="valor">
           Valor:
-          <input type="number" name="valor" id="valor" />
+          <input
+            type="number"
+            name="valor"
+            id="valor"
+            value={ value }
+            onChange={ (event) => this.handleChange(event, 'value') }
+          />
         </label>
         <label htmlFor="descricao">
           Descrição:
-          <input type="texbox" name="descricao" id="descricao" />
+          <input
+            type="text"
+            name="descricao"
+            id="descricao"
+            value={ description }
+            onChange={ (event) => this.handleChange(event, 'description') }
+          />
         </label>
-        <label htmlFor="moeda">
-          Moeda:
-          <select name="moeda" id="moeda">
-            <option>BRL</option>
-            {currencies.map((currency, key) => (
-              <option key={ key }>{ currency }</option>
-            ))}
-          </select>
-        </label>
-        <label htmlFor="payment">
-          Método de pagamento:
-          <select name="payment" id="payment">
-            <option>Cartão de crédito</option>
-            <option>Dinheiro</option>
-            <option>Cartão de Débito</option>
-          </select>
-        </label>
-        <label htmlFor="category">
-          Tag:
-          <select name="category" id="category">
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
-          </select>
-        </label>
+        {this.makeSelect('Moeda', currencies, 'moeda', moeda)}
+        {this.makeSelect('Método de pagamento', paymentMethods, 'payment', payment)}
+        {this.makeSelect('Tag', tagArray, 'category', category)}
         <button type="button">Adicionar despesa</button>
       </form>
     );
