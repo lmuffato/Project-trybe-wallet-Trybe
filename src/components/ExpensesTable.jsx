@@ -30,7 +30,13 @@ class ExpensesTable extends React.Component {
           <td>{element.method}</td>
           <td>{element.value}</td>
           <td>{this.getCurrencyName(element.currency, element.exchangeRates)}</td>
-          <td>{this.getExchangeRate(element.currency, element.exchangeRates)}</td>
+          <td>
+            {
+              Number(
+                this.getExchangeRate(element.currency, element.exchangeRates),
+              ).toFixed(2)
+            }
+          </td>
           <td>
             {this.convertValues(element.value, element.currency, element.exchangeRates)}
           </td>
