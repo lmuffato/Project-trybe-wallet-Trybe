@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../componentes/Header';
+import FormDespesas from '../componentes/FormDespesas';
 
 class Wallet extends React.Component {
   render() {
@@ -13,6 +14,7 @@ class Wallet extends React.Component {
           arrayCurrencys={ arrayCurrencys }
           receiveLoginEmail={ receiveLoginEmail }
         />
+        <FormDespesas />
       </div>
     );
   }
