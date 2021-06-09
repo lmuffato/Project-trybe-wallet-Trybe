@@ -15,7 +15,7 @@ class Form extends React.Component {
   async currencies() {
     const fetchAPI = await fetch('https://economia.awesomeapi.com.br/json/all');
     const allList = await fetchAPI.json();
-    this.setState({ allList: allList });
+    this.setState({ allList });
   }
 
   render() {
