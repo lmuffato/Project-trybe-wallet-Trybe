@@ -11,7 +11,7 @@ class Wallet extends React.Component {
         value: 0,
         description: 'teste',
         currency: 'BRL',
-        paymentMode: 'Dinheiro',
+        paymentMode: 'Cartão de crédito',
         tag: '',
       },
     };
@@ -37,6 +37,7 @@ class Wallet extends React.Component {
       <label htmlFor={ name }>
         {label}
         <select
+          id={ name }
           name={ name }
           value={ value }
           onChange={ this.handleExpense }
@@ -54,6 +55,7 @@ class Wallet extends React.Component {
       <label htmlFor={ name }>
         {label}
         <input
+          id={ name }
           name={ name }
           type={ type }
           value={ value }
@@ -74,16 +76,16 @@ class Wallet extends React.Component {
     const { generateInput, generateSelect } = this;
     return (
       <form>
-        {generateInput('Valor:', 'value', 'number', value)}
-        {generateInput('Descrição:', 'description', 'text', description)}
-        {generateSelect('Moeda:', 'currency', currenciesList, currency)}
+        {generateInput('Valor', 'value', 'number', value)}
+        {generateInput('Descrição', 'description', 'text', description)}
+        {generateSelect('Moeda', 'currency', currenciesList, currency)}
         {generateSelect(
-          'Método de pagamento:',
+          'Método de pagamento',
           'paymentMode',
           paymentOptions,
           paymentMode,
         )}
-        {generateSelect('Tag:', 'tag', tagOptions, tag)}
+        {generateSelect('Tag', 'tag', tagOptions, tag)}
       </form>
     );
   }
@@ -110,8 +112,8 @@ class Wallet extends React.Component {
               ? <h1>Carregado</h1>
               : <h1>Insira sua depesa</h1>
           }
+          {this.formToInserExpense()}
         </header>
-        {this.formToInserExpense()}
       </main>
     );
   }
