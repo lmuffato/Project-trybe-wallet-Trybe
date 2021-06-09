@@ -7,10 +7,9 @@ const NewExpense = () => {
   const moeda = document.querySelector('#moeda');
   const pagamento = document.querySelector('#pagamento');
   const tag = document.querySelector('#tag');
+  const expenses = useSelector((state) => state.wallet.expenses);
   const total = useSelector((state) => state.wallet.total);
   const dispatch = useDispatch();
-  const [teste, setTeste] = React.useState(false);
-  const expenses = useSelector((state) => state.wallet.expenses);
   const qtd = useSelector((state) => state.wallet.qtd);
   const pickID = () => {
     dispatch({ type: 'ADD_QTD' });
@@ -20,17 +19,17 @@ const NewExpense = () => {
   const sendInfos = (objKeys, id, key) => {
     dispatch({
       type: 'NEW_EXPENSE',
-      payload: { expenses: { id,
-        value: (valor.value * objKeys.ask).toFixed(2),
-        currency: moeda.value,
-        method: pagamento.value,
-        tag: tag.value,
-        description: descricao.value,
-        exchangeRates: objKeys.ask,
-        key },
-      total: total + +((valor.value * objKeys.ask).toFixed(2)) },
+      payload: {
+        expenses: [{ ...expenses }, { id: expenses.length,
+          value: (valor.value * objKeys.ask).toFixed(2),
+          currency: moeda.value,
+          method: pagamento.value,
+          tag: tag.value,
+          description: descricao.value,
+          exchangeRates: objKeys.ask,
+          key }],
+        total: total + +((valor.value * objKeys.ask).toFixed(2)) },
     });
-    setTeste(true);
   };
 
   const handleClick = async () => {
@@ -44,7 +43,6 @@ const NewExpense = () => {
   return (
     <>
       <button type="button" onClick={ handleClick }>Adicionar despesa</button>
-      {teste && console.log(expenses)}
     </>
   );
 };

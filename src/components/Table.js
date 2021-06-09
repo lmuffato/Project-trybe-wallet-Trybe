@@ -1,8 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-const Table = () => {
-  const expenses = useSelector((state) => state.wallet.expenses);
+const Table = ({ expenses }) => {
   const headers = [
     'Descrição',
     'Tag',
@@ -24,7 +23,7 @@ const Table = () => {
         </tr>
       </thead>
       <tbody>
-        {console.log(expenses)}
+        oioi
       </tbody>
     </table>
   );

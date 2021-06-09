@@ -7,11 +7,12 @@ import Table from '../components/Table';
 
 const Wallet = () => {
   const total = useSelector((state) => state.wallet.total);
+  const expenses = useSelector((state) => state.wallet.expenses);
   return (
     <>
       <Header total={ total } />
       <Form />
-      <Table />
+      <Table expenses={ expenses } />
     </>
   );
 };
