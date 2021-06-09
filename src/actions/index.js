@@ -1,8 +1,12 @@
 // Coloque aqui suas actions
-export const loginAction = (state) => ({
+export const loginAction = (value) => ({
   type: 'LOGIN',
-  state,
+  value,
 });
+
+// export const disabled = () => ({
+//   type: 'DISABLED',
+// });
 
 export const addExpensesAction = (state) => ({
   type: 'ADD_EXPENSES',

@@ -2,16 +2,21 @@
 
 const INITIAL_STATE = {
   email: '',
-  isDisabled: true,
+  // isDisabled: false,
 };
 
 function user(state = INITIAL_STATE, action) {
   switch (action.type) {
   case 'LOGIN':
     return {
+      ...state,
       email: action.value,
-      isDisabled: false,
     };
+  // case 'DISABLED':
+  //   return {
+  //     ...state,
+  //     isDisabled: true,
+  //   };
   default:
     return state;
   }
