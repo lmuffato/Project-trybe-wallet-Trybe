@@ -2,6 +2,7 @@ export const IS_FETCHING = 'IS_FETCHING';
 export const SEND_EMAIL = 'SEND_EMAIL';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const isFetching = () => ({
   type: IS_FETCHING,
@@ -20,6 +21,12 @@ export const requestCurrencies = (payload) => ({
 export const addExpense = (payload) => ({
   type: ADD_EXPENSE,
   payload,
+});
+
+export const deleteExpense = (array, value) => ({
+  type: DELETE_EXPENSE,
+  array,
+  value,
 });
 
 export const fetchCurrency = () => (

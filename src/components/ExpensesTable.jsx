@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteExpense } from '../actions';
 
 class ExpensesTable extends React.Component {
   getCurrencyName(currency, currencies) {
@@ -11,7 +12,7 @@ class ExpensesTable extends React.Component {
 
   getExchangeRate(currency, currencies) {
     const value = Object.values(currencies).filter((curr) => curr.code === currency);
-    return Number(value[0].ask).toFixed(2);
+    return value[0].ask;
   }
 
   convertValues(value, currency, currencies) {
@@ -34,8 +35,32 @@ class ExpensesTable extends React.Component {
             {this.convertValues(element.value, element.currency, element.exchangeRates)}
           </td>
           <td>Real</td>
+          <td>{this.renderDeleteButton(element.id)}</td>
         </tr>
       ))
+    );
+  }
+
+  filterIds(id) {
+    const { expenses, sendDeleteAction } = this.props;
+    const expenseToDelete = expenses.filter((e) => e.id === id);
+    const filteredState = expenses.filter((e) => e.id !== id);
+    const exchange = expenseToDelete[0];
+    const exchanges = Object.values(expenseToDelete[0].exchangeRates)
+      .filter((e) => e.code === exchange.currency);
+    const value = exchange.value * exchanges[0].ask;
+    sendDeleteAction(filteredState, Number(value));
+  }
+
+  renderDeleteButton(id) {
+    return (
+      <button
+        type="button"
+        onClick={ () => this.filterIds(id) }
+        data-testid="delete-btn"
+      >
+        Excluir
+      </button>
     );
   }
 
@@ -76,8 +101,12 @@ const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  sendDeleteAction: (array, value) => dispatch(deleteExpense(array, value)),
+});
+
 ExpensesTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object),
 }.isRequired;
 
-export default connect(mapStateToProps)(ExpensesTable);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpensesTable);
