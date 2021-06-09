@@ -11,7 +11,7 @@ class Wallet extends React.Component {
     this.state = {
       value: '',
       description: '',
-      currence: 'USD',
+      currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
     };
@@ -25,9 +25,9 @@ class Wallet extends React.Component {
   }
 
   handleInput(event) {
-    const { name, value } = event.target;
+    const { id, value } = event.target;
     this.setState({
-      [name]: value,
+      [id]: value,
     });
   }
 
@@ -40,7 +40,7 @@ class Wallet extends React.Component {
     this.setState({
       value: '',
       description: '',
-      currence: 'USD',
+      currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
     });
@@ -50,7 +50,7 @@ class Wallet extends React.Component {
     const { wallet: { expenses } } = this.props;
     return expenses.reduce((acumulator, element) => {
       const value = Number(element.value);
-      const currence = Number(element.exchangeRates[element.currence].ask);
+      const currence = Number(element.exchangeRates[element.currency].ask);
       const total = Number((value * currence).toFixed(2));
       return acumulator + total;
     }, 0);
@@ -58,7 +58,7 @@ class Wallet extends React.Component {
 
   render() {
     const { user: { email }, wallet: { currencies } } = this.props;
-    const { value, description, currence, method, tag } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     return (
       <div>
         <WalletHeader email={ email } total={ this.handleTotal() } currence="BRL" />
@@ -66,7 +66,7 @@ class Wallet extends React.Component {
           currencies={ currencies }
           value={ value }
           description={ description }
-          currence={ currence }
+          currence={ currency }
           method={ method }
           tag={ tag }
           onChange={ this.handleInput }

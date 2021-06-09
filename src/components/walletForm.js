@@ -17,7 +17,7 @@ class WalletForm extends Component {
             Valor
             <input
               type="number"
-              name="value"
+              id="value"
               value={ value }
               onChange={ onChange }
             />
@@ -27,29 +27,29 @@ class WalletForm extends Component {
             <input
               value={ description }
               onChange={ onChange }
-              name="description"
+              id="description"
               type="text"
             />
           </label>
-          <label htmlFor="currence">
+          <label htmlFor="currency">
             Moeda
-            <select name="currence" value={ currence } onChange={ onChange }>
+            <select id="currency" value={ currence } onChange={ onChange }>
               {currencies.map((element) => <option key={ element }>{element}</option>)}
             </select>
           </label>
           <label htmlFor="method">
             Método de pagamento
-            <select name="method" value={ method } onChange={ onChange }>
+            <select id="method" value={ method } onChange={ onChange }>
               {methods.map((element) => <option key={ element }>{element}</option>)}
             </select>
           </label>
           <label htmlFor="tag">
             Tag
-            <select name="tag" value={ tag } onChange={ onChange }>
+            <select id="tag" value={ tag } onChange={ onChange }>
               {tags.map((element) => <option key={ element }>{element}</option>)}
             </select>
           </label>
-          <button type="submit">Adicionar</button>
+          <button type="submit">Adicionar despesa</button>
         </form>
       </div>
     );
