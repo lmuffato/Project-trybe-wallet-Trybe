@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import loginActionCreator from '../actions';
 
 class Login extends React.Component {
@@ -14,6 +15,7 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      shouldRedirect: false,
     };
   }
 
@@ -36,6 +38,9 @@ class Login extends React.Component {
   handleClick() {
     const { props: { loginDispatch }, state } = this;
     loginDispatch(state);
+    this.setState({
+      shouldRedirect: true,
+    });
   }
 
   validateLogin() {
@@ -44,40 +49,44 @@ class Login extends React.Component {
     const minLength = 6;
     const btnEnviar = document.querySelector('button');
 
-    if (emailRegex.test(email) && password.length >= minLength) {
-      btnEnviar.disabled = false;
-    } else {
-      btnEnviar.disabled = true;
+    if (btnEnviar) {
+      if (emailRegex.test(email) && password.length >= minLength) {
+        btnEnviar.disabled = false;
+      } else {
+        btnEnviar.disabled = true;
+      }
     }
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, shouldRedirect } = this.state;
 
     return (
-      <div>
-        <form>
-          <input
-            type="email"
-            value={ email }
-            onChange={ this.handleChange }
-            data-testid="email-input"
-          />
-          <input
-            type="password"
-            value={ password }
-            onChange={ this.handleChange }
-            data-testid="password-input"
-          />
-          <button
-            type="button"
-            value="Entrar"
-            onClick={ this.handleClick }
-          >
-            Entrar
-          </button>
-        </form>
-      </div>
+      shouldRedirect ? <Redirect to="/carteira" />
+        : (
+          <form>
+            <input
+              type="email"
+              value={ email }
+              onChange={ this.handleChange }
+              data-testid="email-input"
+            />
+            <input
+              type="password"
+              value={ password }
+              onChange={ this.handleChange }
+              data-testid="password-input"
+            />
+            <button
+              type="button"
+              value="Entrar"
+              onClick={ this.handleClick }
+            >
+              Entrar
+            </button>
+          </form>
+
+        )
     );
   }
 }
