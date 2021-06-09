@@ -1,9 +1,10 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { arrayOf, func, object } from 'prop-types';
+import { connect, useDispatch } from 'react-redux';
 import { fetchCurrency } from '../../actions';
 // import { Form, Label, input, Select, Option } from './style';
 
-const renderCurrencyOption = ({ code, bid, name }) => (
+const renderCurrencyOption = ({ code, name }) => (
   <option
     value={ code }
     key={ code }
@@ -13,10 +14,12 @@ const renderCurrencyOption = ({ code, bid, name }) => (
   </option>
 );
 
-const AddDebitForm = ({ fetchCurrencies, currencies }) => {
-  if (currencies.length === 0) {
-    fetchCurrencies();
-  }
+const AddExpenseForm = ({ fetchCurrencies, currencies }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCurrencies);
+  });
 
   return (
     <form>
@@ -68,4 +71,9 @@ const mapDispatchToProps = (dispatch) => ({
   fetchCurrencies: () => dispatch(fetchCurrency()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddDebitForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AddExpenseForm);
+
+AddExpenseForm.propTypes = {
+  currencies: arrayOf(object),
+  fetchCurrencies: func,
+}.isRequired;
