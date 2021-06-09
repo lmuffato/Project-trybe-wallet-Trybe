@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { addUser } from '../actions/index';
 
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: '',
       password: '',
@@ -11,6 +14,7 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.validEmail = this.validEmail.bind(this);
     this.validPassword = this.validPassword.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target }) {
@@ -23,7 +27,6 @@ class Login extends React.Component {
         disableButton: false,
       });
     }
-    console.log(this.validEmail());
   }
 
   validEmail() {
@@ -44,6 +47,13 @@ class Login extends React.Component {
     return false;
   }
 
+  handleClick() {
+    const { addUserToState, history } = this.props;
+    const { email } = this.state;
+    addUserToState(email);
+    history.push('/carteira');
+  }
+
   render() {
     const { disableButton } = this.state;
     return (
@@ -62,10 +72,25 @@ class Login extends React.Component {
           type="password"
           onChange={ this.handleChange }
         />
-        <button type="submit" disabled={ disableButton }>Entrar</button>
+        <button
+          type="submit"
+          disabled={ disableButton }
+          onClick={ this.handleClick }
+        >
+          Entrar
+        </button>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  addUserToState: (payload) => dispatch(addUser(payload)),
+});
+
+Login.propTypes = {
+  addUserToState: PropTypes.func,
+  history: PropTypes.object,
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(Login);
