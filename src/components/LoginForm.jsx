@@ -1,36 +1,40 @@
-import React, { Component } from "react";
-import "./style/LoginForm.css";
+import React, { Component } from 'react';
+import './style/LoginForm.css';
 
 export default class LoginForm extends Component {
   constructor() {
     super();
     this.state = {
-      name: "",
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       button: true,
     };
+    this.emailVerification = this.emailVerification.bind(this);
+    this.passwordVerification = this.passwordVerification.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  emailVerification = () => {
+  emailVerification() {
     const { email } = this.state;
     const regex = /\S+@\S+\.\S+/;
     const result = regex.test(email);
     return result;
-  };
+  }
 
-  passwordVerification = () => {
+  passwordVerification() {
     const { password } = this.state;
-    return password.length >= 5 ? true : false;
-  };
+    const minimumLengthPassord = 5;
+    return password.length >= minimumLengthPassord;
+  }
 
-  handleChange = (event) => {
+  handleChange(event) {
     const { target: { value, name } } = event;
     this.setState({ [name]: value });
-    this.emailVerification() && this.passwordVerification() 
-    ? this.setState({ button: false })
-    : this.setState({ button: true });
-  };
+    const verifications = (this.emailVerification() && this.passwordVerification()
+      ? this.setState({ button: false })
+      : this.setState({ button: true }));
+    return verifications;
+  }
 
   render() {
     const { email, password, button } = this.state;
@@ -41,8 +45,8 @@ export default class LoginForm extends Component {
             type="email"
             id="email"
             name="email"
-            value={email}
-            onChange={this.handleChange}
+            value={ email }
+            onChange={ this.handleChange }
             data-testid="email-input"
             placeholder="Digite seu email"
           />
@@ -52,16 +56,18 @@ export default class LoginForm extends Component {
             type="password"
             id="password"
             name="password"
-            value={password}
-            onChange={this.handleChange}
+            value={ password }
+            onChange={ this.handleChange }
             data-testid="password-input"
             placeholder="Digite sua senha"
           />
         </label>
-        <button type="button" disabled={button}>
+        <button type="button" disabled={ button }>
           Entrar
         </button>
       </form>
     );
   }
 }
+
+// regex email https://www.kindacode.com/article/live-email-validation-in-react-with-regex/
