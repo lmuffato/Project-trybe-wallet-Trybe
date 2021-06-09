@@ -3,7 +3,7 @@ const initialState = {
   currencies: [],
   expenses: [],
   qtd: 0,
-  total: 0.00,
+  total: 0,
 };
 
 export default function user(state = initialState, action) {
