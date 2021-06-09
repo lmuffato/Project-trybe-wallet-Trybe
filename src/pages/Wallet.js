@@ -1,9 +1,7 @@
 import React from 'react';
 
-class Wallet extends React.Component {
-  render() {
-    return <div>TrybeWallet</div>;
-  }
+export default function Wallet() {
+  return (
+    <h1>Wallet Page</h1>
+  );
 }
-
-export default Wallet;

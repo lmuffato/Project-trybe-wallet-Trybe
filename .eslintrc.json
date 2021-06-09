@@ -12,6 +12,13 @@
   },
   "plugins": ["react", "sonarjs"],
   "rules": {
+    "jsx-a11y/label-has-for": [ 2, {
+      "component": [ "Label" ],
+      "required": {
+        "some": [ "nesting", "id" ]
+      },
+      "allowChildren": false,
+    }],
     "indent": ["error", 2],
     "linebreak-style": 0,
     "quotes": ["error", "single"],
