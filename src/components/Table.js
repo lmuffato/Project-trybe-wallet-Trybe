@@ -1,13 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { excludeAction } from '../actions';
 
 class WalletTable extends React.Component {
+  constructor() {
+    super();
+    this.handleButton = this.handleButton.bind(this);
+  }
+
   handleValues(element) {
     const value = Number(element.value);
     const currence = Number(element.exchangeRates[element.currency].ask);
     const total = Number((value * currence).toFixed(2));
     return total;
+  }
+
+  handleButton(event) {
+    const { id } = event.target;
+    const { exclude } = this.props;
+    exclude(id);
   }
 
   render() {
@@ -42,7 +54,16 @@ class WalletTable extends React.Component {
                   <td>{rate.toFixed(2)}</td>
                   <td>{value}</td>
                   <td>Real</td>
-                  <td><button type="button">Excluir</button></td>
+                  <td>
+                    <button
+                      id={ element.id }
+                      onClick={ this.handleButton }
+                      type="button"
+                      data-testid="delete-btn"
+                    >
+                      Excluir
+                    </button>
+                  </td>
                 </tr>
               );
             })}
@@ -57,10 +78,15 @@ const mapStateToProps = (state) => ({
   wallet: state.wallet,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  exclude: (str) => dispatch(excludeAction(str)),
+});
+
 WalletTable.propTypes = {
   wallet: PropTypes.shape({
     expenses: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
+  exclude: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, null)(WalletTable);
+export default connect(mapStateToProps, mapDispatchToProps)(WalletTable);

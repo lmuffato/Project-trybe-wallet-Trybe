@@ -6,6 +6,8 @@ export const CURRENCIES = 'CURRENCIES';
 
 export const EXPENSES = 'EXPENSES';
 
+export const EXCLUDE = 'EXCLUDE';
+
 export const userAction = (payload) => ({
   type: USER,
   payload,
@@ -18,6 +20,11 @@ const currenciesAciton = (payload) => ({
 
 const expensesAction = (payload) => ({
   type: EXPENSES,
+  payload,
+});
+
+export const excludeAction = (payload) => ({
+  type: EXCLUDE,
   payload,
 });
 
