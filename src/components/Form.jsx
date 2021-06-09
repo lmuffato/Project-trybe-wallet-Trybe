@@ -4,11 +4,24 @@ class Form extends React.Component {
   constructor() {
     super();
     this.state = {
-
+      allList: {},
     };
   }
 
+  componentDidMount() {
+    this.currencies();
+  }
+
+  async currencies() {
+    const fetchAPI = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const allList = await fetchAPI.json();
+    this.setState({ allList: allList });
+  }
+
   render() {
+    const { allList } = this.state;
+    const allCurrencies = Object.keys(allList);
+    const myCurrencies = allCurrencies.filter((currency) => currency !== 'USDT');
     return (
       <>
         <label htmlFor="valor">
@@ -22,7 +35,7 @@ class Form extends React.Component {
         <label htmlFor="currency">
           Moeda
           <select type="select" id="currency">
-            <option>BRL</option>
+            {myCurrencies.map((currency) => <option key={ currency }>{currency}</option>)}
           </select>
         </label>
         <label htmlFor="payment">
