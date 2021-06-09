@@ -2,52 +2,63 @@ import React, { Component } from 'react';
 import { func, objectOf, object } from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrenciesThunk } from '../actions/index';
+import Category from './WalletFormOptions/Category';
+import PayOption from './WalletFormOptions/PayOption';
+import Currency from './WalletFormOptions/Currency';
+import Description from './WalletFormOptions/Description';
+import Value from './WalletFormOptions/Value';
 
 class WalletForm extends Component {
+  constructor() {
+    super();
+
+    this.handleInput = this.handleInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.state = {
+      value: '',
+      description: '',
+      currency: 'USD',
+      payoption: 'money',
+      category: 'food',
+    };
+  }
+
   componentDidMount() {
     const { setCurrencies } = this.props;
     setCurrencies();
   }
 
+  handleInput({ target }) {
+    const { value, name } = target;
+    this.setState({ [name]: value });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    // const { value, description, currency, payoption, category } = this.state;
+  }
+
   render() {
     const { currencies } = this.props;
+    const { value, description, currency, payoption, category } = this.state;
     const currenciesKeys = Object.keys(currencies).filter((key) => key !== 'USDT');
-    console.log(currenciesKeys);
     return (
-      <form>
-        <label htmlFor="expense-value">
-          Valor:
-          <input id="expense-value" type="text" name="value" />
-        </label>
-        <label htmlFor="expense-description">
-          Descrição:
-          <input id="expense-description" type="text" name="description" />
-        </label>
-        <label htmlFor="expense-currency">
-          Moeda:
-          <select id="expense-currency" name="currency">
-            { currenciesKeys.map((currency) => (
-              <option key={ currency } value={ currency }>{ currency }</option>)) }
-          </select>
-        </label>
-        <label htmlFor="expense-payment-option">
-          Método de pagamento:
-          <select id="expense-payment-option" name="payoption">
-            <option value="money">Dinheiro</option>
-            <option value="credit">Cartão de Crédito</option>
-            <option value="debit">Cartão de Débito</option>
-          </select>
-        </label>
-        <label htmlFor="expense-category">
-          Tag:
-          <select id="expense-category" name="category">
-            <option value="feeding">Alimentação</option>
-            <option value="lounge">Lazer</option>
-            <option value="work">Trabalho</option>
-            <option value="transport">Transporte</option>
-            <option value="health">Saúde</option>
-          </select>
-        </label>
+      <form onSubmit={ this.handleSubmit }>
+        <Value value={ value } handleInput={ this.handleInput } />
+        <Description description={ description } handleInput={ this.handleInput } />
+        <Currency
+          currencies={ currenciesKeys }
+          selectedCur={ currency }
+          handleInput={ this.handleInput }
+        />
+        <PayOption payoption={ payoption } handleInput={ this.handleInput } />
+        <Category category={ category } handleInput={ this.handleInput } />
+        <button
+          type="submit"
+        >
+          Adicionar Despesa
+        </button>
       </form>
     );
   }
@@ -55,6 +66,7 @@ class WalletForm extends Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({

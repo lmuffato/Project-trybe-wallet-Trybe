@@ -1,9 +1,14 @@
-import { GET_CURRENCIES, GET_CURRENCIES_SUCCESS, GET_CURRENCIES_ERROR } from '../actions';
+import {
+  GET_CURRENCIES,
+  GET_CURRENCIES_SUCCESS,
+  GET_CURRENCIES_ERROR,
+} from '../actions';
 
 const INITIAL_STATE = {
   isLoading: false,
   currencies: '',
   error: null,
+  expenses: [],
 };
 
 function walletReducer(state = INITIAL_STATE, action) {
