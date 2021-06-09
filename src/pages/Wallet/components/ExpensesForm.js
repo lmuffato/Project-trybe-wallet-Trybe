@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrenciesThunk } from '../../../actions';
+import { getCurrenciesThunk, storeExpense } from '../../../actions';
 
 class ExpensesForm extends React.Component {
   constructor() {
@@ -20,7 +20,15 @@ class ExpensesForm extends React.Component {
         c_credit: 'Cartão de crédito',
         c_debit: 'Cartão de débito',
       },
+      expense: {
+        currency: 'USD',
+        method: 'Dinheiro',
+        tag: 'Alimentação',
+      },
     };
+
+    this.handleInput = this.handleInput.bind(this);
+    this.submitExpense = this.submitExpense.bind(this);
   }
 
   componentDidMount() {
@@ -28,64 +36,83 @@ class ExpensesForm extends React.Component {
     getCurrencies();
   }
 
+  handleInput({ target: { id, value } }) {
+    const { expense } = this.state;
+    this.setState({
+      expense: { ...expense, [id]: value },
+    });
+  }
+
+  submitExpense(event) {
+    event.preventDefault();
+    const { addExpense, getCurrencies, allCurrencies } = this.props;
+    const { expense } = this.state;
+    getCurrencies();
+    addExpense({ ...expense, exchangeRates: allCurrencies });
+  }
+
   render() {
     const { tags, paymentOptions } = this.state;
-    const { currencies } = this.props;
+    // https://stackabuse.com/javascript-remove-a-property-from-an-object
+    const { allCurrencies: { USDT, ...currencies } } = this.props;
 
     return (
-      <form>
+      <form onSubmit={ this.submitExpense }>
         <label htmlFor="value">
           Valor:
-          <input id="value" type="text" />
+          <input id="value" type="text" onChange={ this.handleInput } />
         </label>
 
         <label htmlFor="description">
           Descrição:
-          <textarea id="description" />
+          <textarea id="description" onChange={ this.handleInput } />
         </label>
 
         <label htmlFor="currency">
           Moeda:
-          <select id="currency">
+          <select id="currency" onChange={ this.handleInput }>
             { Object.keys(currencies).map((currency) => (
               <option key={ currency } value={ currency }>{currency}</option>
             )) }
           </select>
         </label>
 
-        <label htmlFor="payment-option">
+        <label htmlFor="method">
           Método de pagamento:
-          <select id="payment-option">
+          <select id="method" onChange={ this.handleInput }>
             {Object.entries(paymentOptions).map(([value, name]) => (
-              <option key={ value } value={ value }>{name}</option>
+              <option key={ value } value={ name }>{name}</option>
             ))}
           </select>
         </label>
 
         <label htmlFor="tag">
           Tag:
-          <select id="tag">
+          <select id="tag" onChange={ this.handleInput }>
             {Object.entries(tags).map(([value, name]) => (
-              <option key={ value } value={ value }>{name}</option>
+              <option key={ value } value={ name }>{name}</option>
             ))}
           </select>
         </label>
+        <button type="submit">Adicionar despesa</button>
       </form>
     );
   }
 }
 
 const mapStateToProps = ({ wallet: { currencies } }) => ({
-  currencies,
+  allCurrencies: currencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(getCurrenciesThunk()),
+  addExpense: (payload) => dispatch(storeExpense(payload)),
 });
 
 ExpensesForm.propTypes = {
-  currencies: PropTypes.object,
+  allCurrencies: PropTypes.object,
   getCurrencies: PropTypes.func,
+  addExpense: PropTypes.func,
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);
