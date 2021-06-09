@@ -1,0 +1,24 @@
+// import React from 'react';
+
+// function Select({ id, name, label, setValue, value, children, ...props }) {
+//   return (
+//     <div className="wallet-form__group">
+//       <label
+//         htmlFor={ id }
+//       >
+//         {label}
+//       </label>
+//       <select
+//         id={ id }
+//         name={ name }
+//         onChange={ setValue }
+//         value={ value }
+//         { ...props }
+//       >
+//         { children }
+//       </select>
+//     </div>
+//   );
+// }
+
+// export default Select;

@@ -1,0 +1,23 @@
+import React from 'react';
+
+function Input({ id, name, type, label, setValue, value, ...props }) {
+  return (
+    <div className="wallet-form__group">
+      <label
+        htmlFor={ id }
+      >
+        {label}
+      </label>
+      <input
+        type={ type }
+        id={ id }
+        name={ name }
+        onChange={ setValue }
+        value={ value }
+        { ...props }
+      />
+    </div>
+  );
+}
+
+export default Input;

@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 
 function Header() {
   const userEmail = useSelector(({ user: { email } }) => email);
-  console.log(userEmail);
   return (
     <header>
       <div>

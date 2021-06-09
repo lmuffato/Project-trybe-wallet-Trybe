@@ -1,4 +1,5 @@
 import React from 'react';
+import Form from '../components/form/Form';
 import Header from '../components/Header';
 
 function Wallet() {
@@ -6,6 +7,7 @@ function Wallet() {
     <div>
       TrybeWallet
       <Header />
+      <Form />
     </div>
   );
 }
