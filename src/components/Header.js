@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-const Header = ({ total = 0}) => {
+const Header = ({ total = 0 }) => {
   const email = useSelector((state) => state.user.email);
 
   return (
