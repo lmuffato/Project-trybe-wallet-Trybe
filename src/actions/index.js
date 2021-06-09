@@ -6,7 +6,7 @@ export const TYPED_PASSWORD = 'TYPED_PASSWORD';
 // action creator > funcao que retorna uma action
 export const saveUser = (payload) => ({
   type: SAVE_USER,
-  payload,
+  allUsers: { payload },
 });
 
 // typedEmail
@@ -18,5 +18,7 @@ export const typedEmail = (payload) => ({
 // typedEmail
 export const typedPassword = (payload) => ({
   type: TYPED_PASSWORD,
-  payload,
+  user: {
+    password: payload,
+  },
 });
