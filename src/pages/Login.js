@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 class Login extends React.Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class Login extends React.Component {
   }
 
   render() {
+    const quanty = 6;
     const { email, password } = this.state;
     return (
       <form>
@@ -20,8 +22,10 @@ class Login extends React.Component {
             data-testid="email-input"
             name="email"
             value={ email }
-            onChange={ (e) => console.log(e.target.value) }
+            onChange={ (e) => this.setState({ email: e.target.value }) }
           />
+          <br />
+          <br />
         </label>
         <label htmlFor="password-input">
           Senha:
@@ -30,12 +34,15 @@ class Login extends React.Component {
             data-testid="password-input"
             name="password"
             value={ password }
-            onChange={ (e) => console.log(e.target.value) }
+            onChange={ (e) => this.setState({ password: e.target.value }) }
           />
         </label>
+        <br />
+        <br />
         <button
           type="submit"
-          disabled
+          disabled={ !(password.length >= quanty
+            && email.includes('.com') && email.includes('@')) }
         >
           Entrar
         </button>
@@ -44,4 +51,7 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default connect()(Login);
+// pesquisas feitas em https://www.devmedia.com.br/validando-e-mail-em-inputs-html-com-javascript/26427;
+// https://pt.stackoverflow.com/questions/22439/como-habilitar-e-desabilitar-bot%C3%A3o-a-partir-do-onclick-ou-onchange-do-select;
+// https://github.com/Gui-lira;
