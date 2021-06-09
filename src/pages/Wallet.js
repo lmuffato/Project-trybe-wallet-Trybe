@@ -10,18 +10,18 @@ const Wallet = () => {
   const globalState = useSelector((state) => state);
   const { user, wallet } = globalState;
 
-  const getTotalPrice = () => {
-    const totalPriceRedux = wallet.expenses.reduce((acc, expense) => {
-      const { value, currency, exchangeRates } = expense;
-      const { ask } = exchangeRates[currency];
-      const total = acc + (ask * value);
-      return total;
-    }, 0);
-
-    setTotalPrice(totalPriceRedux);
-  };
-
   useEffect(() => {
+    const getTotalPrice = () => {
+      const totalPriceRedux = wallet.expenses.reduce((acc, expense) => {
+        const { value, currency, exchangeRates } = expense;
+        const { ask } = exchangeRates[currency];
+        const total = acc + (ask * value);
+        return total;
+      }, 0);
+
+      setTotalPrice(totalPriceRedux);
+    };
+
     getTotalPrice();
   }, [wallet]);
 

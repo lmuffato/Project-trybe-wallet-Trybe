@@ -11,6 +11,8 @@ const INITIAL_STATE = {
   error: '',
   currencies: [],
   expenses: [],
+  edit: false,
+  idEdit: 0,
 };
 
 function userWalletReducer(state = INITIAL_STATE, action) {

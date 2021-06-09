@@ -11,14 +11,11 @@ const TBody = () => {
   };
   const renderTBody = () => expenses.map((expense) => {
     const {
-      id, description, method,
-      value, tag, exchangeRates,
-      currency, coin,
+      id, description, method, value, tag, exchangeRates, currency, coin,
     } = expense;
     const { ask, name } = exchangeRates[currency];
     const convertedValue = (value * ask).toFixed(2);
     const cointConverted = name.split('/')[0];
-
     return (
       <tbody key={ id }>
         <tr>
@@ -38,6 +35,13 @@ const TBody = () => {
               data-testid="delete-btn"
             >
               Deletar
+            </button>
+            <button
+              type="button"
+              onClick={ () => removeExpense(id) }
+              data-testid="edit-btn"
+            >
+              Editar
             </button>
           </td>
         </tr>
