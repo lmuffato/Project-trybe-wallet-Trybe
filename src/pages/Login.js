@@ -102,3 +102,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(null, mapDispatchToProps)(Login);
+
+// Código de validação de email com regex:
+// https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
