@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 const Header = () => {
   const email = useSelector((state) => state.user.email);
   const total = useSelector((state) => state.wallet.total);
-  const [moeda] = React.useState('BRL');
 
   return (
     <header className="header">
@@ -13,17 +12,15 @@ const Header = () => {
         <div data-testid="email-field">
           Email :
           {' '}
-          {email}
+          <span data-testid="email-field">{email}</span>
         </div>
         <div data-testid="total-field">
           Despesa Total: R$
           {' '}
-          {total}
+          <span data-testid="total-field">{total}</span>
         </div>
-        <div data-testid="header-currency-field">
-          Moeda:
-          {' '}
-          {moeda}
+        <div>
+          <span data-testid="header-currency-field">BRL</span>
         </div>
       </div>
     </header>
