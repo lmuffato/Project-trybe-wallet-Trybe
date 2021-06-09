@@ -10,33 +10,54 @@ class Login extends React.Component {
 
     this.state = {
       email: '',
-      // senha: '',
-      btnDesabled: true,
+      senha: '',
     };
 
     this.hamdleChange = this.hamdleChange.bind(this);
+    this.validEmail = this.validEmail.bind(this);
+    this.validSenha = this.validSenha.bind(this);
+    this.validButton = this.validButton.bind(this);
   }
 
   hamdleChange({ target }) {
     const { value, name } = target;
     this.setState({
       [name]: value,
-      btnDesabled: false,
     });
   }
 
-  // const validatesActivationOfTheButton = () => {
-  //   const { senha } = this.props;
-  //   const valid = false;
-  //   if ( senha >= 6) {
-  //     valid = true;
-  //   }
-  //   return valid;
-  // }
+  validEmail() {
+    const { email } = this.state;
+    const regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    let boolean = true;
+
+    if (email.match(regexEmail)) {
+      boolean = false;
+    }
+    return boolean;
+  }
+
+  validSenha() {
+    const { senha } = this.state;
+    const MIN_LENGTH = 6;
+    let boolean = true;
+
+    if (senha.length >= MIN_LENGTH) {
+      boolean = false;
+    }
+    return boolean;
+  }
+
+  validButton() {
+    if (this.validEmail() === false && this.validSenha() === false) {
+      return false;
+    }
+    return true;
+  }
 
   render() {
-    const { email, btnDesabled } = this.state;
-    const { emailAction } = this.props;
+    const { email, senha } = this.state;
+    const { emailDispatch } = this.props;
     return (
       <div>
         <section>
@@ -50,17 +71,17 @@ class Login extends React.Component {
           <input
             type="password"
             name="senha"
+            value={ senha }
             placeholder="senha"
             data-testid="password-input"
-            min-length="6"
             onChange={ this.hamdleChange }
           />
           <div>
             <Link to="/carteira">
               <button
                 type="button"
-                disabled={ btnDesabled }
-                onClick={ () => emailAction(email) }
+                disabled={ this.validButton() }
+                onClick={ () => emailDispatch(email) }
               >
                 Entrar
               </button>
@@ -73,11 +94,11 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  emailAction: PropTypes.func.isRequired,
+  emailDispatch: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  emailAction: (payload) => dispatch(validEmail(payload)),
+  emailDispatch: (payload) => dispatch(validEmail(payload)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
