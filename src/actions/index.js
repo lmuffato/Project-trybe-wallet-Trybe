@@ -31,3 +31,5 @@ export const getApiThunk = () => (dispatch) => {
     })
     .catch(() => { dispatch(getApiError()); });
 };
+
+// Referência Thunk: https://github.com/tryber/sd-10a-live-lectures/blob/lecture/16.4/iss-location/src/actions/index.js;

@@ -14,7 +14,7 @@ function wallet(state = INITIAL_STATE, action) {
       ...state,
       currencies: [
         ...Object.keys(action.payload.currencies)
-          .filter((key) => key !== 'USDT' && key !== 'DOGE'),
+          .filter((key) => key !== 'USDT'),
       ],
     };
   case GET_ERROR:
