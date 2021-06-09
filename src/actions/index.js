@@ -1,24 +1,9 @@
 // Coloque aqui suas actions
-export const SAVE_USER = 'SAVE_USER';
-export const TYPED_EMAIL = 'TYPED_EMAIL';
-export const TYPED_PASSWORD = 'TYPED_PASSWORD';
+export const LOGIN = 'LOGIN';
 
 // action creator > funcao que retorna uma action
-export const saveUser = (payload) => ({
-  type: SAVE_USER,
-  allUsers: { payload },
-});
-
-// typedEmail
-export const typedEmail = (payload) => ({
-  type: TYPED_EMAIL,
+// LOGIN
+export const loginAction = (payload) => ({
+  type: LOGIN,
   payload,
-});
-
-// typedEmail
-export const typedPassword = (payload) => ({
-  type: TYPED_PASSWORD,
-  user: {
-    password: payload,
-  },
 });

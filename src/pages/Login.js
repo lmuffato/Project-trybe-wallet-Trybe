@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { saveUser, typedEmail } from '../actions/index';
+import { loginAction } from '../actions/index';
 
 class Login extends React.Component {
   constructor(props) {
@@ -13,8 +13,6 @@ class Login extends React.Component {
       disabled: true,
     };
     this.handleChange = this.handleChange.bind(this);
-    // this.redirect = this.redirect.bind(this);
-    // this.handleChangePassW = this.handleChangePassW.bind(this);
   }
 
   handleChange(event) {
@@ -34,23 +32,9 @@ class Login extends React.Component {
     }));
   }
 
-  /*   handleChangePassW(event) {
-    const { name, value } = event.target;
-    this.setState((prevState) => ({
-      ...prevState,
-      user: prevState,
-      [name]: value,
-    }));
-    */
-  /*
-   if (email.contains('@') && email.contains('.com')) {
-     this.setState({
-       checkedEmail: true,
-      });
-    } */
-
   render() {
-    const { disabled } = this.state;
+    const { disabled, email, password } = this.state;
+    const { dispatch } = this.props;
     return (
       <section>
         <div>Login</div>
@@ -63,8 +47,8 @@ class Login extends React.Component {
               id="user-email"
               type="email"
               name="email"
-              // value={ typedEmail }
-              onChange={ this.handleChange }
+              value={ email }
+              onChange={ (event) => this.handleChange(event) }
             />
           </label>
           <label htmlFor="user-passw">
@@ -75,8 +59,8 @@ class Login extends React.Component {
               id="user-passw"
               type="text"
               name="password"
-              // value={ userTypedPassword }
-              onChange={ this.handleChange }
+              value={ password }
+              onChange={ (event) => this.handleChange(event) }
             />
           </label>
           <Link to="/carteira">
@@ -84,6 +68,7 @@ class Login extends React.Component {
               type="button"
               data-testid="edit-btn"
               disabled={ disabled }
+              onClick={ () => dispatch(loginAction(email)) }
             >
               Entrar
             </button>
@@ -95,10 +80,7 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  email: (payload) => dispatch(typedEmail(payload)),
-  userTypedEmail: (payload) => dispatch(typedEmail(payload)),
-  // userTypedPassword: (userTypedPassword) => dispatch(typedPassword(userTypedPassword)),
-  saveUser: (state) => dispatch(saveUser(state)),
+  loginAction: (email) => dispatch(loginAction(email)),
 });
 // é uma função que retorna um objeto = () => ({}); 2, recebe por parametro o dispatch, define as actions que serao disparadas, recebendo via props
 // vou passar a propriedade da action como chave, ela vai receber uma função, que tem como parametro user e ela disparada dispatch(actionCreator({ user })), e passa
