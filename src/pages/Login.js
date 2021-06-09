@@ -10,12 +10,12 @@ class Login extends React.Component {
         <label htmlFor="email">
           Email
           <br />
-          <input type="text" id="email" data-testid="email-input" />
+          <input type="text" className="email" data-testid="email-input" />
         </label>
         <label htmlFor="password">
           Password
           <br />
-          <input type="password" id="password" data-testid="password-input" />
+          <input type="password" className="password" data-testid="password-input" />
         </label>
         <button type="button">Entrar</button>
       </div>

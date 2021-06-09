@@ -1,11 +1,3 @@
-// const outlay = () => {
-//   return {
-//     type: 'ADD_OUTLAY',
-//     type: 'REMOVE_OUTLAY',
-//     type: 'EDIT_OUTLAY',
-//   };
-// };
-
 export const LOGIN = 'LOGIN';
 
 // const login = () => ({
