@@ -9,34 +9,41 @@ class Wallet extends React.Component {
         <form>
           <label htmlFor="input-value">
             Valor
-            <input type="text" name="input-value" size="4" />
+            <input type="text" id="input-value" size="4" />
           </label>
-          <label htmlFor="input-currency">
+
+          <label htmlFor="select-currency">
             Moeda
-            <input type="text" name="input-currency" size="4" />
+            <select id="select-currency">
+              {/* <option>OPT</option> */}
+            </select>
+
           </label>
           <label htmlFor="select-payMethod">
-            Método
-            <select name="select-payMethod">
-              <option>Dinheiro</option>
-              <option>Crédito</option>
-              <option>Débito</option>
+            Método de pagamento
+            <select id="select-payMethod">
+              <option value="dinheiro">Dinheiro</option>
+              <option value="credito">Cartão de Crédito</option>
+              <option value="debito">Cartão de Débito</option>
             </select>
           </label>
-          <label htmlFor="input-tag">
-            Tag:
-            <select name="select-tag">
-              <option>Lazer</option>
-              <option>Trabalho</option>
-              <option>Alimentação</option>
-              <option>Transporte</option>
-              <option>Saúde</option>
+
+          <label htmlFor="tag">
+            Tag
+            <select id="tag">
+              <option value="lazer">Lazer</option>
+              <option value="trabalho">Trabalho</option>
+              <option value="alimento">Alimentação</option>
+              <option value="transporte">Transporte</option>
+              <option value="saude">Saúde</option>
             </select>
           </label>
+
           <label htmlFor="input-desc">
             Descrição
-            <input type="text" name="input-currency" />
+            <input type="text" id="input-desc" />
           </label>
+
           <button type="submit">Adicionar Despesa</button>
         </form>
       </>
