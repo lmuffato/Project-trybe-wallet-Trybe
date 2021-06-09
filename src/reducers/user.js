@@ -1,3 +1,5 @@
+import { USER_LOGIN } from '../actions/index';
+
 const INICIAL_STATE = {
   user: {
     email: '',
@@ -6,9 +8,9 @@ const INICIAL_STATE = {
 
 function userData(state = INICIAL_STATE, action) {
   switch (action.type) {
-  case 'INITIAL_STATE':
+  case USER_LOGIN:
     return {
-      ...state,
+      email: action.user.email,
     };
   default:
     return state;
