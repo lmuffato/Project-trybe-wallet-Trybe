@@ -1,20 +1,39 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  email: '',
+  password: '',
+  emailIsValid: false,
+  passwordIsValid: false,
 };
 
-const userReducer = (state = INITIAL_STATE, action) => {
+const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'ADD_USER': return state;
+  case 'TYPED_EMAIL':
+    return {
+      ...state,
+      email: action.payload.email,
+    };
+
+  case 'TYPED_PASSWORD':
+    return {
+      ...state,
+      password: action.payload.password,
+    };
+
+  case 'EMAIL_IS_VALID':
+    return {
+      ...state,
+      emailIsValid: true,
+    };
+
+  case 'PASSWORD_IS_VALID':
+    return {
+      ...state,
+      passwordIsValid: true,
+    };
   default: return state;
   }
 };
 
-export default userReducer;
+export default user;
