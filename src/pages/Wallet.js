@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { fetchCurrencies } from '../actions';
 
 class Wallet extends React.Component {
   render() {
@@ -10,30 +11,28 @@ class Wallet extends React.Component {
         <header>
           <h1>TrybeWallet</h1>
           <section>
-            <label htmlFor="email">
+            <div>
               Email:
-              <span name="email" data-testid="email-field">{ email }</span>
-            </label>
-            <label htmlFor="total-expense">
+              <span data-testid="email-field">{ email }</span>
+            </div>
+            <div>
               Despesa total:
-              <span>BRL</span>
-              <span name="total-expense" data-testid="total-field">0</span>
-            </label>
-
+              <span data-testid="header-currency-field">BRL</span>
+              <span data-testid="total-field">0</span>
+            </div>
           </section>
         </header>
-        
       </main>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  email: state.login.email,
+  email: state.user.email,
 });
 
 const mapDispachToProps = (dispach) => ({
-  alguma: (info) => dispach(wallet(info)),
+  updateCurrencies: () => dispach(fetchCurrencies()),
 });
 
 Wallet.propTypes = {

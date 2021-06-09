@@ -14,7 +14,7 @@ export const updateCurrencies = (currenciesQuotation) => ({
   payload: currenciesQuotation,
 });
 
-export function fetchCurrences() {
+export function fetchCurrencies() {
   return (dispatch) => {
     dispatch(requestAPI());
     return fetch('https://economia.awesomeapi.com.br/json/all')
