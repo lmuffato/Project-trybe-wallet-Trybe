@@ -3,13 +3,21 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      total: 0,
+    };
+  }
+
   render() {
-    const { getEmail, getCurrency, getTotal } = this.props;
+    const { getEmail } = this.props;
+    const { total } = this.state;
     return (
       <header>
         <span data-testid="email-field">{getEmail}</span>
-        <span data-testid="total-field">{Number(getTotal)}</span>
-        <span data-testid="header-currency-field">{getCurrency}</span>
+        <span data-testid="total-field">{total}</span>
+        <span data-testid="header-currency-field">BRL</span>
       </header>
     );
   }
@@ -23,8 +31,6 @@ const mapStateToProps = (state) => ({
 
 Wallet.propTypes = {
   getEmail: PropTypes.string.isRequired,
-  getCurrency: PropTypes.string.isRequired,
-  getTotal: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, null)(Wallet);
