@@ -1,15 +1,12 @@
 import React from 'react';
-import Header from '../Header';
-import Form from '../Form';
+import Header from '../components/Header';
+import Form from '../components/Form';
 
-const Wallet = () => {
-
-  return (
-    <>
-      <Header />
-      <Form />
-    </>
-  );
-};
+const Wallet = () => (
+  <>
+    <Header />
+    <Form />
+  </>
+);
 
 export default Wallet;
