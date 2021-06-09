@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { func } from 'prop-types';
 import { user as loginAction } from '../actions/index';
@@ -35,12 +36,17 @@ class Login extends React.Component {
               placeholder="senha"
               data-testid="password-input"
             />
-            <button
-              type="button"
+            <Link
+              to="/wallet"
               onClick={ () => user({ email, password }) }
             >
-              Entrar
-            </button>
+              <button
+                type="button"
+              >
+                Entrar
+              </button>
+            </Link>
+
           </form>
         </div>
       </div>
