@@ -3,6 +3,7 @@ export const REQUEST_CURRENCY = 'REQUEST_CURRENCY';
 export const RECEIVE_CURRENCY = 'RECEIVE_CURRENCY';
 export const REQUEST_CURRENCY_ONCLICK = 'REQUEST_CURRENCY_ONCLICK';
 export const RECEIVE_CURRENCY_ONCLICK = 'RECEIVE_CURRENCY_ONCLICK';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 
 export const login = (payload) => ({
   type: LOGIN,
@@ -37,3 +38,7 @@ export function fetchCurrencyOnClick(value) {
       .then((currency) => dispatch(receiveCurrencyOnClick(value, currency)));
   };
 }
+
+export const removeExpense = (id) => ({
+  type: REMOVE_EXPENSE,
+  id });

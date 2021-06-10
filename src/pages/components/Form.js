@@ -70,7 +70,12 @@ class Form extends React.Component {
   handleClick(event) {
     const { value, description, currency, method, tag } = this.state;
     const { expenses, updateCurrency } = this.props;
-    const id = expenses.length;
+    let id = 0;
+
+    if (expenses.length > 0) {
+      id = (expenses[expenses.length - 1].id + 1);
+    }
+
     const expObj = { id, value, currency, method, tag, description };
 
     updateCurrency(expObj);

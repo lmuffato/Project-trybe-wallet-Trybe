@@ -1,4 +1,5 @@
-import { REQUEST_CURRENCY, RECEIVE_CURRENCY, RECEIVE_CURRENCY_ONCLICK } from '../actions';
+import { REQUEST_CURRENCY, RECEIVE_CURRENCY, RECEIVE_CURRENCY_ONCLICK,
+  REMOVE_EXPENSE } from '../actions';
 
 const initialState = {
   isFetching: false,
@@ -17,6 +18,11 @@ function wallet(state = initialState, action) {
       ...state,
       expenses: [...state.expenses, action.payload],
       isFetching: false,
+    };
+  case REMOVE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== action.id),
     };
   default:
     return state;
