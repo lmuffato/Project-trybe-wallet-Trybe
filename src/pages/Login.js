@@ -65,7 +65,7 @@ class Login extends React.Component {
 
     return (
       <main>
-        <section id="login-container">
+        <section id="login">
           <label htmlFor="Email">
             <input
               data-testid="email-input"
