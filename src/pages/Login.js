@@ -9,40 +9,36 @@ class Login extends React.Component {
       password: '',
       disabled: true,
     };
+    this.inputsValidation = this.inputsValidation.bind(this);
     this.changeValidEmail = this.changeValidEmail.bind(this);
     this.changeValidPassword = this.changeValidPassword.bind(this);
-    this.enableButton = this.enableButton.bind(this);
   }
 
-  // função para pegar o value no input e-mail e alterar estado se valido
-  changeValidEmail(event) {
-    const { email } = this.state;
+  inputsValidation() {
+    const { email, password } = this.state;
     const emailValidTest = /\w+@\w+\.\w+/gi.test(email);
-    if (emailValidTest) {
+    const passwordIsValid = /(.{5,})/gi.test(password);
+    if (emailValidTest && passwordIsValid) {
       this.setState({
-        email: event.target.value,
+        disabled: false,
       });
     }
   }
 
-  // função para pegar o value do input password altera estado se valido
-  changeValidPassword(event) {
-    const { password } = this.state;
-    const passwordLength = 5;
-    if (password.length > passwordLength) {
-      this.setState({ password: event.target.value });
-    }
+  // função para pegar o value no input e-mail e alterar estado se valido
+  changeValidEmail(event) {
+    this.setState({
+      email: event.target.value,
+    });
   }
 
-  // função habilita botão se email e senha validos.
-  enableButton(changeValidEmail, changeValidPassword) {
-    if (changeValidEmail && changeValidPassword) {
-      this.setState({ disabled: false });
-    }
+  // função para pegar o value do input password altera estado se valido
+  changeValidPassword(event) {
+    this.inputsValidation();
+    this.setState({
+      password: event.target.value,
+    });
   }
-  // const { email, password } = this.state;
-  // const emailIsValid = /\w+@\w+\.\w+/gi.test(email);
-  // const passwordIsValid = /(.{5,})/gi.test(password);
 
   render() {
     const { disabled } = this.state;
