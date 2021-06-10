@@ -1,4 +1,4 @@
-import { TOTAL_VALUE } from '../actions';
+import { TOTAL_VALUE } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],

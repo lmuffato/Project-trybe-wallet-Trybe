@@ -1,6 +1,7 @@
 import React from 'react';
 import { string, number } from 'prop-types';
 import { connect } from 'react-redux';
+import Form from '../components/form';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -31,12 +32,13 @@ class Wallet extends React.Component {
           </span>
           <span data-testid="total-field">
             Dispesa Total: R$
-            { this.totalValue() }
+            {this.totalValue()}
             <span data-testid="header-currency-field">
               BRL
             </span>
           </span>
         </header>
+        <Form />
       </div>
     );
   }
