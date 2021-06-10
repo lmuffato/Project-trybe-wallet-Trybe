@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Login from './pages/Login';
 import Wallet from './pages/Wallet';
@@ -11,7 +11,7 @@ const STOCK_ROUTES = [
     component: Login,
   },
   {
-    path: '/wallet',
+    path: '/carteira',
     component: Wallet,
   },
 ];
@@ -19,16 +19,18 @@ const STOCK_ROUTES = [
 function App() {
   return (
     <div>
-      {
-        STOCK_ROUTES.map((route, index) => (
-          <Route
-            key={ index }
-            path={ `${route.path}` }
-            component={ route.component }
-            exact
-          />
-        ))
-      }
+      <Switch>
+        {
+          STOCK_ROUTES.map((route, index) => (
+            <Route
+              key={ index }
+              path={ `${route.path}` }
+              component={ route.component }
+              exact
+            />
+          ))
+        }
+      </Switch>
     </div>
   );
 }
