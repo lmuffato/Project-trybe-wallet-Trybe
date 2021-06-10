@@ -224,6 +224,7 @@ describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gasto
     expect(store.getState().wallet.expenses).toStrictEqual(expectedStateExpense2);
 
     const totalField = screen.getByTestId('total-field');
+    console.log(totalField.textContent)
     expect(totalField).toContainHTML('187.12');
   });
 });

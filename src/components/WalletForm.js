@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { func, objectOf, object } from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrenciesThunk } from '../actions/index';
-import Category from './WalletFormOptions/Category';
-import PayOption from './WalletFormOptions/PayOption';
+import { getCurrenciesThunk, setNewExpense, updateTotalExpenses } from '../actions/index';
+import Tag from './WalletFormOptions/Tag';
+import Method from './WalletFormOptions/Method';
 import Currency from './WalletFormOptions/Currency';
 import Description from './WalletFormOptions/Description';
 import Value from './WalletFormOptions/Value';
+import fetchCurrencies from '../services/fetchCurrencies';
 
 class WalletForm extends Component {
   constructor() {
@@ -19,8 +20,8 @@ class WalletForm extends Component {
       value: '',
       description: '',
       currency: 'USD',
-      payoption: 'money',
-      category: 'food',
+      method: 'money',
+      tag: 'food',
     };
   }
 
@@ -34,14 +35,34 @@ class WalletForm extends Component {
     this.setState({ [name]: value });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
-    // const { value, description, currency, payoption, category } = this.state;
+    const { value, description, currency, method, tag } = this.state;
+    const { expenses, setExpense, updateExpenses } = this.props;
+    const exchangeRates = await fetchCurrencies();
+    const newExpense = {
+      id: expenses.length,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates,
+    };
+    setExpense(newExpense);
+    updateExpenses(Number((value * (exchangeRates[currency].ask)).toFixed(2)));
+    this.setState({
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'money',
+      tag: 'food',
+    });
   }
 
   render() {
     const { currencies } = this.props;
-    const { value, description, currency, payoption, category } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     const currenciesKeys = Object.keys(currencies).filter((key) => key !== 'USDT');
     return (
       <form onSubmit={ this.handleSubmit }>
@@ -52,8 +73,8 @@ class WalletForm extends Component {
           selectedCur={ currency }
           handleInput={ this.handleInput }
         />
-        <PayOption payoption={ payoption } handleInput={ this.handleInput } />
-        <Category category={ category } handleInput={ this.handleInput } />
+        <Method method={ method } handleInput={ this.handleInput } />
+        <Tag tag={ tag } handleInput={ this.handleInput } />
         <button
           type="submit"
         >
@@ -71,6 +92,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrencies: () => dispatch(getCurrenciesThunk()),
+  setExpense: (data) => dispatch(setNewExpense(data)),
+  updateExpenses: (value) => dispatch(updateTotalExpenses(value)),
 });
 
 WalletForm.propTypes = {
