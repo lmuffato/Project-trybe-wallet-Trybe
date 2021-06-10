@@ -14,24 +14,24 @@ class Form extends React.Component {
         </label>
         <label htmlFor="Moeda">
           Moeda
-          <select>{}</select>
+          <select id="Moeda">{}</select>
         </label>
         <label htmlFor="Mtdpagamento">
           Método de pagamento
-          <select>
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
+          <select id="Mtdpagamento">
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
         <label htmlFor="categoria">
           Tag
-          <select>
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
+          <select id="categoria">
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
       </form>
