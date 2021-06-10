@@ -6,7 +6,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        Hello, TrybeWallet!
         <Switch>
           <Route path="/" component={ Login } />
         </Switch>
