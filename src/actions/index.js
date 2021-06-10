@@ -12,7 +12,7 @@ export const addUser = (email) => ({
   user: email,
 });
 
-export const addEpenses = (arrayExpenses) => ({
+export const addExpenses = (arrayExpenses) => ({
   type: ADD_EXPENSE,
   expenses: arrayExpenses,
 });
@@ -38,4 +38,14 @@ export const getCurrenciesThunk = () => (dispatch) => {
       dispatch(fetchCurrenciesSuccess(res));
     })
     .catch(() => { dispatch(fetchCurrenciesError()); });
+};
+
+export const getExchangeThunk = (obj) => (dispatch) => {
+  currenciesAPI()
+    .then((res) => {
+      dispatch(addExpenses(([{
+        ...obj,
+        exchangeRates: res,
+      }])));
+    });
 };

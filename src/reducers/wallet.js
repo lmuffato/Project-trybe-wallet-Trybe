@@ -3,6 +3,7 @@ import {
   FETCH_CURRENCIES,
   FETCH_CURRENCIES_ERROR,
   FETCH_CURRENCIES_SUCCESS,
+  ADD_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -33,6 +34,11 @@ function wallet(state = INITIAL_STATE, action) {
       ...state,
       loading: false,
       error: action.payload,
+    };
+  case ADD_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.concat(action.expenses),
     };
   default:
     return state;
