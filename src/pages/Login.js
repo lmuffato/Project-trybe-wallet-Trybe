@@ -1,10 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 // import { Redirect } from 'react-router';
+// import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import loginUser from '../actions/user';
 
 const MIN_LENGTH = 5;
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: '',
       password: '',
@@ -19,6 +23,13 @@ class Login extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { email, password } = this.state;
+    if (prevState.email !== email || prevState.password !== password) {
+      this.handleButton();
+    }
+  }
+
   handleEmail(ev) {
     const email = ev.target.value;
     const re = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
@@ -28,17 +39,17 @@ class Login extends React.Component {
     } else {
       this.setState({ emailValid: false, email: '' });
     }
-    this.handleButton();
+    // this.handleButton();
   }
 
   handlePassword(ev) {
     const size = ev.target.value.length;
-    if (size >= MIN_LENGTH) {
+    if (size > MIN_LENGTH) {
       this.setState({ passwordValid: true, password: ev.target.value });
     } else {
-      this.setState({ passwordValid: false, password: '' });
+      this.setState({ passwordValid: false });
     }
-    this.handleButton();
+    // this.handleButton();
   }
 
   handleButton() {
@@ -49,17 +60,21 @@ class Login extends React.Component {
     });
   }
 
-  handleClick(ev) {
-    // console.log(ev);
-    ev.preventDefault();
+  handleClick() {
+    // console.log(path);
     console.log('clicou!');
+    const { sendEmail, history } = this.props;
+    const { email } = this.state;
+    sendEmail(email);
+    history.push('/carteira'); // https://stackoverflow.com/questions/31079081/programmatically-navigate-using-react-router
   }
 
   render() {
-    const { email, password, emailValid, passwordValid, buttonDisabled } = this.state;
-    if (emailValid && passwordValid) {
-      console.log(`Email:${email}\nSenha:${password}`);
-    }
+    const { buttonDisabled } = this.state;
+    // if (emailValid && passwordValid) {
+    //   console.log(`Email:${email}\nSenha:${password}`);
+    // }
+    // if (redirect) return <Redirect to="/carteira" />;
     return (
       <section>
         Email
@@ -85,4 +100,13 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  sendEmail: (payload) => dispatch(loginUser(payload)),
+});
+
+Login.propTypes = {
+  sendEmail: PropTypes.func,
+  history: PropTypes.object,
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(Login);
