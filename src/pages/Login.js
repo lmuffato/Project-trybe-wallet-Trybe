@@ -9,55 +9,63 @@ class Login extends React.Component {
     super();
     this.state = {
       email: '',
+      password: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(e) {
+  handleChange({ target }) {
+    const { name, value } = target;
     this.setState({
-      email: e.target.value,
+      [name]: value,
     });
   }
 
   render() {
-    const { email } = this.state;
-    const { sendEmail } = this.props;
+    const { email, password } = this.state;
+    const { emailDispatchProps } = this.props;
+    const minPassword = 5;
+
     return (
       <div>
-        <h3>Enter Email and Password</h3>
-        <input
-          type="email"
-          data-testid="email-input"
-          placeholder="Email"
-          onChange={ this.handleChange }
-        />
-        <input
-          type="password"
-          data-testid="password-input"
-          placeholder="PassWord"
-        />
-        <Link to="/carteira">
-          <button
-            onClick={ () => sendEmail({ email }) }
-            type="button"
-            // disabled
-
-          >
-            Entrar
-          </button>
-        </Link>
+        <section>
+          <h3>Enter Email and Password</h3>
+          <input
+            type="email"
+            name="email"
+            data-testid="email-input"
+            placeholder="Email"
+            onChange={ this.handleChange }
+          />
+          <input
+            type="password"
+            name="password"
+            data-testid="password-input"
+            placeholder="PassWord"
+            onChange={ this.handleChange }
+          />
+          <Link to="/carteira">
+            <button
+              onClick={ () => emailDispatchProps({ email }) }
+              type="button"
+              disabled={ !email.match(/\S+@\S+\.\S+/) || password.length <= minPassword }
+            >
+              Entrar
+            </button>
+          </Link>
+        </section>
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  sendEmail: (payload) => dispatch(login(payload)),
+  emailDispatchProps: (payload) => dispatch(login(payload)),
 });
 
 Login.propTypes = {
-  sendEmail: PropTypes.string.isRequired,
+  emailDispatchProps: PropTypes.string.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Login);
