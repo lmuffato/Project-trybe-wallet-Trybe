@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { filteringExpenses } from '../utils/filterCurrencies';
+import { filteringExpense } from '../utils/filterCurrencies';
 
 function Header(props) {
   const { user, expenses } = props;
 
   const handleCurrencyType = (expense) => {
-    const currencyType = filteringExpenses(expense);
+    const currencyType = filteringExpense(expense);
     return Number(currencyType[0].ask * expense.value).toFixed(2);
   };
 

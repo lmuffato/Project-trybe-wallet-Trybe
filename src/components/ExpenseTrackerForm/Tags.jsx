@@ -2,14 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Tags({ name, value, handleChange }) {
-  // const [tag, setTag] = useState('');
-
-  // const handleChange = (event) => {
-  //   const { value } = event.target;
-  //   setTag(value);
-  //   console.log(value);
-  // };
-
   return (
     <label htmlFor="tags">
       Tag

@@ -5,24 +5,24 @@ function filterCurrencies(currencies) {
   return filteringCurrencies;
 }
 
-export const filteringExpenses = (expense) => {
+export const filteringExpense = (expense) => {
   const filtering = Object.values(expense.exchangeRates).filter((curr) => (
     curr.code === expense.currency));
   return filtering;
 };
 
 export const handleConversionCurrencyName = (expense) => {
-  const currencyType = filteringExpenses(expense);
+  const currencyType = filteringExpense(expense);
   return currencyType[0].name;
 };
 
 export const handleCurrencyType = (expense) => {
-  const currencyType = filteringExpenses(expense);
+  const currencyType = filteringExpense(expense);
   return Number(currencyType[0].ask * expense.value).toFixed(2);
 };
 
 export const handleConversion = (expense) => {
-  const currType = filteringExpenses(expense);
+  const currType = filteringExpense(expense);
   return Number(currType[0].ask).toFixed(2);
 };
 
