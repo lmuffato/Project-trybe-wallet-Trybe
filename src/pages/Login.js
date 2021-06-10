@@ -1,4 +1,6 @@
 import React from 'react';
+import login from '../actions';
+import { connect } from 'react-redux';
 
 class Login extends React.Component {
   constructor() {
@@ -32,7 +34,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { hasValidLogin } = this.state;
+    const { hasValidLogin, email, password } = this.state;
+    const { login } = this.props;
 
     return (
       <div>
@@ -60,6 +63,7 @@ class Login extends React.Component {
           <button
             type="button"
             disabled={!hasValidLogin}
+            onClick={ () => login(email, password) }
           >
             Entrar
           </button>
