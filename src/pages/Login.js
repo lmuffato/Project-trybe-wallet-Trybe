@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { login } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -38,6 +41,16 @@ class Login extends React.Component {
     return !(this.verifyEmail(email) && this.verifyPassword(password));
   }
 
+  handleLogin(email) {
+    const { loginUser, history } = this.props;
+    loginUser(email);
+    // this.props.history.push consultada no stack overflow no link:
+    // https://stackoverflow.com/questions/61899931/how-to-redirect-to-homepage-after-successful-login-in-reactjs
+    // E também na doc do React Router: https://reactrouter.com/web/api/history
+    history.push('/carteira');
+    console.log(history.push);
+  }
+
   render() {
     const { email, password } = this.state;
     const isSubmitDisabled = this.isDisabled(email, password);
@@ -72,11 +85,23 @@ class Login extends React.Component {
           id="btn-submit"
           value="Entrar"
           disabled={ isSubmitDisabled }
-          onClick={ this.verifyEmail }
+          onClick={ () => this.handleLogin(email) }
         />
       </>
     );
   }
 }
 
-export default Login;
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  loginUser: (email) => dispatch(login(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
