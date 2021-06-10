@@ -1,4 +1,4 @@
-/*Inspiração CSS: https://codepen.io/soufiane-khalfaoui-hassani/pen/LYpPWda */
+/* Inspiração CSS: https://codepen.io/soufiane-khalfaoui-hassani/pen/LYpPWda */
 
 /* html {
   height: 100%;
@@ -84,8 +84,10 @@ body {
 .login-box form button:disabled {
 color: gray;
 }
-  /*Detalhes de implementação realizados com auxílio de João Nascimento, turma 10 A*/
-/* .login-box button:not(.login-box button:disabled):hover {
+  /* Detalhes de implementação realizados com auxílio de João Nascimento, turma 10 A */
+/* 
+
+.login-box button:not(.login-box button:disabled):hover {
   background: #03e9f4;
   color: #fff;
   border-radius: 5px;
