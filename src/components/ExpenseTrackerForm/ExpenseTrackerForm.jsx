@@ -34,13 +34,12 @@ class ExpenseTrackerForm extends Component {
 
   handleChange(event) {
     const { value, name } = event.target;
-    console.log(value);
     this.setState({ [name]: value });
   }
 
   async handleClick() {
     console.log('clique do botão add expenses');
-    console.log(this.state);
+    // console.log(this.state);
     const endpoint = 'https://economia.awesomeapi.com.br/json/all';
     const { addNewExpenseToTracker, expenses } = this.props;
     const request = await fetch(endpoint);

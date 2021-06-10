@@ -2,23 +2,11 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
 import Header from '../components/Header';
-import TableWallet from '../components/TableWallet';
+import TableWallet from '../components/TableWallet/index';
 import ExpenseTrackerForm from '../components/ExpenseTrackerForm/ExpenseTrackerForm';
 // import { addingExpense, getExchangeRatesThunk } from '../actions';
 
 class Wallet extends React.Component {
-  // constructor() {
-  //   super();
-  //   // const { expenses } = props;
-  // }
-
-  // async handleExchangeRates() {
-  //   const { addExpense, getCurrencies } = this.props;
-  //   const getExchangeRates = getCurrencies();
-  //   this.setState({ exchangeRates: getExchangeRates });
-  //   addExpense(this.state);
-  // }
-
   render() {
     return (
       <>
