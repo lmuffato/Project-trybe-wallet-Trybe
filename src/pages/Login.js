@@ -1,6 +1,7 @@
 import React from 'react';
 import login from '../actions';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 
 class Login extends React.Component {
   constructor() {
@@ -8,7 +9,8 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      hasValidLogin: false
+      hasValidLogin: false,
+      buttonClicked: false
     }
   }
 
@@ -34,10 +36,11 @@ class Login extends React.Component {
   }
 
   render() {
-    const { hasValidLogin, email, password } = this.state;
+    const { email, password, hasValidLogin, buttonClicked } = this.state;
     const { login } = this.props;
 
     return (
+      buttonClicked ? <Redirect to="/carteira" /> :
       <div>
         <form>
           <label htmlFor="email">
@@ -63,7 +66,12 @@ class Login extends React.Component {
           <button
             type="button"
             disabled={!hasValidLogin}
-            onClick={ () => login(email, password) }
+            onClick={
+              () => {
+                login(email, password);
+                this.setState({buttonClicked: true});
+              }
+            }
           >
             Entrar
           </button>
