@@ -1,4 +1,9 @@
-import { REQUEST_CURRENCY, RECEIVE_CURRENCY, ADD_EXPENSE, DELETE_EXPENSE } from '../actions';
+import {
+  REQUEST_CURRENCY,
+  RECEIVE_CURRENCY,
+  ADD_EXPENSE,
+  DELETE_EXPENSE,
+} from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
