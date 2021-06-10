@@ -1,6 +1,7 @@
 export const SAVE_USER_EMAIL = 'SAVE_USER_EMAIL';
 export const REQUEST_CURRENCY = 'REQUEST_CURRENCY';
 export const RECEIVE_CURRENCY = 'RECEIVE_CURRENCY';
+export const ADD_EXPENSE = 'ADD_EXPENSE';
 
 export const saveUserEmail = (email) => ({
   type: SAVE_USER_EMAIL,
@@ -24,3 +25,8 @@ export const fetchCurrency = () => async (dispatch) => {
 
   return dispatch(receiveCurrencies(currencies));
 };
+
+export const addExpense = (expense) => ({
+  type: ADD_EXPENSE,
+  payload: expense,
+});

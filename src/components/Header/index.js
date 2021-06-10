@@ -1,9 +1,9 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { arrayOf, func, object } from 'prop-types';
 import { connect } from 'react-redux';
 // import { Header as header, UserEmail, TotalDebits, Currency } from './style';
 
-export const WalletHeader = ({ userEmail }) => (
+export const WalletHeader = ({ userEmail, expenses }) => (
   <header>
 
     <span data-testid="email-field">
@@ -11,7 +11,7 @@ export const WalletHeader = ({ userEmail }) => (
     </span>
 
     <span data-testid="total-field">
-      0
+      {expenses.reduce((acc, { value }) => acc + Number(value), 0)}
     </span>
 
     <span data-testid="header-currency-field">
@@ -21,11 +21,13 @@ export const WalletHeader = ({ userEmail }) => (
 );
 
 WalletHeader.propTypes = {
-  userEmail: func.isRequired,
-};
+  userEmail: func,
+  expenses: arrayOf(object),
+}.isRequired;
 
-const mapStateToProps = ({ user }) => ({
+const mapStateToProps = ({ user, wallet }) => ({
   userEmail: user.email,
+  expenses: wallet.expenses,
 });
 
 // const mapDispatchToProps = (dispatch) => ({
