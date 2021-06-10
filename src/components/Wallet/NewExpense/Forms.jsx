@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addNewExpenseAction, fetchExchangeRates } from '../../../actions';
+import { uuid } from '../../../utils';
 
 class Forms extends React.Component {
   constructor() {
