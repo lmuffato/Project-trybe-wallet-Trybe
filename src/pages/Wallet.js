@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class Wallet extends React.Component {
   render() {
-    const { email, total } = this.props;
+    const { email, total = 0 } = this.props;
     return (
       <div>
         <span>Olá, </span>
@@ -15,7 +15,7 @@ class Wallet extends React.Component {
         <div>
           <span>Valor total: </span>
           <span data-testid="total-field">{ total }</span>
-          <span data-tedtiid="header-currency-field"> BRL</span>
+          <span data-testid="header-currency-field"> BRL</span>
         </div>
       </div>
     );
