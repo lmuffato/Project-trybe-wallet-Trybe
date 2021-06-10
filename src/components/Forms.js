@@ -36,9 +36,7 @@ class Forms extends React.Component {
           <select name="coins" aria-label="Moeda">
             {Object.keys(coins).filter((coin) => coin !== 'USDT').map((coin) => (
               <option key={ coin }>
-                {' '}
-                {coin}
-                {' '}
+                <span>{coin}</span>
               </option>
             ))}
           </select>
