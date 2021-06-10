@@ -5,6 +5,14 @@ export const APISUCCESS = 'APISUCCESS';
 export const APIERROR = 'APIERROR';
 export const EXPENSE = 'EXPENSE';
 export const TOTAL = 'TOTAL';
+export const UPDATE = 'UPDATE';
+
+export const actionUpdateExpenses = (value) => ({
+  type: UPDATE,
+  payload: {
+    value,
+  },
+});
 
 export const actionSaveTotal = (value) => ({
   type: TOTAL,

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CategorySelect from '../components/categorySelect';
 import PaymentSelect from '../components/paymentSelect';
-import { API_CURRENCY, actionSaveExpense, actionSaveTotal } from '../actions/index';
+import { API_CURRENCY, actionSaveExpense, actionSaveTotal,
+  actionUpdateExpenses } from '../actions/index';
 
 class Wallet extends React.Component {
   constructor() {
@@ -14,6 +15,7 @@ class Wallet extends React.Component {
     this.addExpense = this.addExpense.bind(this);
     this.loadExpenses = this.loadExpenses.bind(this);
     this.loadTH = this.loadTH.bind();
+    this.deleteExpense = this.deleteExpense.bind(this);
 
     this.state = {
       value: '1',
@@ -79,6 +81,17 @@ class Wallet extends React.Component {
     );
   }
 
+  deleteExpense(id) {
+    const { getExpenses, updateExpense } = this.props;
+    const newArray = [];
+    getExpenses.forEach((expense) => {
+      if (expense.id !== id) {
+        newArray.push(expense);
+      }
+    });
+    updateExpense(newArray);
+  }
+
   loadExpenses() {
     const { getExpenses } = this.props;
     if (getExpenses[0]) {
@@ -86,7 +99,7 @@ class Wallet extends React.Component {
         getExpenses.map(
           (expense, index) => {
             const { description, tag, method, value, currency,
-              exchangeRates } = expense;
+              exchangeRates, id } = expense;
             const rates = Number(exchangeRates[currency].ask);
             const valueInBRL = Number(exchangeRates[currency].ask) * value;
             const currencyName = (exchangeRates[currency].name).split('/')[0];
@@ -100,6 +113,21 @@ class Wallet extends React.Component {
                 <td>{rates.toFixed(2)}</td>
                 <td>{valueInBRL.toFixed(2)}</td>
                 <td>Real</td>
+                <td>
+                  <button
+                    type="button"
+                  >
+                    Editar
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={ () => this.deleteExpense(id) }
+                    data-testid="delete-btn"
+                  >
+                    Excluir
+                  </button>
+                </td>
               </tr>
             );
           },
@@ -172,6 +200,7 @@ const mapDispatchToProps = (dispatch) => ({
   apiEconomia: () => dispatch(API_CURRENCY()),
   saveExpense: (value) => dispatch(actionSaveExpense(value)),
   saveTotal: (value) => dispatch(actionSaveTotal(value)),
+  updateExpense: (value) => dispatch(actionUpdateExpenses(value)),
 });
 
 const mapStateToProps = (state) => ({
@@ -196,6 +225,7 @@ Wallet.propTypes = {
   saveTotal: PropTypes.func.isRequired,
   apiEconomia: PropTypes.func.isRequired,
   apiResult: PropTypes.objectOf(PropTypes.object),
+  updateExpense: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

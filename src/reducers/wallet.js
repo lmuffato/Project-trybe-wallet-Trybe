@@ -1,6 +1,6 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 import {
-  LOADING, APISUCCESS, APIERROR, EXPENSE, TOTAL,
+  LOADING, APISUCCESS, APIERROR, EXPENSE, TOTAL, UPDATE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -19,6 +19,11 @@ function walletReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       expenses: [...state.expenses, action.payload.data],
+    };
+  case UPDATE:
+    return {
+      ...state,
+      expenses: action.payload.value,
     };
   case LOADING:
     return {
