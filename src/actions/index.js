@@ -1,6 +1,6 @@
 // Coloque aqui suas actions
 import getCurrencies from '../services/api';
-import filterCurrencies from '../utils/filterCurrencies';
+import filterCurrencies from '../utils/walletContext';
 
 export const LOGIN = 'LOGIN';
 export const ADD_AMOUNT = 'ADD_AMOUNT';

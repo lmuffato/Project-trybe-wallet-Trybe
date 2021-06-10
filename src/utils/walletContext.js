@@ -33,6 +33,16 @@ export const handleRemoveExpense = (expenses, expense, removendoDespesa) => {
   }
 };
 
+export const handleRemove = (e, expense, removendoDespesa, expenses) => {
+  e.preventDefault();
+  handleRemoveExpense(expenses, expense, removendoDespesa);
+};
+
+export const handleEdit = (e, expense) => {
+  e.preventDefault();
+  console.log('hi', expense.id);
+};
+
 export default filterCurrencies;
 
 // Referência para a função filteringExpenses:

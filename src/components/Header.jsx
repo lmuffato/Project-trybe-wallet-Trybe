@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { filteringExpense } from '../utils/filterCurrencies';
+import { filteringExpense } from '../utils/walletContext';
 
 function Header(props) {
   const { user, expenses } = props;
@@ -40,7 +40,7 @@ const mapStateToProps = (state) => ({
 Header.propTypes = {
   user: PropTypes.shape({
     email: PropTypes.string,
-  }).isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
+  }),
+  expenses: PropTypes.arrayOf(PropTypes.object),
+}.isRequired;
 export default connect(mapStateToProps, null)(Header);

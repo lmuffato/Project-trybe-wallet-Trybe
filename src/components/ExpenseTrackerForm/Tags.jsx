@@ -23,10 +23,10 @@ function Tags({ name, value, handleChange }) {
 }
 
 Tags.propTypes = {
-  name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
-};
+  name: PropTypes.string,
+  value: PropTypes.string,
+  handleChange: PropTypes.func,
+}.isRequired;
 
 export default Tags;
 

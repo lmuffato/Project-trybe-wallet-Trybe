@@ -21,10 +21,10 @@ function Select({ name, onChange, label, options }) {
 }
 
 Select.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
+  name: PropTypes.string,
+  label: PropTypes.string,
+  onChange: PropTypes.func,
+  options: PropTypes.arrayOf(PropTypes.string),
+}.isRequired;
 
 export default Select;

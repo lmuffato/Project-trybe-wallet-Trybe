@@ -4,16 +4,10 @@ import PropTypes from 'prop-types';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import { TiEdit } from 'react-icons/ti';
 import { handleConversionCurrencyName, handleCurrencyType,
-  handleConversion, handleRemoveExpense } from '../../utils/filterCurrencies';
+  handleConversion, handleRemove, handleEdit } from '../../utils/walletContext';
 import { removeExpenseFromGlobalState } from '../../actions';
 
-function TableWallet({ expenses, removendoDespesa }) {
-  const handleOnClick = (e, expense) => {
-    e.preventDefault();
-    // console.log('hi', expense.id);
-    handleRemoveExpense(expenses, expense, removendoDespesa);
-  };
-
+function TableWallet({ expenses, removeDespesa }) {
   return (
     <table>
       <thead>
@@ -41,12 +35,13 @@ function TableWallet({ expenses, removendoDespesa }) {
             <td>{ handleConversion(expense) }</td>
             <td>Real</td>
             <td>
-              <button type="submit" onClick={ (e) => handleOnClick(e, expense) }>
-                <RiCloseCircleLine
-                  data-testid="delete-btn"
-                />
+              <button
+                type="submit"
+                onClick={ (e) => handleRemove(e, expense, removeDespesa, expenses) }
+              >
+                <RiCloseCircleLine data-testid="delete-btn" />
               </button>
-              <button type="submit">
+              <button type="submit" onClick={ (e) => handleEdit(e, expense) }>
                 <TiEdit data-testid="edit-btn" />
               </button>
             </td>
@@ -62,13 +57,13 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removendoDespesa: (despesas) => dispatch(removeExpenseFromGlobalState(despesas)),
+  removeDespesa: (despesas) => dispatch(removeExpenseFromGlobalState(despesas)),
 });
 
 TableWallet.propTypes = {
-  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
-  removendoDespesa: PropTypes.func.isRequired,
-};
+  expenses: PropTypes.arrayOf(PropTypes.object),
+  removeDespesa: PropTypes.func,
+}.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableWallet);
 
