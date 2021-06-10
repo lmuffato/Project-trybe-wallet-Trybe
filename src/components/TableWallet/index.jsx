@@ -31,8 +31,8 @@ function TableWallet({ expenses, removeDespesa }) {
             <td>{expense.method}</td>
             <td>{expense.value}</td>
             <td>{ handleConversionCurrencyName(expense) }</td>
-            <td>{ handleCurrencyType(expense) }</td>
             <td>{ handleConversion(expense) }</td>
+            <td>{ handleCurrencyType(expense) }</td>
             <td>Real</td>
             <td>
               <button

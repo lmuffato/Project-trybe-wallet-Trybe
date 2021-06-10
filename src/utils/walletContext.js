@@ -26,16 +26,12 @@ export const handleConversion = (expense) => {
   return Number(currType[0].ask).toFixed(2);
 };
 
-export const handleRemoveExpense = (expenses, expense, removendoDespesa) => {
+export const handleRemove = (e, expense, removendoDespesa, expenses) => {
+  e.preventDefault();
   if (expenses.length !== 0) {
     const removeExp = [...expenses].filter((exp) => exp.id !== expense.id);
     removendoDespesa(removeExp);
   }
-};
-
-export const handleRemove = (e, expense, removendoDespesa, expenses) => {
-  e.preventDefault();
-  handleRemoveExpense(expenses, expense, removendoDespesa);
 };
 
 export const handleEdit = (e, expense) => {
