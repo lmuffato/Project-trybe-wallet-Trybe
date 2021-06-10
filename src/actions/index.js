@@ -1,4 +1,18 @@
-const actionGen = (type) => (payload) => ({ type, payload });
-const loginAction = actionGen('LOGIN');
+import { ENDPOINT, LOGIN, REQUEST_RATES, SET_RATES, UPDATE_EXPENSES } from '../constants';
+import actionGen from './util';
 
-export default loginAction;
+export const loginAction = actionGen(LOGIN);
+
+const setExchangeRates = (payload) => ({ type: SET_RATES, payload });
+
+const requestExchangeRates = () => ({ type: REQUEST_RATES });
+
+export const fetchExchangeRates = () => (dispatch) => {
+  dispatch(requestExchangeRates());
+  console.log('Fetch chamado');
+  return fetch(ENDPOINT)
+    .then((response) => response.json())
+    .then((json) => dispatch(setExchangeRates(json)));
+};
+
+export const addNewExpenseAction = actionGen(UPDATE_EXPENSES);

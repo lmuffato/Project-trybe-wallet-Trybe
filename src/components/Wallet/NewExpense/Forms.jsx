@@ -1,16 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bool } from 'prop-types';
-import { fetchExchangeRates, addNewExpenseAction } from '../actions';
-import Header from '../components/Wallet/Header';
-import Forms from '../components/Wallet/NewExpense/Forms';
+import PropTypes from 'prop-types';
+import { addNewExpenseAction, fetchExchangeRates } from '../../../actions';
 
-class Wallet extends React.Component {
+class Forms extends React.Component {
   constructor() {
     super();
     this.state = {
       currencies: [],
-      form: {
+      formData: {
         value: 0,
         description: '',
         currency: 'USD',
@@ -18,9 +16,19 @@ class Wallet extends React.Component {
         tag: 'food',
       },
     };
-    this.form = this.form.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.form = this.form.bind(this);
+  }
+
+  componentDidMount() {
+    const { fetch } = this.props;
+    Promise.resolve(fetch())
+      .then(() => {
+        const { exchangeRates } = this.props;
+        return Object.keys(exchangeRates).filter((key) => key !== 'USDT');
+      })
+      .then((currencies) => this.setState({ currencies }));
   }
 
   handleInputChange({ target: { name, value } }) {
@@ -33,7 +41,7 @@ class Wallet extends React.Component {
     e.preventDefault();
     const {
       props: { fetch, setExpenses },
-      state: { form },
+      state: { formData },
     } = this;
     Promise.resolve(fetch())
       .then(() => {
@@ -43,15 +51,14 @@ class Wallet extends React.Component {
           ...expenses,
           {
             id,
-            ...form,
+            ...formData,
             exchangeRates,
           },
         ]);
       });
   }
 
-  form() {
-    const { currencies } = this.state;
+  form(currencies) {
     return (
       <form>
         <label id="value" htmlFor="value">
@@ -100,28 +107,31 @@ class Wallet extends React.Component {
     );
   }
 
+  loading() {
+    return <p>Loading</p>;
+  }
+
   render() {
     const { isFetching } = this.props;
+    const { currencies } = this.state;
     return (
-      <>
-        <Header />
-        {isFetching ? <p>Loading</p> : <Forms />}
-      </>
+      isFetching ? this.loading() : this.form(currencies)
     );
   }
 }
+
 const mapStateToProps = (
-  { user: { email }, wallet: { exchangeRates, isFetching, expenses } },
+  { wallet: { exchangeRates, expenses } },
 ) => (
-  { email, exchangeRates, isFetching, expenses }
+  { exchangeRates, expenses }
 );
 const mapDispatchToProps = (dispatch) => (
   { fetch: () => dispatch(fetchExchangeRates()),
     setExpenses: (expenses) => dispatch(addNewExpenseAction(expenses)) }
 );
 
-Wallet.propTypes = {
-  isFetching: bool,
+Forms.propTypes = {
+  fetch: PropTypes.func,
 }.isRequired;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Forms);

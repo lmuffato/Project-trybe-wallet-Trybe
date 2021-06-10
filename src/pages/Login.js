@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { func, shape } from 'prop-types';
-import loginAction from '../actions';
+import { loginAction } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -19,7 +19,7 @@ class Login extends React.Component {
 
   hasValidEmail() {
     const { email } = this.state;
-    const verification = /^\w+@\w+.com$/;
+    const verification = /^\w+@\w+\.com$/;
     const NO_REGEX_MATCH = -1;
     return email.search(verification) !== NO_REGEX_MATCH;
   }
