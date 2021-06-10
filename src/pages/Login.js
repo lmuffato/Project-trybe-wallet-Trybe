@@ -1,9 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import '../styles/pages/login.css';
 import trybeLogo from '../assets/trybe-logo.png';
+import { addEmail } from '../actions';
 
-const passwordMinlength = 6;
+const PASSWORD_MIN_LENTGH = 6;
 
 class Login extends React.Component {
   constructor(props) {
@@ -28,7 +31,7 @@ class Login extends React.Component {
   }
 
   verifyPassword(password) {
-    if (password.length >= passwordMinlength) {
+    if (password.length >= PASSWORD_MIN_LENTGH) {
       return true;
     }
 
@@ -58,11 +61,15 @@ class Login extends React.Component {
   }
 
   renderButton(validEmail, validPassword) {
+    const { login, history } = this.props;
+    const { email } = this.state;
+
     if (validEmail && validPassword) {
       return (
         <button
           type="button"
           className="button-active"
+          onClick={ () => { login(email); history.push('carteira'); } }
         >
           Entrar
         </button>
@@ -109,4 +116,15 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  login: (email) => dispatch(addEmail(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
