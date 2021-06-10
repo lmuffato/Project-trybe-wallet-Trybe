@@ -14,6 +14,7 @@ class SignInButton extends Component {
               type="button"
               className="button is-success"
               onClick={ action }
+              disabled={ true }
             >
               Entrar
             </button>

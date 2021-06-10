@@ -21,10 +21,12 @@ class Login extends React.Component {
   verifyCredentials() {
     const { email, password } = this.state;
     const emailCheck = /\S+@\S+\.\S+/;
-    const passwordSize = 6;
+    const passwordSize = 5;
     // referência ao Jonathan Fernandes, que me ajudou com esta condição
-    if (emailCheck.test(email) === true && password.length >= passwordSize) {
+    if (emailCheck.test(email) && password.length >= passwordSize) {
       this.setState({ credentialsOk: true });
+    } else {
+      this.setState({ credentialsOk: false });
     }
   }
 
