@@ -3,40 +3,20 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class SignInButton extends Component {
-  constructor(props) {
-    super(props);
-    const { action } = this.props;
-    this.state = {
-      button: {
-        isEnabled: () => (
-          <Link to="/carteira" className="form-login">
-            <button
-              type="button"
-              className="button is-success"
-              onClick={ action }
-              disabled={ true }
-            >
-              Entrar
-            </button>
-          </Link>),
-        isDisabled: () => (
+  render() {
+    const { emailCorrect, action } = this.props;
+    return (
+      <div className="form-login">
+        <Link to="/carteira" className="form-login">
           <button
             type="button"
             className="button is-success"
-            disabled
+            onClick={ action }
+            disabled={ !emailCorrect }
           >
             Entrar
-          </button>),
-      },
-    };
-  }
-
-  render() {
-    const { emailCorrect } = this.props;
-    const { button } = this.state;
-    return (
-      <div className="form-login">
-        { emailCorrect ? button.isEnabled() : button.isDisabled() }
+          </button>
+        </Link>
       </div>
     );
   }

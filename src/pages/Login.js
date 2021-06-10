@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import signIn from '../actions/index';
 import SignInButton from '../components/SignInButton';
+import store from '../store/index';
 
 class Login extends React.Component {
   constructor() {
@@ -43,6 +44,7 @@ class Login extends React.Component {
   handleSubmit() {
     const { email } = this.state;
     const { signInDispatch } = this.props;
+    console.log(store.getState());
     signInDispatch({ email });
   }
 
