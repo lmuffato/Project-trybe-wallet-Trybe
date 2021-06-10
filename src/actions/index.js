@@ -3,6 +3,7 @@ export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const GET_CURRENCIES_SUCCESS = 'GET_CURRENCIES_SUCCESS';
 export const GET_CURRENCIES_ERROR = 'GET_CURRENCIES_ERROR';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const DEL_EXPENSE = 'DEL_EXPENSE';
 
 export const login = (email, password) => ({
   type: USER,
@@ -43,6 +44,13 @@ export const getCurrenciesThunk = () => (dispatch) => {
 
 export const addExpense = (expense) => ({
   type: ADD_EXPENSE,
+  payload: {
+    expense,
+  },
+});
+
+export const delExpense = (expense) => ({
+  type: DEL_EXPENSE,
   payload: {
     expense,
   },
