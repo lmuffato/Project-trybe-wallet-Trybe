@@ -2,39 +2,28 @@ import React from 'react';
 import { connect, useSelector } from 'react-redux';
 
 const TBody = () => {
-  // const { expenses, itensPrices } = this.props;
-  // const TEN_MILISECONDS = 1000;
-  // setTimeout(() => {}, TEN_MILISECONDS);
-  const { expenses, itensPrices } = useSelector((state) => state.wallet);
+  const { expenses } = useSelector((state) => state.wallet);
   console.log('expenses:');
   console.log(expenses);
   const tBody = expenses.map((expense) => {
     const {
-      currency, description, exchangesRates, id, method, tag, value,
+      currency, description, exchangeRates, id, method, tag, value,
     } = expense;
     console.log(currency);
-    // let conversionCurrency;
-    // let coin;
-    // if (currency) {
-      // console.log('Existe');
-      // const { ask, name } = exchangesRates[currency];
-      // conversionCurrency = name.split('/')[0];
-      // coin = name.split('/')[1];
-    // }
-    const { ask, name } = expense.exchangesRates[currency];
-    const conversionCurrency = name.split('/')[0];
-    const coin = name.split('/')[1];
+    const { ask, name } = exchangeRates[currency];
+    const coin = name.split('/')[0];
+    const convertedValue = (value * ask).toFixed(2);
 
     return (
       <tr key={ id }>
-        <td>{description}</td>
+        <td name="Descrição">{description}</td>
         <td>{tag}</td>
         <td>{method}</td>
         <td>{value}</td>
         <td>{coin}</td>
-        <td>{ask}</td>
-        <td>{itensPrices[id]}</td>
-        <td>{conversionCurrency}</td>
+        <td>{Number(ask).toFixed(2)}</td>
+        <td>{convertedValue}</td>
+        <td>Real</td>
         <td>
           <button
             type="button"
