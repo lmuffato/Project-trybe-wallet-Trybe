@@ -47,7 +47,7 @@ export default function wallet(state = INITIAL_STATE, action) {
     return {
       ...state,
       expenses: [
-        ...state.expenses.filter((e) => e.id !== action.id), action.payload,
+        action.payload, ...state.expenses.filter((e) => e.id !== action.id),
       ],
       isEditing: false,
       idToEdit: null,
