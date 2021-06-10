@@ -1,7 +1,8 @@
 import React from 'react';
-import { saveUser } from '../actions';
 import { connect } from 'react-redux';
-import { Redirect, Route } from 'react-router';
+import { Redirect } from 'react-router';
+import PropTypes from 'prop-types';
+import { saveUser } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -38,13 +39,13 @@ class Login extends React.Component {
   action() {
     const { dispatchEntry } = this.props;
     const { email } = this.state;
-    dispatchEntry(email)
+    dispatchEntry(email);
     this.setState({ redirect: true });
   }
 
   render() {
     const { email, password, redirect } = this.state;
-    if (redirect) return <Redirect to="/carteira" />
+    if (redirect) return <Redirect to="/carteira" />;
     const bool = this.validateButton();
     return (
       <div>
@@ -78,8 +79,12 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchEntry: (state) => dispatch(saveUser(state))
+  dispatchEntry: (state) => dispatch(saveUser(state)),
 });
+
+Login.propTypes = {
+  dispatchEntry: PropTypes.func.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(Login);
 // referencias: https://www.ti-enxame.com/pt/javascript/validacao-de-senha-de-expressao-regular-javascript-com-caracteres-especiais/1067788241/
