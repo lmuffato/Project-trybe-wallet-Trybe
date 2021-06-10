@@ -53,7 +53,7 @@ class Login extends React.Component {
   render() {
     const { validated } = this.state;
     return (
-      <div>
+      <div id="login-parent">
         <form>
           <label htmlFor="email">
             Email
