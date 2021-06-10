@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userLoginAction } from '../actions';
+import '../css/Login.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -46,28 +47,26 @@ class Login extends React.Component {
     return (
       <form onSubmit={ this.login }>
         <div className="login">
-          <div className="email">
-            <input
-              type="text"
-              name="email"
-              value={ email }
-              onChange={ (event) => this.setState({ email: event.target.value }) }
-              data-testid="email-input"
-              placeholder="Email"
-            />
-          </div>
-          <div className="password">
-            <input
-              type="password"
-              name="password"
-              value={ password }
-              onChange={ (event) => this.setState({ password: event.target.value }) }
-              data-testid="password-input"
-              placeholder="Senha"
-            />
-          </div>
+          <h1>TrybeWallet - Login</h1>
+          <input
+            type="text"
+            name="email"
+            value={ email }
+            onChange={ (event) => this.setState({ email: event.target.value }) }
+            data-testid="email-input"
+            placeholder="Email"
+          />
+          <input
+            type="password"
+            name="password"
+            value={ password }
+            onChange={ (event) => this.setState({ password: event.target.value }) }
+            data-testid="password-input"
+            placeholder="Senha"
+          />
           <button
             disabled={ disabledButton }
+            display="none"
             className="btnLogin"
             type="submit"
           >
@@ -75,7 +74,6 @@ class Login extends React.Component {
           </button>
         </div>
       </form>
-
     );
   }
 }
