@@ -6,7 +6,7 @@ class Form extends React.Component {
       <form>
         <label htmlFor="valor">
           Nome:
-          <input type="text" id="name" />
+          <input type="text" id="valor" />
         </label>
         <label htmlFor="Descrição">
           Descrição
