@@ -12,6 +12,11 @@ export function fetchCurrencies() {
     dispatch(requestCurrencies());
     return fetch('https://economia.awesomeapi.com.br/json/all')
       .then((resp) => resp.json())
-      .then((currencies) => dispatch(receiveCurrencies(currencies)));
+      .then((currencies) => {
+        delete currencies.USDT;
+        dispatch(receiveCurrencies(currencies));
+        // const arrayCurrencies = Object.entries(currencies);
+        // dispatch(receiveCurrencies(arrayCurrencies.filter((cur) => cur[0] !== 'USDT')));
+      });
   };
 }

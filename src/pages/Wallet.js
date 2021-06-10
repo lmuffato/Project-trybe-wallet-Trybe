@@ -1,17 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../component/Header';
+import { fetchCurrencies } from '../actions';
 
 class Wallet extends React.Component {
-  // componentDidMount() {
-  //   const { dispatch, fetchCurrencies } = this.props;
-  //   dispatch(fetchCurrencies());
-  //   console.log(fetchCurrencies);
-  // }
+  constructor() {
+    super();
+    this.optionsCurrecies = this.optionsCurrecies.bind(this);
+  }
+
+  componentDidMount() {
+    const { currenciesDispatch } = this.props;
+    currenciesDispatch();
+  }
+
+  optionsCurrecies() {
+    const { currenciesState } = this.props;
+    const arrayCurrencies = Object.keys(currenciesState);
+    console.log(arrayCurrencies);
+
+    return arrayCurrencies.map((cur, index) => <option key={ index }>{ cur }</option>);
+  }
 
   render() {
-    // const { fetchCurrencies } = this.props;
-
     return (
       <div>
         <Header />
@@ -27,7 +39,7 @@ class Wallet extends React.Component {
           <label htmlFor="moeda">
             Moeda:
             <select aria-label="moeda">
-              <option>Vazio</option>
+              {this.optionsCurrecies()}
             </select>
           </label>
           <label htmlFor="método de pagamento">
@@ -54,8 +66,17 @@ class Wallet extends React.Component {
   }
 }
 
-// const mapDispatchToProps = (dispatch) => ({
-//   currenciesDispatch: () => dispatch(fetchCurrencies()),
-// });
+Wallet.propTypes = {
+  currenciesState: PropTypes.func.isRequired,
+  currenciesDispatch: PropTypes.func.isRequired,
+};
 
-export default connect(null, null)(Wallet);
+const mapStateToProps = (state) => ({
+  currenciesState: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  currenciesDispatch: () => dispatch(fetchCurrencies()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

@@ -1,13 +1,8 @@
 import { RECEIVE_CURRENCIES } from '../actions/index';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -15,7 +10,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
   case RECEIVE_CURRENCIES:
     return {
       ...state,
-      currencies: state.currencies.concat(action.currencies),
+      currencies: action.currencies,
     };
   default:
     return { ...state };
