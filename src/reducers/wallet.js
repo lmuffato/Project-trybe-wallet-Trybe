@@ -14,7 +14,6 @@ const wallet = (state = INITIAL_STATE, action) => {
       expenses: [...state.expenses, action.payload],
     });
   case GET_CURRENCY_SUCCESS:
-   // console.log(action.payload);
     return ({
       ...state,
       currencies: action.payload,

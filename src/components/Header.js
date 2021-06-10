@@ -7,28 +7,32 @@ class Header extends Component {
     super();
 
     this.getTotalValue = this.getTotalValue.bind(this);
-
-    this.state = {
-      totalValue: 0,
-    };
   }
+
+  // COMO EU VOU CHAMAR ESSA FUNÇÃO TODA VEZ QUE O BOTÃO DE ADICIONAR FOR CLICADO ?
 
   getTotalValue() {
     const { expenses } = this.props;
-    const totalValue = expenses.reduce((acc, expense) => acc + expense.value);
-    this.setState({
-      totalValue,
-    });
+    const num = 0;
+
+    const reduceFunc = (acc, expense) => {
+      const exchangeRate = expense.exchangeRates[expense.currency].ask;
+      return acc + Number(expense.value) * exchangeRate;
+    };
+    const totalValue = expenses.length === 0
+      ? 0
+      : expenses.reduce(reduceFunc, num);
+
+    return totalValue;
   }
 
   render() {
     const { userEmail } = this.props;
-    const { totalValue } = this.state;
 
     return (
       <div>
         <p data-testid="email-field">{`E-mail: ${userEmail}`}</p>
-        <p data-testid="total-field">{ totalValue }</p>
+        <p data-testid="total-field">{ this.getTotalValue() }</p>
         <p data-testid="header-currency-field">BRL</p>
       </div>
     );
