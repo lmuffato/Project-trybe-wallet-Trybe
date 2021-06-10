@@ -16,14 +16,16 @@ class Wallet extends React.Component {
   }
 
   async handleCurrency() {
-    const items = await fetchCurrency();
-    const obj = Object.keys(items);
-    this.setState({ currencies: obj });
+    const obj = await fetchCurrency();
+    const array = Object.keys(obj);
+    array.splice(1, 1);
+    this.setState({ currencies: array });
   }
 
   render() {
     const { user } = this.props;
     const { currencies } = this.state;
+    console.log(currencies);
     return (
       <>
         <header>
@@ -43,8 +45,8 @@ class Wallet extends React.Component {
           <label htmlFor="moneyCurrency">
             Moeda:
             <select id="moneyCurrency">
-              {currencies.map((currency) => (
-                <option value={ currency } key={ currency }>{currency}</option>
+              {currencies.map((cur) => (
+                <option value={ cur } key={ cur }>{cur}</option>
               ))}
             </select>
           </label>
