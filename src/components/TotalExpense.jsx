@@ -12,7 +12,8 @@ class TotalExpense extends Component {
   deleteExpend(currExpend) {
     const { expenses, userRemoveExpense } = this.props;
     const expendsToBeRemoved = expenses.find((expend) => expend.id === currExpend.id);
-    const filtredExpend = expenses.filter((expend) => expend.id !== expendsToBeRemoved.id);
+    const filtredExpend = expenses
+      .filter((expend) => expend.id !== expendsToBeRemoved.id);
     console.log(filtredExpend);
     userRemoveExpense(filtredExpend);
   }
@@ -61,14 +62,9 @@ const mapStateToProps = ({ wallet: { expenses } }) => ({
 
 const secondMapDispatchToProps = (dispatch) => ({
   userRemoveExpense: (payload) => dispatch(walletRemoveExpense(payload)),
-  // userGetApiData: () => dispatch(currencyAPIThunk()),
 });
 
 TotalExpense.propTypes = {
-  // userGetCurrencie: PropTypes.func.isRequired,
-  // userAddCurrencie: PropTypes.func.isRequired,
-  // email: PropTypes.string.isRequired,
-  // isloading: PropTypes.bool.isRequired,
   userRemoveExpense: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf([]).isRequired,
 };

@@ -8,9 +8,6 @@ import { currencyAPIThunk } from '../actions';
 class Wallet extends React.Component {
   constructor() {
     super();
-    // this.state = {
-    //   expensesLenght: 0,
-    // };
     this.getValues = this.getValues.bind(this);
   }
 
@@ -21,22 +18,15 @@ class Wallet extends React.Component {
 
   getValues() {
     const { expenses } = this.props;
-    // const { expensesLenght } = this.state;
     const allCurrencies = expenses.map((currencie) => currencie.currency);
     const totalValue = expenses
       .reduce((acc, currItem, index) => acc + parseFloat(currItem.value)
       * parseFloat(currItem.exchangeRates[allCurrencies[index]].ask), 0);
-    // this.setState((previousState) => ({
-    //   expensesLenght: previousState.expensesLenght + 1,
-    // }));
     return totalValue.toFixed(2);
   }
 
   render() {
-    // const { userAddExpense, userAddCurrencie } = this.props;
     const { email } = this.props;
-    // const { expenses } = this.props;
-    // if (expenses.legth < 1) return <h1>Loading....</h1>;
     return (
       <>
         <header>
@@ -51,7 +41,6 @@ class Wallet extends React.Component {
 }
 
 const secondMapDispatchToProps = (dispatch) => ({
-  // userAddExpense: () => dispatch(walletAddExpense()),
   userAddCurrencie: () => dispatch(currencyAPIThunk()),
 });
 
@@ -63,7 +52,6 @@ const secondMapStateToProps = ({ wallet: { isloading, expenses },
 });
 
 Wallet.propTypes = {
-  // userAddExpense: PropTypes.func.isRequired,
   userAddCurrencie: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
   expenses: PropTypes.arrayOf([{}]).isRequired,
