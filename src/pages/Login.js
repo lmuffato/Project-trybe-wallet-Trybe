@@ -1,7 +1,7 @@
 import React from 'react';
 // import { Redirect } from 'react-router';
 
-const MIN_LENGTH = 6;
+const MIN_LENGTH = 5;
 class Login extends React.Component {
   constructor() {
     super();
@@ -10,16 +10,13 @@ class Login extends React.Component {
       password: '',
       emailValid: false,
       passwordValid: false,
+      buttonDisabled: true,
       // redirect: false,
     };
 
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.handleClick = this.handleClick.bind(this);
-  }
-
-  componentDidUpdate() {
-    this.handleButton();
   }
 
   handleEmail(ev) {
@@ -31,6 +28,7 @@ class Login extends React.Component {
     } else {
       this.setState({ emailValid: false, email: '' });
     }
+    this.handleButton();
   }
 
   handlePassword(ev) {
@@ -40,50 +38,45 @@ class Login extends React.Component {
     } else {
       this.setState({ passwordValid: false, password: '' });
     }
+    this.handleButton();
   }
 
   handleButton() {
     const { emailValid, passwordValid } = this.state;
-    const btn = document.getElementById('btnLogin');
-    if (emailValid && passwordValid) {
-      btn.disabled = false;
-    } else {
-      btn.disabled = true;
-    }
+    // console.log(emailValid && passwordValid);
+    this.setState({
+      buttonDisabled: !(emailValid && passwordValid),
+    });
   }
 
   handleClick(ev) {
-    console.log(ev);
+    // console.log(ev);
     ev.preventDefault();
     console.log('clicou!');
   }
 
   render() {
-    const { email, password, emailValid, passwordValid } = this.state;
+    const { email, password, emailValid, passwordValid, buttonDisabled } = this.state;
     if (emailValid && passwordValid) {
       console.log(`Email:${email}\nSenha:${password}`);
     }
     return (
       <section>
-        <label htmlFor="email-input">
-          Email
-          <input type="email" data-testid="email-input" onChange={ this.handleEmail } />
-        </label>
+        Email
+        <input type="email" data-testid="email-input" onChange={ this.handleEmail } />
         <br />
-        <label htmlFor="password-input">
-          Password
-          <input
-            type="password"
-            data-testid="password-input"
-            onChange={ this.handlePassword }
-          />
-        </label>
+        Password
+        <input
+          type="password"
+          data-testid="password-input"
+          onChange={ this.handlePassword }
+        />
         <br />
         <button
           type="button"
           id="btnLogin"
           onClick={ this.handleClick }
-          disabled
+          disabled={ buttonDisabled }
         >
           Entrar
         </button>
