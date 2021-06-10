@@ -13,7 +13,7 @@ class Header extends Component {
           {`Email: ${email}`}
         </span>
         <span data-testid="total-field">
-          {`Despesa Total: ${total ? total : INITIAL_EXPENSE} `}
+          {`Despesa Total: ${total || INITIAL_EXPENSE} `}
         </span>
         <span data-testid="header-currency-field">
           {currency}
@@ -24,7 +24,8 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  email: PropTypes.string.isRequired, // checar se é isso mesmo!
+  email: PropTypes.string.isRequired,
+  total: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
