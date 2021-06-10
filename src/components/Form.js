@@ -5,9 +5,29 @@ import { getCurrencyThunk } from '../actions';
 import Input from './Input';
 
 class Form extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: 0,
+      value: '',
+      description: '',
+      method: '',
+      tag: '',
+      exchangeRates: [],
+    };
+    this.handleData = this.handleData.bind(this);
+  }
+
   componentDidMount() {
-    const { getApiAwesome } = this.props;
-    getApiAwesome();
+    const { getApiThunk } = this.props;
+    getApiThunk();
+  }
+
+  handleData({ target }) {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    }, () => console.log(this.state));
   }
 
   render() {
@@ -15,44 +35,42 @@ class Form extends React.Component {
     const filteredCurrencies = currencies.filter((currency) => (
       currency.codein !== 'BRLT'));
     return (
-      <div className="container">
-        <form>
-          <Input id="Valor" type="number" />
-          <Input id="Descrição" type="text" />
-          <label htmlFor="currency">
-            Moeda
-            <select id="currency">
-              {filteredCurrencies.map((currency) => (
-                <option
-                  key={ currency.code }
-                  value={ currency.code }
-                >
-                  {currency.code}
-
-                </option>
-              ))}
-            </select>
-          </label>
-          <label htmlFor="payment">
-            Método de pagamento
-            <select id="payment">
-              <option value="">Dinheiro</option>
-              <option value="">Cartão de crédito</option>
-              <option value="">Cartão de débito</option>
-            </select>
-          </label>
-          <label htmlFor="tag">
-            Tag
-            <select id="tag">
-              <option value="">Alimentação</option>
-              <option value="">Lazer</option>
-              <option value="">Trabalho</option>
-              <option value="">Transporte</option>
-              <option value="">Saúde</option>
-            </select>
-          </label>
-        </form>
-      </div>
+      <form>
+        <Input onChange={ this.handleData } id="Valor" name="value" />
+        <Input onChange={ this.handleData } id="Descrição" name="description" />
+        <label htmlFor="currency">
+          Moeda
+          <select onChange={ this.handleData } name="currency">
+            {filteredCurrencies.map((currency) => (
+              <option
+                key={ currency.code }
+                value={ currency.code }
+              >
+                {currency.code}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label htmlFor="payment">
+          Método de pagamento
+          <select onChange={ this.handleData } name="method">
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
+          </select>
+        </label>
+        <label htmlFor="tag">
+          Tag
+          <select onChange={ this.handleData } name="tag">
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
+          </select>
+        </label>
+        <button type="button">Adicionar despesa</button>
+      </form>
     );
   }
 }
@@ -62,11 +80,11 @@ const mapStateToProps = ({ wallet }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getApiAwesome: () => dispatch(getCurrencyThunk()),
+  getApiThunk: () => dispatch(getCurrencyThunk()),
 });
 
 Form.propTypes = {
-  getApiAwesome: PropTypes.func.isRequired,
+  getApiThunk: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string,
   })).isRequired,
