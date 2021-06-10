@@ -40,11 +40,30 @@ export const fetchApiError = (payload) => ({
   },
 });
 
+// export const fetchApiThunk = () => async (dispatch) => {
+//   const API_URL = 'https://economia.awesomeapi.com.br/json/all';
+
+//   fetch(API_URL)
+//     .then((res) => res.json()
+//       .then((data) => dispatch(fetchApiSuccess(
+//         Object.keys(data),
+//       ))))
+//     .catch((res) => dispatch(fetchApiError(res)));
+// };
+
 export const fetchApiThunk = () => async (dispatch) => {
   const API_URL = 'https://economia.awesomeapi.com.br/json/all';
 
-  fetch(API_URL)
-    .then((res) => res.json()
-      .then((data) => console.log(dispatch(fetchApiSuccess(data)))))
-    .catch((res) => dispatch(fetchApiError(res)));
+  const fetchApi = await fetch(API_URL);
+  const resolve = await fetchApi.json();
+  const data = await resolve;
+
+  const currencies = Object.keys(data);
+  const filteredCurrencies = currencies.filter((currency) => currency[0] !== 'USDT');
+
+  try {
+    dispatch(fetchApiSuccess(filteredCurrencies));
+  } catch (e) {
+    dispatch(fetchApiError(e));
+  }
 };

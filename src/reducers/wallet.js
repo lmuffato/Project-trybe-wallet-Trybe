@@ -18,13 +18,13 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       isLoadingApi: false,
-      // currencies: [...currencies, action.payload.success],
+      currencies: action.payload.success,
     };
   case 'FETCH_API_ERROR':
     return {
       ...state,
       isLoadingApi: false,
-      // currencies: [...currencies, action.payload.error],
+      currencies: action.payload.error,
     };
   default: return state;
   }

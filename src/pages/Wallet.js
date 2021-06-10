@@ -5,18 +5,13 @@ import Header from './Header';
 import { fetchApiThunk } from '../actions';
 
 class Wallet extends React.Component {
-  constructor() {
-    super();
-
-    this.fetchAPI = this.fetchAPI.bind(this);
-  }
-
   componentDidMount() {
     const { getCurrencyFromAPI } = this.props;
     getCurrencyFromAPI();
   }
 
   render() {
+    const { getCurrencies } = this.props;
     return (
       <>
         <Header />
@@ -25,13 +20,15 @@ class Wallet extends React.Component {
             Valor
             <input type="text" id="input-value" size="4" />
           </label>
-
           <label htmlFor="select-currency">
             Moeda
             <select id="select-currency">
-              {/* <option>OPT</option> */}
+              {getCurrencies.map((currency) => (
+                <option key={ currency }>
+                  { currency }
+                </option>
+              ))}
             </select>
-
           </label>
           <label htmlFor="select-payMethod">
             Método de pagamento
@@ -41,7 +38,6 @@ class Wallet extends React.Component {
               <option value="debito">Cartão de Débito</option>
             </select>
           </label>
-
           <label htmlFor="tag">
             Tag
             <select id="tag">
@@ -69,8 +65,13 @@ const mapDispatchToProps = (dispatch) => ({
   getCurrencyFromAPI: () => dispatch(fetchApiThunk()),
 });
 
+const mapStateToProps = (state) => ({
+  getCurrencies: state.wallet.currencies,
+});
+
 Wallet.propTypes = {
   getCurrencyFromAPI: PropTypes.func.isRequired,
+  getCurrencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
