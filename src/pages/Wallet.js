@@ -1,29 +1,38 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Header from '../component/Header';
 
 class Wallet extends React.Component {
+  // componentDidMount() {
+  //   const { dispatch, fetchCurrencies } = this.props;
+  //   dispatch(fetchCurrencies());
+  //   console.log(fetchCurrencies);
+  // }
+
   render() {
+    // const { fetchCurrencies } = this.props;
+
     return (
       <div>
         <Header />
         <form>
-          <label htmlFor="value">
+          <label htmlFor="valor">
             Valor:
-            <input type="text" name="value" />
+            <input aria-label="valor" type="text" />
           </label>
-          <label htmlFor="description">
+          <label htmlFor="descrição">
             Descrição:
-            <input type="text" name="description" />
+            <input aria-label="descrição" type="text" />
           </label>
-          <label htmlFor="coin">
+          <label htmlFor="moeda">
             Moeda:
-            <select name="coin">
+            <select aria-label="moeda">
               <option>Vazio</option>
             </select>
           </label>
-          <label htmlFor="payment">
+          <label htmlFor="método de pagamento">
             Método de pagamento:
-            <select name="payment">
+            <select aria-label="método de pagamento">
               <option>Dinheiro</option>
               <option>Cartão de crédito</option>
               <option>Cartão de débito</option>
@@ -31,7 +40,7 @@ class Wallet extends React.Component {
           </label>
           <label htmlFor="tag">
             Tag:
-            <select name="tag">
+            <select aria-label="tag">
               <option>Alimentação</option>
               <option>Lazer</option>
               <option>Trabalho</option>
@@ -45,4 +54,8 @@ class Wallet extends React.Component {
   }
 }
 
-export default Wallet;
+// const mapDispatchToProps = (dispatch) => ({
+//   currenciesDispatch: () => dispatch(fetchCurrencies()),
+// });
+
+export default connect(null, null)(Wallet);
