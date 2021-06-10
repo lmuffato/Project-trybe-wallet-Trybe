@@ -1,9 +1,7 @@
-/* eslint-disable */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { sendCurrencies, updateTotal, addExpense } from '../actions';
-import fetchCurrenciesApi from '../services/currenciesAPI';
+import { updateTotal, addExpense, getCurrenciesThunk } from '../actions';
 
 class Form extends Component {
   constructor(props) {
@@ -17,13 +15,18 @@ class Form extends Component {
       tag: 'Alimentação',
     };
 
-    this.dispatchCurrencies = this.dispatchCurrencies.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.fetchAPI = this.fetchAPI.bind(this);
   }
 
   componentDidMount() {
-    this.dispatchCurrencies();
+    this.fetchAPI();
+  }
+
+  fetchAPI() {
+    const { getCurrencies } = this.props;
+    getCurrencies();
   }
 
   handleChange(event) {
@@ -43,8 +46,9 @@ class Form extends Component {
   }
 
   handleClick() {
+    this.fetchAPI();
     const { value, description, currency, tag, method } = this.state;
-    const{ dispatchExpense, expenses, currencies } = this.props;
+    const { dispatchExpense, expenses, currencies } = this.props;
     const expense = {
       id: expenses.length,
       value,
@@ -61,17 +65,10 @@ class Form extends Component {
     this.setState({
       value: '',
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     });
-
-  }
-
-  async dispatchCurrencies() {
-    const { sendCurrenciesToRedux } = this.props;
-    const currencies = await fetchCurrenciesApi();
-    sendCurrenciesToRedux(currencies);
   }
 
   render() {
@@ -81,15 +78,20 @@ class Form extends Component {
       <form>
         <label htmlFor="valor">
           Valor
-          <input onChange={this.handleChange} type="text" name="value" id="valor" />
+          <input onChange={ this.handleChange } type="text" name="value" id="valor" />
         </label>
         <label htmlFor="expense-description">
           Descrição
-          <input onChange={this.handleChange} name="description" type="text" id="expense-description" />
+          <input
+            onChange={ this.handleChange }
+            name="description"
+            type="text"
+            id="expense-description"
+          />
         </label>
         <label htmlFor="moeda">
           Moeda
-          <select onChange={this.handleChange} name="currency" id="moeda">
+          <select onChange={ this.handleChange } name="currency" id="moeda">
             {currenciesName.map((currency, index) => (
               <option key={ index }>{currency}</option>
             ))}
@@ -97,7 +99,7 @@ class Form extends Component {
         </label>
         <label htmlFor="payment-method">
           Método de pagamento
-          <select onChange={this.handleChange} name="method" id="payment-method">
+          <select onChange={ this.handleChange } name="method" id="payment-method">
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
@@ -105,7 +107,7 @@ class Form extends Component {
         </label>
         <label htmlFor="tag">
           Tag
-          <select onChange={this.handleChange} name="tag" id="tag">
+          <select onChange={ this.handleChange } name="tag" id="tag">
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
@@ -123,7 +125,11 @@ class Form extends Component {
 
 Form.propTypes = {
   currencies: PropTypes.arrayOf(Object).isRequired,
-  sendCurrenciesToRedux: PropTypes.func.isRequired,
+  getCurrencies: PropTypes.func.isRequired,
+  dispatchTotal: PropTypes.number.isRequired,
+  expenses: PropTypes.arrayOf(Object).isRequired,
+  total: PropTypes.number.isRequired,
+  dispatchExpense: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -133,7 +139,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  sendCurrenciesToRedux: (currencies) => dispatch(sendCurrencies(currencies)),
+  getCurrencies: () => dispatch(getCurrenciesThunk()),
   dispatchExpense: (expense) => dispatch(addExpense(expense)),
   dispatchTotal: (value) => dispatch(updateTotal(value)),
 
