@@ -17,18 +17,20 @@ const tableHeads = [
 
 function ExpensesView({ expenses }) {
   return (
-    <table>
-      <thead>
-        <tr>
-          { tableHeads.map((head) => (<th key={ head }>{head}</th>)) }
-        </tr>
-      </thead>
-      <tbody>
-        { expenses.map((expense) => (
-          <Expense key={ expense.id } data={ expense } />
-        ))}
-      </tbody>
-    </table>
+    <div id="expensesView">
+      <table>
+        <thead>
+          <tr>
+            { tableHeads.map((head) => (<th key={ head }>{head}</th>)) }
+          </tr>
+        </thead>
+        <tbody>
+          { expenses.map((expense) => (
+            <Expense key={ expense.id } data={ expense } />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 

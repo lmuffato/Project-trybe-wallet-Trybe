@@ -57,7 +57,7 @@ class ExpensesForm extends React.Component {
     const { allCurrencies: { USDT, ...currencies } } = this.props;
 
     return (
-      <form onSubmit={ this.submitExpense }>
+      <form onSubmit={ this.submitExpense } id="expensesForm">
         <label htmlFor="value">
           Valor:
           <input id="value" step="0.01" type="number" onChange={ this.handleInput } />
@@ -65,7 +65,7 @@ class ExpensesForm extends React.Component {
 
         <label htmlFor="description">
           Descrição:
-          <textarea id="description" onChange={ this.handleInput } />
+          <input type="text" id="description" onChange={ this.handleInput } />
         </label>
 
         <label htmlFor="currency">

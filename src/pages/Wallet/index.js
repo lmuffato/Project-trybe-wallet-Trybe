@@ -5,11 +5,11 @@ import ExpensesView from './components/ExpensesView';
 
 function Wallet() {
   return (
-    <>
+    <div id="wallet">
       <Header />
       <ExpensesForm />
       <ExpensesView />
-    </>
+    </div>
   );
 }
 
