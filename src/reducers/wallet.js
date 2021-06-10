@@ -5,6 +5,7 @@
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  // exchangeRates: '',
 };
 
 function wallet(state = INITIAL_STATE, action) {
@@ -12,8 +13,17 @@ function wallet(state = INITIAL_STATE, action) {
   case 'ADD_EXPENSES':
     return {
       ...state,
-      expenses: [...state.expenses, action.value],
+      expenses: [
+        ...state.expenses,
+        action.expenses,
+      ],
     };
+  case 'ADD_CURRENCIES':
+    return {
+      ...state,
+      currencies: action.currencies,
+    };
+
   default:
     return state;
   }

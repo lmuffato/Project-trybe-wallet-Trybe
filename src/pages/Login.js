@@ -12,12 +12,12 @@ class Login extends React.Component {
       password: '',
       isDisabled: true,
     };
-    this.handleInput = this.handleInput.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.validateInput = this.validateInput.bind(this);
   }
 
   // https://sentry.io/answers/forget-set-state-is-async
-  handleInput({ target }) {
+  handleChange({ target }) {
     const { name } = target;
     const { value } = target;
     this.setState({
@@ -62,7 +62,7 @@ class Login extends React.Component {
             data-testid="email-input"
             name="email"
             placeholder="Email"
-            onChange={ this.handleInput }
+            onChange={ this.handleChange }
             pattern={ validateEmail }
             title="Formato de e-mail não aceito"
             type="email"
@@ -74,7 +74,7 @@ class Login extends React.Component {
             data-testid="password-input"
             minLength="6"
             name="password"
-            onChange={ this.handleInput }
+            onChange={ this.handleChange }
             placeholder="Senha"
             type="password"
             required

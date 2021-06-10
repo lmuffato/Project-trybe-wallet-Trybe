@@ -1,14 +1,32 @@
+import fetchCurrencies from '../api/api';
+
 // Coloque aqui suas actions
-export const loginAction = (value) => ({
+export const loginAction = (email) => ({
   type: 'LOGIN',
-  value,
+  email,
 });
 
-// export const disabled = () => ({
-//   type: 'DISABLED',
-// });
-
-export const addExpensesAction = (state) => ({
+const addExpensesAction = (expenses) => ({
   type: 'ADD_EXPENSES',
-  state,
+  expenses,
 });
+
+const requestCurrencies = (currencies) => ({
+  type: 'ADD_CURRENCIES',
+  currencies,
+});
+
+export function getCurruencies() {
+  return async (dispatch) => {
+    const data = await fetchCurrencies();
+    const newArr = Object.keys(data);
+    const currenciesArray = newArr.filter((moeda) => moeda !== 'USDT');
+    dispatch(requestCurrencies(currenciesArray));
+  };
+}
+
+export function addExpenses(expense) {
+  return async (dispatch) => {
+    dispatch(addExpensesAction(expense));
+  };
+}
