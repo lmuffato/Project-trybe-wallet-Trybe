@@ -39,3 +39,14 @@ export const getCurrencyThunk = () => (dispatch) => {
     })
     .catch(() => { dispatch(fetchCurrenciesError()); });
 };
+
+export const getExchange = (exchange) => (dispatch) => {
+  console.log(exchange);
+  currencyApi()
+    .then((res) => {
+      dispatch(addExpense(([{
+        ...exchange,
+        exchangeRates: res,
+      }])));
+    });
+};
