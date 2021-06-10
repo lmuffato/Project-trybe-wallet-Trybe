@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getCoinsThunk } from '../../actions';
 
-export default class ExpensesAddForm extends Component {
+class ExpensesAddForm extends Component {
+  componentDidMount() {
+    const { getCoins } = this.props;
+    getCoins();
+  }
+
   render() {
+    const { currencies } = this.props;
     return (
+      // https://developer.mozilla.org/pt-BR/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute
       <form>
         <label htmlFor="valor" id="valor">
           Valor
@@ -14,11 +24,10 @@ export default class ExpensesAddForm extends Component {
         </label>
         <label htmlFor="moeda" id="moeda">
           Moeda
-          <select
-            name="moeda"
-            aria-labelledby="moeda"
-          >
-            <option value="Vazio">Vazio</option>
+          <select name="moeda" aria-labelledby="moeda">
+            {!currencies ? <option value="BRL">BRL</option> : currencies.map((curr) => (
+              <option key={ curr } value={ curr }>{ curr }</option>
+            ))}
           </select>
         </label>
         <label htmlFor="paymentType" id="paymentType">
@@ -49,3 +58,17 @@ export default class ExpensesAddForm extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  getCoins: () => dispatch(getCoinsThunk()),
+});
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+ExpensesAddForm.propTypes = {
+  getCoins: PropTypes.func,
+}.isRequired;
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpensesAddForm);
