@@ -108,7 +108,6 @@ class Header extends Component {
         const { currency } = curr;
         return acc + (Number(curr.value) * curr.exchangeRates[currency].ask);
       }, 0);
-    console.log(expenses);
     return (
       <div className="header-container">
         <div className="header-top">
@@ -116,7 +115,7 @@ class Header extends Component {
           <div className="exchange-values">
             <h3 data-testid="email-field">{email}</h3>
             <h3 data-testid="header-currency-field">BRL</h3>
-            <h3 data-testid="total-field">{totalValue}</h3>
+            <h3 data-testid="total-field">{totalValue.toFixed(2)}</h3>
           </div>
         </div>
         <div className="form-container">

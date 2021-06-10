@@ -8,15 +8,15 @@ class Wallet extends React.Component {
   tableHead() {
     return (
       <tr className="legend">
-        <thead>Descrição</thead>
-        <thead>Tag</thead>
-        <thead>Método de Pagamento</thead>
-        <thead>Valor</thead>
-        <thead>Moeda</thead>
-        <thead>Câmbio utilizado</thead>
-        <thead>Valor convetido</thead>
-        <thead>Moeda de conversão</thead>
-        <thead>Editar/Excluir</thead>
+        <th>Descrição</th>
+        <th>Tag</th>
+        <th>Método de pagamento</th>
+        <th>Valor</th>
+        <th>Moeda</th>
+        <th>Câmbio utilizado</th>
+        <th>Valor convertido</th>
+        <th>Moeda de conversão</th>
+        <th>Editar/Excluir</th>
       </tr>
     );
   }
@@ -28,21 +28,21 @@ class Wallet extends React.Component {
       const element = expenses.map((despesa) => {
         const { description, currency, method, tag, value, exchangeRates, id } = despesa;
         const convertedValue = exchangeRates[currency].ask * Number(value);
-        const convertedValueBRL = Intl.NumberFormat('pt-br',
-          { style: 'currency', currency: 'BRL' }).format(convertedValue);
+        // const convertedValueBRL = Intl.NumberFormat('pt-br',
+        //   { style: 'currency', currency: 'BRL' }).format(convertedValue);
         const priceAtual = Number(exchangeRates[currency].ask);
-        const priceBRL = Intl.NumberFormat('pt-br',
-          { style: 'currency', currency: 'BRL' }).format(priceAtual);
+        // const priceBRL = Intl.NumberFormat('pt-br',
+        //   { style: 'currency', currency: 'BRL' }).format(priceAtual);
         return (
-          <tbody key={ id } className="expenses">
+          <tr key={ id } className="expenses">
             <td>{description}</td>
             <td className="currency">{currency}</td>
             <td>{tag}</td>
             <td>{method}</td>
             <td>{value}</td>
             <td>{exchangeRates[currency].name.split('/')[0]}</td>
-            <td>{priceBRL}</td>
-            <td>{convertedValueBRL}</td>
+            <td>{priceAtual.toFixed(2)}</td>
+            <td>{convertedValue.toFixed(2)}</td>
             <td>Real</td>
             <td>
               <button
@@ -53,7 +53,7 @@ class Wallet extends React.Component {
                 Deletar
               </button>
             </td>
-          </tbody>
+          </tr>
         );
       });
       return element;
