@@ -1,11 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-const renderExpense = (expense, currencies) => {
+const renderExpense = (expense) => {
   const { description, tag, method, exchangeRates, value, currency } = expense;
-  const convertedValue = (Number(value) * Number(exchangeRates)).toFixed(2);
-  // const convertCurrency = currencies
-  //   .find(({ code }) => currency === code).name.split('/')[0];
+  const exchangeRate = Number(exchangeRates[currency].ask);
+  const convertedValue = (Number(value) * exchangeRate).toFixed(2);
 
   return (
     <tr>
@@ -13,8 +12,8 @@ const renderExpense = (expense, currencies) => {
       <td>{tag}</td>
       <td>{method}</td>
       <td>{value}</td>
-      {/* <td>{convertCurrency}</td> */}
-      <td>{Number(exchangeRates).toFixed(2)}</td>
+      <td>{exchangeRates[currency].name}</td>
+      <td>{exchangeRate.toFixed(2)}</td>
       <td>{convertedValue}</td>
       <td>Real</td>
     </tr>
@@ -22,7 +21,7 @@ const renderExpense = (expense, currencies) => {
 };
 
 const ExpenseTable = () => {
-  const { wallet: { expenses, currencies } } = useSelector((state) => state);
+  const { wallet: { expenses } } = useSelector((state) => state);
   return (
     <table>
       <thead>
@@ -37,7 +36,7 @@ const ExpenseTable = () => {
         <th>Editar/Excluir</th>
       </thead>
       <tbody>
-        {expenses.map((expense) => renderExpense(expense, currencies))}
+        {expenses.map((expense) => renderExpense(expense))}
       </tbody>
     </table>
   );

@@ -16,7 +16,7 @@ export const WalletHeader = ({ userEmail, expenses }) => (
         const exchangeRate = exchangeRates[currency].ask;
         console.log(exchangeRates[currency]);
         return acc + Number(value) * Number(exchangeRate);
-      }, 0)}
+      }, 0).toFixed(2)}
 
     </span>
 
