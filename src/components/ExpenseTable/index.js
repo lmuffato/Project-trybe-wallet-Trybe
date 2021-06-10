@@ -1,8 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteExpense } from '../../actions';
 
-const renderExpense = (expense) => {
-  const { description, tag, method, exchangeRates, value, currency } = expense;
+const renderExpense = (expense, dispatch) => {
+  const { id, description, tag, method, exchangeRates, value, currency } = expense;
   const exchangeRate = Number(exchangeRates[currency].ask);
   const convertedValue = (Number(value) * exchangeRate).toFixed(2);
 
@@ -16,12 +17,22 @@ const renderExpense = (expense) => {
       <td>{exchangeRate.toFixed(2)}</td>
       <td>{convertedValue}</td>
       <td>Real</td>
+      <td>
+        <button
+          data-testid="delete-btn"
+          type="button"
+          onClick={ () => dispatch(deleteExpense(id)) }
+        >
+          Deletar
+        </button>
+      </td>
     </tr>
   );
 };
 
 const ExpenseTable = () => {
   const { wallet: { expenses } } = useSelector((state) => state);
+  const dispatch = useDispatch();
   return (
     <table>
       <thead>
@@ -36,7 +47,7 @@ const ExpenseTable = () => {
         <th>Editar/Excluir</th>
       </thead>
       <tbody>
-        {expenses.map((expense) => renderExpense(expense))}
+        {expenses.map((expense) => renderExpense(expense, dispatch))}
       </tbody>
     </table>
   );
