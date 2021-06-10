@@ -57,7 +57,7 @@ class ExpensesForm extends React.Component {
     const { allCurrencies: { USDT, ...currencies } } = this.props;
 
     return (
-      <form onSubmit={ this.submitExpense } id="expensesForm">
+      <form onSubmit={ this.submitExpense } className="expensesForm">
         <label htmlFor="value">
           Valor:
           <input id="value" step="0.01" type="number" onChange={ this.handleInput } />

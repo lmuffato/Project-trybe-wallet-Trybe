@@ -17,7 +17,7 @@ const tableHeads = [
 
 function ExpensesView({ expenses }) {
   return (
-    <div id="expensesView">
+    <div className="expensesView">
       <table>
         <thead>
           <tr>

@@ -5,7 +5,7 @@ import ExpensesView from './components/ExpensesView';
 
 function Wallet() {
   return (
-    <div id="wallet">
+    <div className="wallet">
       <Header />
       <ExpensesForm />
       <ExpensesView />

@@ -92,7 +92,7 @@ class Login extends React.Component {
     if (shouldRedirect) return <Redirect to="/carteira" />;
 
     return (
-      <form onSubmit={ this.signIn } id="box-signIn">
+      <form onSubmit={ this.signIn } className="box-signIn">
         <input
           type="text"
           id="email"

@@ -1,4 +1,4 @@
-input, textarea, select {
+input , textarea , select {
   background: transparent;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -12,7 +12,7 @@ button {
   border-radius: 5px;
   color: white;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
   letter-spacing: 2px;
   padding: 10px;
   text-transform: uppercase;
@@ -21,10 +21,10 @@ button {
 button:disabled {
   cursor: not-allowed;
   filter: saturate(0);
-  opacity: .8;
+  opacity: 0.8;
 }
 
-#box-signIn {
+.box-signIn {
   display: grid;
   gap: 20px;
   grid-template-rows: repeat(3, auto);
@@ -32,14 +32,14 @@ button:disabled {
   width: 100%;
 }
 
-#wallet {
+.wallet {
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 100%;
 }
 
-#expensesForm {
+.expensesForm {
   align-items: flex-end;
   display: grid;
   gap: 5px;
@@ -48,16 +48,16 @@ button:disabled {
   width: 100%;
 }
 
-#expensesForm label {
+.expensesForm label {
   display: grid;
   gap: 5px;
 }
 
-#expensesForm button {
+.expensesForm button {
   height: 39px;
 }
 
-#expensesView {
+.expensesView {
   display: flex;
   flex: 1;
   flex-direction: column;
