@@ -4,6 +4,7 @@ import {
   GET_CURRENCIES_ERROR,
   SET_NEW_EXPENSE,
   UPDATE_TOTAL_EXPENSES,
+  REMOVE_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -26,6 +27,12 @@ function walletReducer(state = INITIAL_STATE, action) {
     return { ...state, expenses: [...state.expenses, action.payload] };
   case UPDATE_TOTAL_EXPENSES:
     return { ...state, totalExpenses: state.totalExpenses + action.payload };
+  case REMOVE_EXPENSE:
+    return {
+      ...state,
+      expenses: action.payload.updatedList,
+      totalExpenses: action.payload.updatedTotal,
+    };
   default:
     return state;
   }

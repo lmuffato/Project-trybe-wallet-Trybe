@@ -1,5 +1,6 @@
 import React from 'react';
 import { objectOf, string, number, oneOfType } from 'prop-types';
+import DeleteButton from './DeleteButton';
 
 // function convertToValue(value) {
 //   return (Number(value).toFixed(2));
@@ -7,7 +8,7 @@ import { objectOf, string, number, oneOfType } from 'prop-types';
 
 function TableLines(props) {
   const { expense } = props;
-  const { description, tag, method, value, currency, exchangeRates } = expense;
+  const { id, description, tag, method, value, currency, exchangeRates } = expense;
   const currencyNames = exchangeRates[currency].name.split('/');
   const { ask } = exchangeRates[currency];
 
@@ -42,7 +43,7 @@ function TableLines(props) {
       </td>
       <td>
         Editar
-        Excluir
+        <DeleteButton id={ id } />
       </td>
     </tr>
   );
