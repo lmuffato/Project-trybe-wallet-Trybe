@@ -4,6 +4,8 @@ import {
   SAVE_EXPENSE_SUCCESS,
   SAVE_EXPENSE_ERROR,
   DELETE_EXPENSE,
+  EDIT_EXPENSE,
+  SAVE_EDIT_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -11,6 +13,7 @@ const INITIAL_STATE = {
   expenses: [],
   error: null,
   total: 0,
+  edit: {},
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -39,6 +42,18 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       expenses: action.payload.data,
       total: action.payload.total,
+    };
+  case EDIT_EXPENSE:
+    return {
+      ...state,
+      edit: action.payload,
+    };
+  case SAVE_EDIT_EXPENSE:
+    return {
+      ...state,
+      expenses: action.payload.data,
+      total: action.payload.total,
+      edit: {},
     };
   default:
     return state;

@@ -82,3 +82,33 @@ export const deleteExpense = (id, expenses) => {
     },
   };
 };
+
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
+
+export const editExpense = (id, expenses) => {
+  const expense = expenses.find((object) => object.id === id);
+  return {
+    type: EDIT_EXPENSE,
+    payload: expense,
+  };
+};
+
+export const SAVE_EDIT_EXPENSE = 'SAVE_EDIT_EXPENSE';
+export const saveEditExpense = (expense, expenses) => {
+  const newExpenses = expenses.map((item) => {
+    if (item.id === expense.id) {
+      return expense;
+    }
+    return item;
+  });
+  const total = newExpenses.reduce((acc, curr) => (
+    acc + curr.exchangeRates[curr.currency].ask * curr.value
+  ), 0);
+  return {
+    type: SAVE_EDIT_EXPENSE,
+    payload: {
+      data: newExpenses,
+      total,
+    },
+  };
+};

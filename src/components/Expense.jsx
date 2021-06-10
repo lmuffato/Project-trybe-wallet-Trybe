@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { deleteExpense } from '../actions';
+import { deleteExpense, editExpense } from '../actions';
 
 class Expense extends React.Component {
   render() {
@@ -15,6 +15,7 @@ class Expense extends React.Component {
       deleteCost,
       id,
       expenses,
+      edit,
     } = this.props;
     const currencyName = exchangeRates[currency].name.split('/')[0];
     const exchangeRateUsed = exchangeRates[currency].ask;
@@ -38,6 +39,13 @@ class Expense extends React.Component {
           >
             Apagar
           </button>
+          <button
+            data-testid="edit-btn"
+            type="button"
+            onClick={ () => edit(id, expenses) }
+          >
+            Editar
+          </button>
         </td>
       </tr>
 
@@ -51,6 +59,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   deleteCost: (id, expenses) => dispatch(deleteExpense(id, expenses)),
+  edit: (id, expenses) => dispatch(editExpense(id, expenses)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Expense);
