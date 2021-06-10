@@ -2,9 +2,9 @@
 export const USER_WALLET = 'USER_WALLET';
 export const WALLET = 'WALLET';
 
-export const saveUser = (user) => ({
+export const saveUser = (email) => ({
   type: USER_WALLET,
-  user,
+  email,
 });
 
 export const saveWallet = (wallet) => ({
