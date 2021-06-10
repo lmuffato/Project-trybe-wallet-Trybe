@@ -54,11 +54,9 @@ class ExpensesForm extends React.Component {
     this.setState({ [name]: value });
   }
 
-  render() {
-    const { currencies } = this.props;
-    const { value, description, currency, method, tag } = this.state;
+  renderInputs(value, description) {
     return (
-      <form>
+      <>
         <label htmlFor="value">
           Valor
           <input
@@ -79,6 +77,13 @@ class ExpensesForm extends React.Component {
             value={ description }
           />
         </label>
+      </>
+    );
+  }
+
+  renderSelects(currency, method, tag, currencies) {
+    return (
+      <>
         <Select
           options={ currencies }
           infos={ selectCurrencies }
@@ -97,6 +102,17 @@ class ExpensesForm extends React.Component {
           value={ tag }
           onChange={ this.handleChange }
         />
+      </>
+    );
+  }
+
+  render() {
+    const { currencies } = this.props;
+    const { value, description, currency, method, tag } = this.state;
+    return (
+      <form>
+        { this.renderInputs(value, description) }
+        { this.renderSelects(currency, method, tag, currencies) }
         <button type="button" onClick={ this.validateForm }>Adicionar Despesa</button>
       </form>
     );
