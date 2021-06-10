@@ -5,6 +5,7 @@ export const STORE_EXPENSE = 'STORE_EXPENSE';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const GET_CURRENCIES_SUCCESS = 'GET_CURRENCIES_SUCCESS';
 export const GET_CURRENCIES_ERROR = 'GET_CURRENCIES_ERROR';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export function storeUser(payload) {
   return {
@@ -49,5 +50,12 @@ export function getCurrenciesThunk() {
     } catch (error) {
       dispatch(getCurrenciesError(error));
     }
+  };
+}
+
+export function deleteExpense(payload) {
+  return {
+    type: DELETE_EXPENSE,
+    payload,
   };
 }
