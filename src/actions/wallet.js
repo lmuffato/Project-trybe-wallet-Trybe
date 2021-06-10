@@ -13,5 +13,8 @@ export const getCurrenciesAPISuccess = (payload) => ({
 export const getCurrenciesAPIThunk = () => (dispatch) => {
   dispatch(getCurrenciesAPI());
   getAPI()
-    .then((res) => dispatch(getCurrenciesAPISuccess(res)));
+    .then((response) => {
+      const valuesAPI = Object.values(response);
+      dispatch(getCurrenciesAPISuccess(valuesAPI));
+    });
 };

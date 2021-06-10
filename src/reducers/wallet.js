@@ -3,10 +3,8 @@
 import { GET_CURRENCIES, GET_CURRENCIES_SUCESS } from '../actions';
 
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -16,10 +14,7 @@ const wallet = (state = INITIAL_STATE, action) => {
   case GET_CURRENCIES_SUCESS:
     return {
       ...state,
-      wallet: {
-        ...state.wallet,
-        currencies: action.payload.response,
-      },
+      currencies: action.payload,
     };
   default:
     return state;

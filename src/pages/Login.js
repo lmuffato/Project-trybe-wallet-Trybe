@@ -65,7 +65,7 @@ class Login extends React.Component {
             onClick={ () => login({ email }) }
             type="button"
           >
-            <Link to="/carteira">
+            <Link className={ disabled ? 'disabledLink' : '' } to="/carteira">
               Entrar
             </Link>
           </button>
