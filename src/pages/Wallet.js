@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import fetchCurrency from '../services/api';
+import './Wallet.css';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -25,15 +26,14 @@ class Wallet extends React.Component {
   render() {
     const { user } = this.props;
     const { currencies } = this.state;
-    console.log(currencies);
     return (
       <>
-        <header>
+        <header className="wallet-header">
+          <h6 data-testid="email-field">{user}</h6>
           <p data-testid="header-currency-field">Câmbio: BRL</p>
           <p data-testid="total-field">Valor total: 0</p>
-          <h6 data-testid="email-field">{user}</h6>
         </header>
-        <form>
+        <form className="form-wallet">
           <label htmlFor="value">
             Valor:
             <input type="text" id="value" />

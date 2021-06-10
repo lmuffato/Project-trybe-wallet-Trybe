@@ -1,10 +1,36 @@
 .form-login {
   align-items: center;
+  border: 1px solid #797979;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  height: 250px;
+  justify-content: center;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 100px;
   padding: 10px;
   width: 20%;
+}
+
+.form-login input {
+  height: 30px;
+  margin: 8px;
+  padding: 5px;
+}
+
+.form-login button {
+  border-radius: 10px;
+  border-style: none;
+  color: white;
+  height: 40px;
+  margin: 8px;
+  padding: 5px;
+  width: 120px;
+}
+
+.form-login button:enabled {
+  background-color: #69c38d;
+  font-size: 14px;
+  font-weight: 600;
 }

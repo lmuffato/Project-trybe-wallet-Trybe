@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './Login.css';
 import { login } from '../actions';
+import wallet from '../images/wallet.gif';
 
 class Login extends React.Component {
   constructor() {
@@ -29,6 +30,7 @@ class Login extends React.Component {
     const { user } = this.props;
     return (
       <form className="form-login">
+        <img src={ wallet } alt="logo" width="30%" />
         <input
           type="email"
           placeholder="Email"

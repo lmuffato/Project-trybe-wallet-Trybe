@@ -1,0 +1,16 @@
+.wallet-header {
+  background-color: #69c38d;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 25px;
+}
+
+.form-wallet {
+  background-color: #797979;
+  display: flex;
+  font-size: 12px;
+  justify-content: space-between;
+  padding: 10px 25px;
+}
+
