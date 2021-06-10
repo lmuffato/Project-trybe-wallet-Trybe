@@ -47,39 +47,49 @@ class Login extends React.Component {
     const { email, password, submitted } = this.state;
     if (submitted) return <Redirect to="/carteira" />;
     return (
-      <div>
-        <label htmlFor="email-input">
-          E-mail:
-          <input
-            type="text"
-            id="email-input"
-            name="email"
-            value={ email }
-            data-testid="email-input"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="password-input">
-          Senha:
-          <input
-            type="password"
-            id="password-input"
-            name="password"
-            value={ password }
-            data-testid="password-input"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <div>
+      <main className="container">
+        <div className="mb-3 d-flex justify-content-center mt-5">
+          <img src="https://i.ibb.co/sbdXJKN/money.gif" alt="money" border="0" />
+        </div>
+        <div className="mb-3 d-flex justify-content-center mt-5">
+          <label htmlFor="email-input" className="form-label">
+            E-mail:
+            <input
+              type="text"
+              id="email-input"
+              name="email"
+              value={ email }
+              data-testid="email-input"
+              onChange={ this.handleChange }
+              className="form-control"
+            />
+          </label>
+        </div>
+        <div className="mb-3 d-flex justify-content-center">
+          <label htmlFor="password-input" className="form-label">
+            Senha:
+            <input
+              type="password"
+              id="password-input"
+              name="password"
+              value={ password }
+              data-testid="password-input"
+              onChange={ this.handleChange }
+              className="form-control"
+            />
+          </label>
+        </div>
+        <div className="mb-3 d-flex justify-content-center">
           <button
             type="button"
             disabled={ !(this.validatePassword() && this.validateEmail()) }
             onClick={ this.handleSubmmit }
+            className="btn btn-success"
           >
             Entrar
           </button>
         </div>
-      </div>
+      </main>
     );
   }
 }

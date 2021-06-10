@@ -35,27 +35,33 @@ class FormExpenses extends Component {
   valueDescriptionForm() {
     const { value, description } = this.state;
     return (
-      <div>
-        <label htmlFor="value">
-          Valor:
-          <input
-            type="number"
-            id="value"
-            name="value"
-            value={ value }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="description">
-          Descrição:
-          <input
-            type="text"
-            id="description"
-            name="description"
-            value={ description }
-            onChange={ this.handleChange }
-          />
-        </label>
+      <div className="row">
+        <div className="col-sm-3">
+          <label htmlFor="value" className="form-label">
+            Valor:
+            <input
+              type="number"
+              id="value"
+              name="value"
+              value={ value }
+              onChange={ this.handleChange }
+              className="form-control form-control-sm"
+            />
+          </label>
+        </div>
+        <div className="col-sm-7">
+          <label htmlFor="description" className="form-label">
+            Descrição:
+            <input
+              type="text"
+              id="description"
+              name="description"
+              value={ description }
+              onChange={ this.handleChange }
+              className="form-control form-control-sm"
+            />
+          </label>
+        </div>
       </div>
     );
   }
@@ -64,7 +70,7 @@ class FormExpenses extends Component {
     const { currencies } = this.props;
     const { currency } = this.state;
     return (
-      <div>
+      <div className="row">
         <label htmlFor="currency">
           Moeda:
           <select
@@ -72,6 +78,7 @@ class FormExpenses extends Component {
             onChange={ this.handleChange }
             name="currency"
             value={ currency }
+            className="form-select form-select-sm"
           >
             {currencies.map((curr) => (
               <option data-testid={ curr } key={ curr } value={ curr }>{curr}</option>
@@ -85,36 +92,42 @@ class FormExpenses extends Component {
   selectForms() {
     const { method, tag } = this.state;
     return (
-      <div>
-        <label htmlFor="method">
-          Método de pagamento:
-          <select
-            id="method"
-            value={ method }
-            data-testid="method-input"
-            name="method"
-            onChange={ this.handleChange }
-          >
-            <option value="Dinheiro">Dinheiro</option>
-            <option value="Cartão de crédito">Cartão de crédito</option>
-            <option value="Cartão de débito">Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="tag">
-          Tag:
-          <select
-            id="tag"
-            value={ tag }
-            name="tag"
-            onChange={ this.handleChange }
-          >
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
-          </select>
-        </label>
+      <div className="row">
+        <div className="col-sm-7">
+          <label htmlFor="method">
+            Método de pagamento:
+            <select
+              id="method"
+              value={ method }
+              data-testid="method-input"
+              name="method"
+              onChange={ this.handleChange }
+              className="form-select form-select-sm"
+            >
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
+            </select>
+          </label>
+        </div>
+        <div className="col-sm">
+          <label htmlFor="tag">
+            Tag:
+            <select
+              id="tag"
+              value={ tag }
+              name="tag"
+              onChange={ this.handleChange }
+              className="form-select form-select-sm"
+            >
+              <option>Alimentação</option>
+              <option>Lazer</option>
+              <option>Trabalho</option>
+              <option>Transporte</option>
+              <option>Saúde</option>
+            </select>
+          </label>
+        </div>
       </div>
     );
   }
@@ -133,17 +146,22 @@ class FormExpenses extends Component {
 
   render() {
     return (
-      <form className="d-flex">
-        { this.valueDescriptionForm() }
-        { this.coinForm() }
-        { this.selectForms() }
-        <button
-          type="button"
-          onClick={ () => this.newExpenses() }
-        >
-          Adicionar despesa
-        </button>
-      </form>
+      <section className="head-input p-3">
+        <form className="d-flex justify-content-between align-items-center mx-5">
+          { this.valueDescriptionForm() }
+          { this.coinForm() }
+          { this.selectForms() }
+          <div>
+            <button
+              type="button"
+              onClick={ () => this.newExpenses() }
+              className="btn btn-dark btn-sm mt-3"
+            >
+              Adicionar despesa
+            </button>
+          </div>
+        </form>
+      </section>
     );
   }
 }

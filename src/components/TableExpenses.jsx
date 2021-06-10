@@ -29,6 +29,7 @@ class TableExpenses extends Component {
             type="button"
             onClick={ () => removeExpenseItem(id) }
             data-testid="delete-btn"
+            className="btn btn-light btn-sm"
           >
             Excluir
           </button>
@@ -40,8 +41,8 @@ class TableExpenses extends Component {
   render() {
     const { expenses } = this.props;
     return (
-      <section>
-        <table>
+      <section className="table-container px3">
+        <table className="table table-success table-striped">
           <thead>
             <tr>
               <th>Descrição</th>
@@ -63,6 +64,8 @@ class TableExpenses extends Component {
     );
   }
 }
+
+// Referência tabelas: https://stackoverflow.com/questions/43958700/react-error-th-cannot-appear-as-a-child-of-thead-see-unknown-thead-th/43958748
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
