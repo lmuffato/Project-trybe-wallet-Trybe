@@ -5,18 +5,16 @@ const initialState = {
   total: 0,
   loading: true,
 };
-
 export default function wallet(state = initialState, action) {
   switch (action.type) {
   case 'SET_EXPENSES':
     return { ...state,
+      currencies: [...state.currencies],
       expenses: [...state.expenses, action.payload.expenses],
       id: state.id + action.payload.id,
       total: state.total + action.payload.total,
       loading: action.payload.loading,
     };
-  case 'SET_CURRENCIES':
-    return { ...state, currencies: action.payload.currencies };
   default:
     return state;
   }

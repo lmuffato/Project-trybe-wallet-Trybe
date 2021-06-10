@@ -1,10 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import headers from './headers';
 
-const Table = () => {
-  const expenses = useSelector((state) => state.wallet.expenses);
-  const loading = useSelector((state) => state.wallet.loading);
+const Table = ({ expenses, loading }) => {
   if (!loading) {
     return (
       <table>
@@ -18,13 +16,13 @@ const Table = () => {
         <tbody>
           { expenses.map((exp, index) => (
             <tr key={ index }>
-              <td>{ exp[0].description }</td>
-              <td>{ exp[0].tag }</td>
-              <td>{ exp[0].method }</td>
-              <td>{ exp[0].valueOriginal }</td>
-              <td>{ exp[0].currency }</td>
-              <td>{ exp[0].method }</td>
-              <td>{ parseFloat(exp[0].value).toFixed(2) }</td>
+              <td>{ exp.description }</td>
+              <td>{ exp.tag }</td>
+              <td>{ exp.method }</td>
+              <td>{ exp.valueOriginal }</td>
+              <td>{ exp.currency }</td>
+              <td>{ exp.method }</td>
+              <td>{ parseFloat(exp.value).toFixed(2) }</td>
               <td>Real</td>
               <td>
                 <button
@@ -50,3 +48,8 @@ const Table = () => {
 };
 
 export default Table;
+
+Table.propTypes = {
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  loading: PropTypes.bool.isRequired,
+};

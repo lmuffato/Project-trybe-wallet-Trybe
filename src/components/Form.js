@@ -1,5 +1,7 @@
+/* eslint-disable max-lines-per-function */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import data from './data';
 import Label from './Label';
 import Select from './Select';
 import tag from './tag';
@@ -17,17 +19,17 @@ const Form = () => {
   const tagV = document.querySelector('#tag');
   const requisicaoFetch = async () => {
     const endpoint = 'https://economia.awesomeapi.com.br/json/all';
-    const response = await fetch(endpoint);
-    const json = await response.json();
+    const json = await fetch(endpoint).then((resp) => resp.json());
     const array = Object.keys(json);
     const filtered = array.filter((coin) => coin !== 'USDT');
     setCoins(filtered);
   };
   const handleClick = async () => {
-    dispatch({
+    await dispatch({
       type: 'SET_EXPENSES',
       payload: {
-        expenses: [{
+        currencies: coins,
+        expenses: {
           id: expenses.length,
           valueOriginal: valor.value,
           value: valor.value * await getAsk(moeda.value),
@@ -35,7 +37,8 @@ const Form = () => {
           currency: moeda.value,
           method: pagamentoV.value,
           tag: tagV.value,
-        }],
+          exchangeRates: data,
+        },
         total: valor.value * await getAsk(moeda.value),
         loading: false,
       },
@@ -55,5 +58,4 @@ const Form = () => {
     </form>
   );
 };
-
 export default Form;

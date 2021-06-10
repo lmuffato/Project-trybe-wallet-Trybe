@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
