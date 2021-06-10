@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AddButton from './AddButton';
 
 export default class Form extends Component {
   constructor() {
@@ -7,19 +8,21 @@ export default class Form extends Component {
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
+     // id: 0,
       value: '',
       description: '',
       currency: '',
       payment: '',
       tag: '',
+      exchangeRates: {},
     };
   }
 
   handleChange({ target: { value, name } }) {
     this.setState({
       [name]: value,
-    })
-  };
+    });
+  }
 
   render() {
     const { value, description } = this.state;
@@ -61,8 +64,14 @@ export default class Form extends Component {
               <option value="health">Saúde</option>
             </select>
           </label>
+          <AddButton expense={ this.state } />
         </form>
       </div>
     );
   }
 }
+
+/* Form.propTypes = {
+  userEmail: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+}; */
