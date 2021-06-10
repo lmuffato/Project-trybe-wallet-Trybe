@@ -1,33 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Input from '../components/Input';
-import Select from '../components/Select';
+import Form from '../components/Form';
 import { fetchCurrencies, fetchExchageRates } from '../actions';
-
-const toInputs = [
-  { type: 'number', label: 'Valor', name: 'value', testeId: '' },
-  { type: 'text', label: 'Descrição', name: 'description', testeId: '' },
-];
-
-const toSelects = (currencies) => ([
-  { label: 'Moeda', name: 'currency', testeId: '', options: currencies },
-  {
-    label: 'Método de pagamento',
-    name: 'method',
-    testeId: '',
-    options: [
-      'escolha', 'Dinheiro', 'Cartão de crédito', 'Cartão de débito',
-    ],
-  },
-  {
-    label: 'Tag',
-    name: 'tag',
-    testeId: '',
-    options: [
-      'escolha', 'Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'],
-  },
-]);
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -84,42 +59,17 @@ class Wallet extends React.Component {
           <span data-testid="total-field">{total ? Number(total) : 0}</span>
           <span data-testid="header-currency-field">BRL</span>
         </header>
-        <form>
-          {
-            toInputs.map((input, index) => (
-              <Input
-                type={ input.type }
-                id={ input.name }
-                label={ input.label }
-                name={ input.name }
-                testeId={ input.testeId }
-                key={ index }
-                onChange={ this.handleChange }
-                value={ cost[input.name] }
-              />
-            ))
-          }
-          {
-            toSelects(currencies).map((select, index) => (
-              <Select
-                label={ select.label }
-                id={ select.name }
-                name={ select.name }
-                testeId={ select.testeId }
-                options={ select.options }
-                key={ index }
-                onChange={ this.handleChange }
-                value={ cost[select.name] }
-              />
-            ))
-          }
-          <button
-            type="button"
-            onClick={ () => this.dispatchExpense() }
-          >
-            Adicionar despesa
-          </button>
-        </form>
+        <Form
+          currencies={ currencies }
+          value={ cost }
+          onChange={ this.handleChange }
+        />
+        <button
+          type="button"
+          onClick={ () => this.dispatchExpense() }
+        >
+          Adicionar despesa
+        </button>
       </div>
     );
   }
