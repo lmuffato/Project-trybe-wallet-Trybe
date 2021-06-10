@@ -14,22 +14,25 @@ const renderCurrencyOption = ({ code, name }) => (
   </option>
 );
 
-const handleChange = ({ target: { id, value } }, setExpense, expense) => {
+const handleChange = async ({ target: { id, value } }, setExpense, expense) => {
   setExpense({ ...expense, [id]: value });
+  console.log(expense);
 };
 
-const handleSubmit = (e, expense, addNewExpense, expenses) => {
+const handleSubmit = (e, props, expense) => {
   e.preventDefault();
+  const { addNewExpense, expenses, currencies } = props;
   const newExpense = {
     id: expenses.length,
     ...expense,
+    exchangeRates: currencies.find(({ code }) => code === expense.currency).bid,
   };
 
   addNewExpense(newExpense);
 };
 
-const renderExpenseForm = (currencies, setExpense, expense, addNewExpense, expenses) => (
-  <form onSubmit={ (e) => handleSubmit(e, expense, addNewExpense, expenses) }>
+const renderExpenseForm = (expense, setExpense, props) => (
+  <form onSubmit={ (e) => handleSubmit(e, props, expense) }>
     <label htmlFor="value">
       Valor:
       <input
@@ -51,22 +54,22 @@ const renderExpenseForm = (currencies, setExpense, expense, addNewExpense, expen
     <label htmlFor="currency">
       Moeda:
       <select id="currency" onChange={ (e) => handleChange(e, setExpense, expense) }>
-        { currencies.map((currency) => renderCurrencyOption(currency))}
+        { props.currencies.map((currency) => renderCurrencyOption(currency))}
       </select>
     </label>
 
-    <label htmlFor="payment">
+    <label htmlFor="method">
       Método de pagamento:
-      <select id="payment" onChange={ (e) => handleChange(e, setExpense, expense) }>
+      <select id="method" onChange={ (e) => handleChange(e, setExpense, expense) }>
         <option value="cash">Dinheiro</option>
         <option value="credit">Cartão de crédito</option>
         <option value="debit">Cartão de débito</option>
       </select>
     </label>
 
-    <label htmlFor="category">
+    <label htmlFor="tag">
       Tag:
-      <select id="category" onChange={ (e) => handleChange(e, setExpense, expense) }>
+      <select id="tag" onChange={ (e) => handleChange(e, setExpense, expense) }>
         <option value="Alimentação">Alimentação</option>
         <option value="Lazer">Lazer</option>
         <option value="Trabalho">Trabalho</option>
@@ -79,15 +82,15 @@ const renderExpenseForm = (currencies, setExpense, expense, addNewExpense, expen
   </form>
 );
 
-const AddExpenseForm = ({ fetchCurrencies, currencies, addNewExpense, expenses }) => {
+const AddExpenseForm = (props) => {
   const [expense, setExpense] = useState({});
 
   useEffect(() => {
-    fetchCurrencies();
+    props.fetchCurrencies();
   }, []);
 
   return (
-    renderExpenseForm(currencies, setExpense, expense, addNewExpense, expenses)
+    renderExpenseForm(expense, setExpense, props)
   );
 };
 
