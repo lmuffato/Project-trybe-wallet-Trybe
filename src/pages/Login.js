@@ -63,7 +63,7 @@ class Login extends React.Component {
 
     if (shouldRedirect) return <Redirect to="/carteira" />;
     return (
-      <>
+      <form>
         <label htmlFor="email-input">
           <input
             type="email"
@@ -90,17 +90,17 @@ class Login extends React.Component {
         >
           Entrar
         </button>
-      </>
+      </form>
     );
   }
 }
 
-Login.propTypes = {
-  addEmail: PropTypes.func,
-}.isRequired;
-
 const mapDispatchToProps = (dispatch) => ({
   addEmail: (payload) => dispatch(newEmail(payload)),
 });
+
+Login.propTypes = {
+  addEmail: PropTypes.func,
+}.isRequired;
 
 export default connect(null, mapDispatchToProps)(Login);
