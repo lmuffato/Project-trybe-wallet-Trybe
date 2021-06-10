@@ -6,10 +6,12 @@
 import { combineReducers } from 'redux';
 import user from './user';
 import wallet from './wallet';
+import input from './input';
 
 const rootReducer = combineReducers({
   user,
   wallet,
+  input,
 });
 
 export default rootReducer;

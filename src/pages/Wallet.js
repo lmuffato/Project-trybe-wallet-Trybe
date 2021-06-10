@@ -1,26 +1,25 @@
 import React from 'react';
-import Currency from '../components/Currency';
-import Description from '../components/Description';
 import Header from '../components/Header';
-import PaymentMethods from '../components/PaymentMethods';
-import Tags from '../components/Tags';
-import Value from '../components/Value';
+import FormField from '../components/ExpenseForm/FormField';
 
 class Wallet extends React.Component {
+  /* constructor() {
+    super();
+    const { expenses } = props;
+  }
+
+  async handleExchangeRates() {
+    const { addExpense, getCurrencies } = this.props;
+    const getExchangeRates = getCurrencies();
+    this.setState({ exchangeRates: getExchangeRates });
+    addExpense(this.state);
+  } */
   render() {
     return (
       <div>
         <Header />
-        <div>
-          <h1>TrybeWallet</h1>
-          <form>
-            <Value />
-            <Description />
-            <Currency />
-            <PaymentMethods />
-            <Tags />
-          </form>
-        </div>
+        <h1>TrybeWallet</h1>
+        <FormField />
       </div>
     );
   }
