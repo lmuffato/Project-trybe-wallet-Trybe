@@ -1,4 +1,4 @@
-const convertToMoney = (float) => Math.floor(float * 100) / 100;
+const convertToMoney = (float) => Math.round(float * 100) / 100;
 
 const THE_FIRST_ID_RETURNED_BY_UUID_NEEDS_TO_BE_0 = -1;
 let id = THE_FIRST_ID_RETURNED_BY_UUID_NEEDS_TO_BE_0;
