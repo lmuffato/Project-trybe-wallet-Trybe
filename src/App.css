@@ -2,6 +2,14 @@
   text-align: center;
 }
 
+a {
+  text-decoration: none;
+}
+
+button:disabled {
+  cursor:not-allowed;
+}
+
 .disabledLink {
   pointer-events: none;
 }

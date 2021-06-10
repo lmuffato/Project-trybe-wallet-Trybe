@@ -7,18 +7,31 @@ class InputCurrencies extends Component {
   componentDidMount() {
     const { getCurrencies } = this.props;
     getCurrencies();
+    console.log('componentDidMount foi renderizado');
   }
 
+  /* componentDidUpdate() {
+    const { getCurrencies } = this.props;
+    getCurrencies();
+    console.log('componentDidUpdate foi renderizado');
+    console.log('SE VOCÊ TEM AMOR PELO SEU NOTE, NÃO USE ISSO!!!!!')
+  } */
+
   render() {
-    const { currencies } = this.props;
-    /* console.log(currencies); */
-    currencies.splice(1, 1);
+    const { currencies, propValue, onChange } = this.props;
+    console.log(currencies);
+    // currencies.splice(1, 1);
     /* console.log(currencies); */
     return (
       <label htmlFor="moedas">
         Moeda
-        <select name="moedas" id="moedas">
-          {/* <option value="">Teste</option> */}
+        <select
+          id="moedas"
+          name="currency"
+          value={ propValue }
+          onChange={ onChange }
+        >
+          {/* <option value="">Selecione a moeda</option> */}
           {currencies.map((currency) => (
             <option key={ currency.code } value={ currency.code }>
               { currency.code }
@@ -32,7 +45,6 @@ class InputCurrencies extends Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  test: state.wallet,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -42,6 +54,8 @@ const mapDispatchToProps = (dispatch) => ({
 InputCurrencies.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
   getCurrencies: PropTypes.func.isRequired,
+  propValue: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputCurrencies);

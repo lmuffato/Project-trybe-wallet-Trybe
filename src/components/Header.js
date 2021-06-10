@@ -6,18 +6,25 @@ class Header extends Component {
   constructor() {
     super();
 
-    this.state = {
-      initialValue: 0,
-    };
+    this.addValuesExpense = this.addValuesExpense.bind(this);
+  }
+
+  addValuesExpense() {
+    const { expenses } = this.props;
+    return expenses.reduce((acc, actual) => {
+      const valueCurrency = actual.value;
+      const askCurrency = actual.exchangeRates[actual.currency].ask;
+      const total = valueCurrency * askCurrency;
+      return acc + total;
+    }, 0);
   }
 
   render() {
-    const { initialValue } = this.state;
     const { email } = this.props;
     return (
       <div>
         <span data-testid="email-field">{ email }</span>
-        <span data-testid="total-field">{ initialValue }</span>
+        <span data-testid="total-field">{ this.addValuesExpense() }</span>
         <span data-testid="header-currency-field">BRL</span>
       </div>
     );
@@ -26,6 +33,7 @@ class Header extends Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 Header.defaultProps = {
@@ -34,6 +42,7 @@ Header.defaultProps = {
 
 Header.propTypes = {
   email: PropTypes.string,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps)(Header);
