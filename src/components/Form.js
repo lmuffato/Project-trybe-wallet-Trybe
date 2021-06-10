@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getCurrencyThunk } from '../actions';
+import { getCurrencyThunk, addToWallet } from '../actions';
 import Input from './Input';
 
 class Form extends React.Component {
@@ -10,12 +10,14 @@ class Form extends React.Component {
     this.state = {
       id: 0,
       value: '',
-      description: '',
+      currency: '',
       method: '',
       tag: '',
+      description: '',
       exchangeRates: [],
     };
     this.handleData = this.handleData.bind(this);
+    this.handleExchanges = this.handleExchanges.bind(this);
   }
 
   componentDidMount() {
@@ -27,12 +29,22 @@ class Form extends React.Component {
     const { name, value } = target;
     this.setState({
       [name]: value,
-    }, () => console.log(this.state));
+    });
+  }
+
+  handleExchanges() {
+    const { getApiThunk, currencies, addToWalletDispatch } = this.props;
+    getApiThunk();
+    this.setState((prevState) => ({
+      id: prevState.id + 1,
+      exchangeRates: currencies,
+    }), () => addToWalletDispatch(this.state));
   }
 
   render() {
     const { currencies } = this.props;
-    const filteredCurrencies = currencies.filter((currency) => (
+    const currenciesToArray = Object.values(currencies);
+    const filteredCurrencies = currenciesToArray.filter((currency) => (
       currency.codein !== 'BRLT'));
     return (
       <form>
@@ -69,7 +81,7 @@ class Form extends React.Component {
           </select>
         </label>
         <Input onChange={ this.handleData } description="Descrição" name="description" />
-        <button type="button">Adicionar despesa</button>
+        <button onClick={ this.handleExchanges } type="button">Adicionar despesa</button>
       </form>
     );
   }
@@ -81,10 +93,12 @@ const mapStateToProps = ({ wallet }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getApiThunk: () => dispatch(getCurrencyThunk()),
+  addToWalletDispatch: (state) => dispatch(addToWallet(state)),
 });
 
 Form.propTypes = {
   getApiThunk: PropTypes.func.isRequired,
+  addToWalletDispatch: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string,
   })).isRequired,
