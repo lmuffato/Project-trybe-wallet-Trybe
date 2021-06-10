@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { deleteExpense, subtractExpenses } from '../actions';
 
 class ExpenseTableRow extends React.Component {
   currencyInfos(currency, exchangeRates) {
@@ -12,10 +14,11 @@ class ExpenseTableRow extends React.Component {
   }
 
   render() {
-    const { expense } = this.props;
-    const { description, tag, method, value, currency, exchangeRates } = expense;
+    const { expense, deleteExp, subExpensesToRedux } = this.props;
+    const { id, description, tag, method, value, currency, exchangeRates } = expense;
     const { nameCurrency, conversionCurrency,
     } = this.currencyInfos(currency, exchangeRates);
+    const valueExpense = (value * conversionCurrency).toFixed(2);
     return (
       <tr>
         <td>{description}</td>
@@ -24,9 +27,20 @@ class ExpenseTableRow extends React.Component {
         <td>{value}</td>
         <td>{nameCurrency}</td>
         <td>{parseFloat(conversionCurrency).toFixed(2)}</td>
-        <td>{(value * conversionCurrency).toFixed(2)}</td>
+        <td>{valueExpense}</td>
         <td>Real</td>
-        <td>edit buttons</td>
+        <td>
+          <button
+            type="button"
+            data-testid="delete-btn"
+            onClick={ () => {
+              subExpensesToRedux(valueExpense);
+              deleteExp(id);
+            } }
+          >
+            Excluir
+          </button>
+        </td>
       </tr>
     );
   }
@@ -34,6 +48,13 @@ class ExpenseTableRow extends React.Component {
 
 ExpenseTableRow.propTypes = {
   expense: PropTypes.objectOf({}).isRequired,
+  deleteExp: PropTypes.func.isRequired,
+  subExpensesToRedux: PropTypes.func.isRequired,
 };
 
-export default ExpenseTableRow;
+const mapDispatchToProps = (dispatch) => ({
+  deleteExp: (id) => dispatch(deleteExpense(id)),
+  subExpensesToRedux: (value) => dispatch(subtractExpenses(value)),
+});
+
+export default connect(null, mapDispatchToProps)(ExpenseTableRow);
