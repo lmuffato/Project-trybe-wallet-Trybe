@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export default class Form extends Component {
+import { fetchCurrency } from '../../actions';
+import InputValueForms from './InputValueForms';
+import InputDescriptionForms from './InputDescriptionForms';
+
+class Form extends Component {
   constructor() {
     super();
 
@@ -9,10 +15,14 @@ export default class Form extends Component {
     this.state = {
       value: '',
       description: '',
-      // currency: '',
       // paymentMethod: 'Dinheiro',
       // tag: 'Alimentação',
     };
+  }
+
+  componentDidMount() {
+    const { fetchCurrencies } = this.props;
+    fetchCurrencies();
   }
 
   handleChange(e) {
@@ -21,32 +31,25 @@ export default class Form extends Component {
     });
   }
 
-  handleSubmit(e) {
-    console.log(e.target.value);
-  }
-
   render() {
-    const { state: { value, description }, handleChange, handleSubmit } = this;
+    const {
+      state: { value, description },
+      handleChange, props: { currenciesProps },
+    } = this;
+    const currencies = Object.keys(currenciesProps)
+      .filter((currency) => (currency !== 'USDT'));
     return (
-      <form onSubmit={ handleSubmit }>
-        <label htmlFor="value">
-          Valor
-          <input id="value" type="number" value={ value } onChange={ handleChange } />
-        </label>
-        <label htmlFor="description">
-          Descrição:
-          <input
-            id="description"
-            type="text"
-            value={ description }
-            onChange={ handleChange }
-          />
-        </label>
-
+      <form>
+        <InputValueForms value={ value } handleChange={ handleChange } />
+        <InputDescriptionForms
+          description={ description }
+          handleChange={ handleChange }
+        />
         <label htmlFor="currency">
           Moeda:
           <select id="currency">
-            <option>a</option>
+            {currencies
+              .map((currency, index) => <option key={ index }>{ currency }</option>)}
           </select>
         </label>
 
@@ -75,3 +78,18 @@ export default class Form extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  currenciesProps: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchCurrencies: () => dispatch(fetchCurrency()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
+
+Form.propTypes = {
+  fetchCurrencies: PropTypes.func.isRequired,
+  currenciesProps: PropTypes.objectOf(PropTypes.string).isRequired,
+};

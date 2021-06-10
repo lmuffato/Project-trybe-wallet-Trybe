@@ -1,5 +1,20 @@
 import { LOGIN } from '../reducers/user';
+import { GET, SUCCESS_REQUEST, FAIL_REQUEST } from '../reducers/wallet';
 
-const loginAction = (payload) => ({ type: LOGIN, payload });
+export const loginAction = (payload) => ({ type: LOGIN, payload });
 
-export default loginAction;
+const successRequest = (json) => ({ type: SUCCESS_REQUEST, payload: json });
+const getCurrency = () => ({ type: GET });
+const failRequest = (error) => ({ type: FAIL_REQUEST, payload: error });
+
+export function fetchCurrency() {
+  return (dispatch) => {
+    dispatch(getCurrency());
+    return fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((r) => r.json()
+        .then(
+          (json) => dispatch(successRequest(json)),
+          (error) => dispatch(failRequest(error)),
+        ));
+  };
+}
