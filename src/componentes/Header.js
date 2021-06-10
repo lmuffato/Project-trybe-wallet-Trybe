@@ -13,7 +13,8 @@ class Header extends React.Component {
     const { arrayExpenses } = this.props;
     if (arrayExpenses.length === 0) totalExpenses = 0;
     else totalExpenses = arrayExpenses.reduce((acc, cur) => acc + cur);
-    return totalExpenses;
+    // return totalExpenses;  aqui entre os gastos totais
+    return 0;
   }
 
   choiceCurrency() {

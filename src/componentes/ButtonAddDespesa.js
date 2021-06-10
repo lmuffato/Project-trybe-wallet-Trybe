@@ -10,8 +10,16 @@ class ButtonAddDespesa extends React.Component {
 
   handleClick(event) {
     event.preventDefault();
-    const { sendProduct, valor, descricao, moeda, metodo, categoria} = this.props;
-    const product = { valor, descricao, moeda, metodo, categoria };
+    const { sendProduct, numberProducts, valor, descricao, moeda, metodo, categoria} = this.props;
+    const product = {
+      id: numberProducts + 1,
+      valor,
+      descricao,
+      moeda,
+      metodo,
+      categoria,
+    };
+
     sendProduct(product);
     //console.log(product);
     //console.log(numberProducts);
@@ -27,7 +35,7 @@ class ButtonAddDespesa extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  numberProducts: state.wallet.expenses,
+  numberProducts: state.wallet.expenses.length,
 });
 
 const mapDispatchToProps = (dispatch) => ({

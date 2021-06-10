@@ -10,8 +10,9 @@ const initialState = {
 function wallet(state = initialState, action) {
   switch (action.type) {
   case GET_CURRENCIES_SUCCESS:
-    return { ...state, currencies: [...action.currencies],
-    };
+    return { ...state, currencies: [...action.currencies] };
+  case GET_CHOICED_PRODUCT:
+    return { ...state, expenses: [...state.expenses, action.product] };
   default:
     return state;
   }

@@ -24,7 +24,14 @@ export function fetchCurrenciesThunk() {
   };
 }
 
-export const choicedProduct = (product) => ({
+export const choicedProduct = ({ id, valor, descricao, moeda, metodo, categoria }) => ({
   type: GET_CHOICED_PRODUCT,
-  product,
+  product: {
+    id,
+    value: valor,
+    description: descricao,
+    currency: moeda,
+    method: metodo,
+    tag: categoria,
+  },
 });
