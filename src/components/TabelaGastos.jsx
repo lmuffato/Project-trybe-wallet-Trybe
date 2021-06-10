@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { deleteExpense } from '../actions';
+import { deleteExpense, edit } from '../actions';
 
 class TabelaGastos extends React.Component {
   constructor() {
@@ -10,7 +10,7 @@ class TabelaGastos extends React.Component {
   }
 
   renderButtons(id) {
-    const { deletarDespesas } = this.props;
+    const { deletarDespesas, editarDespesas } = this.props;
     return (
       <div>
         <button
@@ -19,6 +19,13 @@ class TabelaGastos extends React.Component {
           onClick={ () => deletarDespesas(id) }
         >
           Deletar
+        </button>
+        <button
+          type="button"
+          data-testid="edit-btn"
+          onClick={ () => editarDespesas(id) }
+        >
+          Editar
         </button>
       </div>
     );
@@ -71,11 +78,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   deletarDespesas: (id) => dispatch(deleteExpense(id)),
+  editarDespesas: (id) => dispatch(edit(id)),
 });
 
 TabelaGastos.propTypes = {
   expenses: PropTypes.arrayOf({}),
   delExpense: PropTypes.func,
+  edit: PropTypes.func,
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(TabelaGastos);

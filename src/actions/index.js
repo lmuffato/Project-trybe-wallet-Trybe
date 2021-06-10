@@ -73,3 +73,17 @@ export const deleteExpense = (id) => ({
   type: DELETE_EXPENSE,
   id,
 });
+
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
+
+export const edit = (id) => ({
+  type: EDIT_EXPENSE,
+  id,
+});
+
+export const RESET_EXPENSE = 'RESET_EXPENSE';
+
+export const reset = (expense) => ({
+  type: RESET_EXPENSE,
+  expense,
+});

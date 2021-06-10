@@ -1,18 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { saveCurrencies, setExpense } from '../actions';
+import { saveCurrencies, setExpense, reset } from '../actions';
+
+const INITIAL_STATE = {
+  value: '',
+  description: '',
+  currency: '',
+  method: '',
+  tag: '',
+};
 
 class FormAddDespesas extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      value: '',
-      description: '',
-      currency: '',
-      method: '',
-      tag: '',
-    };
+  constructor(props) {
+    super(props);
+    const { edit, editExpense } = this.props;
+    if (edit) {
+      this.state = { ...editExpense[0] };
+    } else {
+      this.state = INITIAL_STATE;
+    }
 
     this.handleInputs = this.handleInputs.bind(this);
     this.renderMoeda = this.renderMoeda.bind(this);
@@ -22,6 +29,7 @@ class FormAddDespesas extends React.Component {
     this.renderTag = this.renderTag.bind(this);
     this.renderButton = this.renderButton.bind(this);
     this.saveExpense = this.saveExpense.bind(this);
+    this.editExpense = this.editExpense.bind(this);
   }
 
   componentDidMount() {
@@ -47,6 +55,11 @@ class FormAddDespesas extends React.Component {
     saveExpense(this.state);
   }
 
+  editExpense() {
+    const { resetExpense } = this.props;
+    resetExpense(this.state);
+  }
+
   renderMoeda(value) {
     const { currencies } = this.props;
     return (
@@ -57,6 +70,7 @@ class FormAddDespesas extends React.Component {
           value={ value }
           onChange={ this.handleInputs }
           name="currency"
+          data-testid="currency-input"
         >
           <option value="USD">USD</option>
           { currencies.map((coin) => {
@@ -86,6 +100,7 @@ class FormAddDespesas extends React.Component {
           name="value"
           value={ value }
           onChange={ this.handleInputs }
+          data-testid="value-input"
         />
       </label>
     );
@@ -100,6 +115,7 @@ class FormAddDespesas extends React.Component {
           value={ value }
           onChange={ this.handleInputs }
           name="description"
+          data-testid="description-input"
         />
       </label>
     );
@@ -114,6 +130,7 @@ class FormAddDespesas extends React.Component {
           onChange={ this.handleInputs }
           value={ value }
           name="method"
+          data-testid="method-input"
         >
           <option>Selecione uma opção</option>
           <option>Dinheiro</option>
@@ -133,6 +150,7 @@ class FormAddDespesas extends React.Component {
           onChange={ this.handleInputs }
           value={ value }
           name="tag"
+          data-testid="tag-input"
         >
           <option>Selecione uma opção</option>
           <option>Alimentação</option>
@@ -145,19 +163,20 @@ class FormAddDespesas extends React.Component {
     );
   }
 
-  renderButton() {
+  renderButton(edit) {
     return (
       <button
         type="button"
-        onClick={ this.saveExpense }
+        onClick={ edit ? this.editExpense : this.saveExpense }
       >
-        Adicionar despesa
+        { edit ? 'Editar despesa' : 'Adicionar despesa' }
       </button>
     );
   }
 
   render() {
     const { value, description, currency, method, tag } = this.state;
+    const { edit } = this.props;
     return (
       <div>
         <form>
@@ -167,7 +186,7 @@ class FormAddDespesas extends React.Component {
           { this.renderMethod(method) }
           { this.renderTag(tag) }
         </form>
-        { this.renderButton() }
+        { this.renderButton(edit) }
       </div>
     );
   }
@@ -175,15 +194,20 @@ class FormAddDespesas extends React.Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  edit: state.wallet.edit,
+  editExpense: state.wallet.editExpense,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getMoedas: () => dispatch(saveCurrencies()),
   saveExpense: (expense) => dispatch(setExpense(expense)),
+  resetExpense: (expense) => dispatch(reset(expense)),
 });
 
 FormAddDespesas.propTypes = {
   currencies: PropTypes.arrayOf({}),
+  saveExpense: PropTypes.func,
+  reset: PropTypes.func,
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormAddDespesas);
