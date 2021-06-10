@@ -1,4 +1,12 @@
-// Coloque aqui suas actions
-import userAction from './loginAction';
+export const LOGIN = 'LOGIN';
+export const SEND_CURRENCIES = 'SEND_CURRENCIES';
 
-export default userAction;
+export const userAction = (email) => ({
+  type: LOGIN,
+  email,
+});
+
+export const sendCurrencies = (currencies) => ({
+  type: SEND_CURRENCIES,
+  currencies,
+});
