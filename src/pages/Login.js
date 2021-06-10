@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { login as loginAction } from '../actions';
@@ -9,80 +10,97 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      shouldRedirect: false
+      shouldRedirect: false,
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.validateFields = this.validateFields.bind(this);
+    this.submitForm = this.submitForm.bind(this);
   }
 
-  handleChange = ({ target }) => {
+  handleChange({ target }) {
     this.setState({
-      [target.name]: target.value
-    })
-  };
-  
-  validateEmail = (email) => {
+      [target.name]: target.value,
+    });
+  }
+
+  validateFields(email, password) {
     const includesAtSign = email.includes('@');
     const includesDotCom = email.includes('.com');
-    return includesAtSign && includesDotCom;
-  };
-  
-  submitForm = () => {
+    const passwordMaxLength = 6;
+    const isPasswdValid = password.length >= passwordMaxLength;
+    return (
+      includesAtSign
+      && includesDotCom
+      && isPasswdValid
+    );
+  }
+
+  submitForm() {
     const { email, password } = this.state;
     const { login } = this.props;
-    const isPasswdValid = password.length >= 6;
-    if (this.validateEmail(email) && isPasswdValid) {
-      login({email, password});
-      alert('Login efetuado com sucesso');
+    if (this.validateFields(email, password)) {
+      login({ email, password });
       this.setState({
         email: '',
         password: '',
-        shouldRedirect: true
-      })
-    } else {
-      alert('Dados inválidos');
+        shouldRedirect: true,
+      });
     }
-  };
-  
+  }
+
   render() {
     const { email, password, shouldRedirect } = this.state;
-    
+
     if (shouldRedirect) {
-      return <Redirect to="/carteira"/>
+      return <Redirect to="/carteira" />;
     }
 
     return (
-      <section>
-        <label>
-          E-mail:
-          <input
-            type="text" 
-            data-testid="email-input"
-            name="email"
-            value={ email }
-            onChange={ (e) => this.handleChange(e)}
-          />
-        </label>
-        
-        <label>
-          Senha:
-          <input
-            type="password"
-            data-testid="password-input"
-            name="password"
-            value={ password }
-            onChange={ (e) => this.handleChange(e)}
-          />
-        </label>
+      <div className="login">
+        <section className="login-container">
+          <label htmlFor="email">
+            E-mail:
+            <input
+              type="text"
+              data-testid="email-input"
+              name="email"
+              value={ email }
+              onChange={ (e) => this.handleChange(e) }
+            />
+          </label>
 
-        <button onClick={ this.submitForm }>
-          Entrar
-        </button>
-      </section>
+          <label htmlFor="password">
+            Senha:
+            <input
+              type="password"
+              data-testid="password-input"
+              name="password"
+              value={ password }
+              onChange={ (e) => this.handleChange(e) }
+            />
+          </label>
+
+          <button
+            type="button"
+            className="login-button"
+            onClick={ this.submitForm }
+            disabled={ !this.validateFields(email, password) }
+          >
+            Entrar
+          </button>
+        </section>
+      </div>
     );
   }
 }
 
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+
+};
+
 const mapDispatchToProps = (dispatch) => ({
-  login: (e) => dispatch(loginAction(e))
-})
+  login: (e) => dispatch(loginAction(e)),
+});
 
 export default connect(null, mapDispatchToProps)(Login);
