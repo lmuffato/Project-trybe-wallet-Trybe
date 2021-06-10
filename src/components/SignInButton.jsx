@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class SignInButton extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { action } = this.props;
     this.state = {
       button: {
         isEnabled: () => (
-          <button
-            type="button"
-            className="button is-success"
-          >
-            Entrar
-          </button>),
+          <Link to="/carteira" className="form-login">
+            <button
+              type="button"
+              className="button is-success"
+              onClick={ action }
+            >
+              Entrar
+            </button>
+          </Link>),
         isDisabled: () => (
           <button
             type="button"
@@ -38,6 +43,7 @@ class SignInButton extends Component {
 
 SignInButton.propTypes = {
   emailCorrect: PropTypes.bool.isRequired,
+  action: PropTypes.func.isRequired,
 };
 
 export default SignInButton;

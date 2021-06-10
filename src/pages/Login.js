@@ -1,26 +1,51 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import signIn from '../actions/index';
 import SignInButton from '../components/SignInButton';
 
 class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-      emailOk: false,
+      credentialsOk: false,
+      email: '',
+      password: '',
     };
-    this.verifyEmail = this.verifyEmail.bind(this);
+    this.verifyCredentials = this.verifyCredentials.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
+    this.handlePassword = this.handlePassword.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  verifyEmail(e) {
-    const regex = /\S+@\S+\.\S+/;
-    const email = e.target.value;
+  verifyCredentials() {
+    const { email, password } = this.state;
+    const emailCheck = /\S+@\S+\.\S+/;
+    const passwordSize = 6;
     // referência ao Jonathan Fernandes, que me ajudou com esta condição
-    if (regex.test(email) === true) {
-      this.setState({ emailOk: true });
+    if (emailCheck.test(email) === true && password.length >= passwordSize) {
+      this.setState({ credentialsOk: true });
     }
   }
 
+  handleEmail(e) {
+    this.setState({ email: e.target.value });
+    this.verifyCredentials();
+  }
+
+  handlePassword(e) {
+    this.setState({ password: e.target.value });
+    this.verifyCredentials();
+  }
+
+  handleSubmit() {
+    const { email } = this.state;
+    const { signInDispatch } = this.props;
+    signInDispatch({ email });
+  }
+
   render() {
-    const { emailOk } = this.state;
+    const { credentialsOk } = this.state;
     return (
       <main className="login-main">
         <form method="POST" className="form-login box">
@@ -34,7 +59,7 @@ class Login extends React.Component {
                 name="login"
                 placeholder="adalovelace@trybe.com"
                 data-testid="email-input"
-                onChange={ this.verifyEmail }
+                onChange={ this.handleEmail }
               />
             </div>
             <div className="field">
@@ -44,14 +69,26 @@ class Login extends React.Component {
                 type="password"
                 name="login"
                 placeholder="#lesgoTrybe"
+                onChange={ this.handlePassword }
                 data-testid="password-input"
               />
             </div>
           </label>
-          <SignInButton emailCorrect={ emailOk } />
+          <SignInButton
+            emailCorrect={ credentialsOk }
+            action={ this.handleSubmit }
+          />
         </form>
       </main>);
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  signInDispatch: (state) => dispatch(signIn(state)),
+});
+
+Login.propTypes = {
+  signInDispatch: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);

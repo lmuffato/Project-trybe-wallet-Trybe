@@ -1,11 +1,14 @@
 const INITIAL_STATE = {
-  email: '',
+  user: { email: '' }, wallet: {},
 };
 
 function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'CHECK_EMAIL':
-    return { state: action.state };
+  case 'SIGN_IN':
+    return {
+      ...state,
+      user: action.state,
+    };
   default:
     return state;
   }

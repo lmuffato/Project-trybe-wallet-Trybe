@@ -1,2 +1,2 @@
-const checkEmail = (state) => ({ type: 'CHECK_EMAIL', state });
-export default checkEmail;
+const signIn = (state) => ({ type: 'SIGN_IN', state });
+export default signIn;
