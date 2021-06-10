@@ -1,8 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteExpense } from '../actions';
 
 class TabelaGastos extends React.Component {
+  constructor() {
+    super();
+    this.renderButtons = this.renderButtons.bind(this);
+  }
+
+  renderButtons(id) {
+    const { deletarDespesas } = this.props;
+    return (
+      <div>
+        <button
+          type="button"
+          data-testid="delete-btn"
+          onClick={ () => deletarDespesas(id) }
+        >
+          Deletar
+        </button>
+      </div>
+    );
+  }
+
   render() {
     const { expenses } = this.props;
     const descriptions = ['Descrição', 'Tag', 'Método de pagamento',
@@ -32,6 +53,7 @@ class TabelaGastos extends React.Component {
                     <td>{ (Number(ask)).toFixed(2) }</td>
                     <td>{ (Number(ask) * Number(value)).toFixed(2) }</td>
                     <td>Real</td>
+                    <td>{ this.renderButtons(id) }</td>
                   </tr>
                 );
               })
@@ -47,8 +69,13 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  deletarDespesas: (id) => dispatch(deleteExpense(id)),
+});
+
 TabelaGastos.propTypes = {
   expenses: PropTypes.arrayOf({}),
+  delExpense: PropTypes.func,
 }.isRequired;
 
-export default connect(mapStateToProps)(TabelaGastos);
+export default connect(mapStateToProps, mapDispatchToProps)(TabelaGastos);

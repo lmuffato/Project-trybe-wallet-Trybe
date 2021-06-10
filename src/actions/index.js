@@ -66,3 +66,10 @@ export const setExpense = (expense) => async (dispatch) => {
     dispatch(rejectExpense(error));
   }
 };
+
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+
+export const deleteExpense = (id) => ({
+  type: DELETE_EXPENSE,
+  id,
+});

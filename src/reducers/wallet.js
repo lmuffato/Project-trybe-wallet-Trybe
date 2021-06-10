@@ -4,6 +4,7 @@ import {
   RESOLVED_CURRENCIES,
   REJECT_CURRENCIES,
   RESOLVED_EXPENSE,
+  DELETE_EXPENSE,
 } from '../actions/index';
 
 const INITIAL_STATE = {
@@ -28,6 +29,9 @@ const wallet = (state = INITIAL_STATE, action) => {
       loadingExpense: false,
       expenses: [...state.expenses, adicionarId(state.expenses, action.expense)],
     };
+  case DELETE_EXPENSE:
+    return { ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== action.id) };
   default:
     return state;
   }
