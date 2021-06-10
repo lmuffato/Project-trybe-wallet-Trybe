@@ -1,1 +1,15 @@
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
+const GET_VALUE = {
+  currencies: [],
+  expenses: [],
+};
+
+const value = (state = GET_VALUE, action) => {
+  switch (action.type) {
+  case 'WALLET':
+    return { ...state };
+  default:
+    return state;
+  }
+};
+
+export default value;
