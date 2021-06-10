@@ -14,7 +14,10 @@ class Wallet extends React.Component {
 
   getValues() {
     const { expenses } = this.props;
-    const totalValue = expenses.reduce((acc, currItem) => acc + currItem.value, 0);
+    const allCurrencies = expenses.map((currencie) => currencie.currency);
+    const totalValue = expenses
+      .reduce((acc, currItem, index) => acc + Number(currItem.value)
+      * Number(currItem.exchangeRates[allCurrencies[index]].ask), 0);
     return totalValue.toFixed(2);
   }
 

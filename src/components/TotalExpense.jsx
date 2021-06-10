@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 class TotalExpense extends Component {
   render() {
     const { expenses } = this.props;
-    if (expenses.length < 1) return <div />;
     return (
       <div>
         <table>

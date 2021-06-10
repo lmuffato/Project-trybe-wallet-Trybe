@@ -29,9 +29,10 @@ class ExpendForm extends Component {
     const currencieInput = document.getElementById('currencie');
     const methodInput = document.getElementById('paymentMethod');
     const tagInput = document.getElementById('tag');
+
     await this.setState((previousState) => ({
-      id: previousState.id + 1,
-      value: Number(valueInput.value),
+      id: previousState.id,
+      value: valueInput.value,
       description: descriptionInput.value,
       currency: currencieInput.value,
       method: methodInput.value,
@@ -39,6 +40,7 @@ class ExpendForm extends Component {
       exchangeRates: getData,
     }));
     userAddExpense(this.state);
+    await this.setState((previousState) => ({ id: previousState.id + 1 }));
   }
 
   render() {
