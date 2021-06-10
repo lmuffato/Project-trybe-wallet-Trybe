@@ -85,9 +85,8 @@ body {
 color: gray;
 }
   /* Detalhes de implementação realizados com auxílio de João Nascimento, turma 10 A */
-/* 
 
-.login-box button:not(.login-box button:disabled):hover {
+/* .login-box button:not(.login-box button:disabled):hover {
   background: #03e9f4;
   color: #fff;
   border-radius: 5px;
