@@ -1,4 +1,9 @@
+// Requisitos 2 e 3 feitos com ajuda dos colegas Nilson Ribeiro, Perycles Reis, Lucas Lara, Andy, Anderson Nascimento;
 import React from 'react';
+import { PropTypes } from 'prop-types';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getEmail } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -41,7 +46,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { disabled } = this.state;
+    const { disabled, email } = this.state;
+    const { getEmailReducer } = this.props;
     return (
       <div>
         <form>
@@ -55,16 +61,27 @@ class Login extends React.Component {
             type="password"
             onChange={ this.changeValidPassword }
           />
-          <button
-            disabled={ disabled }
-            type="button"
-          >
-            Entrar
-          </button>
+          <Link to="/carteira">
+            <button
+              disabled={ disabled }
+              type="button"
+              onClick={ () => getEmailReducer(email) }
+            >
+              Entrar
+            </button>
+          </Link>
         </form>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  getEmailReducer: (email) => dispatch(getEmail(email)),
+});
+
+Login.propTypes = {
+  getEmailReducer: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
