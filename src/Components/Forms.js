@@ -19,7 +19,7 @@ class Forms extends React.Component {
           </label>
           <label htmlFor="mtdPagamento">
             Método de pagamento
-            <select id="mtdPagamento" name="method">
+            <select id="mtdPagamento" name="metodo">
               <option value="Dinheiro">Dinheiro</option>
               <option value="Cartão de crédito">Cartão de crédito</option>
               <option value="Cartão de débito">Cartão de débito</option>
