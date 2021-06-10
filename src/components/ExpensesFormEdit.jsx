@@ -75,12 +75,9 @@ class ExpensesFormEdit extends React.Component {
     );
   }
 
-  render() {
-    const { value, description, currency, method, tag } = this.state;
-    const { currencies } = this.props;
+  renderSelects(currency, method, tag, currencies) {
     return (
-      <form>
-        { this.renderInputs(value, description) }
+      <>
         <Select
           testid="currency-input"
           options={ currencies }
@@ -102,6 +99,17 @@ class ExpensesFormEdit extends React.Component {
           value={ tag }
           onChange={ this.handleChange }
         />
+      </>
+    );
+  }
+
+  render() {
+    const { value, description, currency, method, tag } = this.state;
+    const { currencies } = this.props;
+    return (
+      <form>
+        { this.renderInputs(value, description) }
+        { this.renderSelects(currency, method, tag, currencies) }
         <button type="button" onClick={ this.validateForm }>Editar Despesa</button>
       </form>
     );
