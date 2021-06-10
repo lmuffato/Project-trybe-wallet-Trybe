@@ -16,6 +16,7 @@ class Wallet extends React.Component {
     this.loadExpenses = this.loadExpenses.bind(this);
     this.loadTH = this.loadTH.bind();
     this.deleteExpense = this.deleteExpense.bind(this);
+    this.showTotalValue = this.showTotalValue.bind(this);
 
     this.state = {
       value: '1',
@@ -81,14 +82,27 @@ class Wallet extends React.Component {
     );
   }
 
-  deleteExpense(id) {
-    const { getExpenses, updateExpense } = this.props;
+  showTotalValue() {
+    let total = 0;
+    const { getExpenses } = this.props;
+    getExpenses.forEach((expense) => {
+      const { exchangeRates, currency, value } = expense;
+      total += exchangeRates[currency].ask * value;
+    });
+    return total.toFixed(2);
+  }
+
+  // Função comentada para passar nos testes, caso queira salvar total no state global = descomentar.
+  deleteExpense(id) { // value) {
+    const { getExpenses, updateExpense } = this.props; // saveTotal, total } = this.props;
+    // let valueInBRL = 0;
     const newArray = [];
     getExpenses.forEach((expense) => {
       if (expense.id !== id) {
         newArray.push(expense);
       }
     });
+    // saveTotal(total - value);
     updateExpense(newArray);
   }
 
@@ -122,7 +136,7 @@ class Wallet extends React.Component {
 
                   <button
                     type="button"
-                    onClick={ () => this.deleteExpense(id) }
+                    onClick={ () => this.deleteExpense(id) } // valueInBRL) }
                     data-testid="delete-btn"
                   >
                     Excluir
@@ -151,7 +165,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { myEmail, total } = this.props;
+    const { myEmail } = this.props;
     return (
       <div>
         Trybe
@@ -162,7 +176,7 @@ class Wallet extends React.Component {
           </p>
           <p data-testid="total-field">
             Despesa total:
-            {total}
+            {this.showTotalValue()}
           </p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
