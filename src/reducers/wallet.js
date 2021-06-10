@@ -1,15 +1,31 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
+  isLoadingApi: false,
+  errorApi: '',
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'ADD_USER': return state;
+  case 'FETCH_API':
+    return {
+      ...state,
+      isLoadingApi: true,
+    };
+  case 'FETCH_API_SUCCESS':
+    return {
+      ...state,
+      isLoadingApi: false,
+      // currencies: [...currencies, action.payload.success],
+    };
+  case 'FETCH_API_ERROR':
+    return {
+      ...state,
+      isLoadingApi: false,
+      // currencies: [...currencies, action.payload.error],
+    };
   default: return state;
   }
 };

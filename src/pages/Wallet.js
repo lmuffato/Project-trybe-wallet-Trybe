@@ -1,7 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from './Header';
+import { fetchApiThunk } from '../actions';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+
+    this.fetchAPI = this.fetchAPI.bind(this);
+  }
+
+  componentDidMount() {
+    const { getCurrencyFromAPI } = this.props;
+    getCurrencyFromAPI();
+  }
+
   render() {
     return (
       <>
@@ -51,4 +65,12 @@ class Wallet extends React.Component {
   }
 }
 
-export default Wallet;
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencyFromAPI: () => dispatch(fetchApiThunk()),
+});
+
+Wallet.propTypes = {
+  getCurrencyFromAPI: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Wallet);
