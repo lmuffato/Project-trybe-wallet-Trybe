@@ -5,16 +5,35 @@ import { connect } from 'react-redux';
 class TotalExpense extends Component {
   render() {
     const { expenses } = this.props;
+    const allCurrencies = expenses.map((currencie) => currencie.currency);
     return (
-      <div>
-        <table>
-          {expenses.map((expend) => (
-            <tr key={ expend.id }>
-              <td>{expend.desciption}</td>
-            </tr>
-          ))}
-        </table>
-      </div>
+      <>
+        {expenses.map((expend, index) => (
+          <tr key={ expend.id }>
+            <td>{expend.description}</td>
+            <td>{expend.tag}</td>
+            <td>{expend.method}</td>
+            <td>
+              {expend.currency}
+              {expend.value}
+            </td>
+            <td>{expend.exchangeRates[allCurrencies[index]].name.split('/')[0]}</td>
+            <td>
+              {parseFloat(expend.value)
+              * parseFloat(expend.exchangeRates[allCurrencies[index]].ask)
+                .toFixed(1)}
+            </td>
+            <td>
+              {parseFloat(expend.exchangeRates[allCurrencies[index]].ask).toFixed(2)}
+            </td>
+            <td>Real</td>
+            <td>
+              <button type="button">Edit</button>
+              <button type="button">Delete</button>
+            </td>
+          </tr>
+        ))}
+      </>
     );
   }
 }

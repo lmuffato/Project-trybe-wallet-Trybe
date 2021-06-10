@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import currencyAPI from '../services/api';
 import { walletAddExpense } from '../actions';
-import TotalExpense from './TotalExpense';
+import Table from './Table';
 // import { walletAddCurrencie, walletAddExpense, currencyAPIThunk } from '../actions';
 
 class ExpendForm extends Component {
@@ -45,7 +45,6 @@ class ExpendForm extends Component {
 
   render() {
     const { currencies } = this.props;
-    const { id } = this.state;
     const filtredCurencie = Object.keys(currencies)
       .filter((currencie) => currencie !== 'USDT');
     return (
@@ -88,8 +87,7 @@ class ExpendForm extends Component {
           </label>
           <button type="button" onClick={ this.addExpend }>Adicionar despesa</button>
         </form>
-        {console.log(id)}
-        {id > 0 ? <TotalExpense /> : <div />}
+        <Table />
       </div>
     );
   }

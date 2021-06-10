@@ -16,8 +16,8 @@ class Wallet extends React.Component {
     const { expenses } = this.props;
     const allCurrencies = expenses.map((currencie) => currencie.currency);
     const totalValue = expenses
-      .reduce((acc, currItem, index) => acc + Number(currItem.value)
-      * Number(currItem.exchangeRates[allCurrencies[index]].ask), 0);
+      .reduce((acc, currItem, index) => acc + parseFloat(currItem.value)
+      * parseFloat(currItem.exchangeRates[allCurrencies[index]].ask), 0);
     return totalValue.toFixed(2);
   }
 
@@ -28,7 +28,6 @@ class Wallet extends React.Component {
     return (
       <>
         <header>
-          <h2>Trybe Wallet</h2>
           <p data-testid="email-field">{email}</p>
           <p data-testid="total-field">{this.getValues()}</p>
           <p data-testid="header-currency-field">BRL</p>
