@@ -12,3 +12,6 @@ export const filteringExpenses = (expense) => {
 };
 
 export default filterCurrencies;
+
+// Referência para a função filteringExpenses:
+// adaptada da ideia do colega João Andrade: https://github.com/tryber/sd-010-a-project-trybewallet/pull/13

@@ -62,3 +62,6 @@ TableWallet.propTypes = {
 };
 
 export default connect(mapStateToProps, null)(TableWallet);
+
+// Referência para sintaxe correta de tabelas:
+// https://www.w3schools.com/html/html_tables.asp
