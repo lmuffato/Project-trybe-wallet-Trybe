@@ -106,10 +106,6 @@ class Login extends React.Component {
   }
 }
 
-// const mapStateToProps = (state) => ({
-//   emailStore: state.user.email,
-// });
-
 const mapDispatchToProps = (dispatch) => ({
   loginDispatch: (state) => dispatch(sendLogin(state)),
 });
