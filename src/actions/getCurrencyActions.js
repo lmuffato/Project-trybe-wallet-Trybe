@@ -19,11 +19,6 @@ export const getCurrencyError = (payload) => ({
   payload,
 });
 
-// export const saveData = (payload) => ({
-//   type: SAVE_DATA,
-//   payload,
-// });
-
 export const getCurrencyThunk = () => async (dispatch) => {
   dispatch(getCurrency());
   const answer = await apiRequest();
