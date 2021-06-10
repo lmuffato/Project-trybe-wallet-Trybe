@@ -6,25 +6,37 @@ import ExpendForm from '../components/ExpendForm';
 import { currencyAPIThunk } from '../actions';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+    // this.state = {
+    //   expensesLenght: 0,
+    // };
+    this.getValues = this.getValues.bind(this);
+  }
+
   componentDidMount() {
     const { userAddCurrencie } = this.props;
     userAddCurrencie();
-    this.getValues = this.getValues.bind(this);
   }
 
   getValues() {
     const { expenses } = this.props;
+    // const { expensesLenght } = this.state;
     const allCurrencies = expenses.map((currencie) => currencie.currency);
     const totalValue = expenses
       .reduce((acc, currItem, index) => acc + parseFloat(currItem.value)
       * parseFloat(currItem.exchangeRates[allCurrencies[index]].ask), 0);
+    // this.setState((previousState) => ({
+    //   expensesLenght: previousState.expensesLenght + 1,
+    // }));
     return totalValue.toFixed(2);
   }
 
   render() {
     // const { userAddExpense, userAddCurrencie } = this.props;
     const { email } = this.props;
-    // if (isloading) return <h1>Loading....</h1>;
+    // const { expenses } = this.props;
+    // if (expenses.legth < 1) return <h1>Loading....</h1>;
     return (
       <>
         <header>

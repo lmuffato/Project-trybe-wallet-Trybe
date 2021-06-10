@@ -4,6 +4,7 @@ import currencyAPI from '../services/api';
 export const USER_LOGIN_SUCESS = 'USER_LOGIN_SUCESS';
 export const ADD_CURRENCIES = 'ADD_CURRENCIES';
 export const ADD_EXPENSES = 'ADD_EXPENSES';
+export const REMOVE_EXPENSES = 'REMOVE_EXPENSES';
 export const LOAD_CURRENCIES = 'LOAD_CURRENCIES';
 
 export const userLoginSucess = (payload) => ({
@@ -21,6 +22,10 @@ export const walletAddCurrencie = (payload) => ({
 });
 export const walletAddExpense = (payload) => ({
   type: ADD_EXPENSES,
+  payload,
+});
+export const walletRemoveExpense = (payload) => ({
+  type: REMOVE_EXPENSES,
   payload,
 });
 export const currencyAPIThunk = () => (dispatch) => {

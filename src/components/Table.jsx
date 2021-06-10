@@ -6,7 +6,6 @@ import TotalExpense from './TotalExpense';
 class Table extends Component {
   render() {
     const { expenses } = this.props;
-    console.log(expenses.length);
     return (
       <table>
         <tr>
