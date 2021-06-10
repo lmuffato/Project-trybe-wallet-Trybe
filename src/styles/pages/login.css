@@ -36,3 +36,13 @@
 .login-page button:hover {
   transform: scale(1.2);
 }
+
+.login-page .button-active {
+  cursor: pointer;
+}
+
+.login-page .button-disable {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+}
