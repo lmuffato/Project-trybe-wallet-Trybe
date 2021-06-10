@@ -91,5 +91,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(Form);
 
 Form.propTypes = {
   fetchCurrencies: PropTypes.func.isRequired,
-  currenciesProps: PropTypes.objectOf(PropTypes.string).isRequired,
+  currenciesProps: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)).isRequired,
 };
