@@ -1,5 +1,6 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class FormDespesas extends React.Component {
   constructor() {
@@ -8,24 +9,16 @@ class FormDespesas extends React.Component {
   }
 
   selectMoedas() {
-    return (
+    const { currencies } = this.props;
+    const combo = (
       <select id="moeda">
-        <option value="USD">USD</option>
-        <option value="CAD">CAD</option>
-        <option value="EUR">EUR</option>
-        <option value="GBP">GBP</option>
-        <option value="ARS">ARS</option>
-        <option value="BTC">BTC</option>
-        <option value="LTC">LTC</option>
-        <option value="JPY">JPY</option>
-        <option value="CHF">CHF</option>
-        <option value="AUD">AUD</option>
-        <option value="CNY">CNY</option>
-        <option value="ILS">ILS</option>
-        <option value="ETH">ETH</option>
-        <option value="XTP">XRP</option>
+        {currencies.map((currencie) => (
+          <option key={ currencie } value={ currencie }>{currencie}</option>
+        ))}
       </select>
     );
+
+    return combo;
   }
 
   render() {
@@ -67,10 +60,12 @@ class FormDespesas extends React.Component {
   }
 }
 
-/* FormDespesas.propTypes = {
-  receiveLoginEmail: PropTypes.func.isRequired,
-  arrayExpenses: PropTypes.func.isRequired,
-  arrayCurrencys: PropTypes.func.isRequired,
-}; */
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
 
-export default FormDespesas;
+FormDespesas.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
+export default connect(mapStateToProps, null)(FormDespesas);
