@@ -128,20 +128,22 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchAPI: () => dispatch(fetchCurrency()),
-  // addExpenses: (payload) => dispatch(addExpense(payload)),
-  // updateValue: (payload) => dispatch(updateTotal(payload)),
   updateCurrency: (payload, total) => dispatch(fetchCurrencyOnClick(payload, total)),
 });
 
 Form.propTypes = {
-  // email: PropTypes.string.isRequired,
   currencies: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    value: PropTypes.string,
+    description: PropTypes.string,
+    currency: PropTypes.string,
+    method: PropTypes.string,
+    tag: PropTypes.string,
+    exchangeRates: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
+  })).isRequired,
   fetchAPI: PropTypes.func.isRequired,
-  // addExpenses: PropTypes.func.isRequired,
-  // updateValue: PropTypes.func.isRequired,
   updateCurrency: PropTypes.func.isRequired,
-  // exchangeRates: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
