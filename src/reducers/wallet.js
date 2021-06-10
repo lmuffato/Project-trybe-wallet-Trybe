@@ -1,18 +1,35 @@
+import {
+  GET_CURRENCIES,
+  GET_CURRENCIES_SUCCESS,
+  GET_CURRENCIES_ERROR,
+} from '../actions/index';
+
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
+  error: null,
+  isLoading: false,
 };
 
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'ADICIONAR':
-    return state;
-  case 'EDITAR':
-    return state;
-  case 'EXCLUIR':
-    return state;
+  case GET_CURRENCIES:
+    return {
+      ...state,
+      isLoading: true,
+    };
+  case GET_CURRENCIES_SUCCESS:
+    return {
+      ...state,
+      isLoading: false,
+      currencies: action.payload,
+    };
+  case GET_CURRENCIES_ERROR:
+    return {
+      ...state,
+      isLoading: false,
+      error: action.payload.error,
+    };
   default:
     return state;
   }
