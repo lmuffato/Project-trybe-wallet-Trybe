@@ -15,7 +15,6 @@ class Wallet extends React.Component {
     };
     this.state = {
       currentExpense: initialFormExpense,
-      totalExpenses: 0,
       initialFormExpense,
     };
     this.formToInserExpense = this.formToInserExpense.bind(this);
@@ -84,7 +83,6 @@ class Wallet extends React.Component {
       0,
     ).toFixed(2);
     return totalExpenses;
-    // this.setState({ totalExpenses });
   }
 
   async saveExpense(event) {
@@ -99,7 +97,6 @@ class Wallet extends React.Component {
       exchangeRates,
     };
     addNewExpense(newExpense);
-    // this.updateTotalExpenses();
     const { initialFormExpense } = this.state;
     this.setState({ currentExpense: initialFormExpense });
   }
@@ -137,7 +134,6 @@ class Wallet extends React.Component {
   deleteExpense(id) {
     const { removeExpense } = this.props;
     removeExpense(id);
-    // this.updateTotalExpenses();
   }
 
   expensesTable() {
@@ -193,7 +189,6 @@ class Wallet extends React.Component {
 
   render() {
     const { email, isLoalding } = this.props;
-    // const { totalExpenses } = this.state;
     return (
       <main>
         <header>
