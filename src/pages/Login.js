@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginAction } from '../actions/index';
+import Header from '../components/Header';
 
 class Login extends React.Component {
   constructor(props) {
@@ -37,6 +38,7 @@ class Login extends React.Component {
     const { dispatch } = this.props;
     return (
       <section>
+        <Header />
         <div>Login</div>
         <form>
           <label htmlFor="user-email">
@@ -93,11 +95,7 @@ const mapDispatchToProps = (dispatch) => ({
 }); */
 
 Login.propTypes = {
-  saveUser: PropTypes.func,
-  /* user: PropTypes.shape({
-    typedEmail: PropTypes.string,
-    typedPassword: PropTypes.string,
-  }), */
+  loginAction: PropTypes.func,
 }.isRequired;
 
 export default connect(mapDispatchToProps)(Login);
