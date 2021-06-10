@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import './style/LoginForm.css';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import userLogin from '../actions';
+import { userLogin } from '../actions';
 
 class LoginForm extends Component {
   constructor() {
