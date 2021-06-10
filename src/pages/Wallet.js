@@ -54,14 +54,13 @@ class Wallet extends React.Component {
     }));
   }
 
-  calcTotal(adding = true) {
+  calcTotal(array) {
     const { expenses } = this.props;
-
-    const total = adding
-      ? expenses.reduce((acc, cur) => (
+    const total = array
+      ? array.reduce((acc, cur) => (
         acc + (cur.value * cur.exchangeRates[cur.currency].ask)), 0)
       : expenses.reduce((acc, cur) => (
-        (cur.value * cur.exchangeRates[cur.currency].ask)), 0);
+        acc + (cur.value * cur.exchangeRates[cur.currency].ask)), 0);
 
     const fixed = parseFloat(total).toFixed(2);
     this.setState({
@@ -75,7 +74,7 @@ class Wallet extends React.Component {
     const debtObj = expenses.find((expense) => expense.id === id);
     const debt = debtObj.exchangeRates[debtObj.currency].ask * debtObj.value;
     deleteCost(newExpenses, debt);
-    this.calcTotal(false);
+    this.calcTotal(newExpenses);
   }
 
   async addExpense() {
