@@ -60,7 +60,7 @@ class ExpensesForm extends React.Component {
       <form onSubmit={ this.submitExpense }>
         <label htmlFor="value">
           Valor:
-          <input id="value" type="text" onChange={ this.handleInput } />
+          <input id="value" step="0.01" type="number" onChange={ this.handleInput } />
         </label>
 
         <label htmlFor="description">
