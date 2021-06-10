@@ -58,8 +58,8 @@ class Login extends React.Component {
             />
           </label>
           <button
-            type="submit"
-            disabled={!hasValidLogin} 
+            type="button"
+            disabled={!hasValidLogin}
           >
             Entrar
           </button>
