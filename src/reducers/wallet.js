@@ -2,10 +2,10 @@
 import { WALLET } from '../actions/index';
 
 const WALLET_INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+
+  currencies: [],
+  expenses: [],
+
 };
 
 const wallet = (state = WALLET_INITIAL_STATE, action) => {

@@ -1,6 +1,10 @@
 // lógica de implementação da relação da validação do button com os boleanos dos inputs e auxílio em detalhes do CSS realizada com o auxílio do poderosíssimo João Nascimento, Turma 10//
 import React from 'react';
 import './Login.css';
+import { withRouter } from 'react-router-dom';
+import propTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { user } from '../actions/index';
 
 class Login extends React.Component {
   constructor(props) {
@@ -12,7 +16,9 @@ class Login extends React.Component {
     };
 
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
+
   /* https://pt-br.reactjs.org/docs/react-component.html#componentdidupdate */
 
   componentDidUpdate(prevProps, prevState) {
@@ -20,6 +26,12 @@ class Login extends React.Component {
     if (prevState.email !== email || prevState.password !== password) {
       this.validInputs();
     }
+  }
+
+  handleClick(path) { // *https://stackoverflow.com/questions/44877821/how-to-navigate-on-path-by-button-click-in-react-router-v4 e  auxílio do Perycles da turma 10 A*//
+    const { props: { history, saveEmail }, state: { email } } = this;
+    saveEmail(email);
+    history.push(path);
   }
 
   validInputs() {
@@ -66,7 +78,12 @@ class Login extends React.Component {
               data-testid="password-input"
             />
           </div>
-          <button disabled={ disabledButton } type="submit" className="btn">
+          <button
+            onClick={ () => this.handleClick('/carteira') }
+            disabled={ disabledButton }
+            type="button"
+            className="btn"
+          >
             {!disabledButton && (
               <>
                 <span />
@@ -83,4 +100,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  saveEmail: (email) => dispatch(user(email)),
+});
+
+Login.propTypes = {
+  history: propTypes.object,
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(withRouter(Login));
