@@ -1,22 +1,37 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { string, shape, func } from 'prop-types';
 
-const Select = ({ label, options, vid }) => (
-  <label htmlFor={ vid }>
-    {label}
-    :
-    <select id={ vid } name={ label }>
-      {options.map((option) => (
-        <option value={ option } key={ option }>{option}</option>
-      ))}
-    </select>
-  </label>
-);
+const LabelSelect = (props) => {
+  const { select, options, getExpense } = props;
+  const { text, control, testid } = select;
 
-export default Select;
+  return (
+    <label htmlFor={ control }>
+      {text}
 
-Select.propTypes = {
-  label: PropTypes.string.isRequired,
-  vid: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+      <select
+        id={ control }
+        name={ control }
+        onChange={ getExpense }
+        data-testid={ testid }
+      >
+        {options.map((value) => (
+          <option key={ value } data-testid={ value }>
+            {value}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
 };
+
+export default LabelSelect;
+
+LabelSelect.propTypes = {
+  select: shape({
+    text: string,
+    testid: string,
+    control: string,
+  }),
+  getExpense: func,
+}.isRequired;

@@ -1,21 +1,29 @@
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
+import {
+  ADD_EXPENSES,
+  WALLET_CURRENCIES,
+  REQUEST_CURRENCIES,
+} from '../actions';
+
 const initialState = {
+  loading: false,
+  error: '',
   currencies: [],
   expenses: [],
-  total: 0,
-  loading: true,
+  edit: false,
+  id: 0,
 };
-export default function wallet(state = initialState, action) {
+
+function wallet(state = initialState, action) {
   switch (action.type) {
-  case 'SET_EXPENSES':
-    return { ...state,
-      currencies: [...state.currencies],
-      expenses: [...state.expenses, action.payload.expenses],
-      id: state.id + action.payload.id,
-      total: state.total + action.payload.total,
-      loading: action.payload.loading,
-    };
+  case REQUEST_CURRENCIES:
+    return { ...state, loading: true };
+  case WALLET_CURRENCIES:
+    return { ...state, loading: false, currencies: action.payload };
+  case ADD_EXPENSES:
+    return { ...state, expenses: [...state.expenses, action.payload] };
   default:
     return state;
   }
 }
+
+export default wallet;

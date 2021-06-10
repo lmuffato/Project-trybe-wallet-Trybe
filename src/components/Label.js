@@ -1,18 +1,32 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { string, shape, func } from 'prop-types';
 
-const Label = ({ label, type, vid }) => (
-  <label htmlFor={ vid }>
-    {label}
-    :
-    <input type={ type } name={ vid } id={ vid } />
-  </label>
-);
+const LabelInput = (props) => {
+  const { input, getExpense } = props;
+  const { text, type, control, testid } = input;
 
-export default Label;
-
-Label.propTypes = {
-  label: PropTypes.string.isRequired,
-  vid: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  return (
+    <label htmlFor={ control }>
+      {text}
+      <input
+        type={ type }
+        id={ control }
+        name={ control }
+        onChange={ getExpense }
+        data-testid={ testid }
+      />
+    </label>
+  );
 };
+
+export default LabelInput;
+
+LabelInput.propTypes = {
+  input: shape({
+    text: string,
+    testid: string,
+    control: string,
+    type: string,
+  }),
+  getExpense: func,
+}.isRequired;
