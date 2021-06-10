@@ -1,5 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import signIn from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -7,9 +10,9 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      disabled: true,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleValidation = this.handleValidation.bind(this);
   }
 
   handleChange(e) {
@@ -17,20 +20,18 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     });
-  }
-
-  handleValidation(email, password) {
+    const { email, password } = this.state;
     const emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/; // https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
-    const passMaxLength = 6;
+    const passMaxLength = 5;
     const emailValidation = emailRegex.test(email);
     if (password.length >= passMaxLength && emailValidation) {
-      return false;
+      this.setState({ disabled: false });
     }
-    return true;
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, disabled } = this.state;
+    const { login } = this.props;
     return (
       <div>
         <h1>Trybe Wallet</h1>
@@ -52,16 +53,30 @@ class Login extends React.Component {
             value={ password }
             onChange={ this.handleChange }
           />
-          {this.handleValidation(email, password)
-            ? <button type="button" disabled>Entrar</button>
-            : <button type="button"><Link to="/carteira">Entrar</Link></button> }
+          <button
+            type="button"
+            disabled={ disabled }
+            onClick={ () => login({ email }) }
+          >
+            <Link to="/carteira">
+              Entrar
+            </Link>
+          </button>
         </form>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  login: (payload) => dispatch(signIn(payload)),
+});
+
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
 
 /* consultei: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test
 The test() method executes a search for a match between a regular expression
