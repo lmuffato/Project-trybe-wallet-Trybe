@@ -4,11 +4,11 @@ const initialState = {
   password: '',
 };
 
-const userReducer = (state = initialState, action) => {
+const user = (state = initialState, action) => {
   switch (action.type) {
   default:
     return state;
   }
 };
 
-export default userReducer;
+export default user;
