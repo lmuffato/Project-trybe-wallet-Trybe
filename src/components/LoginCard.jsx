@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addUser } from '../actions';
 
-// Algumas partes desse componente eu consultei o PR do Victor Cantor: https://github.com/tryber/sd-010-a-project-trybewallet/pull/76
+// Algumas partes desse componente eu consultei o PR do Victor Canto: https://github.com/tryber/sd-010-a-project-trybewallet/pull/76
 class LoginCard extends Component {
   constructor() {
     super();
