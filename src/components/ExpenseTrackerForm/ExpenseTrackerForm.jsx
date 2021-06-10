@@ -6,14 +6,16 @@ import Description from './Description';
 import PaymentMethods from './PaymentMethods';
 import Tags from './Tags';
 import Value from './Value';
-import { getCurrenciesThunkTest } from '../../actions';
+import {
+  getCurrenciesThunkTest,
+  addingExpense,
+} from '../../actions';
 
 class ExpenseTrackerForm extends Component {
   constructor() {
     super();
 
     this.state = {
-      // id: 0,
       value: 0,
       description: '',
       currency: '',
@@ -22,6 +24,7 @@ class ExpenseTrackerForm extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -31,7 +34,29 @@ class ExpenseTrackerForm extends Component {
 
   handleChange(event) {
     const { value, name } = event.target;
+    console.log(value);
     this.setState({ [name]: value });
+  }
+
+  async handleClick() {
+    console.log('clique do botão add expenses');
+    console.log(this.state);
+    const endpoint = 'https://economia.awesomeapi.com.br/json/all';
+    const { addNewExpenseToTracker, expenses } = this.props;
+    const request = await fetch(endpoint);
+    const data = await request.json();
+    addNewExpenseToTracker({
+      ...this.state,
+      id: expenses.length,
+      exchangeRates: data,
+    });
+    this.setState({
+      value: 0,
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
+    });
   }
 
   render() {
@@ -68,7 +93,12 @@ class ExpenseTrackerForm extends Component {
           value={ tag }
           handleChange={ (e) => this.handleChange(e) }
         />
-        <button type="button">Adicionar despesa</button>
+        <button
+          type="button"
+          onClick={ this.handleClick }
+        >
+          Adicionar despesa
+        </button>
       </form>
     );
   }
@@ -76,10 +106,12 @@ class ExpenseTrackerForm extends Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(getCurrenciesThunkTest()),
+  addNewExpenseToTracker: (expense) => dispatch(addingExpense(expense)),
 });
 
 ExpenseTrackerForm.propTypes = {

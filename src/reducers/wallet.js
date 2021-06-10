@@ -12,6 +12,7 @@ import {
 const initialState = {
   currencies: [],
   expenses: [],
+  totalAmount: 0,
   isLoading: false,
   isFetching: false,
   error: null,
@@ -23,6 +24,7 @@ export default function wallet(state = initialState, { type, payload }) {
     return {
       ...state,
       expenses: [...state.expenses, payload],
+      totalAmount: Number(state.totalAmount) + Number(payload.value),
     };
   case GET_CURRENCIES:
     return {
@@ -50,7 +52,7 @@ export default function wallet(state = initialState, { type, payload }) {
     return {
       ...state,
       isFetching: false,
-      expenses: [...state.expenses, { exchangeRates: payload }],
+      exchangeRates: payload,
     };
   case GET_EXCHANGE_RATES_ERROR:
     return {
