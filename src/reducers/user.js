@@ -1,12 +1,12 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
-const initial_state = {};
+const initialState = {};
 
-function userReducer(state = initial_state, action) {
-  switch(action.type) {
-    case 'LOGIN':
-      return action.payload
-    default:
-      return state
+function userReducer(state = initialState, action) {
+  switch (action.type) {
+  case 'LOGIN':
+    return action.payload;
+  default:
+    return state;
   }
 }
 
