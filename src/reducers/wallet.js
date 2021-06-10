@@ -1,4 +1,4 @@
-import { TOTAL_VALUE } from '../actions/index';
+import { ACRONYM_COINS } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -7,10 +7,10 @@ const INITIAL_STATE = {
 
 function walletReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case TOTAL_VALUE:
+  case ACRONYM_COINS:
     return {
       ...state,
-      total: state.expenses.value + action.payload,
+      currencies: action.payload,
     };
 
   default:

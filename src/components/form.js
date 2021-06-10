@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import propTypes from 'prop-types';
 
-class form extends Component {
+class Form extends Component {
   render() {
+    const { currencies } = this.props;
+    const { USDT, ...rest } = currencies; // https://stackabuse.com/javascript-remove-a-property-from-an-object, link conseguido com a ajuda de : João Nascimento.
+    const codeCoins = Object.keys(rest);
     return (
       <div>
         <form>
@@ -11,7 +16,11 @@ class form extends Component {
           </label>
           <label htmlFor="coin">
             Moeda:
-            <select id="coin">{ }</select>
+            <select id="coin">
+              { codeCoins.map((codeCoin) => (
+                <option key={ codeCoin }>{ codeCoin }</option>
+              )) }
+            </select>
           </label>
           <label htmlFor="paymentMethod">
             Método de pagamento:
@@ -41,4 +50,12 @@ class form extends Component {
   }
 }
 
-export default form;
+const mapStateToProps = ({ wallet: { currencies } }) => ({
+  currencies,
+});
+
+Form.propTypes = {
+  currencies: propTypes.array,
+}.isRequired;
+
+export default connect(mapStateToProps)(Form);

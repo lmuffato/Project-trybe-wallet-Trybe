@@ -2,12 +2,18 @@ import React from 'react';
 import { string, number } from 'prop-types';
 import { connect } from 'react-redux';
 import Form from '../components/form';
+import { fetchCoins } from '../actions/index';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
 
     this.totalValue = this.totalValue.bind(this);
+  }
+
+  componentDidMount() {
+    const { getCoins } = this.props;
+    getCoins();
   }
 
   totalValue() {
@@ -49,10 +55,14 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  getCoins: () => dispatch(fetchCoins()),
+});
+
 Wallet.propTypes = {
   email: string,
   total: number,
   cambio: string,
 }.isRequired;
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
