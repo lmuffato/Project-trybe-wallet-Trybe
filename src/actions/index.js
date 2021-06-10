@@ -1,3 +1,6 @@
-// const LOGIN = 'LOGIN';
+export const GET_EMAIL = 'GET_EMAIL';
 
-// export default LOGIN;
+export const getEmail = (email) => ({
+  type: GET_EMAIL,
+  email,
+});
