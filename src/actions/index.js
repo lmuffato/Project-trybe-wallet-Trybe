@@ -59,7 +59,7 @@ export const fetchApiThunk = () => async (dispatch) => {
   const data = await resolve;
 
   const currencies = Object.keys(data);
-  const filteredCurrencies = currencies.filter((currency) => currency[0] !== 'USDT');
+  const filteredCurrencies = currencies.filter((currency) => currency !== 'USDT');
 
   try {
     dispatch(fetchApiSuccess(filteredCurrencies));
