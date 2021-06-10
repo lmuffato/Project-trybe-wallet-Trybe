@@ -90,35 +90,37 @@ class Form extends React.Component {
     return (
       <form>
         <h4>Nova Despesa</h4>
-        <label htmlFor="valor">
-          Valor:
-          <input
-            type="number"
-            name="valor"
-            id="valor"
-            value={ value }
-            onChange={ (event) => this.handleChange(event, 'value') }
-          />
-        </label>
-        <label htmlFor="descricao">
-          Descrição:
-          <input
-            type="text"
-            name="descricao"
-            id="descricao"
-            value={ description }
-            onChange={ (event) => this.handleChange(event, 'description') }
-          />
-        </label>
-        {this.makeSelect('Moeda', currencies, 'currency', currency)}
-        {this.makeSelect('Método de pagamento', paymentMethods, 'method', method)}
-        {this.makeSelect('Tag', tagArray, 'tag', tag)}
-        <button
-          type="submit"
-          onClick={ (event) => this.handleClick(event) }
-        >
-          Adicionar despesa
-        </button>
+        <div className="carteira-form">
+          <label htmlFor="valor">
+            Valor:
+            <input
+              type="number"
+              name="valor"
+              id="valor"
+              value={ value }
+              onChange={ (event) => this.handleChange(event, 'value') }
+            />
+          </label>
+          <label htmlFor="descricao">
+            Descrição:
+            <input
+              type="text"
+              name="descricao"
+              id="descricao"
+              value={ description }
+              onChange={ (event) => this.handleChange(event, 'description') }
+            />
+          </label>
+          {this.makeSelect('Moeda', currencies, 'currency', currency)}
+          {this.makeSelect('Método de pagamento', paymentMethods, 'method', method)}
+          {this.makeSelect('Tag', tagArray, 'tag', tag)}
+          <button
+            type="submit"
+            onClick={ (event) => this.handleClick(event) }
+          >
+            Adicionar despesa
+          </button>
+        </div>
       </form>
     );
   }

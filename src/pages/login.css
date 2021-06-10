@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+}
+
+.login-form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  margin: auto;
+  width: 500px;
+}
+
+.login-input {
+  height: 35px;
+  margin: 10px;
+  width: 70%;
+}
+
+.login-button {
+  margin: 10px;
+  width: 130px;
+}
+
+.login-img {
+  max-width: 150px;
+}

@@ -40,24 +40,25 @@ class Table extends React.Component {
     const expenses = this.generateDIsplayObj();
 
     return (
-      <table>
+      <table className="carteira-table">
         <tr>
           {headers.map((header, key) => <th key={ key }>{ header }</th>)}
         </tr>
         {expenses.length > 0 && expenses.map((expense, key) => (
           <tr key={ key }>
-            <td>{ expense.descricao }</td>
-            <td>{ expense.tag }</td>
-            <td>{ expense.method }</td>
-            <td>{ expense.valor }</td>
-            <td>{ expense.moeda }</td>
-            <td>{ expense.taxa }</td>
-            <td>{ expense.converted }</td>
-            <td>{ expense.currency }</td>
-            <td>
+            <td className="carteira-table-cell">{ expense.descricao }</td>
+            <td className="carteira-table-cell">{ expense.tag }</td>
+            <td className="carteira-table-cell">{ expense.method }</td>
+            <td className="carteira-table-cell">{ expense.valor }</td>
+            <td className="carteira-table-cell">{ expense.moeda }</td>
+            <td className="carteira-table-cell">{ expense.taxa }</td>
+            <td className="carteira-table-cell">{ expense.converted }</td>
+            <td className="carteira-table-cell">{ expense.currency }</td>
+            <td className="carteira-table-cell">
               <button
                 type="button"
                 data-testid="delete-btn"
+                className="carteira-delete-btn"
                 onClick={ () => removeItem(expense.id) }
               >
                 Delete

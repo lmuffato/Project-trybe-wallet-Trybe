@@ -3,6 +3,8 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { login } from '../actions';
+import './login.css';
+import wallet from '../images/wallet.jpg';
 
 class Login extends React.Component {
   constructor() {
@@ -71,7 +73,8 @@ class Login extends React.Component {
     const { email, senha, disabled, redirect } = this.state;
 
     return (
-      <form method="get">
+      <form method="get" className="login-form">
+        <img src={ wallet } alt="imagem de uma carteira" className="login-img" />
         <input
           type="text"
           value={ email }
@@ -79,6 +82,7 @@ class Login extends React.Component {
           data-testid="email-input"
           onChange={ (event) => this.changeEmail(event) }
           pattern="(\w\.?)+@[\w\.-]+\.\w{2,4}"
+          className="login-input"
           required
         />
         <input
@@ -88,10 +92,12 @@ class Login extends React.Component {
           data-testid="password-input"
           pattern=".{6,}"
           onChange={ (event) => this.changeSenha(event) }
+          className="login-input"
           required
         />
         <button
           type="button"
+          className="login-button"
           disabled={ disabled }
           onClick={ () => this.handleClick() }
         >

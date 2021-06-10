@@ -32,11 +32,11 @@ class Header extends React.Component {
     const total = this.calculateTotal();
 
     return (
-      <div>
+      <div className="carteira-header">
         <h3>Bruno`s Wallet</h3>
-        <div>
+        <div className="carteira-header-info">
           <h4 data-testid="email-field">{ `Bem vindo ${email}` }</h4>
-          <h4 data-testid="total-field">{ `Total: ${total}` }</h4>
+          <h4 data-testid="total-field">{ `Total: R$ ${total}` }</h4>
           <h4 data-testid="header-currency-field">{`${currency}`}</h4>
         </div>
       </div>

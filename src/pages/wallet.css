@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+  margin: 3px;
+}
+
+.carteira-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px;
+}
+
+.carteira-header-info {
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+}
+
+.carteira-form {
+  display: flex;
+  justify-content: space-around;
+  width: 70%;
+}
+
+.carteira-table {
+  border: solid 3px black;
+  width: 100%;
+}
+
+.carteira-table-cell {
+  border: solid 1px black;
+}
+.carteira-delete-btn {
+  background-color: red;
+  font-weight: 600;
+}
