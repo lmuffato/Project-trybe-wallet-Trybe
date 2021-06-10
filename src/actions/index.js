@@ -9,6 +9,7 @@ export const ADD_CURRENCY_TYPE = 'ADD_CURRENCY_TYPE';
 export const PAYMENT_METHOD = 'PAYMENT_METHOD';
 export const ADD_TAG = 'ADD_TAG';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const REMOVE_EXPENSE_FROM_GLOBAL_STATE = 'REMOVE_EXPENSE_FROM_STATE';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const GET_CURRENCIES_SUCCESS = 'GET_CURRENCIES_SUCCESS';
 export const GET_CURRENCIES_FAILURE = 'GET_CURRENCIES_FAILURE';
@@ -21,6 +22,11 @@ export default loginAction;
 
 export const addingExpense = (payload) => ({
   type: ADD_EXPENSE,
+  payload,
+});
+
+export const removeExpenseFromGlobalState = (payload) => ({
+  type: REMOVE_EXPENSE_FROM_GLOBAL_STATE,
   payload,
 });
 

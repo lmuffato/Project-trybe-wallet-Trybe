@@ -1,12 +1,13 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 import {
   ADD_EXPENSE,
+  REMOVE_EXPENSE_FROM_GLOBAL_STATE,
   GET_CURRENCIES,
   GET_CURRENCIES_FAILURE,
   GET_CURRENCIES_SUCCESS,
-  GET_EXCHANGE_RATES,
-  GET_EXCHANGE_RATES_SUCCESS,
-  GET_EXCHANGE_RATES_ERROR,
+  // GET_EXCHANGE_RATES,
+  // GET_EXCHANGE_RATES_SUCCESS,
+  // GET_EXCHANGE_RATES_ERROR,
 } from '../actions';
 
 const initialState = {
@@ -26,6 +27,12 @@ export default function wallet(state = initialState, { type, payload }) {
       expenses: [...state.expenses, payload],
       totalAmount: Number(state.totalAmount) + Number(payload.value),
     };
+  case REMOVE_EXPENSE_FROM_GLOBAL_STATE:
+    return {
+      ...state,
+      expenses: payload,
+      totalAmount: Number(state.totalAmount) + Number(payload.value),
+    };
   case GET_CURRENCIES:
     return {
       ...state,
@@ -41,23 +48,6 @@ export default function wallet(state = initialState, { type, payload }) {
     return {
       ...state,
       isLoading: false,
-      error: payload,
-    };
-  case GET_EXCHANGE_RATES:
-    return {
-      ...state,
-      isFetching: true,
-    };
-  case GET_EXCHANGE_RATES_SUCCESS:
-    return {
-      ...state,
-      isFetching: false,
-      exchangeRates: payload,
-    };
-  case GET_EXCHANGE_RATES_ERROR:
-    return {
-      ...state,
-      isFetching: false,
       error: payload,
     };
   default:

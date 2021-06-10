@@ -11,6 +11,28 @@ export const filteringExpenses = (expense) => {
   return filtering;
 };
 
+export const handleConversionCurrencyName = (expense) => {
+  const currencyType = filteringExpenses(expense);
+  return currencyType[0].name;
+};
+
+export const handleCurrencyType = (expense) => {
+  const currencyType = filteringExpenses(expense);
+  return Number(currencyType[0].ask * expense.value).toFixed(2);
+};
+
+export const handleConversion = (expense) => {
+  const currType = filteringExpenses(expense);
+  return Number(currType[0].ask).toFixed(2);
+};
+
+export const handleRemoveExpense = (expenses, expense, removendoDespesa) => {
+  if (expenses.length !== 0) {
+    const removeExp = [...expenses].filter((exp) => exp.id !== expense.id);
+    removendoDespesa(removeExp);
+  }
+};
+
 export default filterCurrencies;
 
 // Referência para a função filteringExpenses:
