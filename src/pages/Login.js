@@ -19,13 +19,13 @@ class Login extends React.Component {
 
   HandleEmail(event) {
     this.setState({
-      emailInput: event.target.value,
+      emailInput: event.target.value, // salvo o valor do que foi digitado no estado desse componente para depois passar para o estado global do redux
     });
   }
 
   HandlePass(event) {
     this.setState({
-      password: event.target.value,
+      password: event.target.value, // salvo a senha também para poder usar na validação do desable
     });
   }
 
