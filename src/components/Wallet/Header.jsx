@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { string } from 'prop-types';
-import convertToMoney from '../../utils';
+import { convertToMoney } from '../../utils';
 
 class Header extends React.Component {
   constructor() {

@@ -1,4 +1,6 @@
-import { ENDPOINT, LOGIN, REQUEST_RATES, SET_RATES, UPDATE_EXPENSES } from '../constants';
+import {
+  ENDPOINT, LOGIN, REQUEST_RATES, SET_RATES, UPDATE_EXPENSES, REMOVE_EXPENSE,
+} from '../constants';
 import actionGen from './util';
 
 export const loginAction = actionGen(LOGIN);
@@ -16,3 +18,5 @@ export const fetchExchangeRates = () => (dispatch) => {
 };
 
 export const addNewExpenseAction = actionGen(UPDATE_EXPENSES);
+
+export const removeExpenseAction = actionGen(REMOVE_EXPENSE);

@@ -7,34 +7,27 @@ class Forms extends React.Component {
   constructor() {
     super();
     this.state = {
-      currencies: [],
       formData: {
         value: 0,
         description: '',
         currency: 'USD',
-        method: 'cash',
-        tag: 'food',
+        method: 'Dinheiro',
+        tag: 'Alimentação',
       },
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.form = this.form.bind(this);
   }
 
   componentDidMount() {
     const { fetch } = this.props;
-    Promise.resolve(fetch())
-      .then(() => {
-        const { exchangeRates } = this.props;
-        return Object.keys(exchangeRates).filter((key) => key !== 'USDT');
-      })
-      .then((currencies) => this.setState({ currencies }));
+    fetch();
   }
 
   handleInputChange({ target: { name, value } }) {
-    const { form } = this.state;
+    const { formData } = this.state;
     const key = (name === 'payment-method' ? 'method' : name);
-    this.setState({ form: { ...form, [key]: value } });
+    this.setState({ formData: { ...formData, [key]: value } });
   }
 
   handleSubmit(e) {
@@ -43,36 +36,61 @@ class Forms extends React.Component {
       props: { fetch, setExpenses },
       state: { formData },
     } = this;
-    Promise.resolve(fetch())
-      .then(() => {
-        const { exchangeRates, expenses } = this.props;
-        const id = expenses.length;
-        setExpenses([
-          ...expenses,
-          {
-            id,
-            ...formData,
-            exchangeRates,
-          },
-        ]);
-      });
+    fetch();
+    const { exchangeRates, expenses } = this.props;
+    const id = uuid();
+    setExpenses([
+      ...expenses,
+      {
+        id,
+        ...formData,
+        exchangeRates,
+      },
+    ]);
   }
 
-  form(currencies) {
+  valueInput() {
     return (
-      <form>
-        <label id="value" htmlFor="value">
-          Valor
-          <input aria-labelledby="value" type="text" name="value" onChange={ this.handleInputChange } />
-        </label>
-        <label id="description" htmlFor="description">
-          Descrição
-          <textarea aria-labelledby="description" name="description" onChange={ this.handleInputChange } />
-        </label>
-        <label id="currency" htmlFor="currency">
-          Moeda
-          <select aria-labelledby="currency" name="currency" onChange={ this.handleInputChange }>
-            {currencies.map(
+      <label id="value" htmlFor="value">
+        Valor
+        <input
+          aria-labelledby="value"
+          type="text"
+          name="value"
+          onChange={ this.handleInputChange }
+        />
+      </label>
+    );
+  }
+
+  descriptionTextArea() {
+    return (
+      <label id="description" htmlFor="description">
+        Descrição
+        <textarea
+          aria-labelledby="description"
+          name="description"
+          onChange={ this.handleInputChange }
+        />
+      </label>
+    );
+  }
+
+  currencySelect() {
+    const { exchangeRates } = this.props;
+    return (
+      <label id="currency" htmlFor="currency">
+        Moeda
+        <select
+          aria-labelledby="currency"
+          name="currency"
+          onChange={ this.handleInputChange }
+        >
+          {exchangeRates
+          && Object
+            .keys(exchangeRates)
+            .filter((key) => key !== 'USDT')
+            .map(
               (currency, key) => (
                 <option
                   value={ currency }
@@ -82,27 +100,67 @@ class Forms extends React.Component {
                 </option>
               ),
             )}
-          </select>
-        </label>
-        <label id="payment-method" htmlFor="payment-method">
-          Método de pagamento
-          <select aria-labelledby="payment-method" name="payment-method" onChange={ this.handleInputChange }>
-            <option value="Dinheiro">Dinheiro</option>
-            <option value="Cartão de crédito">Cartão de crédito</option>
-            <option value="Cartão de débito">Cartão de débito</option>
-          </select>
-        </label>
-        <label id="tag" htmlFor="tag">
-          Tag
-          <select aria-labelledby="tag" name="tag" onChange={ this.handleInputChange }>
-            <option value="Alimentação">Alimentação</option>
-            <option value="Lazer">Lazer</option>
-            <option value="Trabalho">Trabalho</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Saúde">Saúde</option>
-          </select>
-        </label>
-        <button type="submit" onClick={ this.handleSubmit }>Adicionar despesa</button>
+        </select>
+      </label>
+    );
+  }
+
+  paymentMethodSelect() {
+    return (
+      <label id="payment-method" htmlFor="payment-method">
+        Método de pagamento
+        <select
+          aria-labelledby="payment-method"
+          name="payment-method"
+          onChange={ this.handleInputChange }
+        >
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
+        </select>
+      </label>
+    );
+  }
+
+  tagSelect() {
+    return (
+      <label id="tag" htmlFor="tag">
+        Tag
+        <select
+          aria-labelledby="tag"
+          name="tag"
+          onChange={ this.handleInputChange }
+        >
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
+        </select>
+      </label>
+    );
+  }
+
+  submitButton() {
+    return (
+      <button
+        type="submit"
+        onClick={ this.handleSubmit }
+      >
+        Adicionar despesa
+      </button>
+    );
+  }
+
+  form() {
+    return (
+      <form>
+        {this.valueInput()}
+        {this.descriptionTextArea()}
+        {this.currencySelect()}
+        {this.paymentMethodSelect()}
+        {this.tagSelect()}
+        {this.submitButton()}
       </form>
     );
   }
@@ -113,17 +171,16 @@ class Forms extends React.Component {
 
   render() {
     const { isFetching } = this.props;
-    const { currencies } = this.state;
     return (
-      isFetching ? this.loading() : this.form(currencies)
+      isFetching ? this.loading() : this.form()
     );
   }
 }
 
 const mapStateToProps = (
-  { wallet: { exchangeRates, expenses } },
+  { wallet: { exchangeRates, expenses, isFetching } },
 ) => (
-  { exchangeRates, expenses }
+  { exchangeRates, expenses, isFetching }
 );
 const mapDispatchToProps = (dispatch) => (
   { fetch: () => dispatch(fetchExchangeRates()),

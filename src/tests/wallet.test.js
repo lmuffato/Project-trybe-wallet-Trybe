@@ -170,7 +170,7 @@ describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gasto
     userEvent.selectOptions(tagInput, 'Lazer');
     userEvent.type(descriptionInput, 'Dez dólares');
     userEvent.click(addButton);
-
+    console.log(store.getState().wallet.expenses);
     await waitFor(() => {
       expect(mockedExchange).toBeCalledTimes(2);
     });
@@ -195,6 +195,7 @@ describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gasto
     userEvent.selectOptions(tagInput, 'Trabalho');
     userEvent.type(descriptionInput, 'Vinte euros');
     userEvent.click(addButton);
+    console.log(store.getState().wallet.expenses);
 
     await waitFor(() => {
       expect(mockedExchange).toBeCalledTimes(3);
