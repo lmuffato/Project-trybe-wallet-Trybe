@@ -4,23 +4,13 @@ import { connect } from 'react-redux';
 
 // Referência para resolver req 5, {referente ao initialValue} a partir do trabalho do Anderson Silva: https://github.com/tryber/sd-010-a-project-trybewallet/pull/75/files
 class Header extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      initialValue: 0,
-    };
-  }
-
   render() {
-    const { email } = this.props;
-    const { initialValue } = this.state;
-    // totalValue
+    const { email, totalValue } = this.props;
     return (
       <div className="HeaderClass">
         <div data-testid="email-field">{ email }</div>
         <div data-testid="total-field">
-          Despesa total:
-          {initialValue}
+          {totalValue}
         </div>
         <div data-testid="header-currency-field">BRL</div>
       </div>
@@ -30,7 +20,7 @@ class Header extends React.Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
-  // totalValue: state.user.user.totalValue,
+  totalValue: state.wallet.totalValue,
 });
 
 export default connect(mapStateToProps, null)(Header);

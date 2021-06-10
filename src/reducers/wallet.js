@@ -2,7 +2,7 @@
 import { TOTAL_VALUE } from '../actions/index';
 
 const INITIAL_STATE = {
-  valorTotal: 0,
+  totalValue: 0,
 };
 
 const walletReducer = (state = INITIAL_STATE, action) => {
