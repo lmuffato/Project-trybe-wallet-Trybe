@@ -14,6 +14,9 @@ class Wallet extends React.Component {
       currencies: [],
       inputValue: '',
       description: '',
+      payment: '',
+      type: '',
+      currency: '',
     };
   }
 
@@ -23,13 +26,14 @@ class Wallet extends React.Component {
 
   async handleCurrency() {
     const obj = await fetchCurrency();
+    console.log(obj);
     const array = Object.keys(obj);
     array.splice(1, 1);
     this.setState({ currencies: array });
   }
 
   render() {
-    const { currencies, inputValue, description } = this.state;
+    const { currencies, inputValue, description, payment, type, currency } = this.state;
     return (
       <>
         <Header />
@@ -44,14 +48,24 @@ class Wallet extends React.Component {
           />
           <label htmlFor="moneyCurrency">
             Moeda:
-            <select id="moneyCurrency">
+            <select
+              id="moneyCurrency"
+              onChange={ (e) => this.setState({ currency: e.target.value }) }
+              value={ currency }
+            >
               {currencies.map((cur) => (
                 <option value={ cur } key={ cur }>{cur}</option>
               ))}
             </select>
           </label>
-          <Payment />
-          <TypeSelect />
+          <Payment
+            handlePayment={ (e) => this.setState({ payment: e.target.value }) }
+            payment={ payment }
+          />
+          <TypeSelect
+            handleType={ (e) => this.setState({ type: e.target.value }) }
+            type={ type }
+          />
         </form>
       </>
     );
