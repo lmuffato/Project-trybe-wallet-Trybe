@@ -1,5 +1,6 @@
 import {
-  REQUEST_CURRENCIES, ADD_EXPENSE, IS_FETCHING, DELETE_EXPENSE,
+  REQUEST_CURRENCIES, ADD_EXPENSE, IS_FETCHING, DELETE_EXPENSE, EDIT_EXPENSE,
+  ADD_EDITED_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -7,7 +8,8 @@ const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   id: -1,
-  // totalValue: 0,
+  idToEdit: null,
+  isEditing: false,
 };
 
 export default function wallet(state = INITIAL_STATE, action) {
@@ -29,12 +31,26 @@ export default function wallet(state = INITIAL_STATE, action) {
       isFetching: false,
       expenses: [...state.expenses, action.payload.localState],
       id: action.payload.id,
-      // totalValue: state.totalValue + action.payload.totalAmount,
     };
   case DELETE_EXPENSE:
     return {
       ...state,
       expenses: state.expenses.filter((e) => e.id !== action.payload),
+    };
+  case EDIT_EXPENSE:
+    return {
+      ...state,
+      idToEdit: action.payload,
+      isEditing: true,
+    };
+  case ADD_EDITED_EXPENSE:
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses.filter((e) => e.id !== action.id), action.payload,
+      ],
+      isEditing: false,
+      idToEdit: null,
     };
   default:
     return state;

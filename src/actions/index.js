@@ -3,6 +3,8 @@ export const SEND_EMAIL = 'SEND_EMAIL';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
+export const ADD_EDITED_EXPENSE = 'ADD_EDITED_EXPENSE';
 
 export const isFetching = () => ({
   type: IS_FETCHING,
@@ -26,6 +28,17 @@ export const addExpense = (payload) => ({
 export const deleteExpense = (payload) => ({
   type: DELETE_EXPENSE,
   payload,
+});
+
+export const editExpense = (payload) => ({
+  type: EDIT_EXPENSE,
+  payload,
+});
+
+export const addEditedExpense = (payload, id) => ({
+  type: ADD_EDITED_EXPENSE,
+  payload,
+  id,
 });
 
 export const fetchCurrency = () => (

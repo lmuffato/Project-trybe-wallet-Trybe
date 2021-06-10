@@ -1,7 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { deleteExpense } from '../actions';
+import { connect } from 'react-redux';
+import { deleteExpense, editExpense } from '../actions';
 
 class ExpensesTable extends React.Component {
   getCurrencyName(currency, currencies) {
@@ -42,21 +42,24 @@ class ExpensesTable extends React.Component {
           </td>
           <td>Real</td>
           <td>{this.renderDeleteButton(element.id)}</td>
+          <td>{this.renderEditButton(element.id)}</td>
         </tr>
       ))
     );
   }
 
-  // filterIds(id) {
-  //   const { expenses, sendDeleteAction } = this.props;
-  //   const expenseToDelete = expenses.filter((e) => e.id === id);
-  //   const filteredState = expenses.filter((e) => e.id !== id);
-  //   const exchange = expenseToDelete[0];
-  //   const exchanges = Object.values(expenseToDelete[0].exchangeRates)
-  //     .filter((e) => e.code === exchange.currency);
-  //   const value = exchange.value * exchanges[0].ask;
-  //   sendDeleteAction(filteredState, Number(value));
-  // }
+  renderEditButton(id) {
+    const { editExpenseAction } = this.props;
+    return (
+      <button
+        type="button"
+        data-testid="edit-btn"
+        onClick={ () => editExpenseAction(id) }
+      >
+        Editar
+      </button>
+    );
+  }
 
   renderDeleteButton(id) {
     const { sendDeleteAction } = this.props;
@@ -71,21 +74,27 @@ class ExpensesTable extends React.Component {
     );
   }
 
+  renderTableHead() {
+    return (
+      <tr>
+        <th>Descrição</th>
+        <th>Tag</th>
+        <th>Método de pagamento</th>
+        <th>Valor</th>
+        <th>Moeda</th>
+        <th>Câmbio utilizado</th>
+        <th>Valor convertido</th>
+        <th>Moeda de conversão</th>
+        <th>Editar/Excluir</th>
+      </tr>
+    );
+  }
+
   renderTable() {
     return (
       <table>
         <thead>
-          <tr>
-            <th>Descrição</th>
-            <th>Tag</th>
-            <th>Método de pagamento</th>
-            <th>Valor</th>
-            <th>Moeda</th>
-            <th>Câmbio utilizado</th>
-            <th>Valor convertido</th>
-            <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
-          </tr>
+          {this.renderTableHead()}
         </thead>
         <tbody>
           {this.generateTableRow()}
@@ -110,6 +119,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   sendDeleteAction: (id) => dispatch(deleteExpense(id)),
+  editExpenseAction: (id) => dispatch(editExpense(id)),
 });
 
 ExpensesTable.propTypes = {
