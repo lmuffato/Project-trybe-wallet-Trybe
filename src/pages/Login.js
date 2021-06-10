@@ -79,7 +79,8 @@ class Login extends React.Component {
           </button>
         </Link>
       </form>
-    );  }
+    );
+  }
 }
 
 const mapDispatchToProps = (dispatch) => ({

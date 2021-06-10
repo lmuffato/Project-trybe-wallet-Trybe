@@ -12,7 +12,8 @@ class Wallet extends React.Component {
           email={ email }
         />
       </div>
-    );  }
+    );
+  }
 }
 
 const mapStateToProps = (state) => ({
