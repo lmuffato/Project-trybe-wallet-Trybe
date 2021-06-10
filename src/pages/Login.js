@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import login from '../actions';
 
-const Login = () => {
+const Login = ({ history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
-  const handleSubmit = () => {
-
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(login(email, password));
+    history.push('/carteira');
   };
 
   const validateEmail = (emailToVal) => {
@@ -13,7 +19,7 @@ const Login = () => {
     return emailRegex.test(emailToVal);
   };
 
-  const validatePassword = (passwordToVal) => passwordToVal.length >= 6;
+  const validatePassword = (passwordToVal) => /^.{6,}$/.test(passwordToVal);
 
   const validate = () => {
     const emailIsValid = validateEmail(email);
@@ -46,6 +52,10 @@ const Login = () => {
       <button type="submit" disabled={ !validate() }>Entrar</button>
     </form>
   );
+};
+
+Login.propTypes = {
+  history: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
 };
 
 export default Login;
