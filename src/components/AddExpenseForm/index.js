@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import React, { useEffect, useState } from 'react';
 import { arrayOf, func, object } from 'prop-types';
 import { connect } from 'react-redux';
@@ -16,16 +17,21 @@ const renderCurrencyOption = ({ code, name }) => (
 
 const handleChange = async ({ target: { id, value } }, setExpense, expense) => {
   setExpense({ ...expense, [id]: value });
-  console.log(expense);
 };
 
 const handleSubmit = (e, props, expense) => {
+  const { addNewExpense, expenses, currencies, fetchCurrencies } = props;
+
   e.preventDefault();
-  const { addNewExpense, expenses, currencies } = props;
+  fetchCurrencies();
+
   const newExpense = {
     id: expenses.length,
     ...expense,
-    exchangeRates: currencies.find(({ code }) => code === expense.currency).bid,
+    exchangeRates: currencies.reduce((acc, actual) => {
+      acc[actual.code] = actual;
+      return acc;
+    }, {}),
   };
 
   addNewExpense(newExpense);
@@ -61,9 +67,9 @@ const renderExpenseForm = (expense, setExpense, props) => (
     <label htmlFor="method">
       Método de pagamento:
       <select id="method" onChange={ (e) => handleChange(e, setExpense, expense) }>
-        <option value="cash">Dinheiro</option>
-        <option value="credit">Cartão de crédito</option>
-        <option value="debit">Cartão de débito</option>
+        <option value="Dinheiro">Dinheiro</option>
+        <option value="Cartão de crédito">Cartão de crédito</option>
+        <option value="Cartão de débito">Cartão de débito</option>
       </select>
     </label>
 

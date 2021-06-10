@@ -11,7 +11,13 @@ export const WalletHeader = ({ userEmail, expenses }) => (
     </span>
 
     <span data-testid="total-field">
-      {expenses.reduce((acc, { value }) => acc + Number(value), 0)}
+      {expenses.reduce((acc, actual) => {
+        const { value, currency, exchangeRates } = actual;
+        const exchangeRate = exchangeRates[currency].ask;
+        console.log(exchangeRates[currency]);
+        return acc + Number(value) * Number(exchangeRate);
+      }, 0)}
+
     </span>
 
     <span data-testid="header-currency-field">

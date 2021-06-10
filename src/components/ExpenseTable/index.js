@@ -1,18 +1,28 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-const renderExpense = ({ description, category, payment }) => (
-  <tr>
-    <td>{description}</td>
-    <td>{category}</td>
-    <td>{payment}</td>
-    <td>{description}</td>
-    <td>{description}</td>
-  </tr>
-);
+const renderExpense = (expense, currencies) => {
+  const { description, tag, method, exchangeRates, value, currency } = expense;
+  const convertedValue = (Number(value) * Number(exchangeRates)).toFixed(2);
+  // const convertCurrency = currencies
+  //   .find(({ code }) => currency === code).name.split('/')[0];
+
+  return (
+    <tr>
+      <td>{description}</td>
+      <td>{tag}</td>
+      <td>{method}</td>
+      <td>{value}</td>
+      {/* <td>{convertCurrency}</td> */}
+      <td>{Number(exchangeRates).toFixed(2)}</td>
+      <td>{convertedValue}</td>
+      <td>Real</td>
+    </tr>
+  );
+};
 
 const ExpenseTable = () => {
-  const { wallet: { expenses } } = useSelector((state) => state);
+  const { wallet: { expenses, currencies } } = useSelector((state) => state);
   return (
     <table>
       <thead>
@@ -27,7 +37,7 @@ const ExpenseTable = () => {
         <th>Editar/Excluir</th>
       </thead>
       <tbody>
-        {expenses.map((expense) => renderExpense(expense))}
+        {expenses.map((expense) => renderExpense(expense, currencies))}
       </tbody>
     </table>
   );

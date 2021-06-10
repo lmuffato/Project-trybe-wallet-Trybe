@@ -13,7 +13,7 @@ const walletReducer = (state = INITIAL_STATE, action) => {
   case RECEIVE_CURRENCY:
     return {
       ...state,
-      currencies: [...action.payload],
+      currencies: action.payload,
       loading: false,
     };
 
