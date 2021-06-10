@@ -1,12 +1,12 @@
-import React from "react";
-import Login from "./pages/Login";
-import Wallet from "./pages/Wallet";
+import React from 'react';
+import Login from './pages/Login';
+import Wallet from './pages/Wallet';
 
 function App() {
   return (
     <div>
-      <Login />
       <Wallet />
+      <Login />
     </div>
   );
 }
