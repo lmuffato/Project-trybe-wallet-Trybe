@@ -13,18 +13,14 @@ class TotalExpense extends Component {
             <td>{expend.description}</td>
             <td>{expend.tag}</td>
             <td>{expend.method}</td>
-            <td>
-              {expend.currency}
-              {expend.value}
-            </td>
+            <td>{expend.value}</td>
             <td>{expend.exchangeRates[allCurrencies[index]].name.split('/')[0]}</td>
             <td>
-              {parseFloat(expend.value)
-              * parseFloat(expend.exchangeRates[allCurrencies[index]].ask)
-                .toFixed(1)}
+              {(parseFloat(expend.value)
+              * parseFloat(expend.exchangeRates[allCurrencies[index]].ask)).toFixed(2)}
             </td>
             <td>
-              {parseFloat(expend.exchangeRates[allCurrencies[index]].ask).toFixed(2)}
+              {(parseFloat(expend.exchangeRates[allCurrencies[index]].ask)).toFixed(2)}
             </td>
             <td>Real</td>
             <td>
