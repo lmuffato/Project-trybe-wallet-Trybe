@@ -1,7 +1,7 @@
 import { LOGIN_DATA } from '../actions';
 
 const INITIAL_STATE = {
-  email: '',
+  email: 'teste@teste.com',
   password: '',
 };
 

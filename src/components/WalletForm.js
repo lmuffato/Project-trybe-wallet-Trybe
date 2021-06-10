@@ -20,8 +20,8 @@ class WalletForm extends Component {
       value: '',
       description: '',
       currency: 'USD',
-      method: 'money',
-      tag: 'food',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
   }
 
@@ -38,11 +38,12 @@ class WalletForm extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     const { value, description, currency, method, tag } = this.state;
+    const formatValue = value.replace(',', '.');
     const { expenses, setExpense, updateExpenses } = this.props;
     const exchangeRates = await fetchCurrencies();
     const newExpense = {
       id: expenses.length,
-      value,
+      value: formatValue,
       description,
       currency,
       method,
@@ -55,13 +56,13 @@ class WalletForm extends Component {
       value: '',
       description: '',
       currency: 'USD',
-      method: 'money',
-      tag: 'food',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     });
   }
 
   render() {
-    const { currencies } = this.props;
+    const { currencies, isLoading } = this.props;
     const { value, description, currency, method, tag } = this.state;
     const currenciesKeys = Object.keys(currencies).filter((key) => key !== 'USDT');
     return (
@@ -77,6 +78,7 @@ class WalletForm extends Component {
         <Tag tag={ tag } handleInput={ this.handleInput } />
         <button
           type="submit"
+          disabled={ isLoading }
         >
           Adicionar Despesa
         </button>
@@ -87,6 +89,7 @@ class WalletForm extends Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  isLoading: state.wallet.isLoading,
   expenses: state.wallet.expenses,
 });
 

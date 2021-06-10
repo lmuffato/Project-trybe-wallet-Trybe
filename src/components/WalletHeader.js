@@ -10,7 +10,7 @@ class WalletHeader extends Component {
         <span data-testid="email-field">{ email }</span>
         <span data-testid="total-field">
           Despesas Totais:
-          { !totalExpenses ? 0 : totalExpenses }
+          { !totalExpenses ? '0.00' : totalExpenses.toFixed(2) }
         </span>
         <span data-testid="header-currency-field">BRL</span>
       </header>
