@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import storeLog from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -11,6 +13,7 @@ class Login extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleState = this.handleState.bind(this);
+    this.storeDispatch = this.storeDispatch.bind(this);
   }
 
   // lógica implementada com a ajuda do Adelino, turma 10 - A
@@ -35,7 +38,13 @@ class Login extends React.Component {
     }
   }
 
+  storeDispatch() {
+    const { email } = this.state;
+    this.props.storeLog(email);
+  }
+
   render() {
+    console.log(storeLog);
     const { disable } = this.state;
     return (
       <section>
@@ -68,7 +77,12 @@ class Login extends React.Component {
             />
           </label>
           <Link to="/carteira">
-            <button type="submit" id="loginButton" disabled={ disable }>
+            <button
+              type="submit"
+              id="loginButton"
+              disabled={ disable }
+              onClick={ this.storeDispatch }
+            >
               Entrar
             </button>
           </Link>
@@ -78,4 +92,15 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+// Referência a Bruno, me ajudou a entender todo conceito de stateToProps e Dispatch.
+
+const mapStateToProps = (state) => ({
+  email: state.user.email,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  storeLog: (email) => dispatch(storeLog(email)),
+}
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
