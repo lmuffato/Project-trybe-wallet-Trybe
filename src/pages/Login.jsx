@@ -1,6 +1,5 @@
 // lógica de implementação da relação da validação do button com os boleanos dos inputs e auxílio em detalhes do CSS realizada com o auxílio do poderosíssimo João Nascimento, Turma 10//
 import React from 'react';
-import './Login.css';
 import { withRouter } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
