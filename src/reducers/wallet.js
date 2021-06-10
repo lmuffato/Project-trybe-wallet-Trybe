@@ -1,17 +1,26 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
+  isLoading: false,
+  error: null,
 };
 
-export default function movieReducer(state = INITIAL_STATE, action) {
+function walletReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'GET_EMAIL':
+  case 'LOADING_REQUEST':
     return {
+      ...state,
+      isLoading: true,
+    };
+  case 'SUCCESS_REQUEST':
+    return {
+      ...state,
+      currencies: action.data,
     };
   default:
     return state;
   }
 }
+
+export default walletReducer;

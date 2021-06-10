@@ -1,8 +1,29 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Form extends React.Component {
+  constructor(props) {
+    super(props);
+    this.HandleMoeda = this.HandleMoeda.bind(this);
+  }
+
+  HandleMoeda() {
+    const { currencies } = this.props;
+
+    const filter = currencies.filter((item) => item[0] !== 'USDT'); // filtro o array
+    console.log(filter);
+
+    // retorno as options
+    const options = filter.map((item) => (
+      <option key={ item[0] } value={ item[0] }>
+        { item[0] }
+      </option>
+    ));
+
+    return options;
+  }
+
   render() {
     return (
       <form>
@@ -14,7 +35,7 @@ class Form extends React.Component {
         <label htmlFor="moeda">
           Moeda:
           <select id="moeda">
-            {/* <option value='sp'> sao paulo </option> */}
+            {this.HandleMoeda()}
           </select>
         </label>
 
@@ -49,11 +70,11 @@ class Form extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  email: state.user.email,
+  currencies: state.wallet.currencies,
 });
 
-// Form.propTypes = {
-//   email: PropTypes.string.isRequired,
-// };
+Form.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.array).isRequired,
+};
 
 export default connect(mapStateToProps, null)(Form);
