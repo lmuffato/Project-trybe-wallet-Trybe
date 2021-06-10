@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCurrency } from '../../actions';
+import { fetchCurrency, fetchCurrencyOnClick } from '../../actions';
 
 class Form extends React.Component {
   constructor(props) {
@@ -12,10 +12,10 @@ class Form extends React.Component {
       currencies: [],
       value: '',
       description: '',
-      moeda: '',
-      payment: '',
-      category: '',
-      paymentMethods: ['cartão de Crédito', 'Dinheiro', 'Cartão de débito'],
+      currency: 'USD',
+      method: 'Cartão de Crédito',
+      tag: 'Alimentação',
+      paymentMethods: ['Cartão de crédito', 'Dinheiro', 'Cartão de débito'],
       tagArray: ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'],
     });
 
@@ -67,9 +67,20 @@ class Form extends React.Component {
     );
   }
 
+  handleClick(event) {
+    const { value, description, currency, method, tag } = this.state;
+    const { expenses, updateCurrency } = this.props;
+    const id = expenses.length;
+    const expObj = { id, value, currency, method, tag, description };
+
+    updateCurrency(expObj);
+
+    event.preventDefault();
+  }
+
   render() {
     const { currencies, value, description, paymentMethods,
-      tagArray, moeda, payment, category } = this.state;
+      tagArray, currency, method, tag } = this.state;
 
     return (
       <form>
@@ -94,10 +105,15 @@ class Form extends React.Component {
             onChange={ (event) => this.handleChange(event, 'description') }
           />
         </label>
-        {this.makeSelect('Moeda', currencies, 'moeda', moeda)}
-        {this.makeSelect('Método de pagamento', paymentMethods, 'payment', payment)}
-        {this.makeSelect('Tag', tagArray, 'category', category)}
-        <button type="button">Adicionar despesa</button>
+        {this.makeSelect('Moeda', currencies, 'currency', currency)}
+        {this.makeSelect('Método de pagamento', paymentMethods, 'method', method)}
+        {this.makeSelect('Tag', tagArray, 'tag', tag)}
+        <button
+          type="submit"
+          onClick={ (event) => this.handleClick(event) }
+        >
+          Adicionar despesa
+        </button>
       </form>
     );
   }
@@ -106,17 +122,26 @@ class Form extends React.Component {
 const mapStateToProps = (state) => ({
   // email: state.user.email,
   currencies: state.wallet.currencies,
-  // expenses: state.wallet.expenses,
+  expenses: state.wallet.expenses,
+  exchangeRates: state.wallet.currenciesOnCLick,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchAPI: () => dispatch(fetchCurrency()) });
+  fetchAPI: () => dispatch(fetchCurrency()),
+  // addExpenses: (payload) => dispatch(addExpense(payload)),
+  // updateValue: (payload) => dispatch(updateTotal(payload)),
+  updateCurrency: (payload, total) => dispatch(fetchCurrencyOnClick(payload, total)),
+});
 
 Form.propTypes = {
   // email: PropTypes.string.isRequired,
   currencies: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-  // expenses: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
   fetchAPI: PropTypes.func.isRequired,
+  // addExpenses: PropTypes.func.isRequired,
+  // updateValue: PropTypes.func.isRequired,
+  updateCurrency: PropTypes.func.isRequired,
+  // exchangeRates: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
