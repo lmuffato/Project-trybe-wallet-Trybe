@@ -95,18 +95,18 @@ class Wallet extends React.Component {
           <span data-testid="header-currency-field">BRL</span>
         </header>
         <Form
-          currencies={currencies}
-          value={cost}
-          onChange={this.handleChange}
+          currencies={ currencies }
+          value={ cost }
+          onChange={ this.handleChange }
         />
         <button
           type="button"
-          onClick={() => this.addExpense()}
+          onClick={ () => this.addExpense() }
         >
           Adicionar despesa
         </button>
         { expenses
-          ? <Table expenses={expenses} onClick={this.deleteExpense} />
+          ? <Table expenses={ expenses } onClick={ this.deleteExpense } />
           : null}
       </div>
     );

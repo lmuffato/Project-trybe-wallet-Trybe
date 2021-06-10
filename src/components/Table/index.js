@@ -2,7 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class Table extends React.Component {
-  // eslint-disable-next-line max-lines-per-function
+  constructor(props) {
+    super(props);
+
+    this.buttonCreator = this.buttonCreator.bind(this);
+  }
+
+  buttonCreator(func, id) {
+    return (
+      <td>
+        <button
+          type="button"
+          data-testid="delete-btn"
+          onClick={ () => func(id) }
+        >
+          Apagar
+        </button>
+      </td>
+    );
+  }
+
   render() {
     const { expenses, onClick } = this.props;
     return (
@@ -44,15 +63,7 @@ class Table extends React.Component {
                   }
                 </td>
                 <td>Real</td>
-                <td>
-                  <button
-                    type="button"
-                    data-testid="delete-btn"
-                    onClick={ () => onClick(expense.id) }
-                  >
-                    Apagar
-                  </button>
-                </td>
+                { this.buttonCreator(onClick, expense.id) }
               </tr>
             ))
           }
