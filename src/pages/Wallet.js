@@ -1,6 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { HeaderWallet, FormExpense } from '../components';
+import { HeaderWallet, FormExpense, ExpenseTable } from '../components';
 
 class Wallet extends React.Component {
   render() {
@@ -8,9 +7,10 @@ class Wallet extends React.Component {
       <div>
         <HeaderWallet />
         <FormExpense />
+        <ExpenseTable />
       </div>
     );
   }
 }
 
-export default connect(null, null)(Wallet);
+export default Wallet;

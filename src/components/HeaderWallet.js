@@ -17,7 +17,7 @@ class HeaderWallet extends React.Component {
 
 HeaderWallet.propTypes = {
   userEmail: PropTypes.string.isRequired,
-  total: PropTypes.string.isRequired,
+  total: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({

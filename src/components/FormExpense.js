@@ -38,7 +38,8 @@ class FormExpense extends React.Component {
     });
   }
 
-  async handleClick() {
+  async handleClick(event) {
+    event.preventDefault();
     const { id, value, description, currency, method, tag } = this.state;
     const { addExpenseToRedux, sumExpensesToRedux } = this.props;
     const exchangeRates = await fetchCurrencies();
@@ -75,6 +76,7 @@ class FormExpense extends React.Component {
         <input
           data-testid="value-input"
           name="value"
+          type="number"
           onChange={ this.handleChange }
         />
         <input
