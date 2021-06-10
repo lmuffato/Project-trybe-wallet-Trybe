@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { walletAddCurrencie, walletAddExpense } from '../actions';
 import ExpendForm from '../components/ExpendForm';
 import { currencyAPIThunk } from '../actions';
 
