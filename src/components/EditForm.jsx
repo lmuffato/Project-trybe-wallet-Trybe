@@ -1,31 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addExpense } from '../actions/index';
+import { showHideEdit, removeExpense, addExpense } from '../actions';
 
-class Form extends React.Component {
-  constructor(props) {
-    super(props);
-    const { stateId } = this.props;
-    this.handleClick = this.handleClick.bind(this);
+class EditForm extends React.Component {
+  constructor() {
+    super();
     this.state = {
-      id: stateId,
       value: 0,
       description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
+      currency: '',
+      method: '',
+      tag: '',
       exchangeRates: {},
     };
+    this.handleClick = this.handleClick.bind(this);
+    this.initialState = this.initialState.bind(this);
   }
 
   componentDidMount() {
     this.currencies();
+    this.initialState();
   }
 
-  handleChange({ target }) {
-    const { value, name } = target;
-    this.setState({ [name]: value });
+  initialState() {
+    const { expenses, editId, removeDispatch } = this.props;
+    const myExpense = expenses.find((expense) => expense.id === editId);
+    this.setState({
+      value: myExpense.value,
+      description: myExpense.description,
+      currency: myExpense.currency,
+      method: myExpense.method,
+      tag: myExpense.tag,
+      exchangeRates: myExpense.exchangeRates,
+    });
+    removeDispatch(editId);
   }
 
   async currencies() {
@@ -34,12 +43,34 @@ class Form extends React.Component {
     this.setState({ exchangeRates });
   }
 
+  handleClick() {
+    const { editFormDispatch, addDispatch, editId } = this.props;
+    const { value, description, currency, method, tag, exchangeRates } = this.state;
+    const myObj = {
+      id: editId,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates,
+    };
+    addDispatch(myObj);
+    editFormDispatch(false);
+  }
+
+  handleChange({ target }) {
+    const { value, name } = target;
+    this.setState({ [name]: value });
+  }
+
   valueInput() {
     const { value } = this.state;
     return (
       <label htmlFor="value">
         Valor
         <input
+          data-testid="value-input"
           id="value"
           name="value"
           value={ value }
@@ -56,6 +87,7 @@ class Form extends React.Component {
       <label htmlFor="description">
         Descrição
         <input
+          data-testid="description-input"
           id="description"
           name="description"
           value={ description }
@@ -73,6 +105,7 @@ class Form extends React.Component {
       <label htmlFor="currency">
         Moeda
         <select
+          data-testid="currency-input"
           type="select"
           id="currency"
           name="currency"
@@ -85,24 +118,6 @@ class Form extends React.Component {
     );
   }
 
-  handleClick() {
-    const { id } = this.state;
-    const { expenseDispatch } = this.props;
-    expenseDispatch(this.state);
-    this.setState(
-      {
-        id: id + 1,
-        value: 0,
-        description: '',
-        currency: 'USD',
-        method: 'Dinheiro',
-        tag: 'Alimentação',
-        exchangeRates: {},
-      },
-    );
-    this.currencies();
-  }
-
   render() {
     const { method, tag } = this.state;
     return (
@@ -113,6 +128,7 @@ class Form extends React.Component {
         <label htmlFor="method">
           Método de pagamento
           <select
+            data-testid="method-input"
             type="select"
             id="method"
             value={ method }
@@ -127,6 +143,7 @@ class Form extends React.Component {
         <label htmlFor="category">
           Tag
           <select
+            data-testid="tag-input"
             type="select"
             id="category"
             name="tag"
@@ -144,23 +161,30 @@ class Form extends React.Component {
           type="button"
           onClick={ this.handleClick }
         >
-          Adicionar despesa
+          Editar despesa
         </button>
       </form>
     );
   }
 }
 
-Form.propTypes = {
-  expenseDispatch: PropTypes.func.isRequired,
-  stateId: PropTypes.number.isRequired,
+EditForm.propTypes = {
+  editFormDispatch: PropTypes.func.isRequired,
+  removeDispatch: PropTypes.func.isRequired,
+  addDispatch: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  editId: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  stateId: state.wallet.id,
+  expenses: state.wallet.expenses,
+  editId: state.wallet.editId,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  expenseDispatch: (obj) => dispatch(addExpense(obj)) });
+  editFormDispatch: (bool) => dispatch(showHideEdit(bool)),
+  removeDispatch: (id) => dispatch(removeExpense(id)),
+  addDispatch: (obj) => dispatch(addExpense(obj)),
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(EditForm);

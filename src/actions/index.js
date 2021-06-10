@@ -8,7 +8,13 @@ export const addExpense = (obj) => ({
   payload: obj,
 });
 
-export const removeExpense = (index) => ({
+export const removeExpense = (id) => ({
   type: 'REMOVE_EXPENSE',
-  payload: index,
+  payload: id,
+});
+
+export const showHideEdit = (bool, id) => ({
+  type: 'SHOW_HIDE_EDIT',
+  payload: bool,
+  editId: id,
 });

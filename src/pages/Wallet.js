@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Form from '../components/Form';
+import EditForm from '../components/EditForm';
 import Table from '../components/Table';
 import './wallet.css';
 
@@ -19,7 +20,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { userEmail } = this.props;
+    const { userEmail, showEdit } = this.props;
     const total = parseFloat(this.handleValue()).toFixed(2);
     return (
       <>
@@ -41,7 +42,11 @@ class Wallet extends React.Component {
             </span>
           </p>
         </header>
-        <Form />
+        {
+          showEdit
+            ? <EditForm />
+            : <Form />
+        }
         <br />
         <Table />
       </>
@@ -51,11 +56,14 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
-  userEmail: state.user.email });
+  userEmail: state.user.email,
+  showEdit: state.wallet.showEdit,
+});
 
 Wallet.propTypes = {
   userEmail: PropTypes.string.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  showEdit: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, null)(Wallet);
