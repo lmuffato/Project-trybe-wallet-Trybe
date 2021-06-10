@@ -1,12 +1,10 @@
 import React from 'react';
-import Login from './pages/Login';
-import Wallet from './pages/Wallet';
+import Routes from './components/Routes';
 
 function App() {
   return (
     <div>
-      <Wallet />
-      <Login />
+      <Routes />
     </div>
   );
 }
