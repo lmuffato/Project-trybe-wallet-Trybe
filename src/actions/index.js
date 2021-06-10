@@ -4,6 +4,7 @@ export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const RECEIVE_CURRENCIES = 'RECEIVE_CURRENCIES';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
 export const EXPENSES = 'EXPENSES';
+export const DELETE = 'DELETE';
 
 // actions relacionadas ao login
 export const login = (email, password) => ({ type: LOGIN, email, password });
@@ -37,7 +38,7 @@ export const changeExpenses = (expense, price, exchangeRates) => (
   {
     type: 'EXPENSES',
     expense,
-    price: price * exchangeRates[expense.currency].ask,
+    price: Number(price * exchangeRates[expense.currency].ask),
     exchangeRates,
   });
 
@@ -52,3 +53,8 @@ export function fetchExchageRates(expense, price) {
         ));
   };
 }
+
+export const deleteExpense = (array, debt) => ({
+  type: DELETE,
+  payload: { array, debt: Number(debt) },
+});

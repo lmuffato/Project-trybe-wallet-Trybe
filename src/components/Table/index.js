@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class Table extends React.Component {
+  // eslint-disable-next-line max-lines-per-function
   render() {
-    const { expenses } = this.props;
+    const { expenses, onClick } = this.props;
     return (
       <table>
         <thead>
@@ -43,7 +44,15 @@ class Table extends React.Component {
                   }
                 </td>
                 <td>Real</td>
-                <td><button type="button">Apagar</button></td>
+                <td>
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    onClick={ () => onClick(expense.id) }
+                  >
+                    Apagar
+                  </button>
+                </td>
               </tr>
             ))
           }
@@ -57,6 +66,7 @@ class Table extends React.Component {
 
 Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object),
+  onClick: PropTypes.func,
 }.isRequeired;
 
 export default Table;
