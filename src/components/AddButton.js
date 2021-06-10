@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addExpense as addExpenseAction } from '../actions';
+import fetchCurrencies from '../services/currenciesApi';
 
 class AddButton extends Component {
   constructor() {
@@ -11,10 +12,12 @@ class AddButton extends Component {
     this.state = { id: 0 };
   }
 
-  handleClick() {
+  async handleClick() {
     const { expense, addExpense } = this.props;
     const { id } = this.state;
-    addExpense({ id, ...expense });
+    const exchangeRates = await fetchCurrencies();
+    addExpense({ id, ...expense, exchangeRates });
+
     this.setState((prevId) => ({ id: prevId.id + 1 }));
   }
 
