@@ -3,9 +3,8 @@ export const getExchange = () => (
     .then((response) => (
       response
         .json()
-        .then((data) => Promise.resolve(data))))
-    .catch((error) => console.log(error))
+        .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json)))
+    ))
 );
-console.log(getExchange());
 
 export default getExchange;

@@ -1,9 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { string } from 'prop-types';
+import { string, func } from 'prop-types';
+import { getExchangeThunk } from '../actions/index';
 import './Header.css';
 
 class Header extends Component {
+  componentDidMount() {
+    const { wallet } = this.props;
+    wallet();
+  }
+
+  options() {
+    const { currencies } = this.props;
+    console.log(currencies);
+    return (
+      <label htmlFor="coin">
+        Moeda:
+        <select name="coin" id="coin">
+          {currencies
+            .map((currency, id) => (
+              <option
+                key={ id }
+                value={ currency.code }
+              >
+                {currency.code}
+              </option>
+            ))}
+        </select>
+      </label>
+    );
+  }
+
   form() {
     return (
       <div>
@@ -12,12 +39,7 @@ class Header extends Component {
             Valor:
             <input type="number" name="" id="value" />
           </label>
-          <label htmlFor="coin">
-            Moeda:
-            <select name="coin" id="coin">
-              <option value="USD">USD</option>
-            </select>
-          </label>
+          {this.options()}
           <label htmlFor="payment-method">
             Método de pagamento:
             <select name="coin" id="payment-method">
@@ -48,14 +70,15 @@ class Header extends Component {
 
   render() {
     const { email } = this.props;
-    console.log(email);
     return (
       <div className="header-container">
         <div className="header-top">
           <img src="https://www.pngkey.com/png/full/493-4930874_bill-png-vector-money-logo-png.png" width="80px" alt="logo-money" />
-          <h3 data-testid="email-field">{email}</h3>
-          <h3 data-testid="total-field">0</h3>
-          <h3 data-testid="header-currency-field">BRL</h3>
+          <div className="exchange-values">
+            <h3 data-testid="email-field">{email}</h3>
+            <h3 data-testid="header-currency-field">BRL</h3>
+            <h3 data-testid="total-field">0</h3>
+          </div>
         </div>
         <div className="form-container">
           {this.form()}
@@ -81,6 +104,7 @@ class Header extends Component {
 
 Header.propTypes = {
   email: string,
+  wallet: func,
 }.isRequired;
 
 const mapStateToProps = (state) => ({
@@ -89,4 +113,8 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps, null)(Header);
+const mapDispatchToProps = (dispatch) => ({
+  wallet: (payload) => dispatch(getExchangeThunk(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
