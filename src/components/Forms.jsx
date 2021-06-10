@@ -1,7 +1,7 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-// import { sendLogin } from '../actions/index';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getCurrencesThunk } from '../actions/index';
 import './forms.css';
 
 class Forms extends React.Component {
@@ -15,6 +15,12 @@ class Forms extends React.Component {
     this.tagsInput = this.tagsInput.bind(this);
   }
 
+  componentDidMount() {
+    const { getCurrences } = this.props;
+
+    getCurrences();
+  }
+
   valorInput() {
     return (
       <label htmlFor="Valor" className="label-valor">
@@ -22,7 +28,9 @@ class Forms extends React.Component {
         <input
           className="input-valor"
           id="Valor"
-          type="text"
+          type="number"
+          step={ 0 }
+          min={ 0 }
           name="valor"
         />
       </label>
@@ -44,6 +52,8 @@ class Forms extends React.Component {
   }
 
   moedasInput() {
+    const { currencieStore } = this.props;
+    const currencies = Object.keys(currencieStore);
     return (
       <label htmlFor="moedas" className="label-moeda">
         Moeda:
@@ -51,7 +61,8 @@ class Forms extends React.Component {
           className="input-moeda"
           id="moedas"
         >
-          <option value="nulo">Vazio</option>
+          { currencies
+            .map((currencie, index) => (<option key={ index }>{ currencie }</option>))}
         </select>
       </label>
     );
@@ -107,4 +118,17 @@ class Forms extends React.Component {
   }
 }
 
-export default Forms;
+const mapStateToProps = (state) => ({
+  currencieStore: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getCurrences: () => dispatch(getCurrencesThunk()),
+});
+
+Forms.propTypes = {
+  getCurrences: PropTypes.func.isRequired,
+  currencieStore: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Forms);
