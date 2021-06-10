@@ -15,8 +15,13 @@ class Header extends React.Component {
     const { expenses } = this.props;
 
     if (expenses.length !== 0) {
-      const values = expenses.map((expense) => Number(expense.value));
-      return (values.reduce((acc, currentValue) => acc + currentValue));
+      const values = expenses.map((expense) => {
+        const value = Number(expense.value);
+        const curr = expense.currency;
+        const rate = expense.exchangeRates[curr].ask;
+        return Number((value * rate).toFixed(2));
+      });
+      return (values.reduce((acc, currentValue) => acc + currentValue)).toFixed(2);
     } return 0;
   }
 
