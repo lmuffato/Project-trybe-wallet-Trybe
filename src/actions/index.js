@@ -1,4 +1,4 @@
-import { SET_USER } from './actions_type';
+import { SET_USER } from './actionsType';
 
 const userAction = (payload) => ({
   type: SET_USER,
