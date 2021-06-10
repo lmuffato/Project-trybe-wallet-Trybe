@@ -5,7 +5,7 @@ class Form extends React.Component {
     return (
       <form>
         <label htmlFor="valor">
-          Nome:
+          valor
           <input type="text" id="valor" />
         </label>
         <label htmlFor="Descrição">
