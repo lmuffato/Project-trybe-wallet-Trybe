@@ -67,21 +67,3 @@
 .form-container button:hover {
   background-color: #44b2f1;
 }
-
-.legend-container {
-  background-color: rgb(29, 27, 59);
-  padding-right: 80px;
-  width: 100%;
-}
-
-.legend {
-  color: white;
-  display: flex;
-  justify-content: space-around;
-  list-style: none;
-  width: 100%;
-}
-
-.legend li {
-  justify-content: space-between;
-}

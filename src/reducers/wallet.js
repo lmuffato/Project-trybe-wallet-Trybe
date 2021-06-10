@@ -2,6 +2,7 @@ import {
   GET_CURRENCY,
   GET_CURRENCY_SUCCESS,
   GET_CURRENCY_ERROR,
+  ADD_EXPENSES,
 } from '../actions/index';
 
 const INITIAL_STATE = {
@@ -22,14 +23,18 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       isLoading: false,
-      currencies: action.payload.currencies,
-      expenses: action.payload.expenses,
+      currencies: action.payload,
     };
   case GET_CURRENCY_ERROR:
     return {
       ...state,
       isLoading: false,
       error: action.payload.error,
+    };
+  case ADD_EXPENSES:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload],
     };
   default:
     return {

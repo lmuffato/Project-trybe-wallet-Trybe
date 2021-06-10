@@ -1,9 +1,10 @@
-import { getExchange } from '../services/exchangeAPI';
+import getExchange from '../services/exchangeAPI';
 
 export const GET_LOGIN = 'QUALQUER_COISA1';
 export const GET_CURRENCY = 'GET_CURRENCY';
 export const GET_CURRENCY_SUCCESS = 'GET_CURRENCY_SUCCESS';
 export const GET_CURRENCY_ERROR = 'GET_CURRENCY_ERROR';
+export const ADD_EXPENSES = 'ADD_EXPENSES';
 
 export const user = (payload) => ({
   type: GET_LOGIN,
@@ -24,20 +25,43 @@ export const getExchangeError = (payload) => ({
   payload,
 });
 
-export const getExchangeThunk = () => (dispatch) => {
+const filterCurrencies = (currencies) => {
+  const filteredCurrencies = Object.keys(currencies).filter(
+    (currency) => currency !== 'USDT',
+  );
+
+  return filteredCurrencies.map((currency) => {
+    const { code } = currencies[currency];
+    return code;
+  });
+};
+
+export const getExchangeThunk = () => async (dispatch) => {
   // is loading true
   dispatch(wallet());
 
   // chama a api
-  getExchange()// deu certo a chamada da api
-    .then((res) => {
-      const {
-        USD, CAD, EUR, GBP, ARS, BTC, LTC, JPY, CHF, AUD, CNY, ILS, ETH, XRP,
-      } = res;
-      dispatch(getExchangeSuccess({
-        currencies: [
-          USD, CAD, EUR, GBP, ARS, BTC, LTC, JPY, CHF, AUD, CNY, ILS, ETH, XRP,
-        ],
-      }));
-    });
+  try {
+    const fetch = await getExchange();
+    const filteredFetch = filterCurrencies(fetch);
+    // deu certo a chamada da api
+    dispatch(getExchangeSuccess(filteredFetch));
+  } catch (error) {
+    dispatch(getExchangeError(error));
+  }
+};
+
+export const addExpenses = (payload) => ({
+  type: ADD_EXPENSES,
+  payload,
+});
+
+export const expensesThunk = (state) => async (dispatch) => {
+  const exchangeRates = await getExchange();
+  const expenses = {
+    ...state,
+    exchangeRates,
+  };
+
+  dispatch(addExpenses(expenses));
 };

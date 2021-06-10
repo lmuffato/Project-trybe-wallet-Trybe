@@ -20,3 +20,45 @@
   top: 296px;
   width: 300px;
 }
+
+.legend-container {
+  background-color: rgb(29, 27, 59);
+  padding: 10px 0;
+  position: absolute;
+  top: 178px;
+  width: 100%;
+}
+
+.legend-container table {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  table-layout: fixed;
+  text-align: center;
+  width: 100%;
+}
+
+.legend-container th td {
+  margin: 0;
+  padding: 0.7em;
+  text-align: center;
+}
+
+.legend {
+  background-color: rgb(29, 27, 59);
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  text-align: justify;
+  width: 100%;
+}
+
+.expenses {
+  background-color: transparent;
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+  text-align: center;
+}
