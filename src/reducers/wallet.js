@@ -4,6 +4,7 @@ import { ADD_EXPENSE } from '../actions';
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  total: 0,
 };
 
 export default function wallet(state = INITIAL_STATE, action) {
