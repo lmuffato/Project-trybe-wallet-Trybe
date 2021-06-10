@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Form from '../components/form';
 
 class Wallet extends React.Component {
   render() {
@@ -12,7 +14,7 @@ class Wallet extends React.Component {
           <p data-testid="header-currency-field">BRL</p>
         </header>
         <main>
-          conteúdo da página
+          <Form />
         </main>
       </>
     );
@@ -24,3 +26,7 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, null)(Wallet);
+
+Wallet.propTypes = {
+  email: PropTypes.string.isRequired,
+};
