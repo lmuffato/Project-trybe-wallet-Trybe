@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 function SelectCoin({ setValue, valueState, ...props }) {
+  const currencies = useSelector(({ wallet }) => wallet.currencies);
   return (
     <div className="wallet-form__group">
       <label
@@ -15,8 +17,9 @@ function SelectCoin({ setValue, valueState, ...props }) {
           value={ valueState }
           { ...props }
         >
-          <option value="1">1</option>
-          <option value="2">2</option>
+          {currencies && currencies.map((currency, index) => (
+            <option key={ index } value={ currency.code }>{currency.code}</option>
+          ))}
         </select>
       </label>
     </div>
