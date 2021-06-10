@@ -120,28 +120,28 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
   });
 });
 
-// describe('7 - Implemente a lógica para preencher as opções do campo "Moedas", buscando as siglas das moedas da API', () => {
-//   test('Um campo para selecionar em qual moeda será registrada a despesa', async () => {
-//     renderWithRouterAndStore(<Wallet />, '/carteira');
-//     const currencyInput = await screen.findByRole('combobox', {
-//       name: /moeda/i,
-//     });
+describe('7 - Implemente a lógica para preencher as opções do campo "Moedas", buscando as siglas das moedas da API', () => {
+  test('Um campo para selecionar em qual moeda será registrada a despesa', async () => {
+    renderWithRouterAndStore(<Wallet />, '/carteira');
+    const currencyInput = await screen.findByRole('combobox', {
+      name: /moeda/i,
+    });
 
-//     const coinOptions = within(currencyInput).getAllByRole('option');
-//     const coinOptionsValues = coinOptions.map((coinOption) => coinOption.value);
+    const coinOptions = within(currencyInput).getAllByRole('option');
+    const coinOptionsValues = coinOptions.map((coinOption) => coinOption.value);
 
-//     const expectedCoinOptions = [
-//       'USD', 'CAD', 'EUR', 'GBP', 'ARS', 'BTC', 'LTC',
-//       'JPY', 'CHF', 'AUD', 'CNY', 'ILS', 'ETH', 'XRP',
-//     ];
+    const expectedCoinOptions = [
+      'USD', 'CAD', 'EUR', 'GBP', 'ARS', 'BTC', 'LTC',
+      'JPY', 'CHF', 'AUD', 'CNY', 'ILS', 'ETH', 'XRP',
+    ];
 
-//     expect(coinOptionsValues).toEqual(expectedCoinOptions);
+    expect(coinOptionsValues).toEqual(expectedCoinOptions);
 
-//     expect(mockedExchange).toBeCalled();
-//     expect(mockedExchange).toBeCalledWith('https://economia.awesomeapi.com.br/json/all');
-//     expect(currencyInput).toBeInTheDocument();
-//   });
-// });
+    expect(mockedExchange).toBeCalled();
+    expect(mockedExchange).toBeCalledWith('https://economia.awesomeapi.com.br/json/all');
+    expect(currencyInput).toBeInTheDocument();
+  });
+});
 
 // describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gastos', () => {
 //   test('Crie um botão com o texto \'Adicionar despesa\' que salva as informações da despesa no estado global e atualiza a soma de despesas no header', async () => {
