@@ -3,6 +3,43 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import login from '../actions';
 
+const template = (setEmail, setPassword, validate, handleSubmit) => (
+  <form
+    onSubmit={ handleSubmit }
+    className="loginForm container"
+  >
+    <div className="mb-3">
+      <input
+        name="email"
+        className="form-control"
+        type="email"
+        placeholder="E-mail"
+        onChange={ (event) => setEmail(event.target.value) }
+        aria-label="email"
+        data-testid="email-input"
+      />
+    </div>
+    <div className="mb-3">
+      <input
+        name="password"
+        className="form-control"
+        type="password"
+        placeholder="Senha"
+        onChange={ (event) => setPassword(event.target.value) }
+        aria-label="senha"
+        data-testid="password-input"
+      />
+    </div>
+    <button
+      className="btn btn-primary"
+      type="submit"
+      disabled={ !validate() }
+    >
+      Entrar
+    </button>
+  </form>
+);
+
 const Login = ({ history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,31 +64,7 @@ const Login = ({ history }) => {
     return emailIsValid && passwordIsValid;
   };
 
-  return (
-    <form onSubmit={ handleSubmit }>
-      <div>
-        <input
-          name="email"
-          type="email"
-          placeholder="E-mail"
-          onChange={ (event) => setEmail(event.target.value) }
-          aria-label="email"
-          data-testid="email-input"
-        />
-      </div>
-      <div>
-        <input
-          name="password"
-          type="password"
-          placeholder="Senha"
-          onChange={ (event) => setPassword(event.target.value) }
-          aria-label="senha"
-          data-testid="password-input"
-        />
-      </div>
-      <button type="submit" disabled={ !validate() }>Entrar</button>
-    </form>
-  );
+  return template(setEmail, setPassword, validate, handleSubmit);
 };
 
 Login.propTypes = {
