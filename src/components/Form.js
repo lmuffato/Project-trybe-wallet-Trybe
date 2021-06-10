@@ -36,11 +36,10 @@ class Form extends React.Component {
       currency.codein !== 'BRLT'));
     return (
       <form>
-        <Input onChange={ this.handleData } id="Valor" name="value" />
-        <Input onChange={ this.handleData } id="Descrição" name="description" />
+        <Input onChange={ this.handleData } description="Valor" name="value" />
         <label htmlFor="currency">
           Moeda
-          <select onChange={ this.handleData } name="currency">
+          <select onChange={ this.handleData } id="currency" name="currency">
             {filteredCurrencies.map((currency) => (
               <option
                 key={ currency.code }
@@ -51,9 +50,9 @@ class Form extends React.Component {
             ))}
           </select>
         </label>
-        <label htmlFor="payment">
+        <label htmlFor="method">
           Método de pagamento
-          <select onChange={ this.handleData } name="method">
+          <select onChange={ this.handleData } id="method" name="method">
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
@@ -61,7 +60,7 @@ class Form extends React.Component {
         </label>
         <label htmlFor="tag">
           Tag
-          <select onChange={ this.handleData } name="tag">
+          <select onChange={ this.handleData } id="tag" name="tag">
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
             <option value="Trabalho">Trabalho</option>
@@ -69,6 +68,7 @@ class Form extends React.Component {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
+        <Input onChange={ this.handleData } description="Descrição" name="description" />
         <button type="button">Adicionar despesa</button>
       </form>
     );
