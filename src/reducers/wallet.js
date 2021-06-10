@@ -1,6 +1,6 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 
-import { GET_CURRENCIES_SUCCESS } from '../actions/index';
+import { GET_CURRENCIES_SUCCESS, GET_CHOICED_PRODUCT } from '../actions/index';
 
 const initialState = {
   currencies: ['BRL'],

@@ -1,6 +1,7 @@
 // Coloque aqui suas actions
 export const VALID_EMAIL = 'VALID_EMAIL';
 export const GET_CURRENCIES_SUCCESS = 'GET_CURRENCIES_SUCCESS';
+export const GET_CHOICED_PRODUCT = 'GET_CHOICED_PRODUCT';
 
 export const loginData = (email) => ({
   type: VALID_EMAIL,
@@ -22,3 +23,8 @@ export function fetchCurrenciesThunk() {
     dispatch(getCurrencies(arrayCurrenciesFilter));
   };
 }
+
+export const choicedProduct = (product) => ({
+  type: GET_CHOICED_PRODUCT,
+  product,
+});
