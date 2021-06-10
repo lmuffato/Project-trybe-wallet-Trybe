@@ -6,45 +6,48 @@ class Table extends React.Component {
     const { expenses } = this.props;
     return (
       <table>
-        <tb>
-          <th>Descrição</th>
-          <th>Tag</th>
-          <th>Método de pagamento</th>
-          <th>Valor</th>
-          <th>Moeda</th>
-          <th>Câmbio utilizado</th>
-          <th>Valor convertido</th>
-          <th>Moeda de conversão</th>
-          <th>Editar/Excluir</th>
-        </tb>
-        {
-          expenses.map((expense, index) => (
-            <tb key={ index }>
-              <td>{ expense.description }</td>
-              <td>{ expense.tag }</td>
-              <td>{ expense.method }</td>
-              <td>{ expense.value }</td>
-              <td>{ (expense.exchangeRates[expense.currency].name).split('/')[0] }</td>
-              <td>
-                {
-                  `${parseFloat(expense
-                    .exchangeRates[expense.currency].ask).toFixed(2)}`
-                }
-              </td>
-              <td>
-                {
-                  `${
-                    parseFloat(expense.value * expense
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            expenses.map((expense, index) => (
+              <tr key={ index }>
+                <td>{expense.description}</td>
+                <td>{expense.tag}</td>
+                <td>{expense.method}</td>
+                <td>{expense.value}</td>
+                <td>{(expense.exchangeRates[expense.currency].name).split('/')[0]}</td>
+                <td>
+                  {
+                    `${parseFloat(expense
+                      .exchangeRates[expense.currency].ask).toFixed(2)}`
+                  }
+                </td>
+                <td>
+                  {
+                    `${parseFloat(expense.value * expense
                       .exchangeRates[expense.currency].ask)
                       .toFixed(2)
-                  }`
-                }
-              </td>
-              <td>Real</td>
-              <td><button type="button">Apagar</button></td>
-            </tb>
-          ))
-        }
+                    }`
+                  }
+                </td>
+                <td>Real</td>
+                <td><button type="button">Apagar</button></td>
+              </tr>
+            ))
+          }
+        </tbody>
       </table>
     );
   }
