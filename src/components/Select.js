@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -15,7 +13,6 @@ class Select extends Component {
             name="currency"
             value={ currency }
             onChange={ onChange }
-            aria-label="Moeda"
           >
             {coins.map((coinType) => (coinType !== 'USDT'
               ? <option key={ coinType } value={ coinType }>{coinType}</option> : ''))}
@@ -28,7 +25,6 @@ class Select extends Component {
             name="method"
             value={ method }
             onChange={ onChange }
-            aria-label="Método de pagamento"
             required
           >
             <option value="Dinheiro">Dinheiro</option>
@@ -43,7 +39,6 @@ class Select extends Component {
             name="tag"
             value={ tag }
             onChange={ onChange }
-            aria-label="TAG"
             required
           >
             <option value="Alimentação">Alimentação</option>
@@ -53,16 +48,15 @@ class Select extends Component {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
-      </div>
-    );
+      </div>);
   }
 }
 
 Select.propTypes = {
   onChange: PropTypes.func.isRequired,
-  coin: PropTypes.string.isRequired,
+  currency: PropTypes.string.isRequired,
   coins: PropTypes.arrayOf(PropTypes.string).isRequired,
-  paymentType: PropTypes.string.isRequired,
+  method: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
 };
 
