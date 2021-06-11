@@ -6,7 +6,7 @@
 
 /* https://stackoverflow.com/questions/7381446/center-html-input-text-field-placeholder */
 body {
-  background-image: url("../images/background.jpg");
+  background-image: url('../images/background.jpg');
   background-size: cover;
 }
 
@@ -15,29 +15,29 @@ body {
 /* https://www.youtube.com/watch?v=Cu-HP-gvggg */
 fieldset {
   background-color: rgba(255, 255, 255, 0.5);
-  height: 350px;
   border: 0;
-  width: 350px;
   border-radius: 20px;
   bottom: 0;
-  position: absolute;
+  height: 350px;
   left: 0;
-  top: 0;
   margin: auto;
+  position: absolute;
   right: 0;
+  top: 0;
+  width: 350px;
 }
 
 input {
   border: 1px solid #ccc;
-  height: 25px;
-  width: 280px;
   border-radius: 2px;
-  padding: 0.2em;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  height: 25px;
   margin-bottom: 15px;
+  padding: 0.2em;
+  width: 280px;
 }
 
-input[ placeholder ] {
+input.placeholder {
   text-align: center;
 }
 
@@ -52,10 +52,7 @@ button {
 
 #money {
   display: block;
-  margin-bottom: 15px;
-  margin-left: auto;
-  margin-top: 15px;
-  margin-right: auto;
+  margin: 15px auto;
 }
 
 .alinhamento {
@@ -66,8 +63,8 @@ button {
 
 em {
   display: block;
-  font-size: 20px;
   font-family: monospace;
+  font-size: 20px;
   font-weight: 500;
   text-align: center;
 }
