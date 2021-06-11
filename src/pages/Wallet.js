@@ -49,8 +49,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  userEmail: state.user.email,
-  userExpenses: state.wallet.expenses,
+  userEmail: state.userReducer.user.email,
+  userExpenses: state.walletReducer.wallet.expenses,
 });
 
 Wallet.propTypes = {

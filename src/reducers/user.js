@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   },
 };
 
-function userReducer(state = INITIAL_STATE, action) {
+const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case 'SIGN_IN':
     return { ...state, user: action.state };
