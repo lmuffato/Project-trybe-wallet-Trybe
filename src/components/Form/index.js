@@ -4,16 +4,16 @@ import Input from '../Input';
 import Select from '../Select';
 
 const toInputs = [
-  { type: 'number', label: 'Valor', name: 'value', testeId: '' },
-  { type: 'text', label: 'Descrição', name: 'description', testeId: '' },
+  { type: 'number', label: 'Valor', name: 'value', testeId: 'value-input' },
+  { type: 'text', label: 'Descrição', name: 'description', testeId: 'description-input' },
 ];
 
 const toSelects = (currencies) => ([
-  { label: 'Moeda', name: 'currency', testeId: '', options: currencies },
+  { label: 'Moeda', name: 'currency', testeId: 'currency-input', options: currencies },
   {
     label: 'Método de pagamento',
     name: 'method',
-    testeId: '',
+    testeId: 'method-input',
     options: [
       'escolha', 'Dinheiro', 'Cartão de crédito', 'Cartão de débito',
     ],
@@ -21,7 +21,7 @@ const toSelects = (currencies) => ([
   {
     label: 'Tag',
     name: 'tag',
-    testeId: '',
+    testeId: 'tag-input',
     options: [
       'escolha', 'Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'],
   },

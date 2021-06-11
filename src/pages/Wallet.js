@@ -3,16 +3,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Form from '../components/Form';
 import Table from '../components/Table';
-import { fetchCurrencies, fetchExchageRates, deleteExpense } from '../actions';
+import {
+  fetchCurrencies, fetchExchageRates, deleteExpense, editExpense,
+} from '../actions';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
+
     this.handleChange = this.handleChange.bind(this);
     this.dispatchExpense = this.dispatchExpense.bind(this);
     this.deleteExpense = this.deleteExpense.bind(this);
+    this.editFunc = this.editFunc.bind(this);
     this.calcTotal = this.calcTotal.bind(this);
     this.addExpense = this.addExpense.bind(this);
+    this.editForm = this.editForm.bind(this);
 
     this.state = {
       cost: {
@@ -24,8 +29,11 @@ class Wallet extends React.Component {
         id: 0,
       },
       total: 0,
+      editing: false,
     };
   }
+
+  // Métodos
 
   componentDidMount() {
     const { getCurrencies } = this.props;
@@ -39,9 +47,15 @@ class Wallet extends React.Component {
   }
 
   async dispatchExpense() {
-    const { expense } = this.props;
-    const { cost: { value }, cost } = this.state;
-    await expense(cost, value);
+    const { expense, edit, expenses } = this.props;
+    const { cost: { value, id }, cost, editing } = this.state;
+
+    if (editing) {
+      edit(id, expenses, cost);
+    } else {
+      await expense(cost, value);
+    }
+
     this.setState((old) => ({
       cost: {
         currency: 'USD',
@@ -51,6 +65,7 @@ class Wallet extends React.Component {
         value: '',
         id: old.cost.id + 1,
       },
+      editing: false,
     }));
   }
 
@@ -68,6 +83,15 @@ class Wallet extends React.Component {
     });
   }
 
+  editFunc(id) {
+    const { expenses } = this.props;
+    const editObj = expenses.find((expense) => expense.id === id);
+    this.setState({
+      cost: editObj,
+      editing: true,
+    });
+  }
+
   deleteExpense(id) {
     const { expenses, deleteCost } = this.props;
     const newExpenses = expenses.filter((expense) => expense.id !== id);
@@ -82,9 +106,29 @@ class Wallet extends React.Component {
     this.calcTotal();
   }
 
+  // Forms condicional
+
+  editForm(text, currencies, state) {
+    return (
+      <>
+        <Form
+          currencies={ currencies }
+          value={ state }
+          onChange={ this.handleChange }
+        />
+        <button
+          type="button"
+          onClick={ () => this.addExpense() }
+        >
+          {text}
+        </button>
+      </>
+    );
+  }
+
   render() {
     const { email, currencies, expenses } = this.props;
-    const { total } = this.state;
+    const { total, editing } = this.state;
     const { cost } = this.state;
     return (
       <div>
@@ -93,19 +137,18 @@ class Wallet extends React.Component {
           <span data-testid="total-field">{total}</span>
           <span data-testid="header-currency-field">BRL</span>
         </header>
-        <Form
-          currencies={ currencies }
-          value={ cost }
-          onChange={ this.handleChange }
-        />
-        <button
-          type="button"
-          onClick={ () => this.addExpense() }
-        >
-          Adicionar despesa
-        </button>
+        {
+          editing
+            ? this.editForm('Editar despesas', currencies, cost)
+            : this.editForm('Adicionar despesa', currencies, cost)
+        }
         { expenses
-          ? <Table expenses={ expenses } onClick={ this.deleteExpense } />
+          ? (
+            <Table
+              expenses={expenses}
+              onClick={this.deleteExpense}
+              editFunc={this.editFunc}
+            />)
           : null}
       </div>
     );
@@ -116,6 +159,7 @@ const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(fetchCurrencies()),
   expense: (state, price) => dispatch(fetchExchageRates(state, price)),
   deleteCost: (array, debt) => dispatch(deleteExpense(array, debt)),
+  edit: (id, expenses, cost) => dispatch(editExpense(id, expenses, cost)),
 });
 
 const mapStateToProps = (state) => ({

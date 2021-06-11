@@ -1,6 +1,6 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 import {
-  REQUEST_CURRENCIES, RECEIVE_CURRENCIES, FAILED_REQUEST, EXPENSES, DELETE, EDITING
+  REQUEST_CURRENCIES, RECEIVE_CURRENCIES, FAILED_REQUEST, EXPENSES, DELETE, EDITING,
 } from '../actions';
 
 const INITIAL_STATE = {

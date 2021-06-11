@@ -8,22 +8,22 @@ class Table extends React.Component {
     this.buttonCreator = this.buttonCreator.bind(this);
   }
 
-  buttonCreator(func, id) {
+  buttonCreator(func, id, text, test) {
     return (
       <td>
         <button
           type="button"
-          data-testid="delete-btn"
+          data-testid={ test }
           onClick={ () => func(id) }
         >
-          Apagar
+          {text}
         </button>
       </td>
     );
   }
 
   render() {
-    const { expenses, onClick } = this.props;
+    const { expenses, onClick, editFunc } = this.props;
     return (
       <table>
         <thead>
@@ -63,7 +63,8 @@ class Table extends React.Component {
                   }
                 </td>
                 <td>Real</td>
-                { this.buttonCreator(onClick, expense.id) }
+                { this.buttonCreator(editFunc, expense.id, 'Editar', 'edit-btn')}
+                { this.buttonCreator(onClick, expense.id, 'Apagar', 'delete-btn') }
               </tr>
             ))
           }
