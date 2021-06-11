@@ -1,4 +1,4 @@
-import USER_EMAIL from '../common/typesAction';
+import { USER_EMAIL } from '../common/def';
 
 export default function getEmail(email) {
   return {

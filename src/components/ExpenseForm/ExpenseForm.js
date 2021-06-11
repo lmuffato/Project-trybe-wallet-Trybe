@@ -1,6 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import updateAction from '../../actions/update.action';
+import { END_POINT } from '../../common/def';
+import getCurrency from '../../services/api';
 
 export default function ExpenseForm() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    async function updateKeys() {
+      const keys = await getCurrency(END_POINT);
+      dispatch(updateAction(keys));
+    }
+    updateKeys();
+  }, []);
+
   return (
     <form>
       <label htmlFor="valor">
