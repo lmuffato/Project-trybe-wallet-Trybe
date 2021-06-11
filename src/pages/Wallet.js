@@ -145,9 +145,9 @@ class Wallet extends React.Component {
         { expenses
           ? (
             <Table
-              expenses={expenses}
-              onClick={this.deleteExpense}
-              editFunc={this.editFunc}
+              expenses={ expenses }
+              onClick={ this.deleteExpense }
+              editFunc={ this.editFunc }
             />)
           : null}
       </div>
