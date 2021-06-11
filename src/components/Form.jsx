@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrencyThunk, addExpense } from '../actions';
+import { getCurrencyThunk, addExpense, getExchangeRateThunk } from '../actions';
 import TextInputs from './TextInputs';
 
 class Form extends React.Component {
@@ -28,13 +28,14 @@ class Form extends React.Component {
   }
 
   componentDidMount() {
-    const { currency } = this.props;
+    const { currency, rates } = this.props;
     currency();
+    rates();
   }
 
-  onClick() {
+  async onClick() {
     const { value, description, currency, method, tag } = this.state;
-    const { expense, expenseGlobal } = this.props;
+    const { expense, expenseGlobal, exchangeRates } = this.props;
     const currentExpense = {
       id: expenseGlobal.length,
       value,
@@ -42,9 +43,7 @@ class Form extends React.Component {
       currency,
       method,
       tag,
-      // exchangeRates: {
-      //   // api,
-      // },
+      exchangeRates,
     };
     expense(currentExpense);
   }
@@ -110,11 +109,13 @@ Form.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   currency: () => dispatch(getCurrencyThunk()),
   expense: (expenses) => dispatch(addExpense(expenses)),
+  rates: () => dispatch(getExchangeRateThunk()),
 });
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   expenseGlobal: state.wallet.expenses,
+  exchangeRates: state.wallet.exchangeRate,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
