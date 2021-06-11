@@ -6,8 +6,3 @@ export const saveUser = (email) => ({
   type: USER_WALLET,
   email,
 });
-
-export const saveWallet = (wallet) => ({
-  type: WALLET,
-  wallet,
-});

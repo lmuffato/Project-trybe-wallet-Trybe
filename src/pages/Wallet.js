@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Heading4 from '../components/Heading4';
+import Form from '../components/Form';
 
 class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
-      expenseMount: 0,
+      expenseMount: '0',
       coin: 'BRL',
     };
   }
@@ -16,9 +18,10 @@ class Wallet extends React.Component {
     const { expenseMount, coin } = this.state;
     return (
       <div>
-        <h4 data-testid="email-field">{ email }</h4>
-        <h4 data-testid="total-field">{ expenseMount }</h4>
-        <h4 data-testid="header-currency-field">{ coin }</h4>
+        <Heading4 dataTestid="email-field" text={ email } />
+        <Heading4 dataTestid="total-field" text={ expenseMount } />
+        <Heading4 dataTestid="header-currency-field" text={ coin } />
+        <Form />
       </div>
     );
   }
