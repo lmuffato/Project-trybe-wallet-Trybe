@@ -34,7 +34,7 @@
 }
 
 .user-info {
-  color: rgb(8, 233, 180);
+  color: #08e9b4;
   text-shadow: 1px 1px #024f3d;
 }
 
@@ -52,7 +52,6 @@
 .addCurrencies-form label {
   align-items: center;
   display: flex;
-  align-items: center;
 }
 
 .addCurrencies-form h3 {
