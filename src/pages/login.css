@@ -37,7 +37,7 @@ input {
   width: 280px;
 }
 
-input placeholder {
+.placeholder-center {
   text-align: center;
 }
 
