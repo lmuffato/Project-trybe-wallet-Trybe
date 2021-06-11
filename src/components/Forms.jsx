@@ -3,16 +3,18 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getCurrenciesThunk, getExchangeThunk } from '../actions';
 
+const INITIAL_STATE = {
+  valor: 0,
+  descrição: '',
+  moeda: 'USD',
+  pagamento: 'Dinheiro',
+  tag: 'Alimentação',
+};
+
 class Forms extends Component {
   constructor() {
     super();
-    this.state = {
-      valor: 0,
-      descrição: '',
-      moeda: '',
-      pagamento: '',
-      tag: '',
-    };
+    this.state = INITIAL_STATE;
     this.handleChange = this.handleChange.bind(this);
     this.returnInfo = this.returnInfo.bind(this);
     this.pay = this.pay.bind(this);

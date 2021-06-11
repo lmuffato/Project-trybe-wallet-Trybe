@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 class Header extends React.Component {
   render() {
     const { getEmail, getExpenses } = this.props;
-    console.log(getExpenses);
     return (
       <header>
         <span data-testid="email-field">{getEmail}</span>
