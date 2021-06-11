@@ -101,7 +101,7 @@ class Form extends Component {
           <label htmlFor="value">
             Valor:
             <input
-              type="string"
+              type="text"
               name="value"
               id="value"
               value={ value }

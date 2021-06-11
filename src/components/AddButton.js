@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addExpense as addExpenseAction } from '../actions';
 import fetchCurrencies from '../services/currenciesApi';
-import store from '../store';
 
 class AddButton extends Component {
   constructor() {
@@ -21,7 +20,7 @@ class AddButton extends Component {
       ...expense,
       exchangeRates: await fetchCurrencies(),
     });
-    console.log(store.getState().wallet.expenses); // VER AQUI
+
     this.setState((prevId) => ({ id: prevId.id + 1 }));
   }
 

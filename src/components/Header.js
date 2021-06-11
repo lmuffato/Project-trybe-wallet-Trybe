@@ -9,8 +9,6 @@ class Header extends Component {
     this.getTotalValue = this.getTotalValue.bind(this);
   }
 
-  // COMO EU VOU CHAMAR ESSA FUNÇÃO TODA VEZ QUE O BOTÃO DE ADICIONAR FOR CLICADO ?
-
   getTotalValue() {
     const { expenses } = this.props;
     const num = 0;
