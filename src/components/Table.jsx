@@ -33,9 +33,6 @@ class Table extends React.Component {
           {expenses.map((expense) => {
             const spendCurrency = expense.currency;
             const currencyName = expense.exchangeRates[spendCurrency].name;
-            const strNumber = -16;
-            const newCurName = currencyName.slice(0, strNumber);
-            const newValue = parseFloat(expense.value).toFixed(2);
             const currency = expense.exchangeRates[spendCurrency].ask;
             const newCurrency = parseFloat(currency).toFixed(2);
             const convertedValue = (parseFloat(expense.value) * parseFloat(currency));
@@ -45,8 +42,8 @@ class Table extends React.Component {
                 <td>{expense.description}</td>
                 <td>{expense.tag}</td>
                 <td>{expense.method}</td>
-                <td>{newValue}</td>
-                <td>{newCurName}</td>
+                <td>{expense.value}</td>
+                <td>{currencyName}</td>
                 <td>{newCurrency}</td>
                 <td>{newConvertedValue}</td>
                 <td>Real</td>
