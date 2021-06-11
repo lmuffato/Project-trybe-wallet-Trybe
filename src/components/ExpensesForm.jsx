@@ -60,6 +60,7 @@ class ExpensesForm extends React.Component {
       <label htmlFor="valor" className="labels">
         Valor
         <input
+          className="inputs"
           name="value"
           id="valor"
           type="number"
@@ -76,6 +77,7 @@ class ExpensesForm extends React.Component {
       <label htmlFor="Descrição" className="labels">
         Descrição
         <input
+          className="inputs"
           name="description"
           id="Descrição"
           type="text"
@@ -95,6 +97,7 @@ class ExpensesForm extends React.Component {
       <label htmlFor="moeda" className="labels">
         Moeda
         <select
+          className="inputs"
           name="currency"
           value={ currency }
           id="moeda"
@@ -121,6 +124,7 @@ class ExpensesForm extends React.Component {
       <label htmlFor="Método de pagamento" className="labels">
         Método de pagamento
         <select
+          className="inputs"
           name="method"
           value={ method }
           onChange={ this.handleChange }
@@ -140,6 +144,7 @@ class ExpensesForm extends React.Component {
       <label htmlFor="tag" className="labels">
         Tag
         <select
+          className="inputs"
           name="tag"
           onChange={ this.handleChange }
           id="tag"

@@ -93,11 +93,11 @@ class ExpensesTable extends React.Component {
 
   renderTable() {
     return (
-      <table>
-        <thead>
+      <table className="table-container">
+        <thead className="exp-table-header">
           {this.renderTableHead()}
         </thead>
-        <tbody>
+        <tbody className="table-body">
           {this.generateTableRow()}
         </tbody>
       </table>
@@ -106,7 +106,7 @@ class ExpensesTable extends React.Component {
 
   render() {
     return (
-      <div className="expTable-container">
+      <div className="exp-table-container">
         {this.renderTable()}
       </div>
     );

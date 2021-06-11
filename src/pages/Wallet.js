@@ -13,8 +13,8 @@ class Wallet extends React.Component {
     return (
       <div className="wallet-container">
         <Header />
-        <ExpensesTable />
         {editForm ? <EditExpenseForm /> : <ExpensesForm />}
+        <ExpensesTable />
       </div>
     );
   }

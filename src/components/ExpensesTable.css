@@ -1,7 +1,18 @@
-.expTable-container {
+.exp-table-container {
   align-items: center;
-  background-color: rgb(139, 108, 57);
+  background-color: rgba(119, 79, 16, 0.719);
   display: flex;
-  height: 100vh;
+  height: 150px;
   justify-content: center;
+  width: 100%;
+}
+
+.table-container {
+  color: rgb(207, 193, 167);
+  font-size: larger;
+  width: 90%;
+}
+
+.table-body {
+  color: black;
 }

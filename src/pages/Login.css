@@ -1,6 +1,6 @@
 .login-container {
   align-items: center;
-  background-color: rgb(139, 108, 57);
+  background-color: rgba(160, 128, 78, 0.719);
   display: flex;
   height: 100vh;
   justify-content: center;
@@ -37,13 +37,13 @@
   font-size: large;
   margin: 15px;
   padding: 8px;
-  text-align: center;
+  width: 150px;
 }
 
 .buttons {
   background-color: lightgray;
   border-radius: 15px;
   margin: 20px;
-  padding: 8px;
+  padding: 12px;
   text-decoration: none;
 }
