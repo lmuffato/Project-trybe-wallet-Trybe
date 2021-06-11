@@ -1,8 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import AddCurrencies from '../components/AddCurrencies';
+import { fetchAPI } from '../reducers/api';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    const { fetchApiThunk } = this.props;
+    fetchApiThunk();
+  }
+
   render() {
     const { userEmail } = this.props;
     return (
@@ -19,7 +25,11 @@ class Wallet extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  fetchApiThunk: () => dispatch(fetchAPI()),
+});
+
 const mapStateToProps = (state) => ({
   userEmail: state.user.email });
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
