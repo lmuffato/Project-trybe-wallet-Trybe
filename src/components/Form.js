@@ -15,8 +15,9 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = INITIAL_STATE;
-    this.change = this.change.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.selects = this.selects.bind(this);
   }
 
   componentDidMount() {
@@ -24,7 +25,7 @@ class Form extends React.Component {
     getCurrencies();
   }
 
-  change(event) {
+  handleChange(event) {
     const { name, value } = event.target;
     this.setState({
       [name]: value,
@@ -38,47 +39,83 @@ class Form extends React.Component {
     getExpenses({ ...this.state, id });
   }
 
-  render() {
+  selects() {
     const { currencies } = this.props;
+    return (
+      <div>
+        <label htmlFor="moeda">
+          Moeda:
+          <select
+            id="moeda"
+            name="currency"
+            aria-label="moeda"
+            onChange={ this.handleChange }
+          >
+            {currencies.map((item) => (
+              <option key={ item.code } value={ item.code }>
+                { item.code }
+              </option>))}
+          </select>
+        </label>
+        <label htmlFor="method">
+          Método de pagamento:
+          <select
+            id="method"
+            name="method"
+            aria-label="método de pagamento"
+            onChange={ this.handleChange }
+          >
+            <option>Dinheiro</option>
+            <option>Cartão de crédito</option>
+            <option>Cartão de débito</option>
+          </select>
+        </label>
+        <label htmlFor="tag">
+          Tag:
+          <select
+            id="tag"
+            name="tag"
+            aria-label="tag"
+            onChange={ this.handleChange }
+          >
+            <option>Alimentação</option>
+            <option>Lazer</option>
+            <option>Trabalho</option>
+            <option>Transporte</option>
+            <option>Saúde</option>
+          </select>
+        </label>
+      </div>
+    );
+  }
+
+  render() {
     return (
       <div>
         <form>
           <label htmlFor="value">
             Valor:
-            <input name="value" type="text" aria-label="valor" onChange={ this.change } />
+            <input
+              name="value"
+              type="text"
+              aria-label="valor"
+              onChange={ this.handleChange }
+            />
           </label>
           <label htmlFor="description">
             Descrição:
-            <input name="description" type="text" aria-label="descrição" onChange={ this.change } />
+            <input
+              name="description"
+              type="text"
+              aria-label="descrição"
+              onChange={ this.handleChange }
+            />
           </label>
-          <label htmlFor="moeda">
-            Moeda:
-            <select id="moeda" name="currency" aria-label="moeda" onChange={ this.change }>
-              {currencies.map((item) => (
-                <option key={ item.code } value={ item.code }>
-                  { item.code }
-                </option>))}
-            </select>
-          </label>
-          <label htmlFor="method">
-            Método de pagamento:
-            <select id="method" name="method" aria-label="método de pagamento" onChange={ this.change }>
-              <option>Dinheiro</option>
-              <option>Cartão de crédito</option>
-              <option>Cartão de débito</option>
-            </select>
-          </label>
-          <label htmlFor="tag">
-            Tag:
-            <select id="tag" name="tag" aria-label="tag" onChange={ this.change }>
-              <option>Alimentação</option>
-              <option>Lazer</option>
-              <option>Trabalho</option>
-              <option>Transporte</option>
-              <option>Saúde</option>
-            </select>
-          </label>
-          <button type="submit" onClick={ this.handleClick }>
+          { this.selects() }
+          <button
+            type="submit"
+            onClick={ this.handleClick }
+          >
             Adicionar despesa
           </button>
         </form>
