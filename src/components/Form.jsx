@@ -109,7 +109,7 @@ class Form extends React.Component {
   tagSelect() {
     const { tag } = this.state;
     return (
-      <label htmlFor="method">
+      <label htmlFor="tag">
         Tag
         <select
           type="select"
@@ -118,12 +118,11 @@ class Form extends React.Component {
           name="tag"
           onChange={ (event) => this.handleChange(event) }
         >
-          <option>Selecionar</option>
-          <option>Alimentação</option>
-          <option>Lazer</option>
-          <option>Trabalho</option>
-          <option>Transporte</option>
-          <option>Saúde</option>
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
     );
