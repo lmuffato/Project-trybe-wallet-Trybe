@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { deleteExpense } from '../../actions';
 
 class WalletTable extends Component {
   constructor() {
@@ -15,7 +16,7 @@ class WalletTable extends Component {
   }
 
   render() {
-    const { expenses } = this.props;
+    const { expenses, deleteExp } = this.props;
     return (
       <table>
         <thead>
@@ -40,9 +41,7 @@ class WalletTable extends Component {
               {/* https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary */}
               <td>{ Math.round(expense.value * 100) / 100}</td>
               <td>
-                {
-                  expense.exchangeRates[expense.currency].name.split('/')[0]
-                }
+                {expense.exchangeRates[expense.currency].name.split('/')[0]}
               </td>
               <td>
                 { Math.round(expense.exchangeRates[expense.currency].ask * 100) / 100 }
@@ -50,7 +49,14 @@ class WalletTable extends Component {
               <td>{this.valueConverted(expense)}</td>
               <td>Real</td>
               <td>
-                <button type="button">Editar/Excluir</button>
+                <button type="button">Editar</button>
+                <button
+                  type="button"
+                  data-testid="delete-btn"
+                  onClick={ () => deleteExp(expense.id) }
+                >
+                  Excluir
+                </button>
               </td>
             </tr>
           ))}
@@ -64,8 +70,12 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteExp: (id) => dispatch(deleteExpense(id)),
+});
+
 WalletTable.propTypes = {
   expenses: PropTypes.array,
 }.isRequired;
 
-export default connect(mapStateToProps, null)(WalletTable);
+export default connect(mapStateToProps, mapDispatchToProps)(WalletTable);

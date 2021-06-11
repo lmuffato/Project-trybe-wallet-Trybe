@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getCoinsOnClick, getCoinsThunk } from '../../actions';
+import { getCoinsOnClickThunk, getCoinsThunk } from '../../actions';
 
 class ExpensesAddForm extends Component {
   constructor() {
@@ -123,7 +123,7 @@ class ExpensesAddForm extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getCoins: () => dispatch(getCoinsThunk()),
-  requestCoinsOnClick: (payload) => dispatch(getCoinsOnClick(payload)),
+  requestCoinsOnClick: (payload) => dispatch(getCoinsOnClickThunk(payload)),
 });
 
 const mapStateToProps = (state) => ({
