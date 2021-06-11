@@ -1,129 +1,99 @@
 body {
-  background-color: #B5C7CC;
-  font-family: "Asap", sans-serif;
-  color:#244C66;
+  background-color: #b5c7cc;
+  color: #244c66;
+  font-family: Asap, sans-serif;
 }
 
 .login {
-  overflow: hidden;
   background-color: #f3f3f3;
-  padding: 40px 30px 30px 30px;
   border-radius: 10px;
+  box-shadow: 5px 10px 10px rgba(2, 128, 144, 0.2);
+  left: 50%;
+  overflow: hidden;
+  padding: 40px 30px 30px;
   position: absolute;
   top: 50%;
-  left: 50%;
-  width: 400px;
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  -webkit-transition: -webkit-transform 300ms, box-shadow 300ms;
-  -moz-transition: -moz-transform 300ms, box-shadow 300ms;
   transition: transform 300ms, box-shadow 300ms;
-  box-shadow: 5px 10px 10px rgba(2, 128, 144, 0.2);
+  width: 400px;
 }
-.login::before, .login::after {
-  content: "";
+
+.login:before , .login:after {
+  border-radius: 40% 45% 35% 40%;
+  content: '';
+  height: 600px;
   position: absolute;
   width: 600px;
-  height: 600px;
-  border-top-left-radius: 40%;
-  border-top-right-radius: 45%;
-  border-bottom-left-radius: 35%;
-  border-bottom-right-radius: 40%;
   z-index: -1;
 }
-.login::before {
-  left: 40%;
-  bottom: -130%;
-  background-color: rgba(69, 105, 144, 0.15);
-  -webkit-animation: wawes 6s infinite linear;
-  -moz-animation: wawes 6s infinite linear;
+
+.login:before {
   animation: wawes 6s infinite linear;
+  background-color: rgba(69, 105, 144, 0.15);
+  bottom: -130%;
+  left: 40%;
 }
-.login::after {
-  left: 35%;
-  bottom: -125%;
-  background-color: rgba(2, 128, 144, 0.2);
-  -webkit-animation: wawes 7s infinite;
-  -moz-animation: wawes 7s infinite;
+
+.login:after {
   animation: wawes 7s infinite;
+  background-color: rgba(2, 128, 144, 0.2);
+  bottom: -125%;
+  left: 35%;
 }
+
 .login > input {
-  font-family: "Asap", sans-serif;
-  display: block;
-  border-radius: 5px;
-  font-size: 16px;
   background: white;
-  width: 100%;
   border: 0;
-  padding: 10px 10px;
-  margin: 15px -10px;
-}
-.login > button {
-  font-family: "Asap", sans-serif;
-  cursor: pointer;
-  color: #fff;
-  font-size: 16px;
-  text-transform: uppercase;
-  width: 80px;
-  border: 0;
-  padding: 10px 0;
-  margin-top: 10px;
-  margin-left: -5px;
   border-radius: 5px;
-  background-color: #7DB290;
-  -webkit-transition: background-color 300ms;
-  -moz-transition: background-color 300ms;
-  transition: background-color 300ms;
+  display: block;
+  font-family: Asap, sans-serif;
+  font-size: 16px;
+  margin: 15px -10px;
+  padding: 10px;
+  width: 100%;
 }
+
+.login > button {
+  background-color: #7db290;
+  border: 0;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-family: Asap, sans-serif;
+  font-size: 16px;
+  margin-left: -5px;
+  margin-top: 10px;
+  padding: 10px 0;
+  text-transform: uppercase;
+  transition: background-color 300ms;
+  width: 80px;
+}
+
 .login > button:hover {
-  background-color: #407D6C;
+  background-color: #407d6c;
 }
 
 .login > button:disabled {
-  background-color: #B5C7CC;
+  background-color: #b5c7cc;
   cursor: not-allowed;
 }
 
-@-webkit-keyframes wawes {
-  from {
-    -webkit-transform: rotate(0);
-  }
-  to {
-    -webkit-transform: rotate(360deg);
-  }
-}
-@-moz-keyframes wawes {
-  from {
-    -moz-transform: rotate(0);
-  }
-  to {
-    -moz-transform: rotate(360deg);
-  }
-}
 @keyframes wawes {
+
   from {
-    -webkit-transform: rotate(0);
-    -moz-transform: rotate(0);
-    -ms-transform: rotate(0);
-    -o-transform: rotate(0);
     transform: rotate(0);
   }
+
   to {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
+
 a {
-  text-decoration: none;
+  bottom: 10px;
   color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
   position: absolute;
   right: 10px;
-  bottom: 10px;
-  font-size: 12px;
+  text-decoration: none;
 }
