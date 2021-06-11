@@ -8,6 +8,8 @@ import InputPayment from './InputPayment';
 import InputCategory from './InputCategory';
 import { getCurrenciesAPIThunk2 } from '../actions/wallet';
 
+// Agradecimento especial à Renzo Sevilha: turma 10 - tribo A por toda orientação realizada durante os requisitos 7 e 8 :D
+
 class Forms extends Component {
   constructor() {
     super();
@@ -23,12 +25,6 @@ class Forms extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.dispatchInfos = this.dispatchInfos.bind(this);
   }
-
-  /* componentDidMount() {
-    const { getCurrencies } = this.props;
-    getCurrencies();
-    console.log('componentDidMount foi renderizado');
-  } */
 
   handleChange(event) {
     const { name, value } = event.target;

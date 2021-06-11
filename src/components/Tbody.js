@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { deleteExpense } from '../actions/wallet';
 
 class Tbody extends Component {
   constructor() {
@@ -22,7 +23,7 @@ class Tbody extends Component {
   }
 
   render() {
-    const { expenses } = this.props;
+    const { expenses, deleteExp } = this.props;
     return (
       <>
         {expenses.map((element) => (
@@ -37,7 +38,13 @@ class Tbody extends Component {
             <td>Real</td>
             <td>
               <button type="button">Editar</button>
-              <button type="button">Excluir</button>
+              <button
+                type="button"
+                data-testid="delete-btn"
+                onClick={ () => deleteExp(element) }
+              >
+                Excluir
+              </button>
             </td>
           </tr>
         ))}
@@ -50,8 +57,13 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteExp: (payload) => dispatch(deleteExpense(payload)),
+});
+
 Tbody.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  deleteExp: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Tbody);
+export default connect(mapStateToProps, mapDispatchToProps)(Tbody);

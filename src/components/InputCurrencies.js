@@ -52,7 +52,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 InputCurrencies.propTypes = {
-  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   getCurrencies: PropTypes.func.isRequired,
   propValue: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,

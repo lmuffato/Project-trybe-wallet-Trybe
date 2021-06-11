@@ -3,7 +3,7 @@ import { GET_CURRENCIES,
   GET_CURRENCIES_SUCCESS,
   GET_EXPENSES,
   GET_EXPENSES_SUCCESS,
-} from '.';
+  DELETE_EXPENSE } from '.';
 
 export const getCurrenciesAPI = () => ({
   type: GET_CURRENCIES,
@@ -41,3 +41,8 @@ export const getCurrenciesAPIThunk2 = (expense) => (dispatch) => {
       dispatch(getCurrenciesAPISuccess2(expenseInfo));
     });
 };
+
+export const deleteExpense = (payload) => ({
+  type: DELETE_EXPENSE,
+  payload,
+});
