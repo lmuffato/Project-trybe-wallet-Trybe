@@ -1,5 +1,4 @@
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { FETCH_ERROR, FETCH_SUCCESS, FETCH_START } from '../actions';
+import { FETCH_ERROR, FETCH_SUCCESS, FETCH_START, SAVE_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -8,11 +7,26 @@ const INITIAL_STATE = {
   error: null,
 };
 
-const removeCurrencyUSDT = (currencies) => {
+const removeCurrency = (currencies, currencyTag) => {
   const array = Object.values(currencies);
-  const index = array.findIndex((currency) => currency.codein === 'BRLT');
+  const index = array.findIndex((currency) => currency.codein === currencyTag);
   array.splice(index, 1);
   return array;
+};
+
+const incrementId = ({ expenses }) => {
+  const length = expenses.length - 1;
+  const { id } = expenses[length];
+  return id + 1;
+};
+
+const expensesIdCreator = (state, { expense, changeRates }) => {
+  const { expenses } = state;
+  if (expenses.length === 0) {
+    return { id: 0, ...expense, exchangeRates: changeRates };
+  }
+  const id = incrementId(state);
+  return { id, ...expense, exchangeRates: changeRates };
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -25,14 +39,18 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       loading: false,
       error: null,
-      currencies: removeCurrencyUSDT(action.payload),
+      currencies: removeCurrency(action.payload, 'BRLT'),
     };
   case FETCH_ERROR:
     return { ...state,
       loading: false,
       error: action.payload,
       currencies: [],
-
+    };
+  case SAVE_EXPENSE:
+    return { ...state,
+      expenses: [...state.expenses, expensesIdCreator(state, action)],
+      loading: false,
     };
   default:
     return state;

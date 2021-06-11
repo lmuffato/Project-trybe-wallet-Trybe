@@ -2,16 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function InputExpense({ setValue, value, ...props }) {
+  // console.log(value);
   return (
     <div className="wallet-form__group">
       <label
-        htmlFor="expense"
+        htmlFor="value"
       >
         Valor
         <input
           type="number"
-          id="expense"
-          name="expense"
+          id="value"
+          name="value"
           onChange={ setValue }
           value={ value }
           { ...props }

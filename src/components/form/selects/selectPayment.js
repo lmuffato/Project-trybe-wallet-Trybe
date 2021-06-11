@@ -6,12 +6,12 @@ function SelectPayment({ setValue, valueState, ...props }) {
   return (
     <div className="wallet-form__group">
       <label
-        htmlFor="payment"
+        htmlFor="method"
       >
         Método de pagamento
         <select
-          id="payment"
-          name="payment"
+          id="method"
+          name="method"
           onChange={ setValue }
           value={ valueState }
           { ...props }

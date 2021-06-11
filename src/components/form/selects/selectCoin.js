@@ -7,12 +7,12 @@ function SelectCoin({ setValue, valueState, ...props }) {
   return (
     <div className="wallet-form__group">
       <label
-        htmlFor="coin"
+        htmlFor="currency"
       >
         Moeda
         <select
-          id="coin"
-          name="coin"
+          id="currency"
+          name="currency"
           onChange={ setValue }
           value={ valueState }
           { ...props }

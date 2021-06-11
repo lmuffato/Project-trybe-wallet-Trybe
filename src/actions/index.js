@@ -1,10 +1,13 @@
 import fetchApi from '../services/fetchApi';
 
-// Coloque aqui suas actions
 export const SAVE_EMAIL = 'SAVE_EMAIL';
-
 export const saveEmail = (email) => (
   { type: SAVE_EMAIL, email });
+
+export const SAVE_EXPENSE = 'SAVE_EXPENSE';
+export const saveExpense = (expense, changeRates) => (
+  { type: SAVE_EXPENSE, expense, changeRates }
+);
 
 export const FETCH_START = 'FETCH_START';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
@@ -24,11 +27,21 @@ export const fetchError = (payload) => (
 
 const thunkFetch = () => (dispatch) => {
   dispatch(fetchStart());
-  return fetchApi()
+  fetchApi()
     .then(
       (data) => dispatch(fetchSuccess(data)),
       (error) => dispatch(fetchError(error.message)),
     );
+};
+
+export const thunkFetchExchangeRates = (inputForm) => (dispatch) => {
+  dispatch(fetchStart());
+  fetchApi()
+    .then((data) => {
+      delete data.USDT;
+      dispatch(saveExpense(inputForm, data));
+    })
+    .catch((error) => dispatch(fetchError(error.message)));
 };
 
 export default thunkFetch;

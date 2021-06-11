@@ -6,12 +6,12 @@ function SelectCategoy({ setValue, valueState, ...props }) {
   return (
     <div className="wallet-form__group">
       <label
-        htmlFor="category"
+        htmlFor="tag"
       >
         Tag
         <select
-          id="category"
-          name="category"
+          id="tag"
+          name="tag"
           onChange={ setValue }
           value={ valueState }
           { ...props }

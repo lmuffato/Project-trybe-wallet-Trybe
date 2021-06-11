@@ -1,43 +1,50 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import InputExpense from './inputs/InputExpense';
 import InputDescription from './inputs/InputDescription';
 import SelectCategoy from './selects/selectCategory';
 import SelectPayment from './selects/selectPayment';
 import SelectCoin from './selects/selectCoin';
+import { thunkFetchExchangeRates } from '../../actions';
 
 function Form() {
   const INITIAL_STATE = {
-    expense: '0', coin: '', payment: '', category: '', description: '',
+    value: '0', currency: 'USD', method: 'debit', tag: 'Leisure', description: '',
   };
   const [inputForm, setInputForm] = useState(INITIAL_STATE);
   const handleInput = ({ target: { name, value } }) => {
     setInputForm((prevState) => ({ ...prevState, [name]: value }));
   };
-  const { expense, description, coin, payment, category } = inputForm;
+  const dispatch = useDispatch();
 
+  const submitted = (event) => {
+    event.preventDefault();
+    dispatch(thunkFetchExchangeRates(inputForm));
+  };
+  const { value, description, currency, method, tag } = inputForm;
   return (
-    <form className="wallet-form">
+    <form className="wallet-form" onSubmit={ submitted }>
       <InputExpense
-        value={ expense }
+        value={ value }
         setValue={ handleInput }
       />
-
+      <SelectCoin
+        valueState={ currency }
+        setValue={ handleInput }
+      />
+      <SelectPayment
+        valueState={ method }
+        setValue={ handleInput }
+      />
+      <SelectCategoy
+        valueState={ tag }
+        setValue={ handleInput }
+      />
       <InputDescription
         value={ description }
         setValue={ handleInput }
       />
-
-      <SelectCoin valueState={ coin } setValue={ handleInput } />
-
-      <SelectPayment
-        valueState={ payment }
-        setValue={ handleInput }
-      />
-
-      <SelectCategoy
-        valueState={ category }
-        setValue={ handleInput }
-      />
+      <button type="submit">Adicionar despesa</button>
     </form>
   );
 }

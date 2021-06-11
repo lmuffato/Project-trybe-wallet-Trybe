@@ -3,6 +3,20 @@ import { useSelector } from 'react-redux';
 
 function Header() {
   const userEmail = useSelector(({ user: { email } }) => email);
+  const walletExpenses = useSelector(({ wallet: { expenses } }) => expenses);
+
+  const sumExpenses = (values) => {
+    if (values.length === 0) {
+      return 0;
+    }
+    return values.reduce((acc, curr) => {
+      const { currency, exchangeRates, value } = curr;
+      return acc + (+value) * exchangeRates[currency].ask;
+    }, 0);
+  };
+
+  const expensesValue = sumExpenses(walletExpenses).toFixed(2);
+
   return (
     <header>
       <div>
@@ -19,7 +33,7 @@ function Header() {
         </p>
         <p>
           Despesa Total:
-          <span data-testid="total-field">0</span>
+          <span data-testid="total-field">{expensesValue}</span>
         </p>
         <p>
           <span data-testid="header-currency-field">BRL</span>
