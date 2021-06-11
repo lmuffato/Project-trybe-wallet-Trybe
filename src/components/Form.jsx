@@ -45,6 +45,7 @@ class Form extends React.Component {
           name="value"
           value={ value }
           type="number"
+          step=".01"
           onChange={ (event) => this.handleChange(event) }
         />
       </label>
