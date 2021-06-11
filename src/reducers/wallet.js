@@ -1,10 +1,8 @@
 import { WALLET } from '../actions/index';
-
+// Dicas de Gabs instrutor Trybe. Função wallet passa o nome do state.
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {

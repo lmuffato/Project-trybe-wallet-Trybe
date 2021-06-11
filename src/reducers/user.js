@@ -1,9 +1,8 @@
 import { USER } from '../actions/index';
+// Dicas de Gabs instrutor Trybe. Função user passa o nome do state.
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
 const user = (state = INITIAL_STATE, action) => {
