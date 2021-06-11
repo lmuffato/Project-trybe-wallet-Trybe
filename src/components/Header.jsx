@@ -27,6 +27,8 @@ class Header extends React.Component {
         <p data-testid="total-field">
           <b>Valor Total:</b>
           {' '}
+          R$
+          {' '}
           {this.totalCalc()}
         </p>
         <h5 data-testid="email-field">{user}</h5>

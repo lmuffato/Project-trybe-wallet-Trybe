@@ -30,11 +30,11 @@
 
 .table-header {
   color: rgb(30, 30, 30);
-  display: flex;
   font-size: 14px;
   font-weight: 700;
-  justify-content: space-between;
+  height: 50px;
   margin: 0 50px;
+  table-layout: fixed;
 }
 
 .form-table {
@@ -44,3 +44,16 @@
   margin: 0 50px;
 }
 
+table {
+  table-layout: fixed;
+  text-align: center;
+  width: 100%;
+}
+
+.table-row {
+  height: 40px;
+}
+
+.delete-button {
+  margin-top: 8px;
+}

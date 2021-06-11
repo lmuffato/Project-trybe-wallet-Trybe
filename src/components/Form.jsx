@@ -10,10 +10,10 @@ class Form extends React.Component {
     this.state = {
       id: stateId,
       value: 0,
-      description: '',
+      description: '-',
       currency: 'USD',
-      method: '',
-      tag: '',
+      method: '-',
+      tag: '-',
       exchangeRates: {},
     };
     this.handleChange = this.handleChange.bind(this);
@@ -45,7 +45,6 @@ class Form extends React.Component {
           name="value"
           value={ value }
           type="number"
-          step=".01"
           onChange={ (event) => this.handleChange(event) }
         />
       </label>
@@ -138,10 +137,10 @@ class Form extends React.Component {
       {
         id: id + 1,
         value: 0,
-        description: '',
+        description: '-',
         currency: 'USD',
-        method: '',
-        tag: '',
+        method: '-',
+        tag: '-',
         exchangeRates: {},
       },
     );
