@@ -1,10 +1,9 @@
 .login-container {
   align-items: center;
-  background-color: lightgreen;
+  background-color: rgb(139, 108, 57);
   display: flex;
   height: 100vh;
   justify-content: center;
-  width: 100%;
 }
 
 .input-container {
@@ -17,17 +16,17 @@
 }
 
 .wallet-picture {
-  margin-bottom: 1vh;
-  max-width: 70%;
+  margin-bottom: 10px;
+  max-width: 60%;
 }
 
 .labels {
   align-items: center;
-  color: blue;
+  color: rgb(29, 17, 9);
   display: flex;
   flex-direction: column;
   font-size: x-large;
-  margin: 1vh;
+  margin: 15px;
   max-height: 10vh;
   max-width: 15vh;
 }
@@ -36,13 +35,15 @@
   background-color: lightgray;
   border-radius: 16px;
   font-size: large;
-  margin: 1vh;
-  padding: 1vh;
+  margin: 15px;
+  padding: 8px;
   text-align: center;
 }
 
 .buttons {
   background-color: lightgray;
   border-radius: 15px;
-  padding: 1vh;
+  margin: 20px;
+  padding: 8px;
+  text-decoration: none;
 }

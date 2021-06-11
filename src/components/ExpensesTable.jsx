@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteExpense, editExpense } from '../actions';
+import './ExpensesTable.css';
 
 class ExpensesTable extends React.Component {
   getCurrencyName(currency, currencies) {
@@ -105,7 +106,7 @@ class ExpensesTable extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="expTable-container">
         {this.renderTable()}
       </div>
     );

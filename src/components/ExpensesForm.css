@@ -1,0 +1,7 @@
+.expForm-container {
+  align-items: center;
+  background-color: rgb(139, 108, 57);
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+}

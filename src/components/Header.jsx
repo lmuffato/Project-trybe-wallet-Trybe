@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import wallet from '../images/wallet.png';
+import './Header.css';
 
 class Header extends React.Component {
   getExpenses() {
@@ -20,22 +21,35 @@ class Header extends React.Component {
   render() {
     const { email } = this.props;
     return (
-      <header>
-        <div>
-          <img src={ wallet } alt="wallet" />
+      <header className="header-container">
+        <div className="img-container">
+          <img
+            src={ wallet }
+            alt="wallet"
+            className="wallet-picture-header"
+          />
+          <h1>
+            Projeto Trybe Wallet
+          </h1>
         </div>
-        <div>
-          <p data-testid="email-field">
+        <div className="show-info-container">
+          <h2 data-testid="email-field">
             Email:
-            { email }
-          </p>
-          <p data-testid="total-field">
+            <span className="info-field">
+              { email }
+            </span>
+          </h2>
+          <h2 data-testid="total-field">
             Despesa total:
-            { this.getExpenses().toFixed(2) }
-          </p>
-          <p data-testid="header-currency-field">
-            BRL
-          </p>
+            <span className="info-field">
+              { this.getExpenses().toFixed(2) }
+            </span>
+          </h2>
+          <h2 data-testid="header-currency-field">
+            <span className="info-field">
+              BRL
+            </span>
+          </h2>
         </div>
       </header>
     );

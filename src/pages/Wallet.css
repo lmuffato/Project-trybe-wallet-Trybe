@@ -1,0 +1,8 @@
+.wallet-container {
+  align-items: center;
+  background-color: rgba(146, 122, 84, 0.719);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+}

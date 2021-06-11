@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchCurrency, addExpense } from '../actions';
+import './ExpensesForm.css';
 
 const INITIAL_STATE = {
   id: '',
@@ -56,7 +57,7 @@ class ExpensesForm extends React.Component {
   renderInputValue() {
     const { value } = this.state;
     return (
-      <label htmlFor="valor">
+      <label htmlFor="valor" className="labels">
         Valor
         <input
           name="value"
@@ -72,7 +73,7 @@ class ExpensesForm extends React.Component {
   renderDescriptionInput() {
     const { description } = this.state;
     return (
-      <label htmlFor="Descrição">
+      <label htmlFor="Descrição" className="labels">
         Descrição
         <input
           name="description"
@@ -91,7 +92,7 @@ class ExpensesForm extends React.Component {
     const currenciesArray = Object.values(currencies)
       .filter((curr) => curr.codein !== 'BRLT');
     return (
-      <label htmlFor="moeda">
+      <label htmlFor="moeda" className="labels">
         Moeda
         <select
           name="currency"
@@ -117,7 +118,7 @@ class ExpensesForm extends React.Component {
   renderMethod() {
     const { method } = this.state;
     return (
-      <label htmlFor="Método de pagamento">
+      <label htmlFor="Método de pagamento" className="labels">
         Método de pagamento
         <select
           name="method"
@@ -136,7 +137,7 @@ class ExpensesForm extends React.Component {
   renderTagExpense() {
     const { tag } = this.state;
     return (
-      <label htmlFor="tag">
+      <label htmlFor="tag" className="labels">
         Tag
         <select
           name="tag"
@@ -159,6 +160,7 @@ class ExpensesForm extends React.Component {
       <div>
         <button
           type="button"
+          className="buttons"
           onClick={ this.newExpense }
         >
           Adicionar despesa
@@ -169,7 +171,7 @@ class ExpensesForm extends React.Component {
 
   render() {
     return (
-      <form>
+      <form className="expForm-container">
         {this.renderInputValue()}
         {this.renderDescriptionInput()}
         {this.renderCurrencyInput()}

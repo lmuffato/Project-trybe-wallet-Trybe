@@ -71,7 +71,7 @@ class Login extends React.Component {
       <Link to="/carteira">
         <button
           type="button"
-          className="labels buttons"
+          className="buttons"
           disabled={ !loginButton }
           onClick={ () => sendEmail(email) }
         >
