@@ -1,3 +1,6 @@
-export const LOGIN = 'LOGIN';
+export const SAVE_EMAIL = 'SAVE_EMAIL';
 
-export const WALLET = 'WALLET';
+export const saveEmail = (email) => ({
+  type: 'SAVE_EMAIL',
+  email,
+});

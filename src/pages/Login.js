@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { saveEmail } from '../actions';
 
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: '',
       passWord: '',
@@ -30,6 +33,9 @@ class Login extends React.Component {
   } // auxilio e explicação do Lucas Lara no plantão
 
   render() {
+    const { email } = this.state;
+    const { reducerLogin } = this.props; // props desconstruida para usar no botão (course 16.2)
+
     return (
       <div>
         <form>
@@ -55,7 +61,11 @@ class Login extends React.Component {
             />
           </label>
 
-          <button type="button" disabled={ this.buttonDisabled() }>
+          <button
+            type="button"
+            disabled={ this.buttonDisabled() }
+            onClick={ () => reducerLogin({ email }) }
+          >
             <Link to="/carteira">
               Entrar
             </Link>
@@ -66,4 +76,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  reducerLogin: (email) => dispatch(saveEmail(email)),
+});
+
+Login.propTypes = {
+  reducerLogin: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);

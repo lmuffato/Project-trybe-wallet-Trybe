@@ -24,7 +24,7 @@ describe('4 - Crie uma página para sua carteira com as seguintes característic
     expect(email).toBeNull();
   });
 
-  test.skip('O componente deve se chamar Wallet e estar localizado na pasta "src/pages"', () => {
+  test('O componente deve se chamar Wallet e estar localizado na pasta "src/pages"', () => {
     const { container } = renderWithRouterAndStore(<Wallet />, '/carteira', {});
     expect(container).toBeDefined();
   });
