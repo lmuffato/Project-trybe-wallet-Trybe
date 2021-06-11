@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { signIn } from '../actions/index';
+import { addUser } from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -13,6 +12,7 @@ class Login extends React.Component {
       disabled: true,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange(e) {
@@ -29,9 +29,15 @@ class Login extends React.Component {
     }
   }
 
+  handleClick() {
+    const { addUserToState, history } = this.props;
+    const { email } = this.state;
+    addUserToState(email);
+    history.push('/carteira');
+  }
+
   render() {
     const { email, password, disabled } = this.state;
-    const { login } = this.props;
     return (
       <div>
         <h1>Trybe Wallet</h1>
@@ -56,11 +62,9 @@ class Login extends React.Component {
           <button
             type="button"
             disabled={ disabled }
-            onClick={ () => login({ email }) }
+            onClick={ this.handleClick }
           >
-            <Link to="/carteira">
-              Entrar
-            </Link>
+            Entrar
           </button>
         </form>
       </div>
@@ -69,12 +73,13 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (payload) => dispatch(signIn(payload)),
+  addUserToState: (payload) => dispatch(addUser(payload)),
 });
 
 Login.propTypes = {
-  login: PropTypes.func.isRequired,
-};
+  addUserToState: PropTypes.func,
+  history: PropTypes.object,
+}.isRequired;
 
 export default connect(null, mapDispatchToProps)(Login);
 
