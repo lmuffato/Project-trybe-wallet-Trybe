@@ -5,7 +5,6 @@ import propTypes from 'prop-types';
 class Header extends Component {
   render() {
     const { displayEmail } = this.props;
-    console.log(displayEmail);
     return (
       <div>
         <header data-testid="email-field">{ displayEmail }</header>
