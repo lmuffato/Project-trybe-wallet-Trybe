@@ -23,7 +23,7 @@ export default (state = initialState, { type, payload }) => {
     newState.expenses.push({ ...payload, id: state.count });
     return newState;
   case DELETE_EXPENSES:
-    newState.expenses.filter((exp) => exp.id !== payload);
+    newState.expenses = state.expenses.filter((exp) => exp.id !== Number(payload));
     return newState;
   case COUNT_INCREMENT:
     return { ...state, count: state.count + 1 };

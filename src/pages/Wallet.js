@@ -6,6 +6,7 @@ import {
   totalValueAction,
   addExpensesThunk,
   fetchCurrenciesThunk,
+  deleteExpense,
 } from '../actions';
 // import InputLabeled from '../components/InputLabeled';
 import Table from '../components/Table';
@@ -92,7 +93,8 @@ class Wallet extends React.Component {
           type="text"
           name="description"
           value={ description }
-          onChange={ this.handleChange } />
+          onChange={ this.handleChange }
+        />
       </label>
     );
   }
@@ -140,7 +142,7 @@ class Wallet extends React.Component {
   // }
 
   render() {
-    const { email, total, currencies, onSubmit, expenses } = this.props;
+    const { email, total, currencies, onSubmit, expenses, deleteRow } = this.props;
     return (
       <>
         <header>
@@ -164,7 +166,7 @@ class Wallet extends React.Component {
           { this.inputLabeledTag() }
           <button type="submit">Adicionar Despesa</button>
         </form>
-        <Table /* expenses={ expenses }  *//>
+        <Table expenses={ expenses } deleteRow={ deleteRow } />
       </>
     );
   }
@@ -186,6 +188,7 @@ const mapDispatchToProps = (dispatch) => ({
   totalValue: (value) => dispatch(totalValueAction(value)),
   onSubmit: (value, currencies) => dispatch(addExpensesThunk(value, currencies)),
   fetchCurrencies: () => dispatch(fetchCurrenciesThunk()),
+  deleteRow: (ev) => dispatch(deleteExpense(ev.target.parentNode.id)),
 });
 
 Wallet.propTypes = {
@@ -193,11 +196,3 @@ Wallet.propTypes = {
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
-// {
-//   user: {
-//     email: '',
-//   },
-//   wallet: {
-//     currencies: [],
-//     expenses: []
-//   }

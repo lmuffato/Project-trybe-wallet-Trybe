@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { deleteExpense } from '../actions';
+// import { connect } from 'react-redux';
+// import { deleteExpense } from '../actions';
 
 const convertCurrency = (expense) => (
   parseFloat(expense.exchangeRates[expense.currency].ask)
@@ -60,13 +60,13 @@ Table.propTypes = {
   expenses: PropTypes.array,
 }.isRequired;
 
-const mapStateToProps = (state) => ({
-  expenses: state.wallet.expenses,
-});
+// const mapStateToProps = (state) => ({
+//   expensess: state.wallet.expenses,
+// });
 
-const mapDispatchToProps = (dispatch) => ({
-  deleteRow: (ev) => dispatch(deleteExpense(ev.target.parentNode.id)),
-});
-// export default Table;
-// SE EU DESCOMENTO OS MAPS E CONNECT E COMENTO A LINHA ACIMA, PARA DE FUNCIONAR
-export default connect(mapStateToProps, mapDispatchToProps)(Table);
+// const mapDispatchToProps = (dispatch) => ({
+//   deleteRow: (ev) => dispatch(deleteExpense(ev.target.parentNode.id)),
+// });
+
+export default Table;
+// export default connect(mapStateToProps, mapDispatchToProps)(Table);
