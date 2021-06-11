@@ -1,0 +1,82 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import { fetchCurrencies } from '../actions';
+
+class HeaderForms extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.allCurrencies = this.allCurrencies.bind(this);
+
+    this.state = {
+      currenciesState: [],
+    };
+  }
+
+  async componentDidMount() {
+    const { fetchCurrencies } = this.props;
+    await fetchCurrencies();
+    this.allCurrencies();
+  }
+
+  allCurrencies() {
+    const { currencies } = this.props;
+    this.setState({ currenciesState: currencies });
+  }
+
+  render() {
+    const { currenciesState } = this.state;
+    const filteredCurrency = currenciesState.filter((currency) => currency.name !== 'USDT');
+
+    return (
+      <form>
+        <label htmlFor="value">
+          Valor:
+          <input type="number" id="value" />
+        </label>
+
+        <label htmlFor="description">
+          Descrição:
+          <input type="text" id="description" />
+        </label>
+
+        <label htmlFor="currencies">
+          Moeda:
+          <select id="currencies">
+            { filteredCurrency.map((currency) => <option key={ currency.value.code } value={ currency.value.code }>{ currency.value.code }</option>) }
+          </select>
+        </label>
+
+        <label htmlFor="payment">
+          Método de pagamento
+          <select id="payment">
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
+          </select>
+        </label>
+
+        <label htmlFor="tag">
+          Tag:
+          <select id="tag">
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
+          </select>
+        </label>
+      </form>
+    );
+  }
+}
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchCurrencies: () => dispatch(fetchCurrencies()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderForms);
