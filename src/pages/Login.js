@@ -12,7 +12,11 @@ class Login extends React.Component {
   render() {
     return (
       <fieldset>
-        <img id="money" alt="Bolsa de dinheiro" src={ money } />
+        <img
+          id="money"
+          alt="Bolsa de dinheiro"
+          src={ money }
+        />
         <form>
           <label htmlFor="input-email">
             <em>Digite seu e-mail:</em>
