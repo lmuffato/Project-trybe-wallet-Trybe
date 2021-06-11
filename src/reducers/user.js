@@ -8,9 +8,11 @@ const initialState = {
 export default function user(state = initialState, action) {
   switch (action.type) {
   case USER_LOGIN: {
-    return { ...state,
-      email: action.payload,
-      password: action.payload,
+    const { payload: { email, password } } = action;
+    return {
+      ...state,
+      email,
+      password,
     };
   }
   default:
