@@ -1,12 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrenciesThunk } from '../actions';
+import { getCurrenciesThunk, getExpensesThunk } from '../actions';
+
+const INITIAL_STATE = {
+  value: '',
+  description: '',
+  currency: 'USD',
+  method: '',
+  tag: '',
+};
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
+    this.state = INITIAL_STATE;
+    this.change = this.change.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -14,57 +24,65 @@ class Form extends React.Component {
     getCurrencies();
   }
 
-  handleChange({ target }) {
-    const { name, value } = target;
+  change(event) {
+    const { name, value } = event.target;
     this.setState({
       [name]: value,
     });
   }
 
+  handleClick(event) {
+    event.preventDefault();
+    const { expenses, getExpenses } = this.props;
+    const id = expenses.length;
+    getExpenses({ ...this.state, id });
+  }
+
   render() {
     const { currencies } = this.props;
     return (
-      <form>
-        <label htmlFor="value">
-          Valor:
-          <input name="value" type="number" aria-label="valor" />
-        </label>
-        <label htmlFor="description">
-          Descrição:
-          <input name="description" type="text" aria-label="descrição" />
-        </label>
-        <label htmlFor="currency">
-          Moeda:
-          <select name="currency" aria-label="moeda" onChange={ this.handleChange }>
-            {currencies.map((item) => (
-              <option key={ item.code } value={ item.code }>
-                { item.code }
-              </option>))}
-          </select>
-        </label>
-        <label htmlFor="method">
-          Método de pagamento:
-          <select
-            name="method"
-            aria-label="método de pagamento"
-            onChange={ this.handleChange }
-          >
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="tag">
-          Tag:
-          <select name="tag" aria-label="tag" onChange={ this.handleChange }>
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
-          </select>
-        </label>
-      </form>
+      <div>
+        <form>
+          <label htmlFor="value">
+            Valor:
+            <input name="value" type="text" aria-label="valor" onChange={ this.change } />
+          </label>
+          <label htmlFor="description">
+            Descrição:
+            <input name="description" type="text" aria-label="descrição" onChange={ this.change } />
+          </label>
+          <label htmlFor="moeda">
+            Moeda:
+            <select id="moeda" name="currency" aria-label="moeda" onChange={ this.change }>
+              {currencies.map((item) => (
+                <option key={ item.code } value={ item.code }>
+                  { item.code }
+                </option>))}
+            </select>
+          </label>
+          <label htmlFor="method">
+            Método de pagamento:
+            <select id="method" name="method" aria-label="método de pagamento" onChange={ this.change }>
+              <option>Dinheiro</option>
+              <option>Cartão de crédito</option>
+              <option>Cartão de débito</option>
+            </select>
+          </label>
+          <label htmlFor="tag">
+            Tag:
+            <select id="tag" name="tag" aria-label="tag" onChange={ this.change }>
+              <option>Alimentação</option>
+              <option>Lazer</option>
+              <option>Trabalho</option>
+              <option>Transporte</option>
+              <option>Saúde</option>
+            </select>
+          </label>
+          <button type="submit" onClick={ this.handleClick }>
+            Adicionar despesa
+          </button>
+        </form>
+      </div>
     );
   }
 }
@@ -72,14 +90,18 @@ class Form extends React.Component {
 Form.propTypes = {
   currencies: PropTypes.objectOf({}).isRequired,
   getCurrencies: PropTypes.func.isRequired,
+  getExpenses: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(getCurrenciesThunk()),
+  getExpenses: (value) => dispatch(getExpensesThunk(value)),
 });
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

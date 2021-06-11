@@ -1,16 +1,18 @@
 import fetchCurrencies from '../services/requestApi';
 
 export const LOGIN = 'LOGIN';
-export const AGROUP_CURRENCIES = 'AGROUP_CURRENCIES';
 
 export const GET_CURRENCIES = 'GET_CURRENCIES';
+
 export const GET_CURRENCIES_SUCCESS = 'GET_CURRENCIES_SUCCESS';
+
 export const GET_CURRENCIES_ERROR = 'GET_CURRENCIES_ERROR';
 
-export const login = (email) => ({ type: LOGIN, email });
+export const GET_EXPENSES = 'GET_EXPENSES';
 
-export const agroupCurrencies = (currencies) => ({
-  type: AGROUP_CURRENCIES, payload: currencies });
+export const GET_EXPENSES_SUCCESS = 'GET_EXPENSES_SUCCESS';
+
+export const login = (email) => ({ type: LOGIN, email });
 
 export const getCurrencies = () => ({
   type: GET_CURRENCIES,
@@ -26,6 +28,15 @@ export const getCurrenciesError = (payload) => ({
   payload,
 });
 
+export const getExpenses = () => ({
+  type: GET_EXPENSES,
+});
+
+export const getExpensesSuccess = (payload) => ({
+  type: GET_EXPENSES_SUCCESS,
+  payload,
+});
+
 export const getCurrenciesThunk = () => (dispatch) => {
   dispatch(getCurrencies());
 
@@ -33,5 +44,15 @@ export const getCurrenciesThunk = () => (dispatch) => {
     .then((response) => {
       const currencyValue = Object.values(response);
       dispatch(getCurrenciesSuccess(currencyValue));
+    });
+};
+
+export const getExpensesThunk = (expense) => (dispatch) => {
+  dispatch(getExpenses());
+
+  fetchCurrencies()
+    .then((response) => {
+      const expenseInfo = { ...expense, exchangeRates: { ...response } };
+      dispatch(getExpensesSuccess(expenseInfo));
     });
 };
