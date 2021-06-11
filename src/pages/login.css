@@ -1,11 +1,10 @@
 /* 9 - Manjaro */
 
-/* Link da imagem: https://pixabay.com/pt/photos/moedas-dinheiro-euro-finan%C3%A7as-5790121 */
+/* Imagem: https://pixabay.com/pt/photos/moedas-dinheiro-euro-finan%C3%A7as-5790121 */
 
 /* Sobre alinhar o placeholder eu consultei o link abaixo: */
 
 /* https://stackoverflow.com/questions/7381446/center-html-input-text-field-placeholder */
-
 body {
   background-image: url("../images/background.jpg");
   background-size: cover;
@@ -17,23 +16,23 @@ body {
 fieldset {
   background-color: rgba(255, 255, 255, 0.5);
   height: 350px;
-  width: 350px;
   border: 0;
+  width: 350px;
   border-radius: 20px;
-  position: absolute;
   bottom: 0;
-  top: 0;
+  position: absolute;
   left: 0;
+  top: 0;
   margin: auto;
   right: 0;
 }
 
 input {
-  width: 280px;
-  height: 25px;
   border: 1px solid #ccc;
-  padding: 0.2em;
+  height: 25px;
+  width: 280px;
   border-radius: 2px;
+  padding: 0.2em;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   margin-bottom: 15px;
 }
@@ -46,16 +45,16 @@ button {
   background-color: rgb(221, 241, 129);
   border: 10;
   border-radius: 5px;
-  height: 40px;
   font-weight: 800;
+  height: 40px;
   width: 120px;
 }
 
 #money {
   display: block;
   margin-bottom: 15px;
-  margin-top: 15px;
   margin-left: auto;
+  margin-top: 15px;
   margin-right: auto;
 }
 
@@ -66,8 +65,8 @@ button {
 }
 
 em {
-  font-size: 20px;
   display: block;
+  font-size: 20px;
   font-family: monospace;
   font-weight: 500;
   text-align: center;
