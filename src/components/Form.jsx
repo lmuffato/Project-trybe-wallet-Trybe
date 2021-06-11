@@ -11,7 +11,7 @@ class Form extends React.Component {
       id: stateId,
       value: 0,
       description: '',
-      currency: '',
+      currency: 'USD',
       method: '',
       tag: '',
       exchangeRates: {},
@@ -118,12 +118,12 @@ class Form extends React.Component {
           name="tag"
           onChange={ (event) => this.handleChange(event) }
         >
-          <option value="">Selecionar</option>
-          <option value="Alimentação">Alimentação</option>
-          <option value="Lazer">Lazer</option>
-          <option value="Trabalho">Trabalho</option>
-          <option value="Transporte">Transporte</option>
-          <option value="Saúde">Saúde</option>
+          <option>Selecionar</option>
+          <option>Alimentação</option>
+          <option>Lazer</option>
+          <option>Trabalho</option>
+          <option>Transporte</option>
+          <option>Saúde</option>
         </select>
       </label>
     );
@@ -144,7 +144,7 @@ class Form extends React.Component {
         exchangeRates: {},
       },
     );
-    this.currencies();
+    this.getCurrencies();
   }
 
   render() {
