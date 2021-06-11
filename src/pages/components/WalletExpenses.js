@@ -25,7 +25,7 @@ class WalletExpenses extends Component {
     return (
       <div>
         <p data-testid="total-field">
-          {`Despesa total: ${this.totalValue()}`}
+          {`Despesa total: R$${this.totalValue()}`}
         </p>
         <p data-testid="header-currency-field">BRL</p>
       </div>
