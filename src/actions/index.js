@@ -13,37 +13,29 @@ export const userLogin = (email) => ({
   },
 });
 
+export const addExpense = (expense) => ({
+  type: ADD_EXPENSE,
+  payload: {
+    expense,
+  },
+});
+
 const toCurrencyArray = (object) => Object.keys(object);
 
-export const addExpense = (payload) => ({
-  type: ADD_EXPENSE,
-  payload,
-});
-
-export const getCurrency = () => ({
-  type: GET_CURRENCY,
-});
-
-export const getCurrencySuccess = (currencies) => {
+export const getCurrency = (currencies) => {
   const currenciesArray = toCurrencyArray(currencies);
   const currenciesFilter = currenciesArray.filter((currency) => currency !== 'USDT');
   return ({
-    type: GET_CURRENCY_SUCCESS,
+    type: GET_CURRENCY,
     payload: {
       currency: currenciesFilter,
     },
   });
 };
 
-export const getCurrencyError = (payload) => ({
-  type: GET_CURRENCY_ERROR,
-  payload,
-});
-
 export const getCurrencyThunk = () => (dispatch) => {
-  dispatch(getCurrency());
   fetchCurrencyApi()
     .then((result) => {
-      dispatch(getCurrencySuccess(result));
+      dispatch(getCurrency(result));
     });
 };
