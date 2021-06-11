@@ -59,7 +59,7 @@ class AddCurrencies extends Component {
       <option
         name="coin"
         key={ index }
-        title={ coin.name.split('/').shift() }
+        title={ coin.name }
       >
         {coin.code}
       </option>
@@ -109,7 +109,6 @@ class AddCurrencies extends Component {
 
   render() {
     const { isFetching } = this.props;
-    const inputCl = 'input is-success';
     return (
       <form className="addCurrencies-form">
         <label htmlFor="value">
@@ -118,7 +117,12 @@ class AddCurrencies extends Component {
         </label>
         <label htmlFor="coin">
           <h3 className="subtitle"> Moeda </h3>
-          <select id="coin" className={ inputCl } onChange={ this.handleCurrencie }>
+          <select
+            id="coin"
+            className="input is-success"
+            onChange={ this.handleCurrencie }
+            data-testid="header-currency-field"
+          >
             <option name="coin"> BRL </option>
             { isFetching === 'success' ? this.renderOptions() : console.log('awaiting') }
           </select>
@@ -127,8 +131,7 @@ class AddCurrencies extends Component {
           <h3 className="subtitle"> Método de pagamento </h3>
           <select
             name="payment-method"
-            className={ inputCl }
-            data-testid="header-currency-field"
+            className="input is-success"
             onChange={ this.handleMethod }
           >
             { this.renderMethodOptions() }
@@ -136,7 +139,7 @@ class AddCurrencies extends Component {
         </label>
         <label htmlFor="tag">
           <h3 className="subtitle"> Tipo </h3>
-          <select name="tag" className={ inputCl } onChange={ this.handleMethod }>
+          <select name="tag" className="input is-success" onChange={ this.handleMethod }>
             { this.renderTagOptions() }
           </select>
         </label>
