@@ -69,6 +69,7 @@ class Login extends React.Component {
     }
   }
 
+  // Source: https://github.com/tryber/sd-010-a-project-trybewallet/tree/nascjoao-project-trybewallet
   isValid() {
     const { email, password } = this.state;
 
