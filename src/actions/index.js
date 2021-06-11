@@ -1,4 +1,4 @@
-import { GET_CURRENCY, USER_LOGIN } from './actionTypes';
+import { ADD_EXPENSE, GET_CURRENCY, USER_LOGIN } from './actionTypes';
 
 export const userLogin = (userEmail) => ({
   type: USER_LOGIN,
@@ -13,6 +13,13 @@ export const getCurrency = (data) => ({
   type: GET_CURRENCY,
   payload: {
     data,
+  },
+});
+
+export const addExpense = (expense) => ({
+  type: ADD_EXPENSE,
+  payload: {
+    expense,
   },
 });
 
