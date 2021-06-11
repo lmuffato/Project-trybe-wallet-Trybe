@@ -15,6 +15,7 @@ class WalletForm extends Component {
 
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.resetState = this.resetState.bind(this);
 
     this.state = {
       value: '',
@@ -35,6 +36,16 @@ class WalletForm extends Component {
     this.setState({ [name]: value });
   }
 
+  resetState() {
+    this.setState({
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    });
+  }
+
   async handleSubmit(event) {
     event.preventDefault();
     const { value, description, currency, method, tag } = this.state;
@@ -52,13 +63,7 @@ class WalletForm extends Component {
     };
     setExpense(newExpense);
     updateExpenses(Number((value * (exchangeRates[currency].ask)).toFixed(2)));
-    this.setState({
-      value: '',
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
-    });
+    this.resetState();
   }
 
   render() {

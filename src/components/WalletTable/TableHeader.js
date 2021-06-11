@@ -2,7 +2,7 @@ import React from 'react';
 
 function TableHeader() {
   return (
-    <tr>
+    <tr className="table-header">
       <th>Descrição</th>
       <th>Tag</th>
       <th>Método de pagamento</th>

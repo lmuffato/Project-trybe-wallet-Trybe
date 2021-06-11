@@ -1,6 +1,7 @@
 import React from 'react';
 import { objectOf, string, number, oneOfType } from 'prop-types';
 import DeleteButton from './DeleteButton';
+import EditButton from './EditButton';
 
 // function convertToValue(value) {
 //   return (Number(value).toFixed(2));
@@ -13,7 +14,7 @@ function TableLines(props) {
   const { ask } = exchangeRates[currency];
 
   return (
-    <tr>
+    <tr className="table-body">
       <td>
         { description }
       </td>
@@ -42,7 +43,7 @@ function TableLines(props) {
         Real
       </td>
       <td>
-        Editar
+        <EditButton id={ id } />
         <DeleteButton id={ id } />
       </td>
     </tr>

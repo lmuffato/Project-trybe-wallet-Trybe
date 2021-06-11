@@ -9,15 +9,17 @@ class WalletTable extends Component {
   render() {
     const { expenses } = this.props;
     return (
-      <table>
-        <thead>
-          <TableHeader />
-        </thead>
-        <tbody>
-          { expenses.map((expense) => (
-            <TableLines key={ expense.id } expense={ expense } />)) }
-        </tbody>
-      </table>
+      <div className="expenses-container">
+        <table className="expenses-table">
+          <thead>
+            <TableHeader />
+          </thead>
+          <tbody>
+            { expenses.map((expense) => (
+              <TableLines key={ expense.id } expense={ expense } />)) }
+          </tbody>
+        </table>
+      </div>
     );
   }
 }
