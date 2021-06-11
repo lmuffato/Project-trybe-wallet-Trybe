@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchCurrencies } from '../actions';
 
-class HeaderForms extends React.Component {
+class Forms extends React.Component {
   constructor(props) {
     super(props);
 
@@ -27,18 +27,20 @@ class HeaderForms extends React.Component {
 
   currencies() {
     const { currenciesState } = this.state;
+
     const filteredCurrency = currenciesState
-      .filter((currency) => currency.name !== 'USDT');
+      .filter((currency) => currency.codein !== 'BRLT');
+
     return (
       <label htmlFor="currencies">
         Moeda:
         <select id="currencies">
           { filteredCurrency.map((currency) => (
             <option
-              key={ currency.value.code }
-              value={ currency.value.code }
+              key={ currency.code }
+              value={ currency.code }
             >
-              { currency.value.code }
+              { currency.code }
             </option>)) }
         </select>
       </label>
@@ -85,16 +87,16 @@ class HeaderForms extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  currencies: state.wallet.wallet.currencies,
+  currencies: state.wallet.currencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrenciesHeader: () => dispatch(fetchCurrencies()),
 });
 
-HeaderForms.propTypes = {
+Forms.propTypes = {
   currencies: PropTypes.array,
   fetchCurrencies: PropTypes.func,
 }.isRequired;
 
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderForms);
+export default connect(mapStateToProps, mapDispatchToProps)(Forms);

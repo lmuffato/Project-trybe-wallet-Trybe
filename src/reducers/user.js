@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   },
 };
 
-function user(state = INITIAL_STATE, { user: { email } = {}, type }) {
+const user = (state = INITIAL_STATE, { user: { email } = {}, type }) => {
   switch (type) {
   case LOGIN:
     return {
@@ -17,6 +17,6 @@ function user(state = INITIAL_STATE, { user: { email } = {}, type }) {
   default:
     return state;
   }
-}
+};
 
 export default user;

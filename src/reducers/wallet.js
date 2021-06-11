@@ -8,19 +8,20 @@ const INITIAL_STATE = {
   },
 };
 
-function wallet(state = INITIAL_STATE, { wallet: { currencies } = [], type }) {
+const wallet = (state = INITIAL_STATE, { wallet: { currencies } = [], type }) => {
   switch (type) {
   case RECEIVE_CURRENCIES:
     return {
       ...state,
-      currencies: Object.keys(currencies).forEach((key) => state.wallet.currencies.push({
-        name: key,
-        value: currencies[key],
-      })),
+      // currencies: Object.keys(currencies).forEach((key) => state.wallet.currencies.push({
+      //   name: key,
+      //   value: currencies[key],
+      // })),
+      currencies: state.wallet.currencies.concat(Object.values(currencies)),
     };
   default:
     return state;
   }
-}
+};
 
 export default wallet;
