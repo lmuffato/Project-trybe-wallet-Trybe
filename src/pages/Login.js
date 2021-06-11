@@ -13,7 +13,7 @@ class Login extends React.Component {
     return (
       <fieldset>
         <img
-          id="money"
+          id="logo"
           alt="Bolsa de dinheiro"
           src={ money }
         />
