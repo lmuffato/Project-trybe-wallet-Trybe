@@ -1,0 +1,76 @@
+* {
+  border: none;
+  box-sizing: border-box;
+  color: #323232;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url('../images/background-image.png');
+  background-size: cover;
+}
+
+.login-input {
+  border-bottom: 2px solid #323232;
+  font-size: 1rem;
+  margin: 20px;
+  margin-left: 0;
+  padding: 10px;
+}
+
+.login-label , .login-input {
+  display: block;
+  text-align: left;
+  width: 100%;
+}
+
+.login-input:focus {
+  border-bottom: 2px solid #205e8a;
+  outline: none;
+}
+
+.login-container {
+  background-color: white;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20vh;
+  padding: 20px 30px;
+  text-align: center;
+  width: 400px;
+}
+
+.login-form {
+  margin-bottom: 40px;
+  margin-top: 30px;
+}
+
+.login-label {
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.login-form > .submit-btn {
+  background-color: #08558b;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  font-weight: 800;
+  height: 40px;
+  margin-top: 30px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.login-form > .submit-btn:hover {
+  background-color: #1b223c;
+  transition: 0.5s;
+}
+
+.login-form > .submit-btn:disabled {
+  background-color: #bbb;
+  transition: 0.5s;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { func, objectOf, array, oneOfType, object, node } from 'prop-types';
 import { connect } from 'react-redux';
 import { submitUser } from '../actions';
+import '../css/Login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -21,7 +22,8 @@ class Login extends React.Component {
     this.setState({ [name]: value });
   }
 
-  handleSubmit(email, password) {
+  handleSubmit(event, email, password) {
+    event.preventDefault();
     const { submit, history } = this.props;
     submit(email, password);
     history.push('/carteira');
@@ -32,37 +34,47 @@ class Login extends React.Component {
     const regex = /^\w+([.-_]?\w+)*@\w+([.-_]?\w+)*(\.\w{2,3})+$/;
     const passwordLength = 6;
     return (
-      <form>
-        <label htmlFor="email-input">
-          Email:
-          <input
-            data-testid="email-input"
-            type="text"
-            value={ email }
-            id="email-input"
-            onChange={ this.handleInput }
-            name="email"
-          />
-        </label>
-        <label htmlFor="password-input">
-          Password:
-          <input
-            data-testid="password-input"
-            type="password"
-            value={ password }
-            id="password-input"
-            onChange={ this.handleInput }
-            name="password"
-          />
-        </label>
-        <button
-          type="button"
-          onClick={ () => this.handleSubmit(email, password) }
-          disabled={ !email.match(regex) || password.length < passwordLength }
+      <div className="login-container">
+        <form
+          onSubmit={ (event) => this.handleSubmit(event, email, password) }
+          className="login-form"
         >
-          Entrar
-        </button>
-      </form>
+          <label className="login-label" htmlFor="email-input">
+            Email:
+            <input
+              className="login-input"
+              placeholder="Digite seu email"
+              data-testid="email-input"
+              type="email"
+              value={ email }
+              id="email-input"
+              onChange={ this.handleInput }
+              name="email"
+              autoComplete="off"
+            />
+          </label>
+          <label className="login-label" htmlFor="password-input">
+            Password:
+            <input
+              className="login-input"
+              placeholder="Digite sua senha"
+              data-testid="password-input"
+              type="password"
+              value={ password }
+              id="password-input"
+              onChange={ this.handleInput }
+              name="password"
+            />
+          </label>
+          <input
+            id="submit-login"
+            className="login-input submit-btn"
+            type="submit"
+            disabled={ !email.match(regex) || password.length < passwordLength }
+            value="Entrar"
+          />
+        </form>
+      </div>
     );
   }
 }
