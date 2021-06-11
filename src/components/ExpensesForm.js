@@ -1,7 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getCoinsThunk } from '../actions';
 
 class ExpensesForm extends React.Component {
+  componentDidMount() {
+    const { getCoins } = this.props;
+    getCoins();
+  }
+
   render() {
+    const { currencies } = this.props;
     return (
       <form>
         <label htmlFor="valor" id="valor">
@@ -14,11 +23,12 @@ class ExpensesForm extends React.Component {
         </label>
         <label htmlFor="moeda" id="moeda">
           Moeda
-          <select
-            name="moeda"
-            aria-labelledby="moeda"
-          >
-            <option value="Vazio">Vazio</option>
+          <select name="moeda" aria-labelledby="moeda">
+            {!currencies
+              ? <option value="BRL">BRL</option>
+              : currencies.map((currency) => (
+                <option key={ currency } value={ currency }>{ currency }</option>
+              ))}
           </select>
         </label>
         <label htmlFor="paymentType" id="paymentType">
@@ -50,6 +60,18 @@ class ExpensesForm extends React.Component {
   }
 }
 
-export default ExpensesForm;
+const mapDispatchToProps = (dispatch) => ({
+  getCoins: () => dispatch(getCoinsThunk()),
+});
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+ExpensesForm.propTypes = {
+  getCoins: PropTypes.func,
+}.isRequired;
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);
 
 // aria-labelledby="valor"; lendo o erro do npm test, foi feita a sugestão do aria-labelledby
