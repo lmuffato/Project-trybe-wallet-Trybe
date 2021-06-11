@@ -42,10 +42,11 @@ class Form extends React.Component {
   }
 
   totalExpenses() {
-    const { value, currency, exchangeRates } = this.state;
-    const { addToWalletDispatch, getTotal } = this.props;
+    const { value, currency } = this.state;
+    const { addToWalletDispatch, getTotal, currencies } = this.props;
+    const { USDT, ...rest } = currencies;
     let total = 0;
-    const usedCurrencies = Object.values(exchangeRates).filter((rate) => (
+    const usedCurrencies = Object.values(rest).filter((rate) => (
       rate.code === currency));
     const converted = usedCurrencies.map((usedCurrency) => usedCurrency.ask * value);
     total += Number(converted).toFixed(2);
