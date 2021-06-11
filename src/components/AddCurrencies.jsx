@@ -163,8 +163,8 @@ AddCurrencies.propTypes = {
 }.isRequired;
 
 const mapStateToProps = (state) => ({
-  exchanges: state.apiReducer.wallet.currencies,
-  isFetching: state.apiReducer.isFetching,
+  exchanges: state.wallet.currencies,
+  isFetching: state.wallet.isFetching,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -43,7 +43,7 @@ class Login extends React.Component {
   handleSubmit() {
     const { email } = this.state;
     const { signInDispatch } = this.props;
-    signInDispatch({ email });
+    signInDispatch(email);
   }
 
   render() {

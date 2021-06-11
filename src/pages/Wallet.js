@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AddCurrencies from '../components/AddCurrencies';
-import { fetchAPI } from '../reducers/api';
+import { fetchAPI } from '../reducers/wallet';
 
 class Wallet extends React.Component {
   constructor() {
@@ -49,8 +49,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  userEmail: state.userReducer.user.email,
-  userExpenses: state.walletReducer.wallet.expenses,
+  userEmail: state.user.email,
+  userExpenses: state.wallet.expenses,
 });
 
 Wallet.propTypes = {
