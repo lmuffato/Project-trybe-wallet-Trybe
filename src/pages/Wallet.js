@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import AddCurrencies from '../components/AddCurrencies';
 import { fetchAPI } from '../reducers/api';
 
@@ -31,5 +32,10 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   userEmail: state.user.email });
+
+Wallet.propTypes = {
+  fetchApiThunk: PropTypes.func,
+  userEmail: PropTypes.string,
+}.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

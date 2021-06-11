@@ -27,8 +27,8 @@ class AddCurrencies extends Component {
   }
 
   getExpenseData() {
-    const { addExpense } = this.props;
-    return addExpense(this.state);
+    const { addExpenseAction } = this.props;
+    return addExpenseAction(this.state);
   }
 
   handleValue(e) {
@@ -53,10 +53,10 @@ class AddCurrencies extends Component {
 
   renderOptions() {
     const { exchanges } = this.props;
-    return Object.values(exchanges).map((coin) => (
+    return Object.values(exchanges).map((coin, index) => (
       <option
         name="coin"
-        key={ coin.code }
+        key={ index }
         title={ coin.name }
       >
         {coin.code}
@@ -116,7 +116,7 @@ class AddCurrencies extends Component {
         </label>
         <label htmlFor="coin">
           <h3 className="subtitle"> Moeda </h3>
-          <select name="coin" className={ inputCl } onChange={ this.handleCurrencie }>
+          <select id="coin" className={ inputCl } onChange={ this.handleCurrencie }>
             <option name="coin"> BRL </option>
             { isFetching === 'success' ? this.renderOptions() : console.log('awaiting') }
           </select>
@@ -154,17 +154,19 @@ class AddCurrencies extends Component {
   }
 }
 
+AddCurrencies.propTypes = {
+  addExpense: PropTypes.func,
+  exchanges: PropTypes.objectOf(PropTypes.object),
+  isFetching: PropTypes.bool,
+}.isRequired;
+
 const mapStateToProps = (state) => ({
   exchanges: state.wallet.currencies,
   isFetching: state.isFetching,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addExpense: (expense) => dispatch(addExpense(expense)),
+  addExpenseAction: (expense) => dispatch(addExpense(expense)),
 });
-
-AddCurrencies.propTypes = {
-
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddCurrencies);
