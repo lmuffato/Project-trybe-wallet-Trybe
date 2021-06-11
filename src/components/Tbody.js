@@ -33,7 +33,7 @@ class Tbody extends Component {
             <td>{ element.value }</td>
             <td>{ this.getInfoExpenses(element).arrayNameCurrency[0] }</td>
             <td>{ this.getInfoExpenses(element).exchange.toFixed(2) }</td>
-            <td>{ this.getInfoExpenses(element).convertedValue }</td>
+            <td>{ this.getInfoExpenses(element).convertedValue.toFixed(2) }</td>
             <td>Real</td>
             <td>
               <button type="button">Editar</button>
