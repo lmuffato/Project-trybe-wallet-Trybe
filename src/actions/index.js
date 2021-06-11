@@ -5,6 +5,7 @@ export const RECEIVE_CURRENCIES = 'RECEIVE_CURRENCIES';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
 export const EXPENSES = 'EXPENSES';
 export const DELETE = 'DELETE';
+export const EDITING = 'EDITING';
 
 // actions relacionadas ao login
 export const login = (email, password) => ({ type: LOGIN, email, password });
@@ -58,3 +59,15 @@ export const deleteExpense = (array, debt) => ({
   type: DELETE,
   payload: { array, debt: Number(debt) },
 });
+
+export const editExpense = (id, expenses, cost) => {
+  const editedExpenses = expenses.map((expense) => (
+    expense.id === id
+      ? { ...expense, ...cost }
+      : expense
+  ));
+  return {
+    type: EDITING,
+    payload: editedExpenses,
+  };
+};
