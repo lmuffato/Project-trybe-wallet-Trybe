@@ -27,7 +27,9 @@ class AddCurrencies extends Component {
   }
 
   getExpenseData() {
-    const { addExpenseAction } = this.props;
+    const { addExpenseAction, totalEx } = this.props;
+    const halfSecond = 500;
+    setTimeout(() => totalEx(), halfSecond);
     return addExpenseAction(this.state);
   }
 
@@ -57,7 +59,7 @@ class AddCurrencies extends Component {
       <option
         name="coin"
         key={ index }
-        title={ coin.name }
+        title={ coin.name.split('/').shift() }
       >
         {coin.code}
       </option>
