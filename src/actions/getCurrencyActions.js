@@ -23,7 +23,6 @@ export const getCurrencyThunk = () => async (dispatch) => {
   dispatch(getCurrency());
   const answer = await apiRequest();
   delete answer.USDT;
-  // console.log(answer);
   try {
     dispatch(getCurrencySucess(answer));
   } catch (erro) {
