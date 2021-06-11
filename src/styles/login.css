@@ -1,0 +1,48 @@
+* {
+  color: #04080f;
+}
+
+form {
+  align-items: center;
+  background-color: #bbd1ea;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+form .form-container {
+  border: 1px solid #04080f;
+  border-radius: 10px;
+  padding: 4rem;
+}
+
+form .form-container .input-container {
+  margin: 0.3rem 0;
+  width: 13rem;
+}
+
+form .form-container .input-container input {
+  border: none;
+  border-radius: 10px;
+  margin: 0.5rem 0;
+  padding: 0.175rem;
+  width: 100%;
+}
+
+form .form-container .button-container {
+  text-align: center;
+}
+
+form .form-container .button-container button {
+  padding: 0.2rem;
+}
+
+form .form-container .button-container .disabled:hover {
+  cursor: url('../images/icons8-prohibited-32.png'), auto;
+}
+
+form .form-container .button-container .on:hover {
+  cursor: url('../images/icons8-ok-32.png'), auto;
+}

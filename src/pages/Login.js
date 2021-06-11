@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../actions';
+import '../styles/login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -14,6 +15,7 @@ class Login extends React.Component {
     };
     this.handleOnChange = this.handleOnChange.bind(this);
     this.validateInputs = this.validateInputs.bind(this);
+    this.changeClassName = this.changeClassName.bind(this);
   }
 
   handleOnChange({ target: { name, value } }) {
@@ -28,42 +30,59 @@ class Login extends React.Component {
     if (verifyEmail && verifyPassword) this.setState({ disabled: false });
   }
 
+  changeClassName() {
+    const btn = document.getElementById('login-btn');
+    btn.classList.remove('disabled');
+    btn.classList.add('on');
+  }
+
   render() {
     const { email, password, disabled } = this.state;
     const { sendEmail } = this.props;
+    if (!disabled) this.changeClassName();
     return (
       <form>
-        <label htmlFor="email">
-          Email:
-          <input
-            type="email"
-            name="email"
-            required
-            data-testid="email-input"
-            onChange={ this.handleOnChange }
-            value={ email }
-          />
-        </label>
-        <label htmlFor="email">
-          Senha:
-          <input
-            type="password"
-            name="password"
-            required
-            data-testid="password-input"
-            onChange={ this.handleOnChange }
-            value={ password }
-          />
-        </label>
-        <Link to="/carteira">
-          <button
-            type="button"
-            disabled={ disabled }
-            onClick={ () => sendEmail({ email, password }) }
-          >
-            Entrar
-          </button>
-        </Link>
+        <div className="form-container">
+          <div className="input-container">
+            <label htmlFor="email">
+              Email:
+              <input
+                type="email"
+                name="email"
+                required
+                data-testid="email-input"
+                onChange={ this.handleOnChange }
+                value={ email }
+              />
+            </label>
+          </div>
+          <div className="input-container">
+            <label htmlFor="email">
+              Senha:
+              <input
+                type="password"
+                name="password"
+                required
+                data-testid="password-input"
+                onChange={ this.handleOnChange }
+                value={ password }
+              />
+            </label>
+          </div>
+          <div className="button-container">
+            <Link to="/carteira">
+              <button
+                id="login-btn"
+                className="disabled"
+                type="button"
+                disabled={ disabled }
+                onClick={ () => sendEmail({ email, password }) }
+              >
+                Entrar
+              </button>
+            </Link>
+          </div>
+        </div>
       </form>
     );
   }
