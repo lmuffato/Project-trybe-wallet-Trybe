@@ -25,7 +25,7 @@ class Login extends React.Component {
               type="email"
               placeholder="Exemplo: usuario@email.com"
               name="input-email"
-              className="alinhamento, placeholder-center"
+              className="alinhamento placeholder-center"
               required
             />
           </label>
@@ -36,7 +36,7 @@ class Login extends React.Component {
               type="password"
               placeholder="Mínimo de 6 dígitos"
               name="input-email"
-              className="alinhamento, placeholder-center"
+              className="alinhamento placeholder-center"
               required
             />
           </label>
