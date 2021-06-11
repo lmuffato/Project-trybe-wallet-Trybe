@@ -1,0 +1,15 @@
+.Header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: rgb(69, 60, 196);
+  justify-content: space-around;
+}
+
+.Header-Currency {
+  display: flex;
+  width: 200px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
