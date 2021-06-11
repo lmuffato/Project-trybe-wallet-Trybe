@@ -79,9 +79,7 @@ class Login extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   reducerLogin: (email) => dispatch(saveEmail(email)),
 });
-
 Login.propTypes = {
   reducerLogin: PropTypes.func.isRequired,
 };
-
 export default connect(null, mapDispatchToProps)(Login);
