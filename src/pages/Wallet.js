@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { string } from 'prop-types';
 import {
   // getCurrencies,
-  totalValueAction,
+  // totalValueAction,
   addExpensesThunk,
   fetchCurrenciesThunk,
   deleteExpense,
@@ -102,6 +102,7 @@ class Wallet extends React.Component {
   inputLabeledCurrency() {
     const { currencies } = this.props;
     const { currency } = this.state;
+    const { USDT, ...currenciesNoUSDT } = currencies;
     return (
       <label htmlFor="currency">
         Moeda
@@ -112,7 +113,7 @@ class Wallet extends React.Component {
           onChange={ this.handleChange }
         >
           {
-            Object.values(currencies).map(
+            Object.values(currenciesNoUSDT).map(
               (curr) => (
                 <option
                   key={ curr.code }
@@ -171,8 +172,13 @@ class Wallet extends React.Component {
     );
   }
 }
+
+const convertCurrency = (expense) => Number((
+  parseFloat(expense.exchangeRates[expense.currency].ask)
+  * parseFloat(expense.value)).toFixed(2));
+
 const getTotalValue = (state) => (state.wallet.expenses.length
-  ? state.wallet.expenses.reduce((acc, curr) => acc + Number(curr.value), 0)
+  ? state.wallet.expenses.reduce((acc, expense) => acc + convertCurrency(expense), 0)
   : 0);
 
 const mapStateToProps = (state) => ({
@@ -184,8 +190,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // getCurr: (value) => dispatch(getCurrencies(value)),
-  totalValue: (value) => dispatch(totalValueAction(value)),
+  // totalValue: (value) => dispatch(totalValueAction(value)),
   onSubmit: (value, currencies) => dispatch(addExpensesThunk(value, currencies)),
   fetchCurrencies: () => dispatch(fetchCurrenciesThunk()),
   deleteRow: (ev) => dispatch(deleteExpense(ev.target.parentNode.id)),

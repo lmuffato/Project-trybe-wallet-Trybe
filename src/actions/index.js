@@ -30,8 +30,8 @@ export const fetchCurrenciesThunk = () => async (dispatch) => {
   try {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
     const json = await response.json();
-    const { USDT, ...data } = json;
-    dispatch(getCurrencies(data));
+    // const { USDT, ...data } = json;
+    dispatch(getCurrencies(json));
   } catch (error) {
     console.error(error);
   }

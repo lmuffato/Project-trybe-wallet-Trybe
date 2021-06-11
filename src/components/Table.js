@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-// import { deleteExpense } from '../actions';
 
 const convertCurrency = (expense) => (
   parseFloat(expense.exchangeRates[expense.currency].ask)
@@ -9,7 +7,6 @@ const convertCurrency = (expense) => (
 
 const Table = (props) => {
   const { expenses, deleteRow } = props;
-  console.log('eita', expenses);
   return (
     <table>
       <thead>
@@ -60,13 +57,4 @@ Table.propTypes = {
   expenses: PropTypes.array,
 }.isRequired;
 
-// const mapStateToProps = (state) => ({
-//   expensess: state.wallet.expenses,
-// });
-
-// const mapDispatchToProps = (dispatch) => ({
-//   deleteRow: (ev) => dispatch(deleteExpense(ev.target.parentNode.id)),
-// });
-
 export default Table;
-// export default connect(mapStateToProps, mapDispatchToProps)(Table);
