@@ -11,10 +11,16 @@ class Header extends React.Component {
   sumExpenses() {
     let totalExpenses = 0;
     const { arrayExpenses } = this.props;
-    if (arrayExpenses.length === 0) totalExpenses = 0;
-    else totalExpenses = arrayExpenses.reduce((acc, cur) => acc + cur);
-    // return totalExpenses;  aqui entre os gastos totais
-    return 0;
+    if (arrayExpenses.length === 0) return 0;
+
+    const valoresCovertidosPorProduto = arrayExpenses.map((produto) => {
+      const { value, currency, exchangeRates } = produto;
+      const fatorCorvertToBRL = parseFloat(exchangeRates[currency].ask);
+      const valorCovertido = parseFloat(value) * fatorCorvertToBRL;
+      return valorCovertido;
+    });
+    totalExpenses = valoresCovertidosPorProduto.reduce((acc, cur) => acc + cur);
+    return totalExpenses;
   }
 
   choiceCurrency() {

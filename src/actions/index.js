@@ -8,8 +8,9 @@ export const loginData = (email) => ({
   email,
 });
 
-export const getCurrencies = (currencies) => ({
+export const getCurrencies = (objectCurrencies, currencies) => ({
   type: GET_CURRENCIES_SUCCESS,
+  objectCurrencies,
   currencies,
 });
 
@@ -17,14 +18,16 @@ export function fetchCurrenciesThunk() {
   return async (dispatch) => {
     const fetchCurrencies = await fetch('https://economia.awesomeapi.com.br/json/all');
     const currenciesJson = await fetchCurrencies.json();
-    const arrayCurrencies = Object.keys(currenciesJson);
-    const arrayCurrenciesFilter = arrayCurrencies
-      .filter((currency) => currency !== 'USDT' && currency !== 'DOGE');
-    dispatch(getCurrencies(arrayCurrenciesFilter));
+    delete currenciesJson.USDT;
+    delete currenciesJson.DOGE;
+    const arrayNamesCurrencies = Object.keys(currenciesJson);
+    dispatch(getCurrencies(currenciesJson, arrayNamesCurrencies));
   };
 }
 
-export const choicedProduct = ({ id, valor, descricao, moeda, metodo, categoria }) => ({
+export const choicedProduct = (
+  { id, valor, descricao, moeda, metodo, categoria, exchangeRates },
+) => ({
   type: GET_CHOICED_PRODUCT,
   product: {
     id,
@@ -33,5 +36,6 @@ export const choicedProduct = ({ id, valor, descricao, moeda, metodo, categoria 
     currency: moeda,
     method: metodo,
     tag: categoria,
+    exchangeRates,
   },
 });

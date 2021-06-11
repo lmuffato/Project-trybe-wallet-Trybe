@@ -7,11 +7,11 @@ class FormDespesas extends React.Component {
   constructor() {
     super();
     this.state = {
-      valor: '',
-      descricao: '',
-      moeda: '',
-      metodo: '',
-      categoria: '',
+      valor: 0,
+      descricao: 'Não descreveu',
+      moeda: 'USD',
+      metodo: 'Dinheiro',
+      categoria: 'Alimentação',
     };
 
     this.handleChange = this.handleChange.bind(this);

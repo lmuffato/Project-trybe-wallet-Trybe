@@ -10,24 +10,32 @@ class ButtonAddDespesa extends React.Component {
 
   handleClick(event) {
     event.preventDefault();
-    const { sendProduct, numberProducts, valor, descricao, moeda, metodo, categoria} = this.props;
-    const product = {
-      id: numberProducts + 1,
+    const {
+      sendProduct,
+      numberProducts,
+      currenciesObject,
       valor,
       descricao,
       moeda,
       metodo,
       categoria,
+    } = this.props;
+
+    const exchangeRates = { ...currenciesObject };
+    const product = {
+      id: numberProducts,
+      valor,
+      descricao,
+      moeda,
+      metodo,
+      categoria,
+      exchangeRates,
     };
 
     sendProduct(product);
-    //console.log(product);
-    //console.log(numberProducts);
   }
 
   render() {
-    const { numberProducts, valor, descricao, moeda, metodo, categoria } = this.props;
-    console.log(numberProducts.length);
     return (
       <button type="submit" onClick={ this.handleClick }>Adicionar despesa</button>
     );
@@ -36,6 +44,7 @@ class ButtonAddDespesa extends React.Component {
 
 const mapStateToProps = (state) => ({
   numberProducts: state.wallet.expenses.length,
+  currenciesObject: state.wallet.objectOfCurrenciesDaitails,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -43,7 +52,14 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 ButtonAddDespesa.propTypes = {
-  //numberProducts: PropTypes.arrayOf(PropTypes.string).isRequired,
+  sendProduct: PropTypes.func.isRequired,
+  numberProducts: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currenciesObject: PropTypes.obj.isRequired,
+  valor: PropTypes.number.isRequired,
+  descricao: PropTypes.string.isRequired,
+  moeda: PropTypes.string.isRequired,
+  metodo: PropTypes.string.isRequired,
+  categoria: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ButtonAddDespesa);
