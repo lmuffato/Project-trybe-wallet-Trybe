@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getCodesFromCoins } from '../services/api';
+import FormSelects from './Form/Select';
 
 class WalletForm extends Component {
   constructor() {
@@ -14,55 +15,50 @@ class WalletForm extends Component {
     this.componentDidMount = this.componentDidMount.bind(this);
   }
 
+  componentDidMount() {
+    this.fetchApi();
+  }
+
   async fetchApi() {
     const moedas = await getCodesFromCoins();
     this.setState({
-      moedas
+      moedas,
     });
-  };
-
-  componentDidMount() {
-    this.fetchApi();
-  };
+  }
 
   render() {
     const { moedas } = this.state;
-    const { 
-      value,
-      description,
-      currency,
-      method,
-      tag,
-    } = this.props;
+    const { value, description, currency, method, tag } = this.props;
     const { onSubmit, onChange } = this.props;
     return (
       <form
-        onSubmit={(e) => onSubmit(e)}
+        onSubmit={ (e) => onSubmit(e) }
       >
-        <label>
+        <label htmlFor="value">
           Valor
           <input
-            type="text"
+            id="value"
             name="value"
             value={ value }
-            onChange={(e) => onChange(e)}
+            onChange={ (e) => onChange(e) }
           />
         </label>
-        <label>
+        <label htmlFor="description">
           Descrição
           <input
-            type="text"
+            id="description"
             name="description"
             value={ description }
-            onChange={(e) => onChange(e)}
+            onChange={ (e) => onChange(e) }
           />
         </label>
-        <label>
+        <label htmlFor="currency">
           Moeda
           <select
+            id="currency"
             name="currency"
             value={ currency }
-            onChange={(e) => onChange(e)}
+            onChange={ (e) => onChange(e) }
           >
             {moedas.map((moeda) => (
               <option value={ moeda } key={ moeda }>
@@ -71,39 +67,16 @@ class WalletForm extends Component {
             ))}
           </select>
         </label>
-        <label>
-          Método de pagamento
-          <select
-            name="method"
-            value={ method }
-            onChange={(e) => onChange(e)}
-          >
-            <option value="Dinheiro">Dinheiro</option>
-            <option value="Cartão de crédito">Cartão de crédito</option>
-            <option value="Cartão de débito">Cartão de débito</option>
-          </select>
-        </label>
-        <label>
-          Tag
-          <select
-            name="tag"
-            value={ tag }
-            onChange={(e) => onChange(e)}
-          >
-            <option value="Alimentação">Alimentação</option>
-            <option value="Lazer">Lazer</option>
-            <option value="Trabalho">Trabalho</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Saúde">Saúde</option>
-          </select>
-        </label>
-        <button type="submit">
-          Adicionar despesa
-        </button>
+        <FormSelects
+          method={ method }
+          tag={ tag }
+          onChange={ (e) => onChange(e) }
+        />
+        <button type="submit"> Adicionar despesa </button>
       </form>
     );
   }
-};
+}
 
 WalletForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,

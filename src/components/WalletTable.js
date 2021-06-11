@@ -9,25 +9,26 @@ class WalletTable extends Component {
     this.getExchangeAsk = this.getExchangeAsk.bind(this);
     this.provideConvertedValue = this.provideConvertedValue.bind(this);
   }
+
   getExchangeName(expense) {
     const { exchangeRates } = expense;
     const exchange = exchangeRates[expense.currency];
     const exchangeName = exchange.name.split('/')[0];
     return exchangeName;
   }
-  
+
   getExchangeAsk(expense) {
     const { exchangeRates } = expense;
     const { ask } = exchangeRates[expense.currency];
     return parseFloat(ask).toFixed(2);
-  };
+  }
 
   provideConvertedValue(expense) {
     const { exchangeRates } = expense;
     const { ask } = exchangeRates[expense.currency];
     const convertedValue = Number(expense.value) * ask;
     return parseFloat(convertedValue).toFixed(2);
-  };
+  }
 
   render() {
     const { expenses, onDelete } = this.props;
@@ -46,7 +47,7 @@ class WalletTable extends Component {
             <th>Editar/Excluir</th>
           </tr>
           {expenses.map((expense) => (
-            <tr key={expense.id}>
+            <tr key={ expense.id }>
               <td>{expense.description}</td>
               <td>{expense.tag}</td>
               <td>{expense.method}</td>
@@ -61,8 +62,9 @@ class WalletTable extends Component {
               <td>Real</td>
               <td>
                 <button
+                  type="button"
                   data-testid="delete-btn"
-                  onClick={() => onDelete(expense)}
+                  onClick={ () => onDelete(expense) }
                 >
                   Deletar
                 </button>
