@@ -1,14 +1,11 @@
-// import api from '../service';
+export const USER_LOGIN = 'USER_LOGIN';
 
-export const GET_LOGIN = 'GET_LOGIN';
-export const GET_WALLET = 'GET_WALLET';
-
-export const user = (payload) => ({
-  type: GET_LOGIN,
-  payload,
+const userLogin = (email, password) => ({
+  type: 'USER_LOGIN',
+  payload: {
+    email,
+    password,
+  },
 });
 
-export const wallet = (payload) => ({
-  type: GET_WALLET,
-  payload,
-});
+export default userLogin;
