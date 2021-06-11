@@ -1,24 +1,23 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 // mport {
 import {
-  REQUEST_CURRENCIES, RECEIVE_CURRENCIES,
+  NEW_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  error: false,
+  id: 0,
 };
 
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case REQUEST_CURRENCIES:
-    return { ...state };
-  case RECEIVE_CURRENCIES: {
-    const keys = Object.keys(action.payload);
-    const filteredKeys = keys.filter((key) => key !== 'USDT');
-    return { ...state, currencies: filteredKeys };
-  }
+  case NEW_EXPENSE:
+    return {
+      ...state,
+      id: state.id + 1,
+      expenses: state.expenses.concat(action.payload),
+    };
   default:
     return state;
   }
