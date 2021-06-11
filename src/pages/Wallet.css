@@ -2,15 +2,38 @@
   background-color: #69c38d;
   color: white;
   display: flex;
+  font-size: 14px;
   justify-content: space-between;
   padding: 10px 25px;
 }
 
 .form-wallet {
-  background-color: #797979;
+  background-color: lightgray;
   display: flex;
   font-size: 12px;
   justify-content: space-between;
   padding: 10px 25px;
+}
+
+.form-wallet label {
+  color: rgb(30, 30, 30);
+  font-weight: 700;
+}
+
+.form-wallet input {
+  margin: 5px;
+}
+
+.form-wallet select {
+  margin: 5px;
+}
+
+.table-header {
+  color: rgb(30, 30, 30);
+  display: flex;
+  font-size: 14px;
+  font-weight: 700;
+  justify-content: space-between;
+  margin: 0 50px;
 }
 

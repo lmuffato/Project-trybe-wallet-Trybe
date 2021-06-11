@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 class Header extends React.Component {
   totalCalc() {
     const { expenses } = this.props;
-    const expenseValues = expenses.map((expense) => {
+    const expVal = expenses.map((expense) => {
       const spendCurrency = expense.currency;
       const currencyRate = expense.exchangeRates[spendCurrency].ask;
       const convertedValue = parseFloat(expense.value) * parseFloat(currencyRate);
       return convertedValue;
     });
-    const totalSum = expenseValues.reduce((acc, cur) => acc + parseFloat(cur), 0);
+    const totalSum = (expVal.reduce((acc, cur) => acc + parseFloat(cur), 0)).toFixed(2);
     return totalSum;
   }
 
@@ -29,7 +29,7 @@ class Header extends React.Component {
           {' '}
           {this.totalCalc()}
         </p>
-        <h6 data-testid="email-field">{user}</h6>
+        <h5 data-testid="email-field">{user}</h5>
       </header>
     );
   }
@@ -42,6 +42,7 @@ const mapStateToProps = (state) => ({
 
 Header.propTypes = {
   user: PropTypes.string,
+  expenses: PropTypes.array,
 }.isRequired;
 
 export default connect(mapStateToProps, null)(Header);
