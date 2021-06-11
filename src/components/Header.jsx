@@ -19,14 +19,17 @@ class Header extends React.Component {
     const { user } = this.props;
     return (
       <header className="wallet-header">
-        <h6 data-testid="email-field">{user}</h6>
-        <p data-testid="header-currency-field">Câmbio: BRL</p>
+        <p data-testid="header-currency-field">
+          <b>Câmbio:</b>
+          {' '}
+          BRL
+        </p>
         <p data-testid="total-field">
-          Valor Total:
+          <b>Valor Total:</b>
           {' '}
           {this.totalCalc()}
-          ;
         </p>
+        <h6 data-testid="email-field">{user}</h6>
       </header>
     );
   }
