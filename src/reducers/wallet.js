@@ -2,10 +2,8 @@
 import { RECEIVE_CURRENCIES } from '../actions';
 
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
 const wallet = (state = INITIAL_STATE, { wallet: { currencies } = [], type }) => {
@@ -13,11 +11,7 @@ const wallet = (state = INITIAL_STATE, { wallet: { currencies } = [], type }) =>
   case RECEIVE_CURRENCIES:
     return {
       ...state,
-      // currencies: Object.keys(currencies).forEach((key) => state.wallet.currencies.push({
-      //   name: key,
-      //   value: currencies[key],
-      // })),
-      currencies: state.wallet.currencies.concat(Object.values(currencies)),
+      currencies: state.currencies.concat(Object.values(currencies)),
     };
   default:
     return state;
