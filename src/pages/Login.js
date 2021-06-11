@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { Redirect } from 'react-router';
-// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import loginUser from '../actions/user';
+import loginUser from '../actions/index';
 
 const MIN_LENGTH = 5;
 class Login extends React.Component {
@@ -15,7 +13,6 @@ class Login extends React.Component {
       emailValid: false,
       passwordValid: false,
       buttonDisabled: true,
-      // redirect: false,
     };
 
     this.handleEmail = this.handleEmail.bind(this);
@@ -39,7 +36,6 @@ class Login extends React.Component {
     } else {
       this.setState({ emailValid: false, email: '' });
     }
-    // this.handleButton();
   }
 
   handlePassword(ev) {
@@ -49,32 +45,25 @@ class Login extends React.Component {
     } else {
       this.setState({ passwordValid: false });
     }
-    // this.handleButton();
   }
 
   handleButton() {
     const { emailValid, passwordValid } = this.state;
-    // console.log(emailValid && passwordValid);
     this.setState({
       buttonDisabled: !(emailValid && passwordValid),
     });
   }
 
   handleClick() {
-    // console.log(path);
     console.log('clicou!');
     const { sendEmail, history } = this.props;
     const { email } = this.state;
-    sendEmail(email);
+    sendEmail(email); // dispara action
     history.push('/carteira'); // https://stackoverflow.com/questions/31079081/programmatically-navigate-using-react-router
   }
 
   render() {
     const { buttonDisabled } = this.state;
-    // if (emailValid && passwordValid) {
-    //   console.log(`Email:${email}\nSenha:${password}`);
-    // }
-    // if (redirect) return <Redirect to="/carteira" />;
     return (
       <section>
         Email
@@ -101,7 +90,7 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  sendEmail: (payload) => dispatch(loginUser(payload)),
+  sendEmail: (payload) => dispatch(loginUser(payload)), // essa chave vai virar uma props do própio login. essa props é uma função. dentro do dispatch eu coloco minha action-user(action creator). a acation 'loginUser' leia-se 'addUser'.
 });
 
 Login.propTypes = {
