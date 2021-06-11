@@ -6,14 +6,6 @@ class WalletTable extends Component {
   constructor() {
     super();
     this.valueConverted = this.valueConverted.bind(this);
-    this.value = this.value.bind(this);
-  }
-
-  value(expense) {
-    // Fonte de pesquisa: https://eslint.org/docs/rules/radix
-    const value = parseInt(expense.value, 10);
-    const updatedValue = value.toFixed(2);
-    return parseFloat(updatedValue);
   }
 
   valueConverted(expense) {
@@ -24,7 +16,6 @@ class WalletTable extends Component {
 
   render() {
     const { expenses } = this.props;
-
     return (
       <table>
         <thead>
@@ -41,27 +32,24 @@ class WalletTable extends Component {
           </tr>
         </thead>
         <tbody>
-          {expenses.map((expense) => (
+          { expenses.map((expense) => (
             <tr key={ `${expense.id}table` }>
-              <td key={ `${expense.id}description` }>{expense.description}</td>
-              <td key={ `${expense.id}tag` }>{ expense.tag }</td>
-              <td key={ `${expense.id}method` }>{ expense.method }</td>
-              <td key={ `${expense.id}value` }>{ `R$ ${this.value(expense)}` }</td>
-              <td key={ `${expense.id}currency` }>
+              <td>{expense.description}</td>
+              <td>{ expense.tag }</td>
+              <td>{ expense.method }</td>
+              {/* https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary */}
+              <td>{ Math.round(expense.value * 100) / 100}</td>
+              <td>
                 {
-                  expense.exchangeRates[expense.currency].name
+                  expense.exchangeRates[expense.currency].name.split('/')[0]
                 }
               </td>
-              <td key={ `${expense.id}exchange` }>
-                { expense.exchangeRates[expense.currency].code }
+              <td>
+                { Math.round(expense.exchangeRates[expense.currency].ask * 100) / 100 }
               </td>
-              <td key={ `${expense.id}updatedValue` }>
-                {
-                  `R$ ${this.valueConverted(expense)}`
-                }
-              </td>
-              <td key={ `${expense.id}conversion` }>Real</td>
-              <td key={ `${expense.id}button` }>
+              <td>{this.valueConverted(expense)}</td>
+              <td>Real</td>
+              <td>
                 <button type="button">Editar/Excluir</button>
               </td>
             </tr>
