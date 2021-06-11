@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { choicedProduct } from '../actions/index';
+import PropTypes from 'prop-types';
+import { choicedProduct, fetchObjectCurrenciesThunk } from '../actions/index';
 
 class ButtonAddDespesa extends React.Component {
   constructor() {
@@ -8,8 +9,10 @@ class ButtonAddDespesa extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(event) {
+  async handleClick(event) {
     event.preventDefault();
+    const { requestCurrencies } = this.props;
+    await requestCurrencies();
     const {
       sendProduct,
       numberProducts,
@@ -49,12 +52,14 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   sendProduct: (product) => dispatch(choicedProduct(product)),
+  requestCurrencies: () => dispatch(fetchObjectCurrenciesThunk()),
 });
 
 ButtonAddDespesa.propTypes = {
   sendProduct: PropTypes.func.isRequired,
+  requestCurrencies: PropTypes.func.isRequired,
   numberProducts: PropTypes.arrayOf(PropTypes.string).isRequired,
-  currenciesObject: PropTypes.obj.isRequired,
+  currenciesObject: PropTypes.func.isRequired,
   valor: PropTypes.number.isRequired,
   descricao: PropTypes.string.isRequired,
   moeda: PropTypes.string.isRequired,
