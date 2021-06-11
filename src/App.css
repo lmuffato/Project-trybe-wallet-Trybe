@@ -20,3 +20,45 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.header-wallet {
+  align-items: center;
+  background-color: #008566;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.header-wallet img {
+  width: 10%;
+}
+
+.user-info {
+  color: black;
+}
+
+.addCurrencies-form {
+  align-items: center;
+  background-color: #024636;
+  display: flex;
+  justify-content: space-around;
+}
+
+.addCurrencies-form input {
+  width: 70%;
+}
+
+.addCurrencies-form label {
+  align-items: center;
+  display: flex;
+  align-items: center;
+}
+
+.addCurrencies-form h3 {
+  margin: 15px 5px;
+}
+
+.subtitle {
+  color: #01cc9d;
+  font-size: 16px;
+}
