@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteExpense } from '../../actions';
+import { deleteExpense, editExpense } from '../../actions';
 
 const renderExpense = (expense, dispatch) => {
   const { id, description, tag, method, exchangeRates, value, currency } = expense;
@@ -18,6 +18,14 @@ const renderExpense = (expense, dispatch) => {
       <td>{convertedValue}</td>
       <td>Real</td>
       <td>
+        <button
+          data-testid="edit-btn"
+          type="button"
+          onClick={ () => dispatch(editExpense(id)) }
+        >
+          Editar
+        </button>
+
         <button
           data-testid="delete-btn"
           type="button"

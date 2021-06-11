@@ -14,7 +14,6 @@ export const WalletHeader = ({ userEmail, expenses }) => (
       {expenses.reduce((acc, actual) => {
         const { value, currency, exchangeRates } = actual;
         const exchangeRate = exchangeRates[currency].ask;
-        console.log(exchangeRates[currency]);
         return acc + Number(value) * Number(exchangeRate);
       }, 0).toFixed(2)}
 
