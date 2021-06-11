@@ -1,3 +1,7 @@
+label {
+  width: 100%;
+}
+
 .loginForm {
   align-items: center;
   display: flex;
