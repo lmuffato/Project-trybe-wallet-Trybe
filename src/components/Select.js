@@ -1,49 +1,59 @@
+/* eslint-disable */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Select extends Component {
   render() {
-    const { onChange, coin, coins, paymentType, tag } = this.props;
+    const { onChange, currency, coins, method, tag } = this.props;
     return (
-      <>
-        <label htmlFor="coin">
+      <div>
+        <label htmlFor="currency">
           Moeda
-          <select name="coin" value={ coin } onChange={ onChange } aria-label="Moeda">
+          <select
+            id="currency"
+            name="currency"
+            value={ currency }
+            onChange={ onChange }
+            aria-label="Moeda"
+          >
             {coins.map((coinType) => (coinType !== 'USDT'
-              ? <option key={ coinType }>{coinType}</option> : ''))}
+              ? <option key={ coinType } value={ coinType }>{coinType}</option> : ''))}
           </select>
         </label>
-        <label htmlFor="paymentType">
+        <label htmlFor="method">
           Método de pagamento
           <select
-            name="paymentType"
-            value={ paymentType }
+            id="method"
+            name="method"
+            value={ method }
             onChange={ onChange }
             aria-label="Método de pagamento"
             required
           >
-            <option value="money">Dinheiro</option>
-            <option value="credit">Cartão de Crédito</option>
-            <option value="debit">Cartão de Débito</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
         <label htmlFor="tag">
           TAG
           <select
+            id="tag"
             name="tag"
             value={ tag }
             onChange={ onChange }
             aria-label="TAG"
             required
           >
-            <option value="food">Alimentação</option>
-            <option value="leisure">Lazer</option>
-            <option value="work">Trabalho</option>
-            <option value="transport">Transporte</option>
-            <option value="health">Saúde</option>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
-      </>
+      </div>
     );
   }
 }

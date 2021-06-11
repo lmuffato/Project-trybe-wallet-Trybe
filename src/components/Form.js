@@ -5,8 +5,8 @@ import Select from './Select';
 
 class Form extends Component {
   render() {
-    const { value, description, coin,
-      paymentType, tag, coins, onChange, handlerAddExpense } = this.props;
+    const { value, description, method,
+      currency, tag, coins, onChange, handlerAddExpense } = this.props;
 
     return (
       <form>
@@ -18,9 +18,9 @@ class Form extends Component {
         </Input>
         <Select
           onChange={ onChange }
-          coin={ coin }
+          currency={ currency }
           coins={ coins }
-          paymentType={ paymentType }
+          method={ method }
           tag={ tag }
         />
         <button type="button" onClick={ handlerAddExpense }>Adicionar despesa</button>
@@ -35,8 +35,8 @@ Form.propTypes = {
   handlerAddExpense: PropTypes.func.isRequired,
   description: PropTypes.string.isRequired,
   coins: PropTypes.arrayOf(PropTypes.string).isRequired,
-  coin: PropTypes.string.isRequired,
-  paymentType: PropTypes.string.isRequired,
+  currency: PropTypes.string.isRequired,
+  method: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
 };
 
