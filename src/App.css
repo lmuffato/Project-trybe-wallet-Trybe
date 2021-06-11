@@ -1,0 +1,123 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.login {
+  align-items: center;
+  background: rgb(243, 243, 243);
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+}
+
+.login-container {
+  background: rgb(163, 200, 230);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  height: 400px;
+  justify-content: center;
+  padding: 0 20px;
+  width: 300px;
+}
+
+.login-container label {
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  font-weight: 700;
+  gap: 10px;
+}
+
+.login-container input {
+  border: none;
+  border-radius: 2px;
+  font-size: 15px;
+  height: 2.2rem;
+  padding: 0 5px;
+}
+
+.login-container button {
+  align-self: center;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  height: 2.2rem;
+  width: 50%;
+}
+
+.wallet header {
+  align-items: center;
+  background: rgb(42, 42, 70);
+  color: white;
+  display: flex;
+  flex-direction: row;
+  font-size: 24px;
+  gap: 25px;
+  height: 90px;
+  justify-content: flex-end;
+  padding: 0 20px;
+}
+
+.wallet form {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 50px;
+  width: 100vw;
+}
+
+.wallet form label {
+  align-items: center;
+  display: flex;
+  font-size: 18px;
+  gap: 10px;
+}
+
+.wallet form input {
+  background: rgb(144, 164, 194);
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  height: 1.8rem;
+}
+
+.wallet form select {
+  background: rgb(144, 164, 194);
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  height: 1.8rem;
+}
+
+.wallet table {
+  background: rgb(49, 48, 75);
+  color: white;
+  display: table;
+  margin-top: 50px;
+  width: 100vw;
+}
+
+.wallet table tbody {
+  border-color: inherit;
+  display: table-row-group;
+  vertical-align: middle;
+}
+
+.wallet table tbody tr {
+  border-color: inherit;
+  display: table-row;
+  vertical-align: inherit;
+}
+
+.wallet table tbody td , th {
+  display: table-cell;
+  padding: 5px 0;
+  text-align: center;
+  vertical-align: inherit;
+}
