@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { fetchCurrency } from '../../actions';
+import { fetchCurrency, addExpensesAction } from '../../actions';
 import InputValueForms from './InputValueForms';
 import InputDescriptionForms from './InputDescriptionForms';
 
@@ -11,12 +11,14 @@ class Form extends Component {
     super();
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
 
     this.state = {
       value: '',
       description: '',
-      // paymentMethod: 'Dinheiro',
-      // tag: 'Alimentação',
+      currency: 'USD',
+      paymentMethod: 'Dinheiro',
+      tag: 'Alimentação',
     };
   }
 
@@ -31,13 +33,39 @@ class Form extends Component {
     });
   }
 
+  async handleClick(e) {
+    e.preventDefault();
+    const { state: { value, description, currency, paymentMethod, tag },
+      props: { fetchCurrencies, addExpensesProps, updateExpenses } } = this;
+    await fetchCurrencies();
+    const { currenciesProps } = this.props;
+    const inBRL = value * currenciesProps[currency].ask;
+    addExpensesProps({
+      value,
+      description,
+      currency,
+      paymentMethod,
+      tag,
+      exchangeRates: currenciesProps,
+    });
+    this.setState({
+      value: '',
+      description: '',
+      currency: 'USD',
+      paymentMethod: 'Dinheiro',
+      tag: 'Alimentação',
+    });
+    updateExpenses(inBRL);
+  }
+
   render() {
     const {
-      state: { value, description },
+      state: { value, description, currency, paymentMethod, tag },
       handleChange, props: { currenciesProps },
+      handleClick,
     } = this;
     const currencies = Object.keys(currenciesProps)
-      .filter((currency) => (currency !== 'USDT'));
+      .filter((moeda) => (moeda !== 'USDT'));
     return (
       <form>
         <InputValueForms value={ value } handleChange={ handleChange } />
@@ -47,15 +75,15 @@ class Form extends Component {
         />
         <label htmlFor="currency">
           Moeda:
-          <select id="currency">
+          <select id="currency" value={ currency } onChange={ handleChange }>
             {currencies
-              .map((currency, index) => <option key={ index }>{ currency }</option>)}
+              .map((moeda, index) => <option key={ index }>{ moeda }</option>)}
           </select>
         </label>
 
         <label htmlFor="paymentMethod">
           Método de pagamento:
-          <select id="paymentMethod">
+          <select id="paymentMethod" value={ paymentMethod } onChange={ handleChange }>
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
@@ -64,7 +92,7 @@ class Form extends Component {
 
         <label htmlFor="tag">
           Tag:
-          <select id="tag">
+          <select id="tag" value={ tag } onChange={ handleChange }>
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
@@ -73,7 +101,7 @@ class Form extends Component {
           </select>
         </label>
 
-        <button type="submit">Adicionar Despesa</button>
+        <button type="submit" onClick={ handleClick }>Adicionar Despesa</button>
       </form>
     );
   }
@@ -85,6 +113,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrencies: () => dispatch(fetchCurrency()),
+  addExpensesProps: (payload) => dispatch(addExpensesAction(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
@@ -92,4 +121,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(Form);
 Form.propTypes = {
   fetchCurrencies: PropTypes.func.isRequired,
   currenciesProps: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+  addExpensesProps: PropTypes.func.isRequired,
+  updateExpenses: PropTypes.func.isRequired,
 };

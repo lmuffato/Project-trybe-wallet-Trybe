@@ -4,14 +4,33 @@ import Header from './components/Header';
 import Form from './components/Form';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+
+    this.updateState = this.updateState.bind(this);
+
+    this.state = {
+      totalExpenses: 0,
+    };
+  }
+
+  updateState(value) {
+    const { totalExpenses } = this.state;
+    const total = totalExpenses + value;
+    this.setState({
+      totalExpenses: total,
+    });
+  }
+
   render() {
+    const { totalExpenses } = this.state;
     return (
       <div>
-        <Header />
-        <Form />
+        <Header totalExpenses={ totalExpenses } />
+        <Form updateExpenses={ this.updateState } />
       </div>
     );
   }
 }
 
-export default (Wallet);
+export default Wallet;
