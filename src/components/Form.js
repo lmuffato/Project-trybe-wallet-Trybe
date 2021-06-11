@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getCurrencyThunk, addToWallet } from '../actions';
+import { getCurrencyThunk, addToWallet, getTotalExpenses } from '../actions';
 import Input from './Input';
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: 0,
+      id: -1,
       value: '',
       currency: '',
       method: '',
@@ -33,12 +33,24 @@ class Form extends React.Component {
   }
 
   handleExchanges() {
-    const { getApiThunk, currencies, addToWalletDispatch } = this.props;
+    const { getApiThunk, currencies } = this.props;
     getApiThunk();
     this.setState((prevState) => ({
       id: prevState.id + 1,
       exchangeRates: currencies,
-    }), () => addToWalletDispatch(this.state));
+    }), () => this.totalExpenses());
+  }
+
+  totalExpenses() {
+    const { value, currency, exchangeRates } = this.state;
+    const { addToWalletDispatch, getTotal } = this.props;
+    let total = 0;
+    const usedCurrencies = Object.values(exchangeRates).filter((rate) => (
+      rate.code === currency));
+    const converted = usedCurrencies.map((usedCurrency) => usedCurrency.ask * value);
+    total += Number(converted).toFixed(2);
+    addToWalletDispatch(this.state);
+    getTotal(Number(total));
   }
 
   render() {
@@ -94,9 +106,11 @@ const mapStateToProps = ({ wallet }) => ({
 const mapDispatchToProps = (dispatch) => ({
   getApiThunk: () => dispatch(getCurrencyThunk()),
   addToWalletDispatch: (state) => dispatch(addToWallet(state)),
+  getTotal: (total) => dispatch(getTotalExpenses(total)),
 });
 
 Form.propTypes = {
+  getTotal: PropTypes.func.isRequired,
   getApiThunk: PropTypes.func.isRequired,
   addToWalletDispatch: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.shape({

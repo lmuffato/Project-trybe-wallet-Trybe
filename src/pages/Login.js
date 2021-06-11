@@ -53,7 +53,7 @@ class Login extends React.Component {
             />
             <input
               data-testid="password-input"
-              type="text"
+              type="password"
               onChange={ this.handleChange }
               placeholder="Insert your password"
               name="password"

@@ -2,11 +2,13 @@
 import {
   GET_API_CURRENCY_SUCCESS,
   GET_TO_WALLET,
+  GET_TOTAL_EXPENSES,
 } from '../actions';
 
 const initialState = {
   currencies: [],
   expenses: [],
+  totalExpenses: 0,
 };
 
 function wallet(state = initialState, action) {
@@ -20,6 +22,11 @@ function wallet(state = initialState, action) {
     return {
       ...state,
       expenses: [...state.expenses, action.payload],
+    };
+  case GET_TOTAL_EXPENSES:
+    return {
+      ...state,
+      totalExpenses: state.totalExpenses + action.payload,
     };
   default:
     return state;
