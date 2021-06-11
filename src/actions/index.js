@@ -3,7 +3,6 @@ import fetchCurrencyApi from '../services/currencyApi';
 export const USER_LOGIN = 'USER_LOGIN';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const GET_CURRENCY = 'GET_CURRENCY';
-export const ADD_EXCHANGE_RATE = 'ADD_EXCHANGE_RATE';
 export const TOTAL_UPDATE = 'TOTAL_UPDATE';
 
 export const userLogin = (email) => ({
@@ -17,13 +16,6 @@ export const addExpense = (expense) => ({
   type: ADD_EXPENSE,
   payload: {
     expense,
-  },
-});
-
-export const addExchangeRate = (rate) => ({
-  type: ADD_EXCHANGE_RATE,
-  payload: {
-    rate,
   },
 });
 
@@ -47,14 +39,9 @@ export const getCurrencyThunk = () => (dispatch) => {
     });
 };
 
-export const getExchangeRateThunk = () => (dispatch) => {
-  fetchCurrencyApi()
-    .then((result) => {
-      dispatch(addExchangeRate(result));
-    });
-};
-
-export const calculateTotal = (payload) => ({
+export const calculateTotal = (value) => ({
   type: TOTAL_UPDATE,
-  payload,
-}) 
+  payload: {
+    value,
+  },
+});

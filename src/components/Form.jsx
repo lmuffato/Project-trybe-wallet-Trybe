@@ -1,19 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrencyThunk, addExpense, getExchangeRateThunk } from '../actions';
+import { getCurrencyThunk, addExpense, calculateTotal } from '../actions';
 import TextInputs from './TextInputs';
+import fetchCurrencyApi from '../services/currencyApi';
 
 class Form extends React.Component {
   constructor() {
     super();
     this.onClick = this.onClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    const ALIMENTAÇÃO = 'Alimentação';
     this.state = {
       payment: ['Dinheiro',
         'Cartão de débito',
         'Cartão de crédito'],
-      types: ['Alimentação',
+      types: [ALIMENTAÇÃO,
         'Lazer',
         'Trabalho',
         'Transporte',
@@ -23,19 +25,19 @@ class Form extends React.Component {
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: 'Alimentação',
+      tag: ALIMENTAÇÃO,
     };
   }
 
   componentDidMount() {
-    const { currency, rates } = this.props;
+    const { currency } = this.props;
     currency();
-    rates();
   }
 
   async onClick() {
     const { value, description, currency, method, tag } = this.state;
-    const { expense, expenseGlobal, exchangeRates } = this.props;
+    const { expense, expenseGlobal, globalTotal, total } = this.props;
+    const fetchAPI = await fetchCurrencyApi();
     const currentExpense = {
       id: expenseGlobal.length,
       value,
@@ -43,9 +45,21 @@ class Form extends React.Component {
       currency,
       method,
       tag,
-      exchangeRates,
+      exchangeRates: fetchAPI,
     };
+    this.setState({
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    });
     expense(currentExpense);
+    const findCurrency = Object.entries(currentExpense.exchangeRates).find(
+      (element) => element[0] === currency,
+    );
+    const newTotal = globalTotal + (parseFloat(findCurrency[1].ask) * parseFloat(value));
+    total(newTotal);
   }
 
   handleChange(event) {
@@ -109,13 +123,14 @@ Form.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   currency: () => dispatch(getCurrencyThunk()),
   expense: (expenses) => dispatch(addExpense(expenses)),
-  rates: () => dispatch(getExchangeRateThunk()),
+  total: (total) => dispatch(calculateTotal(total)),
 });
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   expenseGlobal: state.wallet.expenses,
   exchangeRates: state.wallet.exchangeRate,
+  globalTotal: state.wallet.total,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
