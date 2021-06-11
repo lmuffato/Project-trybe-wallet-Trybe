@@ -1,12 +1,13 @@
+// O código desse arquivo foi disponibilizado no Readme do projeto
+// 2 - Kubuntu (KDE)
+
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import reducer from '../reducers';
-
-// O código desse arquivo foi disponibilizado no Readme do projeto
+import rootReducer from '../reducers';
 
 const store = createStore(
-  reducer,
+  rootReducer,
   composeWithDevTools(
     applyMiddleware(thunk),
   ),

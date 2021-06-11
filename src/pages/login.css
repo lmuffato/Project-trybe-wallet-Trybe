@@ -1,0 +1,73 @@
+/* 9 - Manjaro */
+
+/* No link abaixo eu aprendi a usar o "background-size: cover;" */
+/* https://developer.mozilla.org/pt-BR/docs/Web/CSS/CSS_Backgrounds_and_Borders/Resizing_background_images */
+/* Link da imagem: https://pixabay.com/pt/photos/moedas-dinheiro-euro-finan%C3%A7as-5790121 */
+/* Sobre alinhar o placeholder eu consultei o link abaixo: */
+/* https://stackoverflow.com/questions/7381446/center-html-input-text-field-placeholder */
+
+body {
+  background-image: url("../images/background.jpg");
+  background-size: cover;
+}
+
+/* Para deixar o elemento centralizado na tela */
+/* https://www.youtube.com/watch?v=Cu-HP-gvggg */
+fieldset {
+  width: 350px;
+  height: 350px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  border: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+input {
+  width: 280px;
+  height: 25px;
+  padding: 0.2em;
+  border: 1px solid #CCC;
+  box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+  border-radius: 2px;
+  margin-bottom: 15px;
+}
+
+input[placeholder] {
+  text-align: center;
+}
+
+button {
+  background-color: rgb(221, 241, 129);
+  border: 10;
+  border-radius: 5px;
+  width: 120px;
+  height: 40px;
+  font-weight: 800;
+}
+
+#money {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.alinhamento {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+em {
+  font-size: 20px;
+  font-weight: 500;
+  font-family: monospace;
+  display: block;
+  text-align: center;
+}
