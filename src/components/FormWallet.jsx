@@ -1,7 +1,29 @@
 import React, { Component } from 'react';
+import getCurrencies from '../services/api';
 
 class FormWallet extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      currencies: {},
+    };
+  }
+
+  componentDidMount() {
+    this.loadCurrencies();
+  }
+
+  // Source: https://github.com/tryber/sd-010-a-project-trybewallet/tree/nascjoao-project-trybewallet
+  async loadCurrencies() {
+    const { USDT, ...currencies } = await getCurrencies();
+    this.setState({
+      currencies,
+    });
+  }
+
   render() {
+    const { currencies } = this.state;
     return (
       <form action="">
         <label htmlFor="value">
@@ -17,7 +39,11 @@ class FormWallet extends Component {
         <label htmlFor="currency">
           Moeda
           <select id="currency">
-            <option value="" disabled>Selecione uma moeda</option>
+            {
+              Object.keys(currencies).map((currency) => (
+                <option key={ currency } value={ currency }>{currency}</option>
+              ))
+            }
           </select>
         </label>
 
