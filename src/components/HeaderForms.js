@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { fetchCurrencies } from '../actions';
 
 class HeaderForms extends React.Component {
@@ -14,8 +15,8 @@ class HeaderForms extends React.Component {
   }
 
   async componentDidMount() {
-    const { fetchCurrencies } = this.props;
-    await fetchCurrencies();
+    const { fetchCurrenciesHeader } = this.props;
+    await fetchCurrenciesHeader();
     this.allCurrencies();
   }
 
@@ -24,10 +25,27 @@ class HeaderForms extends React.Component {
     this.setState({ currenciesState: currencies });
   }
 
-  render() {
+  currencies() {
     const { currenciesState } = this.state;
-    const filteredCurrency = currenciesState.filter((currency) => currency.name !== 'USDT');
+    const filteredCurrency = currenciesState
+      .filter((currency) => currency.name !== 'USDT');
+    return (
+      <label htmlFor="currencies">
+        Moeda:
+        <select id="currencies">
+          { filteredCurrency.map((currency) => (
+            <option
+              key={ currency.value.code }
+              value={ currency.value.code }
+            >
+              { currency.value.code }
+            </option>)) }
+        </select>
+      </label>
+    );
+  }
 
+  render() {
     return (
       <form>
         <label htmlFor="value">
@@ -40,12 +58,7 @@ class HeaderForms extends React.Component {
           <input type="text" id="description" />
         </label>
 
-        <label htmlFor="currencies">
-          Moeda:
-          <select id="currencies">
-            { filteredCurrency.map((currency) => <option key={ currency.value.code } value={ currency.value.code }>{ currency.value.code }</option>) }
-          </select>
-        </label>
+        {this.currencies()}
 
         <label htmlFor="payment">
           Método de pagamento
@@ -76,7 +89,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchCurrencies: () => dispatch(fetchCurrencies()),
+  fetchCurrenciesHeader: () => dispatch(fetchCurrencies()),
 });
+
+HeaderForms.propTypes = {
+  currencies: PropTypes.array,
+  fetchCurrencies: PropTypes.func,
+}.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderForms);
