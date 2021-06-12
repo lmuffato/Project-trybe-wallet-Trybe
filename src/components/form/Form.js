@@ -9,7 +9,7 @@ import { thunkFetchExchangeRates } from '../../actions';
 
 function Form() {
   const INITIAL_STATE = {
-    value: '0', currency: 'USD', method: 'debit', tag: 'Leisure', description: '',
+    value: '0', currency: 'USD', method: 'Dinheiro', tag: 'Saúde', description: '',
   };
   const [inputForm, setInputForm] = useState(INITIAL_STATE);
   const handleInput = ({ target: { name, value } }) => {

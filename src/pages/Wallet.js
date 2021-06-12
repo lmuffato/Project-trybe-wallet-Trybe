@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import Form from '../components/form/Form';
 import Header from '../components/Header';
 import thunkFetch from '../actions';
+import Table from '../components/table/Table';
 
 function Wallet() {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ function Wallet() {
       TrybeWallet
       <Header />
       <Form />
+      <Table />
     </div>
   );
 }
