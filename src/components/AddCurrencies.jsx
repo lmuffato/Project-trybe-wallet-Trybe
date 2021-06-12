@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addExpense } from '../actions';
+import ValueInput from './ValueInput';
+import PayMethCombox from './PayMethCombox';
+import TagOptions from './TagOptions';
+import DescriptionInput from './DescriptionInput';
 
 class AddCurrencies extends Component {
   constructor() {
@@ -16,14 +20,9 @@ class AddCurrencies extends Component {
     this.renderOptions = this.renderOptions.bind(this);
     this.handleValue = this.handleValue.bind(this);
     this.handleCurrencie = this.handleCurrencie.bind(this);
-    this.handleDescription = this.handleDescription.bind(this);
     this.handleTag = this.handleTag.bind(this);
     this.handleMethod = this.handleMethod.bind(this);
     this.getExpenseData = this.getExpenseData.bind(this);
-    this.renderMethodOptions = this.renderMethodOptions.bind(this);
-    this.renderTagOptions = this.renderTagOptions.bind(this);
-    this.renderDescriptionInput = this.renderDescriptionInput.bind(this);
-    this.renderValueInput = this.renderValueInput.bind(this);
   }
 
   getExpenseData() {
@@ -66,57 +65,19 @@ class AddCurrencies extends Component {
     ));
   }
 
-  renderMethodOptions() {
-    return (
-      <>
-        <option name="payment-method"> Crédito </option>
-        <option name="payment-method"> Débito </option>
-        <option name="payment-method"> Dinheiro </option>
-      </>
-    );
-  }
-
-  renderTagOptions() {
-    return (
-      <>
-        <option name="tag"> Lazer </option>
-        <option name="tag"> Alimentação </option>
-      </>
-    );
-  }
-
-  renderDescriptionInput() {
-    return (
-      <input
-        type="text"
-        name="desc"
-        className="input is-success"
-        onChange={ this.handleDescription }
-      />
-    );
-  }
-
-  renderValueInput() {
-    return (
-      <input
-        type="number"
-        name="value"
-        className="input is-success"
-        onChange={ this.handleValue }
-      />
-    );
-  }
-
   render() {
     const { isFetching } = this.props;
     return (
-      <form className="addCurrencies-form">
-        <label htmlFor="value">
-          <h3 className="subtitle"> Valor </h3>
-          { this.renderValueInput() }
-        </label>
+      <form
+        className="addCurrencies-form"
+        onSubmit={ (e) => {
+          e.preventDefault();
+          return this.getExpenseData();
+        } }
+      >
+        <ValueInput handler={ this.handleValue } />
         <label htmlFor="coin">
-          <h3 className="subtitle"> Moeda </h3>
+          Moeda:
           <select
             id="coin"
             className="input is-success"
@@ -124,33 +85,15 @@ class AddCurrencies extends Component {
             data-testid="header-currency-field"
           >
             <option name="coin"> BRL </option>
-            { isFetching === 'success' ? this.renderOptions() : console.log('awaiting') }
+            { isFetching === 'success' ? this.renderOptions() : console.log('waiting') }
           </select>
         </label>
-        <label htmlFor="payment-method">
-          <h3 className="subtitle"> Método de pagamento </h3>
-          <select
-            name="payment-method"
-            className="input is-success"
-            onChange={ this.handleMethod }
-          >
-            { this.renderMethodOptions() }
-          </select>
-        </label>
-        <label htmlFor="tag">
-          <h3 className="subtitle"> Tipo </h3>
-          <select name="tag" className="input is-success" onChange={ this.handleMethod }>
-            { this.renderTagOptions() }
-          </select>
-        </label>
-        <label htmlFor="desc">
-          <h3 className="subtitle "> Descrição </h3>
-          { this.renderDescriptionInput() }
-        </label>
+        <PayMethCombox handler={ this.handleMethod } />
+        <TagOptions handler={ this.handleTag } />
+        <DescriptionInput handler={ this.handleDescription } />
         <button
-          type="button"
+          type="submit"
           className="button is-info"
-          onClick={ this.getExpenseData }
         >
           Adicionar despesa
         </button>
