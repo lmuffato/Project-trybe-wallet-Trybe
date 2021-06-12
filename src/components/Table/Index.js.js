@@ -15,22 +15,27 @@ class Table extends React.Component {
         </thead>
         <tbody>
 
-          {expenses.map((expense) => (
-            <tr key={ expense.id }>
-              <td>{expense.description}</td>
-              <td>{expense.tag}</td>
-              <td>{expense.method}</td>
-              <td>{expense.value}</td>
-              <td>{expense.currency}</td>
-              <td>{expense.exchangeRates[expense.currency].name}</td>
-              <td>
-                {(expense.value
-                * expense.exchangeRates[expense.currency].ask)}
-              </td>
-              <td>Real</td>
-              <td>Editar/Excluir</td>
-            </tr>
-          ))}
+          {expenses.map((expense) => {
+            const valueSelected = Number(expense.exchangeRates[expense.currency].ask);
+            const finalValue = expense.value * Number(valueSelected);
+            const expenseName = expense.exchangeRates[expense.currency].name
+              .split('/')[0];
+            return (
+              <tr key={ expense.id }>
+                <td>{expense.description}</td>
+                <td>{expense.tag}</td>
+                <td>{expense.method}</td>
+                <td>{expense.value}</td>
+                <td>{expenseName}</td>
+                <td>{valueSelected.toFixed(2)}</td>
+                <td>
+                  {finalValue.toFixed(2) }
+                </td>
+                <td>Real</td>
+                <td>Editar/Excluir</td>
+              </tr>
+            );
+          })}
 
         </tbody>
       </table>
