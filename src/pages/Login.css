@@ -1,0 +1,219 @@
+/* implementação do css com Ajuda do Carlos Sá */
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,500);
+body {
+margin: 0;
+height: 100%;
+}
+
+input {
+border: none;
+}
+
+button:focus {
+outline: none;
+}
+
+::-webkit-input-placeholder {
+color: rgba(255, 255, 255, 0.65);
+}
+
+::-webkit-input-placeholder .input-line:focus +::input-placeholder {
+color: #fff;
+}
+
+.highlight {
+color: rgba(255, 255, 255, 0.8);
+cursor: pointer;
+font-weight: 400;
+transition: color .2s ease;
+}
+
+.highlight:hover {
+color: #fff;
+transition: color .2s ease;
+}
+
+.spacing {
+-ms-flex-positive: 1;
+-webkit-box-flex: 1;
+-webkit-flex-grow: 1;
+color: rgba(255, 255, 255, 0.65);
+flex-grow: 1;
+font-weight: 300;
+height: 120px;
+margin-top: 10px;
+text-align: center;
+}
+
+.input-line:focus {
+-webkit-transition: all .2s ease;
+border-color: #fff;
+outline: none;
+transition: all .2s ease;
+}
+
+.ghost-round {
+-ms-flex-item-align: end;
+-webkit-align-self: flex-end;
+-webkit-transition: all .2s ease;
+align-self: flex-end;
+background: none;
+border-radius: 25px;
+border: 1px solid rgba(255, 255, 255, 0.65);
+color: rgba(255, 255, 255, 0.65);
+cursor: pointer;
+font-family: roboto;
+font-size: 1.2rem;
+font-size: 19px;
+font-weight: 300;
+line-height: 2.5em;
+margin-bottom: 25px;
+margin-top: auto;
+transition: all .2s ease;
+}
+
+.ghost-round:hover {
+-webkit-transition: all .2s ease;
+background: rgba(255, 255, 255, 0.15);
+color: #fff;
+transition: all .2s ease;
+}
+
+.input-line {
+-webkit-transition: all .2s ease;
+background: none;
+border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+color: #fff;
+font-family: roboto;
+font-size: 1.2rem;
+font-size: 19px;
+font-weight: 300;
+letter-spacing: 0.02rem;
+letter-spacing: 0px;
+line-height: 2.4em;
+margin-bottom: 10px;
+transition: all .2s ease;
+}
+
+.full-width {
+width: 100%;
+}
+
+.input-fields {
+margin-top: 25px;
+}
+
+.container {
+-ms-flex-align: center;
+-ms-flex-pack: center;
+-webkit-align-items: center;
+-webkit-box-align: center;
+-webkit-box-pack: center;
+-webkit-justify-content: center;
+align-items: center;
+background: #eee;
+display: -ms-flexbox;
+display: -webkit-box;
+display: -webkit-flex;
+display: flex;
+height: 100%;
+justify-content: center;
+}
+
+.content {
+-ms-flex-flow: column;
+-webkit-flex-flow: column;
+display: -ms-flexbox;
+display: -webkit-box;
+display: -webkit-flex;
+display: flex;
+flex-flow: column;
+height: 100%;
+padding-left: 25px;
+padding-right: 25px;
+z-index: 5;
+}
+
+.welcome {
+font-size: 2.5rem;
+font-size: 40px;
+font-weight: 200;
+letter-spacing: 0.05rem;
+letter-spacing: 0px;
+margin-top: 75px;
+text-align: center;
+}
+
+.subtitle {
+font-weight: 100;
+letter-spacing: 0.02rem;
+letter-spacing: 0px;
+line-height: 1em;
+text-align: center;
+}
+
+.menu {
+background: rgba(0, 0, 0, 0.2);
+height: 50px;
+width: 100%;
+}
+
+.window {
+-ms-flex-flow: column;
+-webkit-flex-flow: column;
+background: #fff;
+background: url('https://pexels.imgix.net/photos/27718/pexels-photo-27718.jpg?fit=crop&w=1280&h=823') top left no-repeat;
+box-shadow: 0px 15px 50px 10px rgba(0, 0, 0, 0.2);
+box-sizing: border-box;
+color: #fff;
+display: -ms-flexbox;
+display: -webkit-box;
+display: -webkit-flex;
+display: flex;
+flex-flow: column;
+font-family: roboto;
+height: 560px;
+left: 0;
+margin: auto;
+position: absolute;
+right: 0;
+top: 200px;
+width: 360px;
+z-index: 100;
+}
+
+.overlay {
+background: -webkit-linear-gradient(#8CA6DB, #B993D6);
+background: linear-gradient(#8CA6DB, #B993D6);
+filter: alpha(opacity=85);
+height: 560px;
+opacity: 0.85;
+position: absolute;
+width: 360px;
+z-index: 1;
+}
+
+.bold-line {
+background-size:cover;
+background: #e7e7e7;
+background: url('https://pexels.imgix.net/photos/27718/pexels-photo-27718.jpg?fit=crop&w=1280&h=823') left no-repeat;
+bottom: 0px;
+height: 360px;
+margin: auto;
+opacity:0.1;
+position: absolute;
+top: 0;
+width: 100%;
+z-index: 1;
+}
+
+@media (max-width: 500px) {
+.window {
+height: 100%;
+width: 100%;
+}
+.overlay {
+height: 100%;
+width: 100%;
+}
+}

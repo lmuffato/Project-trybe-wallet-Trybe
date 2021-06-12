@@ -1,5 +1,6 @@
 // Requisitos 2 e 3 feitos com ajuda dos colegas Nilson Ribeiro, Perycles Reis, Lucas Lara, Andy, Anderson Nascimento;
 import React from 'react';
+import './Login.css';
 import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -50,27 +51,40 @@ class Login extends React.Component {
     const { getEmailReducer } = this.props;
     return (
       <div>
-        <form>
-          <input
-            data-testid="email-input"
-            type="email"
-            onChange={ this.changeValidEmail }
-          />
-          <input
-            data-testid="password-input"
-            type="password"
-            onChange={ this.changeValidPassword }
-          />
-          <Link to="/carteira">
-            <button
-              disabled={ disabled }
-              type="button"
-              onClick={ () => getEmailReducer(email) }
-            >
-              Entrar
-            </button>
-          </Link>
-        </form>
+        <div className="bold-line" />
+        <div className="container window overlay">
+          <div className="content">
+            <div className="welcome">Personal Wallet</div>
+            <div className="subtitle">Access your expenses</div>
+            <div className="input-fields">
+
+              <input
+                className="input-line full-width"
+                data-testid="email-input"
+                placeholder="E-mail"
+                type="email"
+                onChange={ this.changeValidEmail }
+              />
+              <input
+                className="input-line full-width"
+                data-testid="password-input"
+                placeholder="Password"
+                type="password"
+                onChange={ this.changeValidPassword }
+              />
+            </div>
+            <Link to="/carteira">
+              <button
+                className="ghost-round full-width"
+                disabled={ disabled }
+                type="button"
+                onClick={ () => getEmailReducer(email) }
+              >
+                Entrar
+              </button>
+            </Link>
+          </div>
+        </div>
       </div>
     );
   }
