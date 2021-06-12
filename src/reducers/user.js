@@ -3,12 +3,16 @@ import { USER } from '../actions/index';
 
 const INITIAL_STATE = {
   email: '',
+  password: '',
 };
 
 const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case USER:
-    return { ...state, action };
+    return {
+      email: action.payload.state.email,
+      password: action.payload.state.password,
+    };
   default:
     return { ...state };
   }
