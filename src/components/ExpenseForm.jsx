@@ -17,7 +17,7 @@ class ExpenseForm extends Component {
     };
 
     this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.c.bind(this);
+    this.c = this.c.bind(this);
     this.getCurrencyRate = this.getCurrencyRate.bind(this);
   }
 
