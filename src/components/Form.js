@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Form.css';
 
 export default class Form extends Component {
   constructor() {
@@ -98,7 +99,7 @@ export default class Form extends Component {
 
   render() {
     return (
-      <form>
+      <form className="Form">
         { this.renderExpensesValues() }
         <br />
         { this.renderExpensesDescription() }
