@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import Header from '../components/Header';
 import ExpenseForm from '../components/ExpenseForm';
-import { apiFetchThunk } from '../actions';
+import { apiFetchThunk, walletTransaction } from '../actions';
+import Expenses from '../components/Expenses';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -17,6 +18,7 @@ class Wallet extends React.Component {
         <h2>TrybeWallet</h2>
         <Header />
         <ExpenseForm />
+        <Expenses />
       </div>);
   }
 }
