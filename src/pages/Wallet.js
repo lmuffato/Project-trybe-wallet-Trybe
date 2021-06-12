@@ -5,30 +5,20 @@ import Form from '../components/form';
 import { fetchCoins } from '../actions/index';
 
 class Wallet extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.totalValue = this.totalValue.bind(this);
-  }
-
   componentDidMount() {
     const { getCoins } = this.props;
     getCoins();
   }
 
-  totalValue() {
-    const { expenses } = this.props;
-    let total = 0;
-    if (expenses.length === 0) return total;
-    expenses.map(({ value }) => {
-      total += value;
-      return total;
-    });
-    return total;
-  }
-
   render() {
-    const { email } = this.props;
+    const { expenses, email } = this.props;
+    let total = 0;
+    expenses.forEach(({ value, exchangeRates, currency }) => {
+      console.log(exchangeRates, currency);
+      total += value * exchangeRates[currency].ask;
+    });
+    // total = expenses.reduce((acc, { value, exchangeRates, currency }) => acc + value * exchangeRates[currency].ask, 0);
+
     return (
       <div>
         <header>
@@ -38,7 +28,7 @@ class Wallet extends React.Component {
           </span>
           <span data-testid="total-field">
             Dispesa Total: R$
-            {this.totalValue()}
+            {total}
             <span data-testid="header-currency-field">
               BRL
             </span>
