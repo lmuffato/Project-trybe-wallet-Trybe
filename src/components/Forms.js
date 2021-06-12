@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrencies } from '../actions';
+import { fetchCurrencies, addExpense } from '../actions';
 
 class Forms extends React.Component {
   constructor(props) {
@@ -9,20 +9,26 @@ class Forms extends React.Component {
 
     this.allCurrencies = this.allCurrencies.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.getCurrenciesUpdate = this.getCurrenciesUpdate.bind(this);
 
     this.state = {
-      currenciesState: [],
       id: 0,
       value: 0,
       description: '',
       currency: 'USD',
-      payment: 'Dinheiro',
+      method: 'Dinheiro',
       tag: 'Alimentação',
+      exchangeRates: [],
 
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.getCurrenciesUpdate();
+  }
+
+  async getCurrenciesUpdate() {
     const { fetchCurrenciesHeader } = this.props;
     await fetchCurrenciesHeader();
     this.allCurrencies();
@@ -30,20 +36,20 @@ class Forms extends React.Component {
 
   allCurrencies() {
     const { currencies } = this.props;
-    this.setState({ currenciesState: currencies });
+    this.setState({ exchangeRates: currencies });
   }
 
   currencies() {
-    const { currenciesState } = this.state;
+    const { exchangeRates } = this.state;
+    const deleteCurrency = 'USDT';
 
-    const filteredCurrency = currenciesState
-      .filter((currency) => currency.codein !== 'BRLT');
+    delete exchangeRates[deleteCurrency];
 
     return (
-      <label htmlFor="currencies">
+      <label htmlFor="currency">
         Moeda:
         <select id="currency" onChange={ this.handleChange }>
-          { filteredCurrency.map((currency) => (
+          { Object.values(exchangeRates).map((currency) => (
             <option
               key={ currency.code }
               value={ currency.code }
@@ -57,12 +63,22 @@ class Forms extends React.Component {
 
   handleChange(event) {
     const { id, value } = event.target;
-    this.setState({
-      [id]: value,
-    });
+    if (id === 'value') {
+      this.setState({ [id]: value });
+    } else {
+      this.setState({ [id]: value });
+    }
+  }
+
+  async handleClick() {
+    const { addToExpenses, expenseIdAdd } = this.props;
+    await this.setState({ id: expenseIdAdd });
+    addToExpenses(this.state);
+    this.getCurrenciesUpdate();
   }
 
   render() {
+    // console.log(this.props.userExpenses.length);
     return (
       <>
         <form>
@@ -78,9 +94,9 @@ class Forms extends React.Component {
 
           {this.currencies()}
 
-          <label htmlFor="payment">
+          <label htmlFor="method">
             Método de pagamento
-            <select id="payment" onChange={ this.handleChange }>
+            <select id="method" onChange={ this.handleChange }>
               <option value="Dinheiro">Dinheiro</option>
               <option value="Cartão de crédito">Cartão de crédito</option>
               <option value="Cartão de débito">Cartão de débito</option>
@@ -98,7 +114,12 @@ class Forms extends React.Component {
             </select>
           </label>
         </form>
-        <button type="submit">Adicionar despesa</button>
+        <button
+          type="submit"
+          onClick={ () => this.handleClick() }
+        >
+          Adicionar despesa
+        </button>
       </>
     );
   }
@@ -106,10 +127,13 @@ class Forms extends React.Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  userExpenses: state.wallet.expenses,
+  expenseIdAdd: state.wallet.expenseId,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrenciesHeader: () => dispatch(fetchCurrencies()),
+  addToExpenses: (componentState) => dispatch(addExpense(componentState)),
 });
 
 Forms.propTypes = {

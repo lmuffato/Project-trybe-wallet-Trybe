@@ -1,6 +1,5 @@
 // // Coloque aqui suas actions
 
-// const ADD_TO_WALLET = 'ADD_TO_WALLET';
 export const LOGIN = 'LOGIN';
 
 export const loginEmail = (email) => ({
@@ -32,3 +31,12 @@ export function fetchCurrencies() {
       .then((currencies) => dispatch(receiveCurrencies(currencies)));
   };
 }
+
+export const ADD_TO_WALLET = 'ADD_TO_WALLET';
+
+export const addExpense = (expenses) => ({
+  type: ADD_TO_WALLET,
+  wallet: {
+    expenses,
+  },
+});
