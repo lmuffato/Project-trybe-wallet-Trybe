@@ -16,6 +16,7 @@ class Login extends React.Component {
       isDisabled: true,
       emailVerified: false,
       passVerified: false,
+      keepConnected: false,
     };
     this.emailRef = React.createRef();
     this.emailController = React.createRef();
@@ -27,14 +28,17 @@ class Login extends React.Component {
 
   handleChange = ({ target }) => {
     const { name, value } = target;
-    this.setState({
-      [name]: value,
-    }, () => {
-      const { emailVerified, passVerified } = this.state;
-      this.setState({
-        isDisabled: !(emailVerified && passVerified),
-      });
-    });
+    this.setState(
+      {
+        [name]: value,
+      },
+      () => {
+        const { emailVerified, passVerified } = this.state;
+        this.setState({
+          isDisabled: !(emailVerified && passVerified),
+        });
+      },
+    );
     const { email } = this.state;
     if (name === 'email') this.checkEmail(email);
     if (name === 'password') this.checkPassword(this.passwordRef.current.value);
@@ -70,6 +74,20 @@ class Login extends React.Component {
       this.emailController.current.className = 'controller';
       this.setState({ emailVerified: true });
     }
+  };
+
+  keepConnected = () => {
+    this.setState(({ keepConnected }) => ({
+      keepConnected: !keepConnected,
+    }), () => {
+      const { keepConnected, email, password } = this.state;
+      if (keepConnected) {
+        localStorage.setItem('user', JSON.stringify({
+          email,
+          password,
+        }));
+      }
+    });
   };
 
   checkPassword = (password) => {
@@ -113,40 +131,53 @@ class Login extends React.Component {
     return false;
   };
 
+  renderUserInputs = () => (
+    <div className="login-input-container">
+      <div className="controller" ref={ this.emailController }>
+        <Input
+          type="email"
+          name="email"
+          handleChange={ this.handleChange }
+          checkEmail={ this.checkEmail }
+          refValue={ this.emailRef }
+        />
+        <span>E-mail</span>
+        <small className="error-message" ref={ this.emailError }>
+          Error message
+        </small>
+      </div>
+      <div className="controller" ref={ this.passwordController }>
+        <Input
+          type="password"
+          name="password"
+          handleChange={ this.handleChange }
+          checkPassword={ this.checkPassword }
+          refValue={ this.passwordRef }
+        />
+        <span>Password</span>
+        <small className="error-message" ref={ this.passwordError }>
+          Error message
+        </small>
+      </div>
+    </div>
+  );
+
   render() {
     const { userChecked, isDisabled } = this.state;
     return (
       <section className="login-page">
         <form className="login-form-container">
           <span className="login-title">Login</span>
-          <div className="login-input-container">
-            <div className="controller" ref={ this.emailController }>
-              <Input
-                type="email"
-                name="email"
-                handleChange={ this.handleChange }
-                checkEmail={ this.checkEmail }
-                refValue={ this.emailRef }
-              />
-              <span>E-mail</span>
-              <small className="error-message" ref={ this.emailError }>
-                Error message
-              </small>
-            </div>
-            <div className="controller" ref={ this.passwordController }>
-              <Input
-                type="password"
-                name="password"
-                handleChange={ this.handleChange }
-                checkPassword={ this.checkPassword }
-                refValue={ this.passwordRef }
-              />
-              <span>Password</span>
-              <small className="error-message" ref={ this.passwordError }>
-                Error message
-              </small>
-            </div>
-          </div>
+          {this.renderUserInputs()}
+          <label htmlFor="keep-connected" className="keep-connected-label">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="keep-connected"
+              onChange={ this.keepConnected }
+            />
+            Manter-me conectado
+          </label>
           {userChecked ? <Redirect to="/carteira" /> : ''}
           <button
             type="submit"

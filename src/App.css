@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,500;1,600&display=swap') ;
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,500;1,600&display=swap') ;
 
 * {
   box-sizing: border-box;
@@ -32,6 +32,15 @@ body {
   height: 400px;
   justify-content: space-evenly;
   width: 500px;
+}
+
+.keep-connected-label {
+  color: #f8f9fb;
+}
+
+.form-check-input {
+  margin: 0 5px;
+  position: relative;
 }
 
 .login-title {
@@ -87,7 +96,7 @@ body {
   visibility: visible;
 }
 
-.login-input-container input {
+.login-input-container .input {
   background-color: transparent;
   border: none;
   border-bottom: 2px solid #f8f9fb;
@@ -98,7 +107,7 @@ body {
   width: 100%;
 }
 
-.login-input-container input:focus {
+.login-input-container .input:focus {
   border-bottom: 2px solid #ff8d01;
   outline: none;
 }
@@ -115,7 +124,7 @@ body {
   margin: 10px 0;
 }
 
-.login-input-container .controller.error input {
+.login-input-container .controller.error .input {
   border-bottom: 2px solid red;
 }
 
@@ -127,4 +136,43 @@ body {
   font-size: 2rem;
   position: relative;
   width: 70%;
+}
+
+.wallet-page {
+  background-color: #f8f9fb;
+  display: flex;
+  font-size: 1.6rem;
+  height: 100vh;
+  width: 100vw;
+}
+
+.header-container {
+  align-items: center;
+  background-color: #200440;
+  color: #f8f9fb;
+  display: flex;
+  height: 100px;
+  justify-content: space-between;
+  padding: 0 20px;
+  width: 100%;
+}
+
+.wallet-logo {
+  color: #ff8d01;
+  font-family: Anton, sans-serif;
+  font-size: 3rem;
+  -webkit-touch-callout: none; /* iOS Safari */
+  user-select: none; /* Non-prefixed version, currently
+                    supported by Chrome, Edge, Opera and Firefox */
+}
+
+.user-summary {
+  display: flex;
+  justify-content: space-evenly;
+  width: 400px;
+}
+
+.user-email {
+  color: #ff8d01;
+  font-weight: 500;
 }
