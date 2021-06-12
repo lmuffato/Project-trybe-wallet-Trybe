@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import trash from '../images/trash.png';
+import { deleteExpense } from '../actions';
 
 class Table extends React.Component {
   tableHeader() {
@@ -20,7 +22,7 @@ class Table extends React.Component {
   }
 
   render() {
-    const { expenses } = this.props;
+    const { expenses, deleteDispatch } = this.props;
     return (
       <table>
         <tbody>
@@ -54,8 +56,9 @@ class Table extends React.Component {
                     type="button"
                     className="delete-button"
                     data-testid="delete-btn"
+                    onClick={ () => deleteDispatch(expense.id) }
                   >
-                    Deletar
+                    <img src={ trash } alt="delete" width="15px" />
                   </button>
                 </td>
               </tr>
@@ -75,4 +78,8 @@ Table.propTypes = {
   expenses: PropTypes.array,
 }.isRequired;
 
-export default connect(mapStateToProps, null)(Table);
+const mapDispatchToProps = (dispatch) => ({
+  deleteDispatch: (payload) => dispatch(deleteExpense(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
