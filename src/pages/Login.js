@@ -19,6 +19,8 @@ class Login extends Component {
     this.renderEntryButton = this.renderEntryButton.bind(this);
   }
 
+  // Obrigado João Nascimento pela contribuição com o regex
+
   handleAuth() {
     const { email, password } = this.state;
     const regex2Email = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
