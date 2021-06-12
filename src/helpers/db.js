@@ -1,6 +1,6 @@
 const db = {
   user: {
-    email: 'glucas709@gmail.com',
+    email: 'alguem@email.com',
     password: '123456',
   },
   wallet: {

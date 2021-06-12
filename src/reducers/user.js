@@ -1,7 +1,12 @@
 import ACTIONS from '../constants/actions';
-import db from '../helpers/db';
+// import db from '../helpers/db';
 
-const userReducer = (state = db.user, action) => {
+const INITIAL_STATE = {
+  email: '',
+  password: '',
+};
+
+const userReducer = (state = INITIAL_STATE, action) => {
   const { type, value } = action;
   switch (type) {
   case ACTIONS.LOGIN:

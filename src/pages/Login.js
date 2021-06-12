@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import loginAction from '../actions';
 import Input from '../components/Input';
+import db from '../helpers/db';
 
 class Login extends React.Component {
   constructor(props) {
@@ -11,8 +12,7 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      isValid: false,
-      userExisist: false,
+      userChecked: false,
       isDisabled: true,
       emailVerified: false,
       passVerified: false,
@@ -44,12 +44,10 @@ class Login extends React.Component {
     const { email, password } = this.state;
     const { login } = this.props;
     e.preventDefault();
-    this.checkInputs((isValid) => {
-      if (isValid && !!email && !!password) {
-        this.checkRegister(email, password);
-        login({ email, password });
-      }
-    });
+    if (this.checkRegister()) {
+      this.setState({ userChecked: true });
+      login({ email, password });
+    }
   };
 
   checkEmail = (email) => {
@@ -97,16 +95,6 @@ class Login extends React.Component {
     }
   };
 
-  checkInputs = (callback) => {
-    const { passVerified, emailVerified } = this.state;
-    if (emailVerified && passVerified) {
-      this.setState({ isValid: true }, () => {
-        const { isValid } = this.state;
-        callback(isValid);
-      });
-    }
-  };
-
   setErrorFor = (controller, small, message) => {
     small.current.innerHTML = message;
     controller.current.className = 'controller error';
@@ -117,16 +105,16 @@ class Login extends React.Component {
     return re.test(email.toLowerCase());
   };
 
-  checkRegister = (email, password) => {
-    const { user } = this.props;
-    if (email === user.email && password === user.password) {
-      this.setState({ userExisist: true });
+  checkRegister = () => {
+    const { email, password } = this.state;
+    if (email === db.user.email && password === db.user.password) {
+      return true;
     }
+    return false;
   };
 
   render() {
-    const { userExisist, isDisabled, passVerified, emailVerified } = this.state;
-    console.log(emailVerified, passVerified);
+    const { userChecked, isDisabled } = this.state;
     return (
       <section className="login-page">
         <form className="login-form-container">
@@ -159,7 +147,7 @@ class Login extends React.Component {
               </small>
             </div>
           </div>
-          {userExisist ? <Redirect to="/carteira" /> : ''}
+          {userChecked ? <Redirect to="/carteira" /> : ''}
           <button
             type="submit"
             className="btn login-button"
