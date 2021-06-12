@@ -26,7 +26,7 @@ function walletReducer(state = INITIAL_STATE, action) {
   case SET_NEW_EXPENSE:
     return { ...state, expenses: [...state.expenses, action.payload] };
   case UPDATE_TOTAL_EXPENSES:
-    return { ...state, totalExpenses: state.totalExpenses + action.payload };
+    return { ...state, totalExpenses: action.payload };
   case REMOVE_EXPENSE:
     return {
       ...state,

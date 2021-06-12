@@ -8,7 +8,9 @@ export default function Value(props) {
       Valor:
       <input
         id="expense-value"
-        type="text"
+        type="number"
+        step="any"
+        min="0"
         name="value"
         value={ value }
         onChange={ handleInput }

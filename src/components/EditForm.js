@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
-import { func, objectOf, object } from 'prop-types';
+import { objectOf, object } from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrenciesThunk, setNewExpense, updateTotalExpenses } from '../actions/index';
+import { setNewExpense, updateTotalExpenses } from '../actions/index';
 import Tag from './WalletFormOptions/Tag';
 import Method from './WalletFormOptions/Method';
 import Currency from './WalletFormOptions/Currency';
 import Description from './WalletFormOptions/Description';
 import Value from './WalletFormOptions/Value';
 import fetchCurrencies from '../services/fetchCurrencies';
-import updateExpenses from '../services/updateExpenses';
 
-class WalletForm extends Component {
-  constructor() {
-    super();
+class EditForm extends Component {
+  constructor(props) {
+    super(props);
+
+    const { expenses, id } = this.props;
+    const editCell = expenses.find((expense) => expense.id === id);
+    const { value, description, currency, method, tag } = editCell;
 
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,22 +24,12 @@ class WalletForm extends Component {
     this.createNewExpense = this.createNewExpense.bind(this);
 
     this.state = {
-      value: '',
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
+      value,
+      description,
+      currency,
+      method,
+      tag,
     };
-  }
-
-  componentDidMount() {
-    const { setCurrencies } = this.props;
-    setCurrencies();
-  }
-
-  setId(expenses) {
-    if (!expenses.length) return expenses.length;
-    return expenses[expenses.length - 1].id + 1;
   }
 
   resetState() {
@@ -55,12 +48,11 @@ class WalletForm extends Component {
   }
 
   async createNewExpense() {
-    const { value, description, currency, method, tag } = this.state;
+    const { value, description, currency, method, tag, id } = this.state;
     const formatValue = value.replace(',', '.');
-    const { expenses } = this.props;
     const exchangeRates = await fetchCurrencies();
     const newExpense = {
-      id: this.setId(expenses),
+      id,
       value: formatValue,
       description,
       currency,
@@ -73,12 +65,14 @@ class WalletForm extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    const newExpense = await this.createNewExpense();
-    const { setExpense } = this.props;
-    setExpense(newExpense);
-    const { expenses, dispatchUpdatedExpenses } = this.props;
-    const totalExpenses = updateExpenses(expenses);
-    dispatchUpdatedExpenses(totalExpenses);
+    this.createNewExpense();
+    const { expenses, updateExpenses } = this.props;
+    const updatedList = expenses.filter((expense) => {
+      if (expense.id !== newExpense.id) return expense;
+      return newExpense;
+    });
+    editCell(updatedList);
+    updateExpenses(Number((value * (exchangeRates[currency].ask)).toFixed(2)));
     this.resetState();
   }
 
@@ -101,7 +95,7 @@ class WalletForm extends Component {
           type="submit"
           disabled={ isLoading }
         >
-          Adicionar Despesa
+          Editar Despesa
         </button>
       </form>
     );
@@ -112,17 +106,16 @@ const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   isLoading: state.wallet.isLoading,
   expenses: state.wallet.expenses,
+  id: state.edit.editCell,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrencies: () => dispatch(getCurrenciesThunk()),
-  setExpense: (data) => dispatch(setNewExpense(data)),
-  dispatchUpdatedExpenses: (value) => dispatch(updateTotalExpenses(value)),
+  editCell: (data) => dispatch(setNewExpense(data)),
+  updateExpenses: (value) => dispatch(updateTotalExpenses(value)),
 });
 
-WalletForm.propTypes = {
-  setCurrencies: func,
+EditForm.propTypes = {
   currencies: objectOf(object),
 }.isRequired;
 
-export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
+export default connect(mapStateToProps, mapDispatchToProps)(EditForm);
