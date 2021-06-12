@@ -1,4 +1,4 @@
-import { USER_LOGIN } from '../actions';
+import { USER_LOGIN } from '../actions/userLogin';
 
 const initialState = {
   email: '',
