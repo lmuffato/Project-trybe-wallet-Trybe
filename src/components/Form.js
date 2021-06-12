@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addExpensesWithCurrency } from '../actions';
 import './Form.css';
 
-export default class Form extends Component {
+class Form extends Component {
   constructor() {
     super();
     this.state = {
       currencies: [],
+      formValues: {
+        value: 0,
+        description: '',
+        currency: 'USD',
+        method: 'Dinheiro',
+        tag: 'Alimentação',
+        exchangeRates: {},
+      },
     };
     this.renderExpensesValues = this.renderExpensesValues.bind(this);
     this.renderExpensesDescription = this.renderExpensesDescription.bind(this);
@@ -13,6 +24,24 @@ export default class Form extends Component {
     this.renderPaymentMethod = this.renderPaymentMethod.bind(this);
     this.renderExpensesTag = this.renderExpensesTag.bind(this);
     this.fetchCurrency = this.fetchCurrency.bind(this);
+    this.renderAddButton = this.renderAddButton.bind(this);
+    this.updateForm = this.updateForm.bind(this);
+    this.sendState = this.sendState.bind(this);
+  }
+
+  updateForm(field, newValue) {
+    this.setState((previState) => ({
+      formValues: {
+        ...previState.formValues,
+        [field]: newValue,
+      }
+    }));
+  }
+
+  sendState() {
+    const { formValues } = this.state;
+    const { sendExpenses } = this.props;
+    sendExpenses(formValues);
   }
 
   componentDidMount() {
@@ -24,9 +53,15 @@ export default class Form extends Component {
     const data = await response.json();
     const asArray = Object.entries(data).filter((ele) => ele[0] !== 'USDT'
       && ele[0] !== 'DOGE');
-    this.setState({
+    this.setState((previState) =>({
       currencies: [...asArray],
-    });
+      formValues: {
+        ...previState.formValues,
+        exchangeRates: data,
+      },
+    }
+    ));
+    return data;
   }
 
   renderExpensesValues() {
@@ -36,6 +71,7 @@ export default class Form extends Component {
         <input
           id="expenses"
           type="number"
+          onChange={ (event) => this.updateForm('value', event.target.value) }
         />
       </label>
     );
@@ -48,6 +84,7 @@ export default class Form extends Component {
         <input
           id="description"
           type="text"
+          onChange={ (event) => this.updateForm('description', event.target.value) }
         />
       </label>
     );
@@ -62,7 +99,11 @@ export default class Form extends Component {
     return (
       <label htmlFor="currency">
         Moeda
-        <select id="currency" name="currency">
+        <select 
+          id="currency"
+          name="currency"
+          onChange={ (event) => this.updateForm('currency', event.target.value) }
+        >
           { options }
         </select>
       </label>
@@ -73,10 +114,14 @@ export default class Form extends Component {
     return (
       <label htmlFor="payment">
         Método de pagamento
-        <select id="payment" name="payment">
-          <option value="credit">Cartão de crédito</option>
-          <option value="debit">Cartão de débito</option>
-          <option value="money">Dinheiro</option>
+        <select
+          id="payment"
+          name="payment"
+          onChange={ (event) => this.updateForm('method', event.target.value) }
+        >
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
+          <option value="Dinheiro">Dinheiro</option>
         </select>
       </label>
     );
@@ -86,14 +131,29 @@ export default class Form extends Component {
     return (
       <label htmlFor="tag">
         Tag
-        <select id="tag" name="tag">
-          <option value="food">Alimentação</option>
-          <option value="leisure">Lazer</option>
-          <option value="work">Trabalho</option>
-          <option value="transport">Transporte</option>
-          <option value="health">Saúde</option>
+        <select
+          id="tag"
+          name="tag"
+          onChange={ (event) => this.updateForm('tag', event.target.value) }
+        >
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
+    );
+  }
+
+  renderAddButton() {
+    return (
+      <button
+        type="button"
+        onClick={ this.sendState }
+      >
+        Adicionar despesa
+      </button>
     );
   }
 
@@ -109,7 +169,19 @@ export default class Form extends Component {
         { this.renderPaymentMethod() }
         <br />
         { this.renderExpensesTag() }
+        <br />
+        { this.renderAddButton() }
       </form>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  sendExpenses: (values) => dispatch(addExpensesWithCurrency(values)),
+});
+
+Form.propTypes = {
+  sendExpenses: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Form);
