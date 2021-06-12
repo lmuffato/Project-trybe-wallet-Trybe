@@ -68,7 +68,7 @@ class WalletComponent extends React.Component {
           Tag
           <select type="text" name="expenses" id="expenses">
             {
-              tagItems.map((tag, index) => (<options key={ index }>{tag}</options>))
+              tagItems.map((tag, index) => (<option key={ index }>{tag}</option>))
             }
           </select>
         </label>
