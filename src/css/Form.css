@@ -1,0 +1,20 @@
+form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+label {
+  margin: 10px;
+}
+
+input , select {
+  background: white;
+  border: 0;
+  border-radius: 5px;
+  display: block;
+  font-family: Quicksand, sans-serif;
+  font-size: 16px;
+  padding: 10px;
+  width: 190px;
+}
