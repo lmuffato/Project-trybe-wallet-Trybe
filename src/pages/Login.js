@@ -117,6 +117,7 @@ class Login extends React.Component {
   }
 }
 
+// Source: https://github.com/tryber/sd-010-a-project-trybewallet/tree/nascjoao-project-trybewallet
 const mapDispatchToProps = (dispatch) => ({
   userLogin: (payload) => dispatch(userLogin(payload)),
 });

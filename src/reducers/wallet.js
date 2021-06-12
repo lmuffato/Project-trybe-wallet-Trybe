@@ -3,8 +3,8 @@ const INITIAL_STATE = {
   expenses: [],
 };
 
-export default function walletReducer(state = INITIAL_STATE, { type }) {
-  switch (type) {
+export default function walletReducer(state = INITIAL_STATE, action) {
+  switch (action.type) {
   default:
     return state;
   }

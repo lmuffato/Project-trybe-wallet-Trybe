@@ -1,23 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Provider as ReduxProvider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import rootReducer from '../reducers';
+import thunk from 'redux-thunk';
+import reducer from '../reducers';
 
 const store = createStore(
-  rootReducer,
-  composeWithDevTools(),
+  reducer,
+  composeWithDevTools(
+    applyMiddleware(thunk),
+  ),
 );
 
-export default function Provider({ children }) {
-  return (
-    <ReduxProvider store={ store }>
-      {children}
-    </ReduxProvider>
-  );
-}
-
-Provider.propTypes = {
-  children: PropTypes.node,
-}.isRequired;
+export default store;
