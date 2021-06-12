@@ -1,23 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { func } from 'prop-types';
+import { func, object } from 'prop-types';
 import './Wallet.css';
 import Header from './Header';
+import { deleteExpense } from '../actions/index';
 
 class Wallet extends React.Component {
+  // função criada a partir do PR do Adelino Junior
+  handleClickDelete(id) {
+    const { deleteExpenses, expenses } = this.props;
+    const filter = expenses.filter((expend) => expend.id !== id);
+    const condicional = filter || [];
+    deleteExpenses(condicional);
+  }
+
   tableHead() {
     return (
-      <tr className="legend">
-        <th>Descrição</th>
-        <th>Tag</th>
-        <th>Método de pagamento</th>
-        <th>Valor</th>
-        <th>Moeda</th>
-        <th>Câmbio utilizado</th>
-        <th>Valor convertido</th>
-        <th>Moeda de conversão</th>
-        <th>Editar/Excluir</th>
-      </tr>
+      <thead>
+        <tr className="thead">
+          <th scope="col">Descrição</th>
+          <th scope="col">Tag</th>
+          <th scope="col">Método de pagamento</th>
+          <th scope="col">Valor</th>
+          <th scope="col">Moeda</th>
+          <th scope="col">Câmbio utilizado</th>
+          <th scope="col">Valor convertido</th>
+          <th scope="col">Moeda de conversão</th>
+          <th scope="col">Editar/Excluir</th>
+        </tr>
+      </thead>
     );
   }
 
@@ -28,32 +39,44 @@ class Wallet extends React.Component {
       const element = expenses.map((despesa) => {
         const { description, currency, method, tag, value, exchangeRates, id } = despesa;
         const convertedValue = exchangeRates[currency].ask * Number(value);
-        // const convertedValueBRL = Intl.NumberFormat('pt-br',
-        //   { style: 'currency', currency: 'BRL' }).format(convertedValue);
         const priceAtual = Number(exchangeRates[currency].ask);
-        // const priceBRL = Intl.NumberFormat('pt-br',
-        //   { style: 'currency', currency: 'BRL' }).format(priceAtual);
         return (
-          <tr key={ id } className="expenses">
-            <td>{description}</td>
-            <td className="currency">{currency}</td>
-            <td>{tag}</td>
-            <td>{method}</td>
-            <td>{value}</td>
-            <td>{exchangeRates[currency].name.split('/')[0]}</td>
-            <td>{priceAtual.toFixed(2)}</td>
-            <td>{convertedValue.toFixed(2)}</td>
-            <td>Real</td>
-            <td>
-              <button
-                onClick={ () => this.handleClickDelete(id) }
-                data-testid="delete-btn"
-                type="button"
-              >
-                Deletar
-              </button>
-            </td>
-          </tr>
+          <tbody key={ id } className="tbody">
+            <tr>
+              <td>{description}</td>
+              <td>{tag}</td>
+              <td>{method}</td>
+              <td>{value}</td>
+              <td>{exchangeRates[currency].name.split('/')[0]}</td>
+              <td>{priceAtual.toFixed(2)}</td>
+              <td>{convertedValue.toFixed(2)}</td>
+              <td>Real</td>
+              <td>
+                <div
+                  className="btn-group"
+                  role="group"
+                  aria-label="Basic mixed styles example"
+                >
+                  <button
+                    onClick={ () => this.handleClickEdit(id) }
+                    data-testid="edit-btn"
+                    type="button"
+                    className="btn btn-warning edit-btn"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    onClick={ () => this.handleClickDelete(id) }
+                    data-testid="delete-btn"
+                    type="button"
+                    className="btn btn-danger"
+                  >
+                    Deletar
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
         );
       });
       return element;
@@ -68,7 +91,7 @@ class Wallet extends React.Component {
           <Header />
           <div className="container-wallet">
             <img className="img-wallet" src="https://3.bp.blogspot.com/-1bFMeU55Gj8/Ws-PZazG0mI/AAAAAAAARNo/vVUpBSap_PApo3meVsLf3mOx7Lk3u0SGgCEwYBhgL/s1600/005.gif" alt="wallet-meme" />
-            <table className="legend-container">
+            <table className="legend-container table table-dark table-striped">
               {this.tableHead()}
               {this.renderTableExpenses()}
             </table>
@@ -81,7 +104,7 @@ class Wallet extends React.Component {
       <div>
         <Header />
         <div className="container-wallet">
-          <table className="legend-container">
+          <table className="legend-container table table-dark table-striped">
             {this.tableHead()}
             {this.renderTableExpenses()}
           </table>
@@ -92,11 +115,16 @@ class Wallet extends React.Component {
 }
 
 Wallet.propTypes = {
-  expenses: func,
+  expenses: object,
+  deleteExpense: func,
 }.isRequired;
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps, null)(Wallet);
+const mapDispatchToProps = (dispatch) => ({
+  deleteExpenses: (payload) => dispatch(deleteExpense(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

@@ -3,6 +3,7 @@ import {
   GET_CURRENCY_SUCCESS,
   GET_CURRENCY_ERROR,
   ADD_EXPENSES,
+  DETELE_EXPENSE,
 } from '../actions/index';
 
 const INITIAL_STATE = {
@@ -35,6 +36,11 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: [...state.expenses, action.payload],
+    };
+  case DETELE_EXPENSE:
+    return {
+      ...state,
+      expenses: action.payload,
     };
   default:
     return {

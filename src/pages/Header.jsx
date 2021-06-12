@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { string, func } from 'prop-types';
 import { getExchangeThunk, expensesThunk } from '../actions/index';
@@ -9,7 +10,7 @@ class Header extends Component {
     super();
     this.state = {
       id: 0,
-      value: '',
+      value: 0,
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
@@ -17,11 +18,12 @@ class Header extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    // this.resetForm = this.resetForm.bind(this);
   }
 
   componentDidMount() {
-    const { wallet } = this.props;
-    wallet();
+    const { getExchange } = this.props;
+    getExchange();
     // addExpenses();
   }
 
@@ -34,13 +36,18 @@ class Header extends Component {
     });
   }
 
-  options() {
+  optionsCurrency() {
     const { currencies, expenses } = this.props;
     console.log(expenses);
     return (
       <label htmlFor="currency">
         Moeda:
-        <select name="currency" id="currency" onChange={ this.handleChange }>
+        <select
+          className="form-select"
+          name="currency"
+          id="currency"
+          onChange={ this.handleChange }
+        >
           {currencies
             .map((currency, id) => (
               <option
@@ -55,44 +62,78 @@ class Header extends Component {
     );
   }
 
+  optionsMethod() {
+    return (
+      <label htmlFor="method">
+        Método de pagamento:
+        <select
+          className="form-select"
+          name="method"
+          id="method"
+          onChange={ this.handleChange }
+        >
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
+        </select>
+      </label>
+    );
+  }
+
+  optionsTag() {
+    return (
+      <label htmlFor="tag">
+        Tag:
+        <select
+          className="form-select"
+          name="tag"
+          id="tag"
+          onChange={ this.handleChange }
+        >
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
+        </select>
+      </label>
+    );
+  }
+
   form() {
     const { addExpenses } = this.props;
     return (
       <div>
         <form action="#">
-          <label htmlFor="value">
+          <label htmlFor="value" className="label-control">
             Valor:
-            <input type="number" name="value" id="value" onChange={ this.handleChange } />
+            <input
+              required="true"
+              className="form-control"
+              type="number"
+              name="value"
+              id="value"
+              onChange={ this.handleChange }
+            />
           </label>
-          {this.options()}
-          <label htmlFor="method">
-            Método de pagamento:
-            <select name="method" id="method" onChange={ this.handleChange }>
-              <option value="Dinheiro">Dinheiro</option>
-              <option value="Cartão de crédito">Cartão de crédito</option>
-              <option value="Cartão de débito">Cartão de débito</option>
-            </select>
-          </label>
-          <label htmlFor="tag">
-            Tag:
-            <select name="tag" id="tag" onChange={ this.handleChange }>
-              <option value="Alimentação">Alimentação</option>
-              <option value="Lazer">Lazer</option>
-              <option value="Trabalho">Trabalho</option>
-              <option value="Transporte">Transporte</option>
-              <option value="Saúde">Saúde</option>
-            </select>
-          </label>
-          <label htmlFor="description">
+          {this.optionsCurrency()}
+          {this.optionsMethod()}
+          {this.optionsTag()}
+          <label htmlFor="description" className="label-control">
             Descrição:
             <input
+              className="form-control"
               type="text"
               name="description"
               id="description"
               onChange={ this.handleChange }
             />
           </label>
-          <button type="button" onClick={ () => { addExpenses(this.state); } }>
+          <button
+            type="button"
+            className="btn-primary btn-lg"
+            onClick={ () => { addExpenses(this.state); } }
+          >
             Adicionar despesa
           </button>
         </form>
@@ -111,7 +152,9 @@ class Header extends Component {
     return (
       <div className="header-container">
         <div className="header-top">
-          <img src="https://www.pngkey.com/png/full/493-4930874_bill-png-vector-money-logo-png.png" width="80px" alt="logo-money" />
+          <Link to="/">
+            <img src="https://www.pngkey.com/png/full/493-4930874_bill-png-vector-money-logo-png.png" width="80px" alt="logo-money" />
+          </Link>
           <div className="exchange-values">
             <h3 data-testid="email-field">{email}</h3>
             <h3 data-testid="header-currency-field">BRL</h3>
@@ -128,7 +171,7 @@ class Header extends Component {
 
 Header.propTypes = {
   email: string,
-  wallet: func,
+  getExchange: func,
 }.isRequired;
 
 const mapStateToProps = (state) => ({
@@ -138,7 +181,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  wallet: (payload) => dispatch(getExchangeThunk(payload)),
+  getExchange: (payload) => dispatch(getExchangeThunk(payload)),
   addExpenses: (payload) => dispatch(expensesThunk(payload)),
 });
 

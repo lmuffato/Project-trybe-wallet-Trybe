@@ -5,6 +5,7 @@ export const GET_CURRENCY = 'GET_CURRENCY';
 export const GET_CURRENCY_SUCCESS = 'GET_CURRENCY_SUCCESS';
 export const GET_CURRENCY_ERROR = 'GET_CURRENCY_ERROR';
 export const ADD_EXPENSES = 'ADD_EXPENSES';
+export const DETELE_EXPENSE = 'DETELE_EXPENSE';
 
 export const user = (payload) => ({
   type: GET_LOGIN,
@@ -53,6 +54,11 @@ export const getExchangeThunk = () => async (dispatch) => {
 
 export const addExpenses = (payload) => ({
   type: ADD_EXPENSES,
+  payload,
+});
+
+export const deleteExpense = (payload) => ({
+  type: DETELE_EXPENSE,
   payload,
 });
 
