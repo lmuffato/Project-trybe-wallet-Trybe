@@ -21,4 +21,5 @@ ReactDOM.render(
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
-// Agradecimentos, agradeço aos colegas Anderson Nascimento,Anderson Silva pela ajuda no projeto.
+//  agradeço aos colegas Anderson Nascimento,Anderson Silva pela ajuda no requisito 1,2
+// agradeço aos colegas Nathi Zebral, Perycles Reis pela ajuda no requisito 3
