@@ -9,6 +9,7 @@ const initialState = {
   currencies: [],
   expenses: [],
   totalExpenses: 0,
+  converted: [],
 };
 
 function wallet(state = initialState, action) {
@@ -26,7 +27,7 @@ function wallet(state = initialState, action) {
   case GET_TOTAL_EXPENSES:
     return {
       ...state,
-      totalExpenses: state.totalExpenses + action.payload,
+      totalExpenses: state.totalExpenses + Number(action.payload),
     };
   default:
     return state;

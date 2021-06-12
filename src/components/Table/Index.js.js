@@ -6,7 +6,6 @@ import data from './data';
 class Table extends React.Component {
   render() {
     const { expenses } = this.props;
-    console.log(expenses);
     return (
       <table style={ { width: '100%' } }>
         <thead>
@@ -23,9 +22,12 @@ class Table extends React.Component {
               <td>{expense.method}</td>
               <td>{expense.value}</td>
               <td>{expense.currency}</td>
-              <td>{expense.exchangeRates.name}</td>
-              <td />
-              <td />
+              <td>{expense.exchangeRates[expense.currency].name}</td>
+              <td>
+                {(expense.value
+                * expense.exchangeRates[expense.currency].ask)}
+              </td>
+              <td>Real</td>
               <td>Editar/Excluir</td>
             </tr>
           ))}

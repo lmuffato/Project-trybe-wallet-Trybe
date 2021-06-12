@@ -13,9 +13,9 @@ class Form extends React.Component {
     this.state = {
       id: -1,
       value: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       description: '',
       exchangeRates: [],
     };
@@ -52,9 +52,10 @@ class Form extends React.Component {
     const usedCurrencies = Object.values(rest).filter((rate) => (
       rate.code === currency));
     const converted = usedCurrencies.map((usedCurrency) => usedCurrency.ask * value);
-    total += Number(converted).toFixed(2);
+    const convertedFix = Number(converted).toFixed(2);
+    total += convertedFix;
     addToWalletDispatch(this.state);
-    getTotal(Number(total));
+    getTotal(total);
   }
 
   render() {
