@@ -17,17 +17,16 @@ class Header extends Component {
     const value = parseFloat(findRate[1].ask);
     return value;
   }
-  
+
   handleTotalField() {
     const { wallet: { expenses } } = this.props;
-    const totalValue = expenses.reduce((acc, curr) =>
-      acc + parseFloat(curr.value) * this.findCurrencyValue(curr.currency), 0);
+    const totalValue = expenses.reduce((acc, curr) => acc
+    + parseFloat(curr.value) * this.findCurrencyValue(curr.currency), 0);
     return totalValue;
   }
 
   render() {
-    const { user: { email }, wallet } = this.props;
-    // console.log(wallet);
+    const { user: { email } } = this.props;
     return (
       <header className="Header">
         <p data-testid="email-field">
@@ -51,6 +50,11 @@ const mapStateToProps = (state) => {
 
 Header.propTypes = {
   user: PropTypes.objectOf(PropTypes.string).isRequired,
+  wallet: PropTypes.shape({
+    expenses: PropTypes.arrayOf(PropTypes.string),
+    currencies: PropTypes.arrayOf(PropTypes.string),
+    isFetching: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps, null)(Header);

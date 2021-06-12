@@ -29,13 +29,8 @@ class Form extends Component {
     this.sendState = this.sendState.bind(this);
   }
 
-  updateForm(field, newValue) {
-    this.setState((previState) => ({
-      formValues: {
-        ...previState.formValues,
-        [field]: newValue,
-      }
-    }));
+  componentDidMount() {
+    this.fetchCurrency();
   }
 
   sendState() {
@@ -44,8 +39,13 @@ class Form extends Component {
     sendExpenses(formValues);
   }
 
-  componentDidMount() {
-    this.fetchCurrency();
+  updateForm(field, newValue) {
+    this.setState((previState) => ({
+      formValues: {
+        ...previState.formValues,
+        [field]: newValue,
+      },
+    }));
   }
 
   async fetchCurrency() {
@@ -53,7 +53,7 @@ class Form extends Component {
     const data = await response.json();
     const asArray = Object.entries(data).filter((ele) => ele[0] !== 'USDT'
       && ele[0] !== 'DOGE');
-    this.setState((previState) =>({
+    this.setState((previState) => ({
       currencies: [...asArray],
       formValues: {
         ...previState.formValues,
@@ -99,7 +99,7 @@ class Form extends Component {
     return (
       <label htmlFor="currency">
         Moeda
-        <select 
+        <select
           id="currency"
           name="currency"
           onChange={ (event) => this.updateForm('currency', event.target.value) }
