@@ -82,12 +82,12 @@ class Login extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  dispatchSaveEmail: (userEmail) => dispatch(saveEmail(userEmail)),
-});
-
 Login.propTypes = {
   dispatchSaveEmail: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSaveEmail: (userEmail) => dispatch(saveEmail(userEmail)),
+});
 
 export default connect(null, mapDispatchToProps)(Login);
