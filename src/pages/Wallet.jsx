@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import Header from '../components/Header';
 import ExpenseForm from '../components/ExpenseForm';
-import { apiFetchThunk, walletTransaction } from '../actions';
+import { apiFetchThunk } from '../actions';
 import Expenses from '../components/Expenses';
 
 class Wallet extends React.Component {
