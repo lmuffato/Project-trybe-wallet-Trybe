@@ -6,6 +6,7 @@ export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const DEL_EXPENSE = 'DEL_EXPENSE';
 export const GET_EXPENSE_TO_FORM = 'GET_EXPENSE_TO_FORM';
 export const HANDLE_CHANGE_INPUT = 'HANDLE_CHANGE_INPUT';
+export const CLEAR_FORM = 'CLEAR_FORM';
 
 export const login = (email, password) => ({
   type: USER,
@@ -71,4 +72,8 @@ export const handleChangeInputAction = (name, value) => ({
     name,
     value,
   },
+});
+
+export const clearFormAction = () => ({
+  type: CLEAR_FORM,
 });

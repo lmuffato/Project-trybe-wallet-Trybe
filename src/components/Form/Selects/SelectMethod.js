@@ -9,6 +9,7 @@ export default class SelectMethod extends Component {
         Método de pagamento:
         <select
           name={ name }
+          data-testid={ `${name}-input` }
           id={ name }
           value={ value }
           onChange={ handleChangeInput }

@@ -10,6 +10,7 @@ export default class Inputs extends Component {
         <input
           id={ name }
           type={ type }
+          data-testid={ `${name}-input` }
           name={ name }
           value={ value }
           onChange={ handleChangeInput }

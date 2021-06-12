@@ -11,6 +11,7 @@ export default class Selects extends Component {
         {children}
         <select
           name={ name }
+          data-testid={ `${name}-input` }
           id={ name }
           role={ role }
           value={ value }

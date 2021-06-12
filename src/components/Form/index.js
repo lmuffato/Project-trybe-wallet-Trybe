@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addExpense, getCurrenciesThunk, handleChangeInputAction } from '../../actions';
+import {
+  addExpense,
+  clearFormAction,
+  getCurrenciesThunk,
+  handleChangeInputAction,
+} from '../../actions';
 import Inputs from './Inputs';
 import Selects from './Selects';
 import SelectMethod from './Selects/SelectMethod';
@@ -41,17 +46,17 @@ class Form extends Component {
   }
 
   async fetchData() {
-    const { addExpenseSend, form } = this.props;
+    const { addExpenseSend, form, clearForm } = this.props;
     await addExpenseSend({
       ...form,
       exchangeRates: await fetch('https://economia.awesomeapi.com.br/json/all')
         .then((res) => res.json()),
     });
+    clearForm();
   }
 
   render() {
-    const { currencies, isLoading, handleChangeInput } = this.props;
-    const { form } = this.props;
+    const { currencies, isLoading, handleChangeInput, form } = this.props;
     const { value, description, currency, method, tag } = form;
     if (isLoading) return 'Carregando...';
     return (
@@ -93,7 +98,7 @@ class Form extends Component {
           optionsMethod={ optionsTag }
         />
         <button type="button" onClick={ this.fetchData }>
-          Adicionar despesa
+          { !form.edit ? 'Adicionar despesa' : 'Editar despesa' }
         </button>
       </form>
     );
@@ -112,6 +117,7 @@ const mapDispatchToProps = (dispatch) => ({
   handleChangeInput: ({
     target: { name, value },
   }) => dispatch(handleChangeInputAction(name, value)),
+  clearForm: () => dispatch(clearFormAction()),
 });
 
 Form.propTypes = {
@@ -121,6 +127,7 @@ Form.propTypes = {
   addExpenseSend: PropTypes.func.isRequired,
   form: PropTypes.oneOfType([PropTypes.object]).isRequired,
   handleChangeInput: PropTypes.func.isRequired,
+  clearForm: PropTypes.func.isRequired,
 };
 
 Form.defaultProps = {
