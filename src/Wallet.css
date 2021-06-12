@@ -1,0 +1,9 @@
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fieldset {
+  border: solid 1px rgb(51, 51, 150);
+  padding: 12px;
+}
