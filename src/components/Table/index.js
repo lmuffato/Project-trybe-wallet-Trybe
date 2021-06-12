@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import DeleteExpense from './DeleteExpense';
+import EditExpense from './EditExpense';
 
 const tHeads = [
   'Descrição',
@@ -54,6 +55,9 @@ class Table extends Component {
                 <td>Real</td>
                 <td>
                   <DeleteExpense expense={ expense } />
+                </td>
+                <td>
+                  <EditExpense expense={ expense } />
                 </td>
               </tr>
             )) }

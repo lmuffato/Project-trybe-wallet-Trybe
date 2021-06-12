@@ -4,6 +4,8 @@ export const GET_CURRENCIES_SUCCESS = 'GET_CURRENCIES_SUCCESS';
 export const GET_CURRENCIES_ERROR = 'GET_CURRENCIES_ERROR';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const DEL_EXPENSE = 'DEL_EXPENSE';
+export const GET_EXPENSE_TO_FORM = 'GET_EXPENSE_TO_FORM';
+export const HANDLE_CHANGE_INPUT = 'HANDLE_CHANGE_INPUT';
 
 export const login = (email, password) => ({
   type: USER,
@@ -53,5 +55,20 @@ export const delExpense = (expense) => ({
   type: DEL_EXPENSE,
   payload: {
     expense,
+  },
+});
+
+export const getExpenseToForm = (expense) => ({
+  type: GET_EXPENSE_TO_FORM,
+  payload: {
+    expense,
+  },
+});
+
+export const handleChangeInputAction = (name, value) => ({
+  type: HANDLE_CHANGE_INPUT,
+  payload: {
+    name,
+    value,
   },
 });
