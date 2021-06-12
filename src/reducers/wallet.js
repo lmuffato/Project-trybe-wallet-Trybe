@@ -1,9 +1,3 @@
-/* import {
-  SEND_CURRENCIES,
-  ADD_EXPENSE,
-  UPDATE_TOTAL,
-} from '../actions/index'; */
-
 import {
   GET_CURRENCIES,
   GET_CURRENCIES_SUCCESS,
