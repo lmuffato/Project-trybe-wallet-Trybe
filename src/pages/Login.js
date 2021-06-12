@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import { func } from 'prop-types';
 import { user as userlogin } from '../actions/index';
 // Referencias button: https://www.youtube.com/watch?v=sN9QvQAkyug
+// Referencia validação email e password: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+// https://www.youtube.com/watch?v=JiFCwo3iBuk&t=579s
+// Requesitos feito olhando código de Luan Ramalho turma 10a
+
 const five = 5;
 class Login extends React.Component {
   constructor() {
@@ -32,8 +36,9 @@ class Login extends React.Component {
   }
 
   render() {
+    const { state } = this;
     const { email, password } = this.state;
-    const { user } = this.props;
+    const { userDispatch } = this.props;
     return (
       <form>
         <input
@@ -54,7 +59,7 @@ class Login extends React.Component {
         />
         <Link
           to="/carteira"
-          onClick={ () => user({ email, password }) }
+          onClick={ () => userDispatch({ state }) }
           disabled={ this.validInput() }
         >
           <button type="button" disabled={ this.validInput() }>Entrar</button>
@@ -73,7 +78,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  userInfo: (payload) => dispatch(userlogin(payload)),
+  userDispatch: (payload) => dispatch(userlogin(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
