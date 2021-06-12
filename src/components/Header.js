@@ -4,8 +4,30 @@ import { connect } from 'react-redux';
 import './Header.css';
 
 class Header extends Component {
+  constructor() {
+    super();
+    this.handleTotalField = this.handleTotalField.bind(this);
+    this.findCurrencyValue = this.findCurrencyValue.bind(this);
+  }
+
+  findCurrencyValue(curre = 'USD', index = 0) {
+    const { wallet: { expenses } } = this.props;
+    const myRates = expenses[index].exchangeRates;
+    const findRate = Object.entries(myRates).find((ele) => ele[0] === curre);
+    const value = parseFloat(findRate[1].ask);
+    return value;
+  }
+  
+  handleTotalField() {
+    const { wallet: { expenses } } = this.props;
+    const totalValue = expenses.reduce((acc, curr) =>
+      acc + parseFloat(curr.value) * this.findCurrencyValue(curr.currency), 0);
+    return totalValue;
+  }
+
   render() {
-    const { user: { email } } = this.props;
+    const { user: { email }, wallet } = this.props;
+    // console.log(wallet);
     return (
       <header className="Header">
         <p data-testid="email-field">
@@ -14,7 +36,7 @@ class Header extends Component {
         </p>
         <div className="Header-Currency">
           <p>Despesa Total: </p>
-          <p data-testid="total-field">{ 0 }</p>
+          <p data-testid="total-field">{ this.handleTotalField() }</p>
           <p data-testid="header-currency-field">BRL</p>
         </div>
       </header>
@@ -23,8 +45,8 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { user } = state;
-  return { user };
+  const { user, wallet } = state;
+  return { user, wallet };
 };
 
 Header.propTypes = {
