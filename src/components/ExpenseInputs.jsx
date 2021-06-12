@@ -1,13 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getCoins } from '../actions/walletAction';
 
 class ExpenseInputs extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+    this.expenseValue = this.expenseValue.bind(this);
+    this.descriptionValue = this.descriptionValue.bind(this);
+    this.coinValue = this.coinValue.bind(this);
+    this.payMethod = this.payMethod.bind(this);
+    this.tagExpense = this.tagExpense.bind(this);
+  }
+
+  componentDidMount() {
+    const { getApi } = this.props;
+    getApi();
+  }
+
   expenseValue() {
     const { handleChange } = this.props;
     return (
       <div>
         <label htmlFor="expense-value">
-          Valor
+          Valor:
           <input
             type="number"
             id="expense-value"
@@ -24,7 +42,7 @@ class ExpenseInputs extends Component {
     return (
       <div>
         <label htmlFor="description-value">
-          Descrição
+          Descrição:
           <input
             type="text"
             id="description-value"
@@ -37,13 +55,20 @@ class ExpenseInputs extends Component {
   }
 
   coinValue() {
-    const { handleChange } = this.props;
+    const { currencies, handleChange } = this.props;
+    const getCurrencies = Object.keys(currencies);
+    const getCoin = getCurrencies.filter((coin) => coin !== 'USDT');
     return (
       <div>
-        <label htmlFor="coin-input" onChange={ handleChange }>
-          Moeda
-          <select id="coin-input" name="coin">
-            vazio
+        <label htmlFor="coin-input">
+          Moeda:
+          <select
+            id="coin-input"
+            name="coin"
+            onChange={ handleChange }
+          >
+            { getCoin.map((currency) => (
+              <option key={ currency }>{ currency }</option>)) }
           </select>
         </label>
       </div>
@@ -55,7 +80,7 @@ class ExpenseInputs extends Component {
     return (
       <div>
         <label htmlFor="pay-method">
-          Método de pagamento
+          Método de pagamento:
           <select
             id="pay-method"
             name="payment"
@@ -75,17 +100,17 @@ class ExpenseInputs extends Component {
     return (
       <div>
         <label htmlFor="tag-expense">
-          Tag
+          Tag:
           <select
             id="tag-expense"
             name="tag"
             onChange={ handleChange }
           >
-            <option value="Alimentação">Alimentação</option>
-            <option value="Lazer">Lazer</option>
-            <option value="Trabalho">Trabalho</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Saúde">Saúde</option>
+            <option value="food">Alimentação</option>
+            <option value="leisure">Lazer</option>
+            <option value="work">Trabalho</option>
+            <option value="transport">Transporte</option>
+            <option value="health">Saúde</option>
           </select>
         </label>
       </div>
@@ -107,6 +132,19 @@ class ExpenseInputs extends Component {
 
 ExpenseInputs.propTypes = {
   handleChange: PropTypes.func.isRequired,
+  getApi: PropTypes.func.isRequired,
+  currencies: PropTypes.objectOf(Object).isRequired,
 };
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
 
-export default ExpenseInputs;
+const mapDispatchToProps = (dispatch) => ({
+  getApi: () => dispatch(getCoins()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseInputs);
+
+// Referências:
+// Object.keys: https://qastack.com.br/programming/5072136/javascript-filter-for-objects
+// Filter: https://pt.stackoverflow.com/questions/241823/como-remover-um-item-de-um-array-sem-conhecer-o-%C3%ADndice-apenas-o-valor

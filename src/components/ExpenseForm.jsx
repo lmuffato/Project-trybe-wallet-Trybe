@@ -6,11 +6,11 @@ class ExpenseForm extends Component {
     super(props);
 
     this.state = {
-      value: '',
-      description: '',
-      coin: '',
-      payment: '',
-      tag: '',
+      // value: '',
+      // description: '',
+      // coin: '',
+      // payment: '',
+      // tag: '',
     };
     this.handleChange = this.handleChange.bind(this);
   }

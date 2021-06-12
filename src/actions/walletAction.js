@@ -42,9 +42,10 @@ export const updateTotal = (value) => ({
   },
 });
 
+// Thunk
 export function getCoins() {
   return async (dispatch) => {
-    const coins = await exchange();
-    return dispatch(saveCoins(coins));
+    const currencies = await exchange();
+    return dispatch(saveCoins(currencies));
   };
 }

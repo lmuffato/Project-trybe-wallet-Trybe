@@ -1,9 +1,9 @@
 import {
-  CREATE_EXPENSE, EDITE_EXPENSE, DELETE_EXPENSE, UPDATE_TOTAL,
+  CREATE_EXPENSE, DELETE_EXPENSE, UPDATE_TOTAL, SAVE_COINS,
 } from '../actions/walletAction';
 
 const initialState = {
-  currencies: [],
+  currencies: {},
   expenses: [],
   total: 0,
 };
@@ -11,13 +11,6 @@ const initialState = {
 export default function wallet(state = initialState, action) {
   switch (action.type) {
   case CREATE_EXPENSE: {
-    const { payload: { currencies } } = action;
-    return {
-      ...state,
-      currencies,
-    };
-  }
-  case EDITE_EXPENSE: {
     const { payload: { expenses } } = action;
     return {
       ...state,
@@ -36,6 +29,13 @@ export default function wallet(state = initialState, action) {
     return {
       ...state,
       total,
+    };
+  }
+  case SAVE_COINS: {
+    const { payload: { currencies } } = action;
+    return {
+      ...state,
+      currencies,
     };
   }
   default:
