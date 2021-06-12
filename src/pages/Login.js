@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import login from '../actions';
+import { login } from '../actions';
 
 const template = (setEmail, setPassword, validate, handleSubmit) => (
   <form

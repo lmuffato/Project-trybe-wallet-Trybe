@@ -1,11 +1,17 @@
+export const ADD_EXPENSE = 'ADD_EXPENSE';
+
 const INITIAL_STATE = {
-  state: '',
+  expenses: [],
 };
 
 function walletReducer(state = INITIAL_STATE, action) {
-  switch (action.type) {
-  case 'Test':
-    return { state: action.state };
+  const { payload, type } = action;
+  const copyState = { ...state };
+
+  switch (type) {
+  case ADD_EXPENSE:
+    copyState.expenses.push({ ...payload });
+    return copyState;
   default:
     return state;
   }

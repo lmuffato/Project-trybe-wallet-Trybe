@@ -8,4 +8,13 @@ const getCurrencies = async () => {
   return currencies;
 };
 
-export default getCurrencies;
+const getCurrenciesObj = async () => {
+  const currenciesApi = await fetch(CURRENCY_URL);
+  const currenciesJson = await currenciesApi.json();
+  return currenciesJson;
+};
+
+export {
+  getCurrencies,
+  getCurrenciesObj,
+};
