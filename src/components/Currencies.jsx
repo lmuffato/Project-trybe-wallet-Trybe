@@ -1,16 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect, useDispatch } from 'react-redux';
+import { currenciesThunk } from '../actions';
 
-function Currencies() {
+function Currencies({ wallet: { currencies } }) {
+  const dispatch = useDispatch();
+  useEffect(() => { dispatch(currenciesThunk()); }, []);
   return (
     <div className="container">
-      <label htmlFor="currency">
+      <label htmlFor="currencies">
         Moeda
-        <select name="currency" id="currency">
-          <option value="vazio">Vazio</option>
+        <select name="currencies" id="currencies">
+          { currencies && currencies.map((currency) => (
+            <option value={ currency } key={ currency }>{currency}</option>
+          ))}
         </select>
       </label>
     </div>
   );
 }
 
-export default Currencies;
+const mapDispatchToProps = (dispatch) => ({
+  currenciesThunk: () => dispatch(currenciesThunk()),
+});
+
+const mapStateToProps = (state) => ({
+  wallet: {
+    currencies: state.wallet.currencies,
+  },
+});
+
+Currencies.propTypes = { currencies: PropTypes.array }.isRequired;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Currencies);
