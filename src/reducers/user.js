@@ -3,6 +3,7 @@ import { GET_EMAIL } from '../actions/index';
 const INITIAL_STATE = {
   user: {
     email: '',
+    password: '',
   },
 };
 
