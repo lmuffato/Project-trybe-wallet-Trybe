@@ -1,30 +1,49 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Table extends Component {
+  constructor() {
+    super();
+    this.getValues = this.getValues.bind(this);
+  }
+
+  getValues(info) {
+    const getName = info.exchangeRates[info.currency].name.split('/')[0];
+    const cambio = info.exchangeRates[info.currency].ask;
+    const valorConvertido = cambio * info.value;
+    return {
+      getName,
+      cambio,
+      valorConvertido,
+    };
+  }
+
   render() {
-    const td = ['Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda',
+    const campos = ['Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda',
       'Câmbio utilizado', 'Valor convertido', 'Moeda de conversão', 'Editar/Excluir'];
     const { getInfos } = this.props;
     console.log(getInfos);
-    const array = [];
-    getInfos.forEach((obj) => {
-      const getName = obj.exchangeRates[obj.currency].name;
-      const valorConvertido = (obj.exchangeRates[obj.currency].ask) * obj.value;
-      console.log(valorConvertido);
-      const nome = [obj.description, obj.tag, obj.method,
-        obj.value, getName, valorConvertido.toFixed(2), 'Real'];
-      array.push(nome);
-    });
-    console.log(array);
     return (
       <table>
         <tr>
-          {td.map((campo, index) => <td key={ index }>{campo}</td>)}
+          {campos.map((campo, index) => <th key={ index }>{campo}</th>)}
         </tr>
-        <tr>
-          {array.map((obj, index) => <td key={ index }>{obj}</td>)}
-        </tr>
+        {getInfos.map((info) => (
+          <tr key={ info.id }>
+            <td>{info.description}</td>
+            <td>{info.tag}</td>
+            <td>{info.method}</td>
+            <td>{Number(info.value)}</td>
+            <td>{this.getValues(info).getName}</td>
+            <td>{Number(this.getValues(info).cambio).toFixed(2)}</td>
+            <td>{Number(this.getValues(info).valorConvertido).toFixed(2)}</td>
+            <td>Real</td>
+            <td>
+              <button type="button">Editar</button>
+              <button type="button">Excluir</button>
+            </td>
+          </tr>))}
       </table>
     );
   }
@@ -33,5 +52,9 @@ class Table extends Component {
 const mapStateToProps = (state) => ({
   getInfos: state.wallet.expenses,
 });
+
+Table.propTypes = {
+  getInfos: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default connect(mapStateToProps, null)(Table);
