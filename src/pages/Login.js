@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import storeLog from '../actions/index';
+import changeEmail from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -41,11 +41,12 @@ class Login extends React.Component {
 
   storeDispatch() {
     const { email } = this.state;
-    this.props.storeLog(email);
+    const { changeEmail: user } = this.props;
+    user(email);
+    console.log(email);
   }
 
   render() {
-    console.log(storeLog);
     const { disable } = this.state;
     return (
       <section>
@@ -100,12 +101,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  storeLog: (email) => dispatch(storeLog(email)),
+  changeEmail: (email) => dispatch(changeEmail(email)),
 }
 );
 
 Login.propTypes = {
-  storeLog: PropTypes.func.isRequired,
+  changeEmail: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
