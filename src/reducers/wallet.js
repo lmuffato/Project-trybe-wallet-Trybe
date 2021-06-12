@@ -3,6 +3,7 @@ import {
   GET_CURRENCIES_SUCCESS,
   GET_CURRENCIES_ERROR,
   ADD_EXPENSE,
+  REMOVE_EXPENSE,
   UPDATE_TOTAL,
 } from '../actions/index';
 
@@ -40,6 +41,11 @@ const wallet = (
     return {
       ...state,
       expenses: [...state.expenses, action.expense],
+    };
+  case REMOVE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((item) => item.id !== action.id),
     };
   case UPDATE_TOTAL:
     return {
