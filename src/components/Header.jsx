@@ -6,15 +6,17 @@ import '../css/Header.css';
 function Header(props) {
   const { email } = props;
   return (
-    <header>
-      <h1>TrybeWallet</h1>
-      <span data-testid="email-field">{ email }</span>
-      <div className="total">
-        $
-        <span data-testid="total-field"> 0 </span>
-        <span data-testid="header-currency-field"> BRL </span>
+    <div className="container">
+      <div className="header-bar">
+        <h1 className="logo">TrybeWallet</h1>
+        <ul className="slider-menu">
+          <li data-testid="email-field">{ email }</li>
+          <li>$</li>
+          <li data-testid="total-field">0</li>
+          <li data-testid="header-currency-field">BRL</li>
+        </ul>
       </div>
-    </header>
+    </div>
   );
 }
 
