@@ -1,4 +1,6 @@
-import { FETCH_ERROR, FETCH_SUCCESS, FETCH_START, SAVE_EXPENSE } from '../actions';
+import { FETCH_ERROR, FETCH_SUCCESS,
+  FETCH_START, SAVE_EXPENSE,
+  REMOVE_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -29,6 +31,8 @@ const expensesIdCreator = (state, { expense, changeRates }) => {
   return { id, ...expense, exchangeRates: changeRates };
 };
 
+const delExpense = (expenses, id) => expenses.filter((expense) => expense.id !== (+id));
+
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case FETCH_START:
@@ -51,6 +55,11 @@ const wallet = (state = INITIAL_STATE, action) => {
     return { ...state,
       expenses: [...state.expenses, expensesIdCreator(state, action)],
       loading: false,
+    };
+
+  case REMOVE_EXPENSE:
+    return { ...state,
+      expenses: delExpense(state.expenses, action.payload),
     };
   default:
     return state;

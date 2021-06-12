@@ -9,6 +9,11 @@ export const saveExpense = (expense, changeRates) => (
   { type: SAVE_EXPENSE, expense, changeRates }
 );
 
+export const REMOVE_EXPENSE = 'DEL_EXPENSE';
+export const removeExpense = (payload) => (
+  { type: REMOVE_EXPENSE, payload }
+);
+
 export const FETCH_START = 'FETCH_START';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const FETCH_ERROR = 'FETCH_ERROR';
@@ -38,7 +43,9 @@ export const thunkFetchExchangeRates = (inputForm) => (dispatch) => {
   dispatch(fetchStart());
   fetchApi()
     .then((data) => {
-      delete data.USDT;
+      if (data.USDT) {
+        delete data.USDT;
+      }
       dispatch(saveExpense(inputForm, data));
     })
     .catch((error) => dispatch(fetchError(error.message)));

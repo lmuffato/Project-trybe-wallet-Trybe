@@ -1,21 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 function Header() {
-  const userEmail = useSelector(({ user: { email } }) => email);
-  const walletExpenses = useSelector(({ wallet: { expenses } }) => expenses);
+  const [totalExpenses, setTotalExpenses] = useState(0);
+  const globalState = useSelector((state) => state);
 
-  const sumExpenses = (values) => {
-    if (values.length === 0) {
+  const { user: { email }, wallet } = globalState;
+
+  const sumExpenses = ({ expenses }) => {
+    if (expenses.length === 0) {
       return 0;
     }
-    return values.reduce((acc, curr) => {
-      const { currency, exchangeRates, value } = curr;
-      return acc + (+value) * exchangeRates[currency].ask;
+    return expenses.reduce((acc, expense) => {
+      const { currency, exchangeRates, value } = expense;
+      const { ask } = exchangeRates[currency];
+      return acc + (+value) * ask;
     }, 0);
   };
 
-  const expensesValue = sumExpenses(walletExpenses).toFixed(2);
+  useEffect(() => {
+    const total = sumExpenses(wallet).toFixed(2);
+    setTotalExpenses(total);
+  }, [wallet]);
 
   return (
     <header>
@@ -27,13 +33,13 @@ function Header() {
           Email:
           <span data-testid="email-field">
             {' '}
-            {userEmail}
+            {email}
             {' '}
           </span>
         </p>
         <p>
           Despesa Total:
-          <span data-testid="total-field">{expensesValue}</span>
+          <span data-testid="total-field">{totalExpenses}</span>
         </p>
         <p>
           <span data-testid="header-currency-field">BRL</span>
