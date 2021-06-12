@@ -35,7 +35,7 @@ class Login extends React.Component {
         isDisabled: !(emailVerified && passVerified),
       });
     });
-    const { email, password } = this.state;
+    const { email } = this.state;
     if (name === 'email') this.checkEmail(email);
     if (name === 'password') this.checkPassword(this.passwordRef.current.value);
   };

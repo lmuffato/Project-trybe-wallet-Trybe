@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,500;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,500;1,600&display=swap') ;
 
 * {
   box-sizing: border-box;
@@ -103,7 +103,7 @@ body {
   outline: none;
 }
 
-.login-input-container .input:focus ~ span , .login-input-container .input:not( :placeholder-shown ).input:not( :focus ) ~ span {
+.input:focus ~ span , .input:not( :placeholder-shown ).input:not( :focus ) ~ span {
   color: #ff8d01;
   font-size: 12px;
   font-weight: 500;
