@@ -31,7 +31,7 @@ class Header extends React.Component {
           {' '}
           {this.totalCalc()}
         </p>
-        <h5 data-testid="email-field">{user}</h5>
+        <h4 data-testid="email-field">{user}</h4>
       </header>
     );
   }

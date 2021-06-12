@@ -29,34 +29,36 @@ class Login extends React.Component {
     const { email, password } = this.state;
     const { user } = this.props;
     return (
-      <form className="form-login">
-        <img src={ wallet } alt="logo" width="30%" />
-        <input
-          type="email"
-          placeholder="Email"
-          data-testid="email-input"
-          onChange={ (e) => this.setState({ email: e.target.value }) }
-          value={ email }
-          required
-        />
-        <input
-          type="password"
-          placeholder="Senha"
-          minLength="6"
-          data-testid="password-input"
-          onChange={ (e) => this.setState({ password: e.target.value }) }
-          value={ password }
-          required
-        />
-        <Link to="/carteira">
-          <button
-            type="button"
-            disabled={ this.validate() }
-            onClick={ () => user(email) }
-          >
-            Entrar
-          </button>
-        </Link>
+      <form className="form">
+        <fieldset className="form-login">
+          <img src={ wallet } alt="logo" width="30%" />
+          <input
+            type="email"
+            placeholder="Email"
+            data-testid="email-input"
+            onChange={ (e) => this.setState({ email: e.target.value }) }
+            value={ email }
+            required
+          />
+          <input
+            type="password"
+            placeholder="Senha"
+            minLength="6"
+            data-testid="password-input"
+            onChange={ (e) => this.setState({ password: e.target.value }) }
+            value={ password }
+            required
+          />
+          <Link to="/carteira">
+            <button
+              type="button"
+              disabled={ this.validate() }
+              onClick={ () => user(email) }
+            >
+              Entrar
+            </button>
+          </Link>
+        </fieldset>
       </form>
     );
   }

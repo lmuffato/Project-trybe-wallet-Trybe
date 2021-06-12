@@ -4,7 +4,7 @@
   display: flex;
   font-size: 14px;
   justify-content: space-between;
-  padding: 10px 25px;
+  padding: 10px 60px;
 }
 
 .form-wallet {
@@ -12,7 +12,7 @@
   display: flex;
   font-size: 12px;
   justify-content: space-between;
-  padding: 10px 25px;
+  padding: 10px 15px;
 }
 
 .form-wallet label {
@@ -20,14 +20,23 @@
   font-weight: 700;
 }
 
-.form-wallet input {
+.form-wallet input , select {
+  background-color: white;
+  border-radius: 4px;
+  border-style: none;
   color: rgb(30, 30, 30);
+  height: 25px;
   margin: 5px;
+  padding-left: 10px;
 }
 
-.form-wallet select {
-  color: rgb(30, 30, 30);
-  margin: 5px;
+.form-wallet button {
+  background-color: #393939;
+  border-radius: 10px;
+  border-style: none;
+  color: white;
+  height: 35px;
+  width: 130px;
 }
 
 .table-header {
@@ -60,14 +69,18 @@ table th {
 }
 
 .table-row {
-  height: 50px;
+  height: 55px;
 }
 
 .delete-button {
   background-color: #ca4532;
-  border-radius: 2px;
+  border-radius: 10px;
   border-style: none;
   height: 35px;
-  margin-top: -2px;
-  width: 35px;
+  margin-top: 5px;
+  width: 45px;
+}
+
+.delete-button img {
+  padding-top: 5px;
 }
