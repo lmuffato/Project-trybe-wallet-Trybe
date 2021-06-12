@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addExpense, delExpense, fetchCurrencies } from '../actions';
+import { addExpense, delExpense, fetchCurrencies, editExpense } from '../actions';
+import ExpensesTable from '../component/ExpensesTable';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -16,6 +17,8 @@ class Wallet extends React.Component {
     this.state = {
       currentExpense: initialFormExpense,
       initialFormExpense,
+      isEditing: false,
+      editingExpense: {},
     };
     this.formToInserExpense = this.formToInserExpense.bind(this);
     this.handleExpense = this.handleExpense.bind(this);
@@ -23,9 +26,7 @@ class Wallet extends React.Component {
     this.generateSelect = this.generateSelect.bind(this);
     this.saveExpense = this.saveExpense.bind(this);
     this.updateTotalExpenses = this.updateTotalExpenses.bind(this);
-    this.expensesTable = this.expensesTable.bind(this);
-    this.editExpense = this.editExpense.bind(this);
-    this.deleteExpense = this.deleteExpense.bind(this);
+    this.loaldToEdition = this.loaldToEdition.bind(this);
   }
 
   componentDidMount() {
@@ -89,16 +90,24 @@ class Wallet extends React.Component {
     event.preventDefault();
     const { updateCurrencies } = this.props;
     await updateCurrencies();
-    const { addNewExpense, currencies: exchangeRates, currentId: id } = this.props;
-    const { currentExpense } = this.state;
+    const { addNewExpense, currencies: exchangeRates,
+      currentId: id, updateExpense } = this.props;
+    const { currentExpense, isEditing, editingExpense } = this.state;
     const newExpense = {
       id,
       ...currentExpense,
       exchangeRates,
     };
-    addNewExpense(newExpense);
+    if (isEditing) {
+      const expenseToUpdate = {
+        id: editingExpense.id,
+        ...currentExpense,
+        exchangeRates: editingExpense.exchangeRates,
+      };
+      updateExpense(expenseToUpdate);
+    } else { addNewExpense(newExpense); }
     const { initialFormExpense } = this.state;
-    this.setState({ currentExpense: initialFormExpense });
+    this.setState({ currentExpense: initialFormExpense, isEditing: false });
   }
 
   formToInserExpense() {
@@ -127,64 +136,15 @@ class Wallet extends React.Component {
     );
   }
 
-  editExpense(id) {
-    console.log(id);
-  }
-
-  deleteExpense(id) {
-    const { removeExpense } = this.props;
-    removeExpense(id);
-  }
-
-  expensesTable() {
+  loaldToEdition(id) {
     const { expenses } = this.props;
-    const tableHeader = ['Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda',
-      'Câmbio utilizado', 'Valor convertido', 'Moeda de conversão', 'Editar/Excluir'];
-    return (
-      <table>
-        <tr>
-          {tableHeader.map((collunTitle, index) => (
-            <th key={ index }>{ collunTitle }</th>
-          ))}
-        </tr>
-        {expenses.map((expense) => {
-          const { value, description, currency,
-            method, tag, exchangeRates, id } = expense;
-          const exchangeRate = Number(exchangeRates[currency].ask);
-          const convertedValue = (exchangeRate * Number(value)).toFixed(2);
-          const currencyName = exchangeRates[currency].name.split('/')[0];
-          return (
-            <tr key={ id }>
-              <td>{description}</td>
-              <td>{tag}</td>
-              <td>{method}</td>
-              <td>{value}</td>
-              <td>{currencyName}</td>
-              <td>{exchangeRate.toFixed(2)}</td>
-              <td>{convertedValue}</td>
-              <td>Real</td>
-              <td>
-                <button
-                  type="button"
-                  onClick={ () => this.editExpense(id) }
-                  data-testid="edit-btn"
-                >
-                  Editar
-                </button>
-                <button
-                  type="button"
-                  onClick={ () => this.deleteExpense(id) }
-                  data-testid="delete-btn"
-                >
-                  Excluir
-                </button>
-              </td>
-            </tr>
-          );
-        })}
-
-      </table>
-    );
+    const editingExpense = expenses.find((expense) => expense.id === id);
+    const { value, description, tag, currency, method } = editingExpense;
+    this.setState({
+      isEditing: true,
+      editingExpense,
+      currentExpense: { value, description, tag, currency, method },
+    });
   }
 
   render() {
@@ -211,7 +171,7 @@ class Wallet extends React.Component {
           }
           {this.formToInserExpense()}
         </header>
-        {this.expensesTable()}
+        <ExpensesTable loaldToEdition={ this.loaldToEdition } />
       </main>
     );
   }
@@ -229,6 +189,7 @@ const mapDispachToProps = (dispach) => ({
   updateCurrencies: () => dispach(fetchCurrencies()),
   addNewExpense: (newExpense) => dispach(addExpense(newExpense)),
   removeExpense: (id) => dispach(delExpense(id)),
+  updateExpense: (expenseToUpdate) => dispach(editExpense(expenseToUpdate)),
 });
 
 Wallet.propTypes = {
@@ -239,7 +200,7 @@ Wallet.propTypes = {
   isLoalding: PropTypes.bool.isRequired,
   currentId: PropTypes.number.isRequired,
   addNewExpense: PropTypes.func.isRequired,
-  removeExpense: PropTypes.func.isRequired,
+  updateExpense: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispachToProps)(Wallet);
