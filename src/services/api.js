@@ -12,14 +12,3 @@ async function getCurrency(url) {
 }
 
 export default getCurrency;
-
-// import axios from 'axios';
-
-// const getCurrency = async (url) => {
-//   const { data } = await axios.get(url);
-//   const keys = Object.keys(data);
-//   const filterKeys = keys.filter((key) => key !== 'USDT');
-//   return filterKeys;
-// };
-
-// export default getCurrency;
