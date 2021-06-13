@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AddButton from './AddButton';
-import { getCurrencies as getCurrenciesThunk } from '../actions';
+import {
+  getCurrencies as getCurrenciesThunk,
+  saveEditExpense as saveEditExpenseAction
+} from '../actions';
 
 class Form extends Component {
   constructor() {
     super();
 
+    this.handleShouldUpdate = this.handleShouldUpdate.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.fillEditForm = this.fillEditForm.bind(this);
     this.renderCurrencies = this.renderCurrencies.bind(this);
     this.renderTags = this.renderTags.bind(this);
     this.renderPaymentMethods = this.renderPaymentMethods.bind(this);
@@ -19,12 +24,40 @@ class Form extends Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
+      shouldUpdate: true,
     };
   }
 
   componentDidMount() {
     const { getCurrencies } = this.props;
     getCurrencies();
+  }
+
+  componentDidUpdate() {
+   // console.log('ATUALIZOU!!!');
+    const { expenseToEdit } = this.props;
+    const { shouldUpdate } = this.state;
+    if (!(JSON.stringify(expenseToEdit) === '{}' || shouldUpdate)) {
+      this.fillEditForm(expenseToEdit);
+    }
+  }
+
+  fillEditForm(expenseToEdit) {
+    //console.log('CHAMOU O FILL');
+    const { value, description, currency, method, tag } = expenseToEdit;
+    console.log(expenseToEdit.value);
+    this.setState({
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      shouldUpdate: false,
+    });
+  }
+
+  handleShouldUpdate() {
+    this.setState({ shouldUpdate: true });
   }
 
   handleChange({ target: { name, value } }) {
@@ -42,6 +75,7 @@ class Form extends Component {
         name="currency"
         value={ currency }
         id="currency"
+        data-testid="currency-input"
         onChange={ (e) => this.handleChange(e) }
       >
         {currencies.map((currencyItem, index) => (
@@ -64,6 +98,7 @@ class Form extends Component {
         name="tag"
         value={ tag }
         id="tag"
+        data-testid="tag-input"
         onChange={ (e) => this.handleChange(e) }
       >
         <option value="Alimentação">Alimentação</option>
@@ -83,6 +118,7 @@ class Form extends Component {
         name="method"
         value={ method }
         id="method"
+        data-testid="method-input"
         onChange={ (e) => this.handleChange(e) }
       >
         <option value="Dinheiro">Dinheiro</option>
@@ -104,6 +140,7 @@ class Form extends Component {
               type="text"
               name="value"
               id="value"
+              data-testid="value-input"
               value={ value }
               onChange={ (e) => this.handleChange(e) }
             />
@@ -114,6 +151,7 @@ class Form extends Component {
               type="text"
               name="description"
               id="description"
+              data-testid="description-input"
               value={ description }
               onChange={ (e) => this.handleChange(e) }
             />
@@ -130,7 +168,10 @@ class Form extends Component {
             Tag:
             {this.renderTags()}
           </label>
-          <AddButton expense={ this.state } />
+          <AddButton
+            expense={ this.state }
+            handleShouldUpdate={ this.handleShouldUpdate }
+          />
         </form>
       </div>
     );
@@ -139,15 +180,19 @@ class Form extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(getCurrenciesThunk()),
+  saveEditExpense: (expense) => dispatch(saveEditExpenseAction(expense)),
 });
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenseToEdit: state.wallet.expenseToEdit,
+  shouldFillEditForm: state.wallet.shouldFillEditForm,
 });
 
 Form.propTypes = {
   getCurrencies: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  expenseToEdit: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

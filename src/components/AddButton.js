@@ -1,49 +1,100 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addExpense as addExpenseAction } from '../actions';
+import {
+  addExpense as addExpenseAction,
+  editExpense as editExpenseAction,
+  saveEditExpense as saveEditExpenseAction,
+} from '../actions';
+
 import fetchCurrencies from '../services/currenciesApi';
 
 class AddButton extends Component {
   constructor() {
     super();
 
-    this.handleClick = this.handleClick.bind(this);
+    this.handleAddClick = this.handleAddClick.bind(this);
+    this.handleEditClick = this.handleEditClick.bind(this);
     this.state = { id: 0 };
   }
 
-  async handleClick() {
-    const { expense, addExpense } = this.props;
+  async handleAddClick() {
+    const {
+      expense: { value, description, currency, method, tag },
+      addExpense,
+    } = this.props;
     const { id } = this.state;
+
     addExpense({
       id,
-      ...expense,
+      value,
+      description,
+      currency,
+      method,
+      tag,
       exchangeRates: await fetchCurrencies(),
     });
 
     this.setState((prevId) => ({ id: prevId.id + 1 }));
   }
 
+  handleEditClick() {
+    const {
+      expense: { value, description, currency, method, tag },
+      expenses,
+      editExpense,
+      expenseToEdit,
+      handleShouldUpdate,
+    } = this.props;
+
+  
+    const indexEditedExpense = expenses
+      .findIndex((expense) => expense.id === expenseToEdit.id);
+      
+    console.log(indexEditedExpense);
+
+    editExpense({
+      id: expenseToEdit.id,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates: expenseToEdit.exchangeRates,
+    }, indexEditedExpense);
+
+    handleShouldUpdate();
+  }
+
   render() {
     return (
-      <div>
+      <>
         <button
           type="button"
-          onClick={ this.handleClick }
+          onClick={ this.handleAddClick }
         >
           Adicionar Despesa
         </button>
-      </div>
+        <button
+          type="button"
+          onClick={ this.handleEditClick }
+        >
+          Editar Despesa
+        </button>
+      </>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
   addExpense: (obj) => dispatch(addExpenseAction(obj)),
+  saveEditExpense: (expense) => dispatch(saveEditExpenseAction(expense)),
+  editExpense: (expense, index) => dispatch(editExpenseAction(expense, index)),
 });
 
 const mapStateToProps = (state) => ({
-  expensesList: state.wallet.expenses,
+  expenses: state.wallet.expenses,
+  expenseToEdit: state.wallet.expenseToEdit,
 });
 
 AddButton.propTypes = {
@@ -55,7 +106,16 @@ AddButton.propTypes = {
     tag: PropTypes.string,
     exchangeRates: PropTypes.objectOf(PropTypes.string),
   })).isRequired,
+  expenseToEdit: PropTypes.objectOf(PropTypes.shape({
+    value: PropTypes.string,
+    description: PropTypes.string,
+    currency: PropTypes.string,
+    payment: PropTypes.string,
+    tag: PropTypes.string,
+    exchangeRates: PropTypes.objectOf(PropTypes.string),
+  })).isRequired,
   addExpense: PropTypes.func.isRequired,
+  editExpense: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddButton);
