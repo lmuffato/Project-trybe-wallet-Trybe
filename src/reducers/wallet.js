@@ -5,7 +5,6 @@
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  // exchangeRates: '',
 };
 
 function wallet(state = INITIAL_STATE, action) {
@@ -23,7 +22,6 @@ function wallet(state = INITIAL_STATE, action) {
       ...state,
       currencies: action.currencies,
     };
-
   default:
     return state;
   }

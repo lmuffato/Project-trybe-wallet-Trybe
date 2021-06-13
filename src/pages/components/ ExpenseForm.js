@@ -11,9 +11,9 @@ class ExpenseForm extends React.Component {
     this.state = {
       value: 0,
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleInput = this.handleInput.bind(this);
@@ -30,7 +30,7 @@ class ExpenseForm extends React.Component {
 
   async getApi() {
     const response = await fetchCurrencies();
-    // const data = await response.json();
+    // return response;
     return response;
   }
 
@@ -67,13 +67,12 @@ class ExpenseForm extends React.Component {
     const { expenses, getExpenses } = this.props;
     const id = expenses.length;
     const rates = await this.getApi();
-    console.log(Object.keys(rates));
-    // const exchangeRates = rates.map((rate) => ({
-    //   code: rate.code,
-    //   name: rate.name,
-    //   ask: rate.ask,
-    // }));
-    getExpenses({ id, ...this.state });
+    getExpenses({ id,
+      ...this.state,
+      exchangeRates: Object.entries(rates).reduce((obj, rate) => ({
+        ...obj,
+        [rate[0]]: rate[1],
+      }), {}) });
   }
 
   render() {
@@ -83,11 +82,11 @@ class ExpenseForm extends React.Component {
 
     return (
       <form className="expense">
-        { this.handleInput('Valor:', 'value')}
-        { this.handleInput('Descrição:', 'description')}
-        {this.handleSelect('Moeda:', 'currency', currencys)}
-        {this.handleSelect('Método de pagamento:', 'method', methods)}
-        {this.handleSelect('Tag:', 'tag', tags)}
+        { this.handleInput('Valor:', 'value') }
+        { this.handleInput('Descrição:', 'description') }
+        { this.handleSelect('Moeda:', 'currency', currencys) }
+        { this.handleSelect('Método de pagamento:', 'method', methods) }
+        { this.handleSelect('Tag:', 'tag', tags) }
         <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
       </form>
     );
@@ -97,7 +96,6 @@ class ExpenseForm extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   dispatchgetCurruencies: () => dispatch(getCurruencies()),
   getExpenses: (e) => dispatch(addExpenses(e)),
-  // getExchangeRates: () => dispatch(addExchangeRates),
 });
 
 const mapStateToProps = (state) => ({

@@ -4,28 +4,20 @@ import { connect } from 'react-redux';
 import './header.css';
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    const { email } = this.props;
-    this.state = {
-      emailLogin: email,
-      expenses: 0,
-      exchange: 'BRL',
-    };
-  }
-
   render() {
-    const { emailLogin, expenses, exchange } = this.state;
-    // console.log(email);
+    const { email, expenses } = this.props;
     return (
       <header className="header">
-        <span data-testid="email-field">{ emailLogin }</span>
+        <span data-testid="email-field">{ email }</span>
         <span data-testid="total-field">
           Despesas Totais: R$
-          {' '}
-          { expenses }
+          { (expenses === undefined) ? 0 : expenses.reduce((itemA, itemB) => {
+            const exchange = itemB.exchangeRates[itemB.currency].ask;
+            itemA += parseFloat(itemB.value) * parseFloat(exchange);
+            return itemA;
+          }, 0).toFixed(2) }
         </span>
-        <span data-testid="header-currency-field">{ exchange }</span>
+        <span data-testid="header-currency-field">BRL</span>
       </header>
     );
   }
@@ -33,10 +25,12 @@ class Header extends React.Component {
 
 const mapStateToPros = (state) => ({
   email: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 Header.propTypes = {
   email: PropTypes.string,
+  expenses: PropTypes.array,
 }.isRequired;
 
 export default connect(mapStateToPros)(Header);

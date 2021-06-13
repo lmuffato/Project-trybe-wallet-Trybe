@@ -1,0 +1,10 @@
+table {
+  border: 1px solid purple;
+  padding: 15px;
+}
+
+table th {
+  border: 1px solid black;
+  padding: 3px;
+  width: 500px;
+}
