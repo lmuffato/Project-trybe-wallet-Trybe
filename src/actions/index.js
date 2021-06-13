@@ -46,7 +46,7 @@ export const getCurrencyThunk = () => async (dispatch) => {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
     const json = await response.json();
 
-    const currency = Object.keys(json.data);
+    const currency = Object.keys(json);
     const filteredCurrency = currency.filter((item) => item !== 'USDT');
 
     dispatch(getCurrencySuccess(filteredCurrency));

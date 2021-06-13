@@ -8,14 +8,6 @@ import Header from '../components/Header';
 import { addExpence, getCurrencyThunk } from '../actions';
 
 class Wallet extends React.Component {
-  constructor(props) {
-    super(props);
-
-    const { currencies } = this.props;
-
-    this.state = { currencies };
-  }
-
   componentDidMount() {
     // const { history } = this.props;
     // const { email } = this.state;
@@ -30,7 +22,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { currencies } = this.state;
+    const { currencies } = this.props;
     // const { addExpences } = this.props;
 
     return (
@@ -46,8 +38,12 @@ Wallet.propTypes = {
   getCurrencies: PropTypes.func.isRequired,
   // addExpences: PropTypes.func.isRequired,
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
+    push: PropTypes.func,
+  }),
+};
+
+Wallet.defaultProps = {
+  history: { push: () => {} },
 };
 
 const mapStateToProps = (state) => ({

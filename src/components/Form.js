@@ -7,11 +7,9 @@ class Form extends Component {
   constructor(props) {
     super(props);
 
-    const { currencies } = this.props;
     this.handleInput = this.handleInput.bind(this);
 
     this.state = {
-      currencies,
       valor: '0',
       description: '',
       currency: 'BRL',
@@ -22,8 +20,6 @@ class Form extends Component {
 
   handleInput(event) {
     const { value, name } = event.target;
-
-    console.log(name);
 
     if (name === 'valor') {
       this.setState({ valor: value });
@@ -77,9 +73,9 @@ class Form extends Component {
     return (
       <label htmlFor="moeda">
         Moeda
-        <select name="moeda" id="moeda" onChange={ this.handleInput }>
+        <select name="moeda" id="moeda" value={ currency } onChange={ this.handleInput }>
           { currencies.map((item) => (
-            <option value={ currency } key={ item }>{item}</option>
+            <option value={ item } key={ item }>{item}</option>
           ))}
         </select>
       </label>
@@ -115,8 +111,8 @@ class Form extends Component {
   }
 
   render() {
-    const { currencies, valor, description, currency, method, tag } = this.state;
-    // const { addExpences } = this.props;
+    const { valor, description, currency, method, tag } = this.state;
+    const { currencies } = this.props;
 
     return (
       <form>
