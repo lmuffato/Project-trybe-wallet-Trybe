@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import edit from '../images/edit.png';
 import trash from '../images/trash.png';
 import { deleteExpense } from '../actions';
 
@@ -18,6 +19,18 @@ class Table extends React.Component {
         <th>Moeda de conversão</th>
         <th>Editar/Excluir</th>
       </tr>
+    );
+  }
+
+  editButton() {
+    return (
+      <button
+        type="button"
+        className="edit-button"
+        data-testid="edit-btn"
+      >
+        <img src={ edit } alt="delete" width="15px" />
+      </button>
     );
   }
 
@@ -52,6 +65,7 @@ class Table extends React.Component {
                 <td>{newConvertedValue}</td>
                 <td>Real</td>
                 <td>
+                  {this.editButton()}
                   <button
                     type="button"
                     className="delete-button"
@@ -70,13 +84,13 @@ class Table extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  expenses: state.wallet.expenses,
-});
-
 Table.propTypes = {
   expenses: PropTypes.array,
 }.isRequired;
+
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   deleteDispatch: (payload) => dispatch(deleteExpense(payload)),
