@@ -11,9 +11,9 @@ class Form extends React.Component {
     this.state = {
       valor: 0,
       descricao: '',
-      moeda: '',
-      pagamento: '',
-      tag: '',
+      moeda: 'USD',
+      pagamento: 'Dinheiro',
+      tag: 'Alimentacao',
     };
   }
 

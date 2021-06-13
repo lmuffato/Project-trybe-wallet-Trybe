@@ -41,7 +41,6 @@ export const getCurrencyThunk = () => (dispatch) => {
 };
 
 export const getExchange = (exchange) => (dispatch) => {
-  console.log(exchange);
   currencyApi()
     .then((res) => {
       dispatch(addExpense(([{

@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Form from '../components/Form';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   render() {
     const { getEmail, getCurrency } = this.props;
     const { getPrice } = this.props;
-    console.log(getPrice);
     return (
       <>
         <header>
@@ -21,6 +21,7 @@ class Wallet extends React.Component {
           <span data-testid="header-currency-field">{getCurrency}</span>
         </header>
         <Form />
+        <Table />
       </>
     );
   }
