@@ -4,13 +4,13 @@ export const CREATE_EXPENSE = 'CREATE_EXPENSE';
 export const EDITE_EXPENSE = 'UEDITE_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 export const SAVE_COINS = 'SAVE_COINS';
-export const UPDATE_TOTAL = 'UPDATE_TOTAL';
+export const SUM_TOTAL = 'SUM_TOTAL';
 export const GET_COINS = 'GET_COINS';
 
-export const createExpense = (expenses) => ({
+export const createExpense = (expense) => ({
   type: CREATE_EXPENSE,
   payload: {
-    expenses,
+    expense,
   },
 });
 
@@ -35,10 +35,10 @@ export const saveCoins = (currencies) => ({
   },
 });
 
-export const updateTotal = (value) => ({
-  type: UPDATE_TOTAL,
+export const sumTotal = (total) => ({
+  type: SUM_TOTAL,
   payload: {
-    value,
+    total,
   },
 });
 

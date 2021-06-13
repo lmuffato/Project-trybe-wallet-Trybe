@@ -60,11 +60,11 @@ class ExpenseInputs extends Component {
     const getCoin = getCurrencies.filter((coin) => coin !== 'USDT');
     return (
       <div>
-        <label htmlFor="coin-input">
+        <label htmlFor="currency-input">
           Moeda:
           <select
-            id="coin-input"
-            name="coin"
+            id="currency-input"
+            name="currency"
             onChange={ handleChange }
           >
             { getCoin.map((currency) => (
@@ -83,9 +83,10 @@ class ExpenseInputs extends Component {
           Método de pagamento:
           <select
             id="pay-method"
-            name="payment"
+            name="method"
             onChange={ handleChange }
           >
+            <option value="Default">Selecione</option>
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
@@ -106,11 +107,12 @@ class ExpenseInputs extends Component {
             name="tag"
             onChange={ handleChange }
           >
-            <option value="food">Alimentação</option>
-            <option value="leisure">Lazer</option>
-            <option value="work">Trabalho</option>
-            <option value="transport">Transporte</option>
-            <option value="health">Saúde</option>
+            <option>Selecione</option>
+            <option>Alimentação</option>
+            <option>Lazer</option>
+            <option>Trabalho</option>
+            <option>Transporte</option>
+            <option>Saúde</option>
           </select>
         </label>
       </div>
@@ -118,6 +120,7 @@ class ExpenseInputs extends Component {
   }
 
   render() {
+    const { handleClick } = this.props;
     return (
       <div>
         {this.expenseValue()}
@@ -125,6 +128,7 @@ class ExpenseInputs extends Component {
         {this.coinValue()}
         {this.payMethod()}
         {this.tagExpense()}
+        <button type="button" onClick={ handleClick }>Adicionar despesa</button>
       </div>
     );
   }
@@ -132,9 +136,11 @@ class ExpenseInputs extends Component {
 
 ExpenseInputs.propTypes = {
   handleChange: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
   getApi: PropTypes.func.isRequired,
   currencies: PropTypes.objectOf(Object).isRequired,
 };
+
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
