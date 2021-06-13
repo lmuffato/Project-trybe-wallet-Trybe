@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 
 class Input extends Component {
   constructor(props) {
@@ -42,4 +42,4 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(Input);
+export default Input;
