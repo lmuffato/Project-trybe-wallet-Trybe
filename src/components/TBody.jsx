@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { calculateTotalExpense, removeExpense } from '../actions/tableActions';
+import { calculateTotalExpense, editInfo, removeExpense } from '../actions/tableActions';
 
 class TBody extends React.Component {
   constructor() {
@@ -17,6 +17,13 @@ class TBody extends React.Component {
     getPrice(filtredExpenses);
   }
 
+  editInfo(id) {
+    const { expenses, getPrice, editItem } = this.props;
+    const filtredExpenses = expenses.filter((expense) => expense.id === id);
+    editItem(filtredExpenses);
+    getPrice(filtredExpenses);
+  }
+
   render() {
     const { expenses } = this.props;
     const tBody = expenses.map((expense) => {
@@ -29,7 +36,7 @@ class TBody extends React.Component {
 
       return (
         <tr key={ id }>
-          <td name="Descrição">{description}</td>
+          <td>{description}</td>
           <td>{tag}</td>
           <td>{method}</td>
           <td>{value}</td>
@@ -37,6 +44,15 @@ class TBody extends React.Component {
           <td>{Number(ask).toFixed(2)}</td>
           <td>{convertedValue}</td>
           <td>Real</td>
+          <td>
+            <button
+              type="button"
+              onClick={ () => this.editInfo(id) }
+              data-testid="edit-btn"
+            >
+              Editar
+            </button>
+          </td>
           <td>
             <button
               type="button"
@@ -61,6 +77,7 @@ const mapStateToProps = ({ wallet: { expenses, itensPrices } }) => ({
 const mapDispatchToProps = (dispatch) => ({
   deleteItem: (payload) => dispatch(removeExpense(payload)),
   getPrice: (payload) => dispatch(calculateTotalExpense(payload)),
+  editItem: (payload) => dispatch(editInfo(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TBody);

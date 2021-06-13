@@ -2,7 +2,7 @@ import {
   REQUEST_API, REQUEST_API_SUCESS, REQUEST_API_ERROR,
 } from '../actions/getCurrencyActions';
 import {
-  CREATE_EXCHANGE, REMOVE_EXPENSE,
+  CREATE_EXCHANGE, EDIT_INFO, FINISH_EDIT, REMOVE_EXPENSE,
 } from '../actions/tableActions';
 
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
@@ -11,6 +11,27 @@ const INITIAL_WALLET_STATE = {
   expenses: [],
   isLoading: false,
   error: null,
+  edit: false,
+  item: {},
+};
+
+// Lógica baseada em uma resposta encontrada no stack overflow: https://stackoverflow.com/questions/35628774/how-to-update-single-value-inside-specific-array-item-in-redux
+const editExpense = (state, action) => {
+  const elementExist = state.expenses
+    .filter((expense) => expense.id === action.payload.id);
+  if (elementExist) {
+    const { id } = action.payload;
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses.slice(0, id),
+        action.payload,
+        ...state.expenses.slice(id + 1),
+      ],
+      edit: false,
+      item: {},
+    };
+  }
 };
 
 const wallet = (state = INITIAL_WALLET_STATE, action) => {
@@ -42,6 +63,15 @@ const wallet = (state = INITIAL_WALLET_STATE, action) => {
       ...state,
       expenses: action.payload,
     });
+  case EDIT_INFO:
+    return ({
+      ...state,
+      edit: true,
+      item: action.payload,
+    });
+  case FINISH_EDIT:
+    console.log(action.payload.id);
+    return editExpense(state, action);
   default:
     return state;
   }

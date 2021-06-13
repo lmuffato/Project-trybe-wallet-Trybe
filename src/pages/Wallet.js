@@ -1,18 +1,28 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
-import Inputs from '../components/Inputs';
+import Forms from '../components/Forms';
 import Table from '../components/Table';
+import Edit from '../components/Edit';
 
 class Wallet extends React.Component {
   render() {
+    const { edit } = this.props;
     return (
       <>
         <Header />
-        <Inputs />
+        { edit ? <Edit /> : <Forms />}
         <Table />
       </>
     );
   }
 }
 
-export default Wallet;
+const mapStateToProps = ({ wallet: { edit } }) => ({ edit });
+
+export default connect(mapStateToProps, null)(Wallet);
+
+Wallet.propTypes = {
+  edit: PropTypes.bool,
+}.isRequired;
