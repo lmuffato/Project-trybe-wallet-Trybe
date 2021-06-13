@@ -11,20 +11,37 @@ class WalletForm extends Component {
       method: '',
       tag: '',
     };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ target }) {
+    this.setState({ [target.name]: target.value });
   }
 
   render() {
     const { currenciesList } = this.props;
+    const { value, description, currency, method, tag } = this.state;
 
     return (
       <form>
-        <label htmlFor="valor">
+        <label htmlFor="value">
           Valor
-          <input id="valor" />
+          <input
+            id="value"
+            name="value"
+            value={ value }
+            onChange={ this.handleChange }
+          />
         </label>
-        <label htmlFor="descricao">
+        <label htmlFor="description">
           Descrição
-          <input id="descricao" />
+          <input
+            id="description"
+            name="description"
+            value={ description }
+            onChange={ this.handleChange }
+          />
         </label>
         <label htmlFor="moeda">
           Moeda
