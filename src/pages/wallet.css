@@ -1,0 +1,25 @@
+#header {
+  background-color: white;
+  display: flex;
+  background-color: yellow;
+  padding: 10px;
+}
+
+#header-title {
+  font-size: 7vh;
+  padding-top: 2.5vw;
+}
+
+#logo2 {
+  width: 20vh;
+}
+
+.header-text {
+  font-size: 3vh;
+  padding: 3vw 4vw;
+}
+
+.value-currencie {
+  display: flex;
+  margin-left: auto;
+}

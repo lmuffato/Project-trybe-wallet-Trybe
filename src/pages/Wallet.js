@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ExpendForm from '../components/ExpendForm';
 import { currencyAPIThunk } from '../actions';
+import './wallet.css';
+import logo from './walletlogo.png';
+import EditForm from '../components/EditForm';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   constructor() {
@@ -25,15 +29,26 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email } = this.props;
+    const { email, isEditing } = this.props;
     return (
       <>
-        <header>
-          <p data-testid="email-field">{email}</p>
-          <p data-testid="total-field">{this.getValues()}</p>
-          <p data-testid="header-currency-field">BRL</p>
+        <header id="header">
+          <h2 id="header-title">My Wallet</h2>
+          <img id="logo2" src={ logo } alt="wallet" />
+          <p className="header-text" data-testid="email-field">
+            {`Email: ${email}`}
+          </p>
+          <div className="value-currencie">
+            <p className="header-text" data-testid="total-field">
+              {`R$ ${this.getValues()}`}
+            </p>
+            <p className="header-text" data-testid="header-currency-field" value="BRL">
+              BRL
+            </p>
+          </div>
         </header>
-        <ExpendForm />
+        { isEditing ? <EditForm /> : <ExpendForm />}
+        <Table />
       </>
     );
   }
@@ -43,17 +58,19 @@ const secondMapDispatchToProps = (dispatch) => ({
   userAddCurrencie: () => dispatch(currencyAPIThunk()),
 });
 
-const secondMapStateToProps = ({ wallet: { isloading, expenses },
+const secondMapStateToProps = ({ wallet: { isloading, expenses, isEditing },
   user: { email } }) => ({
   isloading,
   email,
   expenses,
+  isEditing,
 });
 
 Wallet.propTypes = {
-  userAddCurrencie: PropTypes.func.isRequired,
-  email: PropTypes.string.isRequired,
-  expenses: PropTypes.arrayOf([{}]).isRequired,
-};
+  userAddCurrencie: PropTypes.func,
+  email: PropTypes.string,
+  expenses: PropTypes.arrayOf(PropTypes.object),
+  isEditing: PropTypes.bool,
+}.isRequired;
 
 export default connect(secondMapStateToProps, secondMapDispatchToProps)(Wallet);

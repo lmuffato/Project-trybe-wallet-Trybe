@@ -1,36 +1,30 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import TotalExpense from './TotalExpense';
+import './table.css';
 
 class Table extends Component {
   render() {
-    const { expenses } = this.props;
     return (
-      <table>
-        <tr>
-          <th>Descrição</th>
-          <th>Tag</th>
-          <th>Método de pagamento</th>
-          <th>Valor</th>
-          <th>Moeda</th>
-          <th>Câmbio utilizado</th>
-          <th>Valor convertido</th>
-          <th>Moeda de conversão</th>
-          <th>Editar/Excluir</th>
-        </tr>
-        {expenses.length > 0 ? <TotalExpense /> : <div />}
-      </table>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Descrição</th>
+              <th>Tag</th>
+              <th>Método de pagamento</th>
+              <th>Valor</th>
+              <th>Moeda</th>
+              <th>Câmbio utilizado</th>
+              <th>Valor convertido</th>
+              <th>Moeda de conversão</th>
+              <th>Editar/Excluir</th>
+            </tr>
+          </thead>
+          <TotalExpense />
+        </table>
+      </div>
     );
   }
 }
 
-const secondMapStateToProps = ({ wallet: { expenses } }) => ({
-  expenses,
-});
-
-Table.propTypes = {
-  expenses: PropTypes.arrayOf([{}]).isRequired,
-};
-
-export default connect(secondMapStateToProps)(Table);
+export default Table;

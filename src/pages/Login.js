@@ -1,88 +1,68 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import logo from './walletlogo.png';
 import { userLoginSucess } from '../actions';
+import './login.css';
 
 class Login extends React.Component {
   constructor() {
     super();
     this.state = {
       email: '',
-      isValidEmail: false,
-      isValidPassword: false,
-      isValidLogin: false,
+      password: '',
     };
-    this.handleEmail = this.handleEmail.bind(this);
-    this.passOk = this.passOk.bind(this);
-    this.checkinputs = this.checkinputs.bind(this);
+    this.handleInput = this.handleInput.bind(this);
     this.loginUser = this.loginUser.bind(this);
   }
 
-  checkinputs() {
-    const { isValidEmail, isValidPassword } = this.state;
-    if (isValidEmail && isValidPassword) {
-      this.setState(() => ({
-        isValidLogin: true,
-      }));
-    } else {
-      this.setState(() => ({
-        isValidLogin: false,
-      }));
-    }
-  }
-
-  handleEmail(event) {
-    const { value } = event.target;
-    const re = /\S+@\S+\.\S+/; // consultado validação de e-mail via expressão regular em: https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/
-    if (re.test(value)) {
-      this.setState(() => ({
-        email: value,
-        isValidEmail: true,
-      }));
-    } else {
-      this.setState(() => ({
-        isValidEmail: false,
-      }));
-    }
-    this.checkinputs();
-  }
-
-  passOk(event) {
-    const { value } = event.target;
-    const length = 4;
-    if (value.length > length) {
-      this.setState(() => ({
-        isValidPassword: true,
-      }));
-    } else {
-      this.setState(() => ({
-        isValidPassword: false,
-      }));
-    }
-    this.checkinputs();
+  handleInput(event) {
+    const { value, name } = event.target;
+    this.setState({
+      [name]: value,
+    });
   }
 
   loginUser() {
-    const { email, isValidLogin } = this.state;
-    const { userEmail } = this.props;
-    const { history } = this.props;
-    if (isValidLogin) {
-      userEmail(email);
-      history.push('/carteira');
-    }
+    const { email, password } = this.state;
+    console.log(email, password);
+    const { history, userEmail } = this.props;
+    userEmail(email, password);
+    history.push('/carteira');
   }
 
   render() {
-    const { isValidLogin } = this.state;
+    const { password, email } = this.state;
+    const regex = /\S+@\S+\.\S\S/;
+    const passwordLength = 6;
     return (
-      <div>
-        Login
-        <input type="email" onChange={ this.handleEmail } data-testid="email-input" />
-        <input type="password" onChange={ this.passOk } data-testid="password-input" />
+      <div className="login">
+        <h1 id="title">My Wallet</h1>
+        <img id="logo" src={ logo } alt="wallet" />
+        <p id="login-word">Login</p>
+        <p className="loginEmail">Email:</p>
+        <input
+          className="input"
+          type="email"
+          onChange={ this.handleInput }
+          data-testid="email-input"
+          name="email"
+          value={ email }
+        />
+        <p>Password:</p>
+        <input
+          className="input"
+          type="password"
+          onChange={ this.handleInput }
+          data-testid="password-input"
+          name="password"
+          value={ password }
+        />
         <button
           type="button"
+          className="button"
           onClick={ this.loginUser }
-          disabled={ !isValidLogin }
+          disabled={ !email.match(regex) || password.length < passwordLength }
         >
           Entrar
         </button>
@@ -92,7 +72,7 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  userEmail: (email) => dispatch(userLoginSucess(email)),
+  userEmail: (email, password) => dispatch(userLoginSucess(email, password)),
 });
 
 const mapStateToProps = ({ user: { email, isLogged } }) => ({

@@ -3,13 +3,13 @@ import { USER_LOGIN_SUCESS } from '../actions';
 
 const INITIAL_STATE = {
   email: '',
-  isLogged: false,
+  password: '',
 };
 
 function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case USER_LOGIN_SUCESS:
-    return { ...state, isLogged: true, email: action.payload };
+    return action.payload;
   default:
     return state;
   }
