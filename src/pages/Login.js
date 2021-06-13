@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import loginAction from '../actions';
+import { loginAction } from '../actions';
 import Input from '../components/Input';
 import db from '../helpers/db';
 

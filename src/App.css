@@ -141,6 +141,7 @@ body {
 .wallet-page {
   background-color: #f8f9fb;
   display: flex;
+  flex-direction: column;
   font-size: 1.6rem;
   height: 100vh;
   width: 100vw;
@@ -175,4 +176,48 @@ body {
 .user-email {
   color: #ff8d01;
   font-weight: 500;
+}
+
+.wallet-inputs {
+  align-items: center;
+  background-color: #ff8d01;
+  display: flex;
+  height: 80px;
+  justify-content: space-evenly;
+  margin: 5px 0;
+
+  /* border-radius: 10px; */
+}
+
+.wallet-inputs label {
+  align-items: center;
+  display: flex;
+  font-size: 1.6rem;
+  height: 50%;
+  justify-content: center;
+  margin: auto 0;
+  padding: 5px 0;
+  position: relative;
+}
+
+.wallet-inputs input , .wallet-inputs select {
+  background-color: #f8f9fb;
+  border: none;
+  border-radius: 3px;
+  font-size: 1.6rem;
+  height: 100%;
+  margin: 0 5px;
+}
+
+.wallet-inputs label:nth-child( 1 ) input {
+  width: 100px;
+}
+
+.wallet-inputs button {
+  background-color: #200440;
+  border: none;
+
+  /* padding: 10px; */
+  font-size: 1.6rem;
+  outline: none;
 }

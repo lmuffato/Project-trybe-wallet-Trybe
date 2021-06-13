@@ -2,7 +2,12 @@ import React from 'react';
 // import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import store from '../store';
+import walletThunks from '../thunks/wallet';
+import WalletHeader from '../components/WalletHeader';
+import WalletForm from '../components/WalletForm';
+
+const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+const categories = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -15,7 +20,9 @@ class Wallet extends React.Component {
   }
 
   componentDidMount() {
+    const { getCurrencies } = this.props;
     // this.checkLogged();
+    getCurrencies();
   }
 
   // checkLogged = () => {
@@ -28,7 +35,7 @@ class Wallet extends React.Component {
 
   render() {
     const {
-      //  wallet: { expenses },
+      wallet: { currencies },
       user: { email },
     } = this.props;
     const {
@@ -40,28 +47,30 @@ class Wallet extends React.Component {
     //   return <Redirect to="/" />;
     // }
 
+    if (currencies.USDT) {
+      delete currencies.USDT;
+    }
+
     return (
       <section className="wallet-page">
-        <header className="header-container">
-          <div className="wallet-logo">CARTEIRA DO MINEIRO</div>
-          <div className="user-summary">
-            <span className="user-email" data-testid="email-field">
-              {email || 'alguem@email.com'}
-            </span>
-            <span data-testid="total-field">
-              {`Total gasto: RS ${total}`}
-            </span>
-            <span data-testid="header-currency-field">{currency}</span>
-          </div>
-        </header>
+        <WalletHeader email={ email } total={ total } currency={ currency } />
+        <WalletForm
+          currencies={ currencies }
+          paymentMethods={ paymentMethods }
+          categories={ categories }
+        />
       </section>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  wallet: state.wallet,
   user: state.user,
+  wallet: state.wallet,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(walletThunks.getCurrencies()),
 });
 
 Wallet.propTypes = {
@@ -71,4 +80,4 @@ Wallet.propTypes = {
   user: PropTypes.shape({}),
 }.isRequired;
 
-export default connect(mapStateToProps, null)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

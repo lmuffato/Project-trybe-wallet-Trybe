@@ -1,5 +1,10 @@
 import ACTIONS from '../constants/actions';
 
-const loginAction = (value) => ({ type: ACTIONS.LOGIN, value });
-
-export default loginAction;
+export const loginAction = (value) => ({ type: ACTIONS.LOGIN, value });
+export const getCurrencies = (currencies) => {
+  if (currencies.USDT) {
+    delete currencies.USDT;
+  }
+  return { type: ACTIONS.GET_CURRENCIES,
+    currencies };
+};
