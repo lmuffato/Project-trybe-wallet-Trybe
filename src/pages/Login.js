@@ -1,5 +1,4 @@
 import React from 'react';
-import { addEmail } from '../actions';
 
 class Login extends React.Component {
   render() {
