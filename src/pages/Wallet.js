@@ -1,11 +1,17 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { fetchThunk } from '../actions';
 import '../Wallet.css';
 
 class Wallet extends Component {
+  componentDidMount() {
+    const { requestFetch } = this.props;
+    return requestFetch();
+  }
+
   render() {
-    const { props: { emailDaPessoa } } = this;
+    const { props: { emailDaPessoa, currencies } } = this;
     return (
       <>
         <div className="flex-container">
@@ -27,9 +33,7 @@ class Wallet extends Component {
           <label htmlFor="moeda">
             Moeda:
             <select id="moeda" name="Moeda">
-              <option value="valor1">Valor 1</option>
-              <option value="valor2" selected>Valor 2</option>
-              <option value="valor3">Valor 3</option>
+              {currencies.map((curr) => <option key={ curr }>{curr}</option>)}
             </select>
           </label>
           <label htmlFor="tag">
@@ -62,6 +66,11 @@ Wallet.propTypes = {
 
 const mapStateToProps = (state) => ({
   emailDaPessoa: state.user.email,
+  currencies: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps, null)(Wallet);
+const mapDispatchToProps = (dispatch) => ({
+  requestFetch: () => dispatch(fetchThunk()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
