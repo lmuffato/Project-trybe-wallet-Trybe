@@ -3,7 +3,8 @@
 import { FETCH_CURRENCIES,
   FETCH_CURRENCIES_SUCESS,
   FETCH_CURRENCIES_ERROR,
-  ADD_EXPENSE } from '../actions/actionsTypes';
+  ADD_EXPENSE,
+  DELETE_EXPENSES } from '../actions/actionsTypes';
 
 const INNITIAL_STATE = {
   currencies: [],
@@ -39,6 +40,12 @@ const wallet = (state = INNITIAL_STATE, action) => {
     return {
       ...state,
       expenses: state.expenses.concat(action.expenses),
+    };
+  }
+  case DELETE_EXPENSES: {
+    return {
+      ...state,
+      expenses: [...state.expenses.filter((element) => element !== action.payload)],
     };
   }
   default:

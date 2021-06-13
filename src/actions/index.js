@@ -3,7 +3,8 @@ import { ADD_USER,
   ADD_EXPENSE,
   FETCH_CURRENCIES,
   FETCH_CURRENCIES_SUCESS,
-  FETCH_CURRENCIES_ERROR } from './actionsTypes';
+  FETCH_CURRENCIES_ERROR, 
+  DELETE_EXPENSES } from './actionsTypes';
 
 import currencyApi from '../services/currencyApi';
 
@@ -28,6 +29,11 @@ export const fetchCurrenciesSucess = (currencies) => ({
 
 export const fetchCurrenciesError = (payload) => ({
   type: FETCH_CURRENCIES_ERROR,
+  payload,
+});
+
+export const deleteExpenses = (payload) => ({
+  type: DELETE_EXPENSES,
   payload,
 });
 
