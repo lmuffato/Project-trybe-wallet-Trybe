@@ -30,7 +30,7 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, null)(Wallet);
 
 Wallet.propTypes = {
   user: PropTypes.string.isRequired,
