@@ -4,18 +4,18 @@ const INITIAL_STATE = {
   user: {
     email: '',
   },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'ADD_EMAIL':
+  case 'ADD_EMAIL': {
+    const { payload } = action;
+
     return {
-      ...INITIAL_STATE,
+      ...state,
+      email: payload,
     };
+  }
   default:
     return state;
   }

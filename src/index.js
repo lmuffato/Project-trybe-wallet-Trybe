@@ -4,8 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import { Provider } from 'react-redux';
 import store from './store/index';
-import Form from './componentes/form';
-import Table from './componentes/table';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
@@ -13,8 +11,6 @@ ReactDOM.render(
   <BrowserRouter>
     <Provider store={ store }>
       <App />
-      <Table />
-      <Form />
     </Provider>
   </BrowserRouter>,
   document.getElementById('root'),

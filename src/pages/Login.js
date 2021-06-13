@@ -1,4 +1,5 @@
 import React from 'react';
+import { addEmail } from '../actions';
 
 class Login extends React.Component {
   render() {
@@ -23,7 +24,13 @@ class Login extends React.Component {
             data-testid="password-input"
           />
         </label>
-        <button type="button">Entrar</button>
+        <button
+          data-testid="my-action"
+          onClick={ () => { } }
+          type="button"
+        >
+          Entrar
+        </button>
       </form>
     );
   }
