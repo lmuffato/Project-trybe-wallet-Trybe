@@ -1,6 +1,4 @@
-import { REQUEST_CURRENCIES,
-  REQUEST_CURRENCIES_FAILURE,
-  REQUEST_CURRENCIES_SUCESSFUL } from '../actions';
+import { REQUEST_CURRENCIES } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -10,11 +8,10 @@ const INITIAL_STATE = {
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case REQUEST_CURRENCIES:
-    return state;
-  case REQUEST_CURRENCIES_SUCESSFUL:
-    return state;
-  case REQUEST_CURRENCIES_FAILURE:
-    return state;
+    return {
+      ...state,
+      currencies: [...action.payload],
+    };
   default:
     return state;
   }
