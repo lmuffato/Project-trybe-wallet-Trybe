@@ -40,3 +40,12 @@ export const addExpense = (expenses) => ({
     expenses,
   },
 });
+
+export const TOTAL_VALUE = 'TOTAL_VALUE';
+
+export const addTotalExpense = (totalValue) => ({
+  type: TOTAL_VALUE,
+  wallet: {
+    totalValue,
+  },
+});

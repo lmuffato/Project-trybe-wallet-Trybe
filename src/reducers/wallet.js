@@ -1,14 +1,15 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { RECEIVE_CURRENCIES, ADD_TO_WALLET } from '../actions';
+import { RECEIVE_CURRENCIES, ADD_TO_WALLET, TOTAL_VALUE } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   expenseId: 0,
+  totalValue: 0,
 };
 
 const wallet = (
-  state = INITIAL_STATE, { wallet: { currencies, expenses } = [], type },
+  state = INITIAL_STATE, { wallet: { currencies, expenses, totalValue } = [], type },
 ) => {
   switch (type) {
   case RECEIVE_CURRENCIES:
@@ -21,6 +22,11 @@ const wallet = (
       ...state,
       expenses: state.expenses.concat(expenses),
       expenseId: state.expenseId + 1,
+    };
+  case TOTAL_VALUE:
+    return {
+      ...state,
+      totalValue,
     };
   default:
     return state;

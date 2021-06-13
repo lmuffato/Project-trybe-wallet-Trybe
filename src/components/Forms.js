@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrencies, addExpense } from '../actions';
+import { fetchCurrencies, addExpense, addTotalExpense } from '../actions';
 
 class Forms extends React.Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class Forms extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.getCurrenciesUpdate = this.getCurrenciesUpdate.bind(this);
+    this.summValue = this.summValue.bind(this);
 
     this.state = {
       id: 0,
@@ -20,7 +21,6 @@ class Forms extends React.Component {
       method: 'Dinheiro',
       tag: 'Alimentação',
       exchangeRates: [],
-
     };
   }
 
@@ -53,6 +53,7 @@ class Forms extends React.Component {
             <option
               key={ currency.code }
               value={ currency.code }
+              currencyvalue={ currency.ask }
             >
               { currency.code }
             </option>)) }
@@ -72,13 +73,22 @@ class Forms extends React.Component {
 
   async handleClick() {
     const { addToExpenses, expenseIdAdd } = this.props;
+    this.summValue();
     await this.setState({ id: expenseIdAdd });
     addToExpenses(this.state);
     this.getCurrenciesUpdate();
   }
 
+  async summValue() {
+    const { exchangeRates, currency, value } = this.state;
+    const { summTotal, totalValue } = this.props;
+    const veryHigh = await Object
+      .values(exchangeRates)
+      .find((exchange) => exchange.code === currency);
+    summTotal(totalValue + (Number(value) * Number(veryHigh.ask)));
+  }
+
   render() {
-    // console.log(this.props.userExpenses.length);
     return (
       <>
         <form>
@@ -129,11 +139,13 @@ const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   userExpenses: state.wallet.expenses,
   expenseIdAdd: state.wallet.expenseId,
+  totalValue: state.wallet.totalValue,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrenciesHeader: () => dispatch(fetchCurrencies()),
   addToExpenses: (componentState) => dispatch(addExpense(componentState)),
+  summTotal: (totalValue) => dispatch(addTotalExpense(totalValue)),
 });
 
 Forms.propTypes = {
