@@ -9,9 +9,7 @@ const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case GET_CURRENCIES:
     console.log(action.data);
-    const currenciesArr = Object.keys(action.data).filter((key) => key !== 'USDT');
-    console.log(currenciesArr);
-    return { ...state, currencies: currenciesArr };
+    return { ...state, currencies: action.data };
   default:
     return state;
   }

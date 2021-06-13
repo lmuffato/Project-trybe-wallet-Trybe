@@ -62,6 +62,8 @@ class Wallet extends Component {
 
 Wallet.propTypes = {
   emailDaPessoa: PropTypes.string.isRequired,
+  requestFetch: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = (state) => ({
