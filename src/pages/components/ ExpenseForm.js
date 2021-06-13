@@ -3,6 +3,7 @@ import './expenseForm.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getCurruencies, addExpenses } from '../../actions/index';
+import fetchCurrencies from '../../api/api';
 
 class ExpenseForm extends React.Component {
   constructor(props) {
@@ -18,11 +19,19 @@ class ExpenseForm extends React.Component {
     this.handleInput = this.handleInput.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.getApi = this.getApi.bind(this);
   }
 
+  // importante: requisito 7, gera array com moedas:
   componentDidMount() {
     const { dispatchgetCurruencies } = this.props;
     dispatchgetCurruencies();
+  }
+
+  async getApi() {
+    const response = await fetchCurrencies();
+    // const data = await response.json();
+    return response;
   }
 
   handleChange({ target }) {
@@ -53,19 +62,25 @@ class ExpenseForm extends React.Component {
     );
   }
 
-  handleClick(event) {
+  async handleClick(event) {
     event.preventDefault();
     const { expenses, getExpenses } = this.props;
     const id = expenses.length;
-    // const exchangeRates = ;
+    const rates = await this.getApi();
+    console.log(Object.keys(rates));
+    // const exchangeRates = rates.map((rate) => ({
+    //   code: rate.code,
+    //   name: rate.name,
+    //   ask: rate.ask,
+    // }));
     getExpenses({ id, ...this.state });
   }
 
   render() {
     const { currencys } = this.props;
-
     const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+
     return (
       <form className="expense">
         { this.handleInput('Valor:', 'value')}
@@ -82,6 +97,7 @@ class ExpenseForm extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   dispatchgetCurruencies: () => dispatch(getCurruencies()),
   getExpenses: (e) => dispatch(addExpenses(e)),
+  // getExchangeRates: () => dispatch(addExchangeRates),
 });
 
 const mapStateToProps = (state) => ({

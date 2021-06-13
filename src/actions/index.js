@@ -30,3 +30,10 @@ export function addExpenses(expense) {
     dispatch(addExpensesAction(expense));
   };
 }
+
+export function addExchangeRates() {
+  return async () => {
+    const data = await fetchCurrencies();
+    return console.log(data);
+  };
+}
