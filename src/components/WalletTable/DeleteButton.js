@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, object, number, func } from 'prop-types';
-import { removeExpense, updateTotalExpenses } from '../../actions';
+import { updateExpense, updateTotalExpenses } from '../../actions';
 import updateExpenses from '../../services/updateExpenses';
 
 function DeleteButton(props) {
@@ -34,7 +34,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   updateExpensesList: (updatedList) => (
-    dispatch(removeExpense(updatedList))
+    dispatch(updateExpense(updatedList))
   ),
   dispatchUpdatedExpenses: (value) => dispatch(updateTotalExpenses(value)),
 });

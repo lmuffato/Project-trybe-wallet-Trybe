@@ -6,7 +6,7 @@ export const GET_CURRENCIES_SUCCESS = 'GET_CURRENCIES_SUCCESS';
 export const GET_CURRENCIES_ERROR = 'GET_CURRENCIES_ERROR';
 export const SET_NEW_EXPENSE = 'SET_NEW_EXPENSE';
 export const UPDATE_TOTAL_EXPENSES = 'UPDATE_TOTAL_EXPENSES';
-export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
+export const UPDATE_EXPENSES_LIST = 'UPDATE_EXPENSES_LIST';
 export const SET_ID = 'SET_ID';
 
 export const submitUser = (email, password) => ({
@@ -49,8 +49,8 @@ export const updateTotalExpenses = (payload) => ({
   payload,
 });
 
-export const removeExpense = (payload) => ({
-  type: REMOVE_EXPENSE,
+export const updateExpense = (payload) => ({
+  type: UPDATE_EXPENSES_LIST,
   payload,
 });
 
