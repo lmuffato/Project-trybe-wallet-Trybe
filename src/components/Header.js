@@ -4,8 +4,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Header extends React.Component {
+  getTotalExpenses() {
+    const { expenses } = this.props;
+    let total = 0;
+    let valueSelected = 0;
+    let finalValue = 0;
+    expenses.forEach((expense) => {
+      valueSelected = Number(expense.exchangeRates[expense.currency].ask);
+      finalValue = expense.value * Number(valueSelected);
+      total += finalValue;
+    });
+    return Number(total).toFixed(2);
+  }
+
   render() {
-    const { user, total } = this.props;
+    const { user } = this.props;
     return (
       <header>
         <div className="logo">
@@ -20,8 +33,7 @@ class Header extends React.Component {
           <span
             data-testid="total-field"
           >
-            {total === undefined ? 0 : Number(total).toFixed(2) }
-
+            {this.getTotalExpenses()}
           </span>
           <p data-testid="header-currency-field">BRL</p>
         </div>
@@ -33,11 +45,11 @@ class Header extends React.Component {
 
 const mapStateToProps = (state) => ({
   user: state.user.email,
-  total: state.wallet.totalExpenses,
+  expenses: state.wallet.expenses,
 });
 
 Header.propTypes = {
-  total: PropTypes.number.isRequired,
+  expenses: PropTypes.number.isRequired,
   user: PropTypes.string.isRequired,
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import data from './data';
-import { deleteExpense, reduceTotal } from '../../actions';
+import { deleteExpense } from '../../actions';
 
 class Table extends React.Component {
   constructor() {
@@ -11,10 +11,9 @@ class Table extends React.Component {
     this.handleDeleteBtn = this.handleDeleteBtn.bind(this);
   }
 
-  handleDeleteBtn(id, value) {
-    const { btnDeleteExpense, reduceExpense } = this.props;
+  handleDeleteBtn(id) {
+    const { btnDeleteExpense } = this.props;
     btnDeleteExpense(id);
-    reduceExpense(value);
   }
 
   render() {
@@ -50,7 +49,7 @@ class Table extends React.Component {
                     data-testid="delete-btn"
                     type="button"
                     onClick={
-                      () => this.handleDeleteBtn(expense.id, finalValue)
+                      () => this.handleDeleteBtn(expense.id)
                     }
                   >
                     Excluir
@@ -72,12 +71,10 @@ const mapStateToProps = ({ wallet }) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   btnDeleteExpense: (state) => dispatch(deleteExpense(state)),
-  reduceExpense: (state) => dispatch(reduceTotal(state)),
 });
 
 Table.propTypes = {
   btnDeleteExpense: PropTypes.func.isRequired,
-  reduceExpense: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.shape({
   })).isRequired,
 };
