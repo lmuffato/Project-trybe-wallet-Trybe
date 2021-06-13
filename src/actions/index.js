@@ -1,7 +1,3 @@
-// Coloque aqui suas actions
-
-// User actions for Login
-
 export const setEmailAction = (email) => ({
   type: 'TYPED_EMAIL',
   payload: {
@@ -24,7 +20,7 @@ export const passwordIsValidAction = () => ({
   type: 'PASSWORD_IS_VALID',
 });
 
-// Wallet Actions ............................................................
+// Wallet Fetch Actions ............................................................
 
 export const fetchApiSuccess = (payload) => ({
   type: 'FETCH_API_SUCCESS',
@@ -40,17 +36,6 @@ export const fetchApiError = (payload) => ({
   },
 });
 
-// export const fetchApiThunk = () => async (dispatch) => {
-//   const API_URL = 'https://economia.awesomeapi.com.br/json/all';
-
-//   fetch(API_URL)
-//     .then((res) => res.json()
-//       .then((data) => dispatch(fetchApiSuccess(
-//         Object.keys(data),
-//       ))))
-//     .catch((res) => dispatch(fetchApiError(res)));
-// };
-
 export const fetchApiThunk = () => async (dispatch) => {
   const API_URL = 'https://economia.awesomeapi.com.br/json/all';
 
@@ -59,7 +44,7 @@ export const fetchApiThunk = () => async (dispatch) => {
   const data = await resolve;
 
   const currencies = Object.keys(data);
-  const filteredCurrencies = currencies.filter((currency) => currency[0] !== 'USDT');
+  const filteredCurrencies = currencies.filter((currency) => currency !== 'USDT');
 
   try {
     dispatch(fetchApiSuccess(filteredCurrencies));
@@ -67,3 +52,40 @@ export const fetchApiThunk = () => async (dispatch) => {
     dispatch(fetchApiError(e));
   }
 };
+
+// Wallet Form Actions ............................................................
+
+export const setValorAction = (payload) => ({
+  type: 'SET_VALOR',
+  payload: {
+    valor: payload,
+  },
+});
+
+export const setTagAction = (payload) => ({
+  type: 'SET_TAG',
+  payload: {
+    tag: payload,
+  },
+});
+
+export const setMoedaAction = (payload) => ({
+  type: 'SET_MOEDA',
+  payload: {
+    moeda: payload,
+  },
+});
+
+export const setDescAction = (payload) => ({
+  type: 'SET_DESCRICAO',
+  payload: {
+    descricao: payload,
+  },
+});
+
+export const setMetodoAction = (payload) => ({
+  type: 'SET_METODO',
+  payload: {
+    metodo: payload,
+  },
+});
