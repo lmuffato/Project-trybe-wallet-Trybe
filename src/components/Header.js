@@ -17,7 +17,12 @@ class Header extends React.Component {
         </div>
         <div className="total">
           <h4>Total de despesas: R$</h4>
-          <span data-testid="total-field">{total === undefined ? 0 : total}</span>
+          <span
+            data-testid="total-field"
+          >
+            {total === undefined ? 0 : Number(total).toFixed(2) }
+
+          </span>
           <p data-testid="header-currency-field">BRL</p>
         </div>
 

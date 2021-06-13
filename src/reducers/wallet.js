@@ -3,6 +3,8 @@ import {
   GET_API_CURRENCY_SUCCESS,
   GET_TO_WALLET,
   GET_TOTAL_EXPENSES,
+  DELETE_EXPENSE,
+  REDUCE_TOTAL,
 } from '../actions';
 
 const initialState = {
@@ -28,6 +30,16 @@ function wallet(state = initialState, action) {
     return {
       ...state,
       totalExpenses: state.totalExpenses + Number(action.payload),
+    };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== action.payload),
+    };
+  case REDUCE_TOTAL:
+    return {
+      ...state,
+      totalExpenses: state.totalExpenses - Number(action.payload),
     };
   default:
     return state;
