@@ -5,12 +5,14 @@ import MetodoPagamento from './Form/MetodoPagamento';
 import Moeda from './Form/Moeda';
 import Tag from './Form/Tag';
 import Descricao from './Form/Descricao';
+import Expenses from './Expenses';
 
 class Wallet extends React.Component {
   render() {
     return (
       <>
         <Header />
+        <hr />
         <form>
           <Valor />
           <Moeda />
@@ -19,6 +21,7 @@ class Wallet extends React.Component {
           <Descricao />
           <button type="submit">Adicionar Despesa</button>
         </form>
+        <Expenses />
       </>
     );
   }
