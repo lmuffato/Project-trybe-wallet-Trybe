@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ExpenseInputs from './ExpenseInputs';
-import { createExpense, getCoins } from '../actions/walletAction';
+import { createExpense, getCoins, sumTotal } from '../actions/walletAction';
 
 class ExpenseForm extends Component {
   constructor(props) {
@@ -11,13 +11,13 @@ class ExpenseForm extends Component {
     this.state = {
       value: '',
       description: '',
-      currency: '',
+      currency: undefined,
       method: '',
       tag: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    // this.handleSumTotal = this.handleSumTotal(this);
+    this.handleSumTotal = this.handleSumTotal.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
@@ -26,24 +26,18 @@ class ExpenseForm extends Component {
     });
   }
 
-  // const subTotal = map do expenses({ currency, exchangeRates, value }) -> exchangeRates[currency].ask * value R: [10, 12, 15]
-  // const total = subTotal.reduce((acc + currValue) => acc + currValue, 0)
-  // action Creator => sumTotal(total)
-  // chamana handleclick;
-  // const subTotal = expenses.map(({ currency, exchangeRates, value }) => {
-  //   exchangeRates[currency].ask * value;
-  // handleSumTotal() {
-  //   const { expenses } = this.props;
-  //   return expenses.reduce((total, { currency, exchangeRates, value }) => {
-  //     const subTotal = exchangeRates[currency];
-  //     const totalValue = subTotal.ask * value;
-  //     return total + totalValue;
-  //   }, 0);
-  // }
+  handleSumTotal() {
+    const { expenses } = this.props;
+    return expenses.reduce((total, { currency, exchangeRates, value }) => {
+      const coin = exchangeRates[currency];
+      const subTotal = coin.ask * value;
+      return total + subTotal;
+    }, 0);
+  }
 
   async handleClick() {
-    const { value, description, currency, method, tag } = this.state;
-    const { addExpense, expenses, getApi, currencies } = this.props;
+    const { value, description, currency = 'USD', method, tag } = this.state;
+    const { addExpense, expenses, getApi, currencies, getTotal } = this.props;
     await getApi();
 
     const expense = {
@@ -56,7 +50,8 @@ class ExpenseForm extends Component {
       exchangeRates: currencies,
     };
     addExpense(expense);
-    // handleSumTotal();
+    const total = this.handleSumTotal();
+    getTotal(total);
   }
 
   render() {
@@ -73,6 +68,7 @@ class ExpenseForm extends Component {
 
 ExpenseForm.propTypes = {
   addExpense: PropTypes.func.isRequired,
+  getTotal: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   currencies: PropTypes.objectOf(PropTypes.object).isRequired,
   getApi: PropTypes.func.isRequired,
@@ -86,6 +82,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   addExpense: (expense) => dispatch(createExpense(expense)),
   getApi: () => dispatch(getCoins()),
+  getTotal: (total) => dispatch(sumTotal(total)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
+
+// Referências:
+// handleSumTotal: https://www.devmedia.com.br/javascript-reduce-reduzindo-uma-colecao-em-um-unico-objeto/37981
