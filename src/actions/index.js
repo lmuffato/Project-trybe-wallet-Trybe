@@ -1,10 +1,40 @@
-const LOGIN = 'LOGIN';
+import getCurrenciesFromAPI from '../services/api';
 
-// Coloque aqui suas actions
-const login = (email, password) => ({
+export const LOGIN = 'LOGIN';
+export const GET_CURRENCIES = 'GET_CURRENCIES';
+export const GET_CURRENCIES_SUCCESS = 'GET_CURRENCIES_SUCCESS';
+export const GET_CURRENCIES_ERROR = 'GET_CURRENCIES_ERROR';
+
+// LOGIN action creator
+export const login = (email, password) => ({
   type: LOGIN,
   email,
   password,
 });
 
-export default login;
+export const getCurrencies = () => ({
+  type: GET_CURRENCIES,
+});
+
+export const getCurrenciesSuccess = (currenciesList) => ({
+  type: GET_CURRENCIES_SUCCESS,
+  currenciesList,
+});
+
+export const getCurrenciesError = () => ({
+  type: GET_CURRENCIES_ERROR,
+});
+
+export const getCurrenciesThunk = () => (dispatch) => {
+  dispatch(getCurrencies());
+  getCurrenciesFromAPI()
+    .then((res) => {
+      const currenciesList = Object.keys(res).filter((curr) => curr !== 'USDT');
+      console.log(currenciesList);
+      dispatch(getCurrenciesSuccess(currenciesList));
+    })
+    .catch((error) => {
+      console.log(error);
+      getCurrenciesError();
+    });
+};
