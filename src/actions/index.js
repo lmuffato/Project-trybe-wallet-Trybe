@@ -6,6 +6,7 @@ export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const FETCH_CURRENCIES = 'FETCH_CURRENCIES';
 export const FETCH_CURRENCIES_SUCCESS = 'FETCH_CURRENCIES_SUCCESS';
 export const FETCH_CURRENCIES_ERROR = 'FETCH_CURRENCIES_ERROR';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const addUser = (email) => ({
   type: ADD_USER,
@@ -29,6 +30,11 @@ export const fetchCurrenciesSuccess = (currencies) => ({
 export const fetchCurrenciesError = (payload) => ({
   type: FETCH_CURRENCIES_ERROR,
   payload,
+});
+
+export const deleteExpense = (obj) => ({
+  type: DELETE_EXPENSE,
+  obj,
 });
 
 export const getCurrenciesThunk = () => (dispatch) => {

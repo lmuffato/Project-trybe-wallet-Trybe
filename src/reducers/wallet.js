@@ -4,6 +4,7 @@ import {
   FETCH_CURRENCIES_ERROR,
   FETCH_CURRENCIES_SUCCESS,
   ADD_EXPENSE,
+  DELETE_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -39,6 +40,11 @@ function wallet(state = INITIAL_STATE, action) {
     return {
       ...state,
       expenses: state.expenses.concat(action.expenses),
+    };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((element) => element !== action.obj),
     };
   default:
     return state;
