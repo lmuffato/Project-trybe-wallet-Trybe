@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { func, objectOf, object } from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrenciesThunk, setNewExpense, updateTotalExpenses,
-  changeUpdate } from '../actions/index';
+import { updateTotalExpenses, changeUpdate, updateExpense } from '../actions/index';
 import Tag from './WalletFormOptions/Tag';
 import Method from './WalletFormOptions/Method';
 import Currency from './WalletFormOptions/Currency';
 import Description from './WalletFormOptions/Description';
 import Value from './WalletFormOptions/Value';
-// import updateExpenses from '../services/updateExpenses';
+import updateExpenses from '../services/updateExpenses';
 
 class EditForm extends Component {
   constructor(props) {
@@ -20,6 +19,7 @@ class EditForm extends Component {
 
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.replaceEditedExpense = this.replaceEditedExpense.bind(this);
 
     this.state = {
       value,
@@ -30,6 +30,25 @@ class EditForm extends Component {
     };
   }
 
+  replaceEditedExpense() {
+    const { id, expenses } = this.props;
+    const { value, description, currency, method, tag } = this.state;
+    const formatValue = value.replace(',', '.');
+    const expenseToBeEdited = expenses.find((expense) => expense.id === id);
+    const editedExpense = {
+      ...expenseToBeEdited,
+      value: formatValue,
+      description,
+      currency,
+      method,
+      tag,
+    };
+    return expenses.map((expense) => {
+      if (expense.id === editedExpense.id) return editedExpense;
+      return expense;
+    });
+  }
+
   handleInput({ target }) {
     const { value, name } = target;
     this.setState({ [name]: value });
@@ -37,18 +56,22 @@ class EditForm extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
+    const { dispatchUpdatedList, dispatchUpdatedTotal, returnFromEdit } = this.props;
+    const newList = this.replaceEditedExpense();
+    dispatchUpdatedList(newList);
+    dispatchUpdatedTotal(updateExpenses(newList));
+    returnFromEdit({ id: null, editing: false });
   }
 
   render() {
-    const { currencies, isLoading, cancelEdit } = this.props;
+    const { currencies, returnFromEdit } = this.props;
     const { value, description, currency, method, tag } = this.state;
-    const currenciesKeys = Object.keys(currencies).filter((key) => key !== 'USDT');
     return (
       <form onSubmit={ this.handleSubmit }>
         <Value value={ value } handleInput={ this.handleInput } />
         <Description description={ description } handleInput={ this.handleInput } />
         <Currency
-          currencies={ currenciesKeys }
+          currencies={ currencies }
           selectedCur={ currency }
           handleInput={ this.handleInput }
         />
@@ -56,13 +79,12 @@ class EditForm extends Component {
         <Tag tag={ tag } handleInput={ this.handleInput } />
         <button
           type="submit"
-          disabled={ isLoading }
         >
-          Adicionar Despesa
+          Editar despesa
         </button>
         <button
           type="button"
-          onClick={ () => cancelEdit({ id: null, editing: false }) }
+          onClick={ () => returnFromEdit({ id: null, editing: false }) }
         >
           Cancelar
         </button>
@@ -73,15 +95,13 @@ class EditForm extends Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  isLoading: state.wallet.isLoading,
   expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrencies: () => dispatch(getCurrenciesThunk()),
-  setExpense: (data) => dispatch(setNewExpense(data)),
-  dispatchUpdatedExpenses: (value) => dispatch(updateTotalExpenses(value)),
-  cancelEdit: (payload) => dispatch(changeUpdate(payload)),
+  dispatchUpdatedTotal: (value) => dispatch(updateTotalExpenses(value)),
+  dispatchUpdatedList: (value) => dispatch(updateExpense(value)),
+  returnFromEdit: (payload) => dispatch(changeUpdate(payload)),
 });
 
 EditForm.propTypes = {

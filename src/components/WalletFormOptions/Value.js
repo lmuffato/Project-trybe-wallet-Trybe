@@ -8,6 +8,7 @@ export default function Value(props) {
       Valor:
       <input
         id="expense-value"
+        data-testid="value-input"
         type="number"
         step="any"
         min="0"

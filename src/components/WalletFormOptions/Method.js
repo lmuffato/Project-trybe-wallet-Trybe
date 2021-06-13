@@ -8,6 +8,7 @@ export default function Method(props) {
       Método de pagamento:
       <select
         id="expense-method"
+        data-testid="method-input"
         name="method"
         value={ method }
         onChange={ handleInput }

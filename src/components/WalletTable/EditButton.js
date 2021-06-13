@@ -14,6 +14,7 @@ function EditButton(props) {
   return (
     <button
       type="button"
+      data-testid="edit-btn"
       onClick={ editCell }
       disabled={ isEditing }
     >

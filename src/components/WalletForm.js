@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { func, objectOf, object } from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrenciesThunk, setNewExpense, updateTotalExpenses } from '../actions/index';
+import { getCurrenciesNamesThunk,
+  setNewExpense, updateTotalExpenses } from '../actions/index';
 import Tag from './WalletFormOptions/Tag';
 import Method from './WalletFormOptions/Method';
 import Currency from './WalletFormOptions/Currency';
@@ -85,13 +86,12 @@ class WalletForm extends Component {
   render() {
     const { currencies, isLoading } = this.props;
     const { value, description, currency, method, tag } = this.state;
-    const currenciesKeys = Object.keys(currencies).filter((key) => key !== 'USDT');
     return (
       <form onSubmit={ this.handleSubmit }>
         <Value value={ value } handleInput={ this.handleInput } />
         <Description description={ description } handleInput={ this.handleInput } />
         <Currency
-          currencies={ currenciesKeys }
+          currencies={ currencies }
           selectedCur={ currency }
           handleInput={ this.handleInput }
         />
@@ -115,7 +115,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrencies: () => dispatch(getCurrenciesThunk()),
+  setCurrencies: () => dispatch(getCurrenciesNamesThunk()),
   setExpense: (data) => dispatch(setNewExpense(data)),
   dispatchUpdatedExpenses: (value) => dispatch(updateTotalExpenses(value)),
 });

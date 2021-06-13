@@ -31,11 +31,12 @@ export const getCurrenciesError = (payload) => ({
   payload,
 });
 
-export function getCurrenciesThunk() {
+export function getCurrenciesNamesThunk() {
   return async (dispatch) => {
     dispatch(getCurrencies());
     const currencies = await fetchCurrencies();
-    dispatch(getCurrenciesSuccess(currencies));
+    const currenciesKeys = Object.keys(currencies).filter((key) => key !== 'USDT');
+    dispatch(getCurrenciesSuccess(currenciesKeys));
   };
 }
 

@@ -8,6 +8,7 @@ export default function Description(props) {
       Descrição:
       <input
         id="expense-description"
+        data-testid="description-input"
         type="text"
         name="description"
         value={ description }

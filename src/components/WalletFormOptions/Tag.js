@@ -8,6 +8,7 @@ export default function Tag(props) {
       Tag:
       <select
         id="expense-tag"
+        data-testid="tag-input"
         name="tag"
         value={ tag }
         onChange={ handleInput }

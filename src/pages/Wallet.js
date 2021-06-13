@@ -12,7 +12,7 @@ class Wallet extends React.Component {
     return (
       <>
         <WalletHeader />
-        { editing ? <EditForm id={ editCell } /> : <WalletForm />}
+        { editing ? <EditForm id={ editCell } /> : <WalletForm /> }
         <WalletTable />
       </>
     );

@@ -9,8 +9,7 @@ import {
 
 const INITIAL_STATE = {
   isLoading: false,
-  currencies: '',
-  error: null,
+  currencies: [],
   expenses: [],
   totalExpenses: 0,
 };
@@ -28,8 +27,7 @@ function walletReducer(state = INITIAL_STATE, action) {
   case UPDATE_TOTAL_EXPENSES:
     return { ...state, totalExpenses: action.payload };
   case UPDATE_EXPENSES_LIST:
-    return { ...state, expenses: action.payload,
-    };
+    return { ...state, expenses: action.payload };
   default:
     return state;
   }

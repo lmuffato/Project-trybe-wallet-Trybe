@@ -8,6 +8,7 @@ function Currency(props) {
       Moeda:
       <select
         id="expense-currency"
+        data-testid="currency-input"
         name="currency"
         value={ selectedCur }
         onChange={ handleInput }
