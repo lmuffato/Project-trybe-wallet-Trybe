@@ -5,30 +5,22 @@ import { connect } from 'react-redux';
 import Form from '../components/Form';
 import Header from '../components/Header';
 
-import { addExpence, getCurrencyThunk } from '../actions';
+import { getCurrencyThunk, addExpenceThunk } from '../actions';
 
 class Wallet extends React.Component {
   componentDidMount() {
-    // const { history } = this.props;
-    // const { email } = this.state;
-
-    // if (!email) {
-    //   history.push('/');
-    // }
-
     const { getCurrencies } = this.props;
 
     getCurrencies();
   }
 
   render() {
-    const { currencies } = this.props;
-    // const { addExpences } = this.props;
+    const { currencies, addExpences, email, expences } = this.props;
 
     return (
       <div>
-        <Header />
-        <Form currencies={ currencies } addExpence={ () => {} } />
+        <Header email={ email } expences={ expences } />
+        <Form currencies={ currencies } addExpences={ addExpences } />
       </div>);
   }
 }
@@ -36,7 +28,9 @@ class Wallet extends React.Component {
 Wallet.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   getCurrencies: PropTypes.func.isRequired,
-  // addExpences: PropTypes.func.isRequired,
+  addExpences: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
+  expences: PropTypes.arrayOf(PropTypes.object).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
@@ -48,12 +42,13 @@ Wallet.defaultProps = {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expences: state.wallet.expenses,
   email: state.user.email,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(getCurrencyThunk()),
-  addExpences: (payload) => dispatch(addExpence(payload)),
+  addExpences: (expence) => dispatch(addExpenceThunk(expence)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

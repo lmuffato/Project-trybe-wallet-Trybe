@@ -10,11 +10,12 @@ class Form extends Component {
     this.handleInput = this.handleInput.bind(this);
 
     this.state = {
-      valor: '0',
+      value: '',
       description: '',
-      currency: 'BRL',
-      method: 'dinheiro',
-      tag: 'alimentacao',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      id: 0,
     };
   }
 
@@ -22,7 +23,7 @@ class Form extends Component {
     const { value, name } = event.target;
 
     if (name === 'valor') {
-      this.setState({ valor: value });
+      this.setState({ value });
     }
 
     if (name === 'descricao') {
@@ -36,6 +37,17 @@ class Form extends Component {
     if (name === 'tag') {
       this.setState({ tag: value });
     }
+
+    if (name === 'moeda') {
+      this.setState({ currency: value });
+    }
+  }
+
+  handleButton(addExpences, expence) {
+    addExpences(expence);
+    const { id } = this.state;
+
+    this.setState({ id: id + 1 });
   }
 
   renderValueInput(valor) {
@@ -87,9 +99,9 @@ class Form extends Component {
       <label htmlFor="metodo">
         Método de pagamento
         <select name="metodo" id="metodo" onChange={ this.handleInput } value={ method }>
-          <option value="dinheiro">Dinheiro</option>
-          <option value="credito">Cartão de crédito</option>
-          <option value="debito">Cartão de débito</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de débito">Cartão de débito</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
         </select>
       </label>
     );
@@ -100,23 +112,23 @@ class Form extends Component {
       <label htmlFor="tag">
         Tag
         <select name="tag" id="tag" onChange={ this.handleInput } value={ tag }>
-          <option value="alimentacao">Alimentação</option>
-          <option value="lazer">Lazer</option>
-          <option value="trabalho">Trabalho</option>
-          <option value="transporte">Transporte</option>
-          <option value="saude">Saúde</option>
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
     );
   }
 
   render() {
-    const { valor, description, currency, method, tag } = this.state;
-    const { currencies } = this.props;
+    const { id, value, description, currency, method, tag } = this.state;
+    const { currencies, addExpences } = this.props;
 
     return (
       <form>
-        {this.renderValueInput(valor)}
+        {this.renderValueInput(value)}
 
         {this.renderDescriptionInput(description)}
 
@@ -126,7 +138,16 @@ class Form extends Component {
 
         {this.renderTagSelect(tag)}
 
-        <button type="button">Adicionar despesa</button>
+        <button
+          type="button"
+          onClick={
+            () => this.handleButton(addExpences,
+              { id, value, description, currency, method, tag })
+          }
+        >
+          Adicionar despesa
+
+        </button>
       </form>
     );
   }
@@ -134,7 +155,7 @@ class Form extends Component {
 
 Form.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
-  // addExpences: PropTypes.func.isRequired,
+  addExpences: PropTypes.func.isRequired,
 };
 
 export default Form;
