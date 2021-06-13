@@ -59,7 +59,7 @@ describe('5 - Crie um header para a página de carteira contendo as seguintes ca
 });
 
 describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as seguintes características:', () => {
-  test.skip('Um campo para adicionar o valor da despesa', async () => {
+  test('Um campo para adicionar o valor da despesa', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const valueInput = await screen.findByLabelText(/valor/i);
 
@@ -144,7 +144,7 @@ describe('7 - Implemente a lógica para preencher as opções do campo "Moedas",
 });
 
 describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gastos', () => {
-  test.skip('Crie um botão com o texto \'Adicionar despesa\' que salva as informações da despesa no estado global e atualiza a soma de despesas no header', async () => {
+  test('Crie um botão com o texto \'Adicionar despesa\' que salva as informações da despesa no estado global e atualiza a soma de despesas no header', async () => {
     const { store } = renderWithRouterAndStore(<Wallet />, '/carteira');
 
     const addButton = await screen.findByRole('button', {

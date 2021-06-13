@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   email: '',
 };
 
-function user(state = INITIAL_STATE, action) {
+function login(state = INITIAL_STATE, action) {
   switch (action.type) {
   case LOGIN:
     return {
@@ -15,4 +15,4 @@ function user(state = INITIAL_STATE, action) {
   }
 }
 
-export default user;
+export default login;
