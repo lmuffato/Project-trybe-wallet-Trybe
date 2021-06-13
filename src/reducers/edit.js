@@ -1,13 +1,14 @@
-import { SET_ID } from '../actions';
+import { CHANGE_UPDATE } from '../actions';
 
 const INITIAL_STATE = {
-  editCell: '',
+  editCell: null,
+  editing: false,
 };
 
 function editReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case SET_ID:
-    return { ...state, editCell: action.payload };
+  case CHANGE_UPDATE:
+    return { ...state, editCell: action.payload.id, editing: true };
   default:
     return state;
   }

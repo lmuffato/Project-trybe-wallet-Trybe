@@ -7,7 +7,7 @@ export const GET_CURRENCIES_ERROR = 'GET_CURRENCIES_ERROR';
 export const SET_NEW_EXPENSE = 'SET_NEW_EXPENSE';
 export const UPDATE_TOTAL_EXPENSES = 'UPDATE_TOTAL_EXPENSES';
 export const UPDATE_EXPENSES_LIST = 'UPDATE_EXPENSES_LIST';
-export const SET_ID = 'SET_ID';
+export const CHANGE_UPDATE = 'CHANGE_UPDATE';
 
 export const submitUser = (email, password) => ({
   type: LOGIN_DATA,
@@ -54,7 +54,7 @@ export const updateExpense = (payload) => ({
   payload,
 });
 
-export const setId = (payload) => ({
-  type: SET_ID,
+export const changeUpdate = (payload) => ({
+  type: CHANGE_UPDATE,
   payload,
 });

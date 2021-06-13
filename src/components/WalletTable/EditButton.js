@@ -1,12 +1,12 @@
 import React from 'react';
 import { func, number } from 'prop-types';
 import { connect } from 'react-redux';
-import { setId } from '../../actions';
+import { changeUpdate } from '../../actions';
 
 function EditButton(props) {
   const editCell = () => {
     const { dispatchId, id } = props;
-    dispatchId(id);
+    dispatchId({ id, editing: true });
   };
 
   return (
@@ -20,7 +20,7 @@ function EditButton(props) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchId: (id) => dispatch(setId(id)),
+  dispatchId: (id) => dispatch(changeUpdate(id)),
 });
 
 EditButton.propTypes = {

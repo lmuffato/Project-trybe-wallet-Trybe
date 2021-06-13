@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { objectOf, object } from 'prop-types';
+import { func, objectOf, object } from 'prop-types';
 import { connect } from 'react-redux';
-import { setNewExpense, updateTotalExpenses } from '../actions/index';
+import { getCurrenciesThunk, setNewExpense, updateTotalExpenses } from '../actions/index';
 import Tag from './WalletFormOptions/Tag';
 import Method from './WalletFormOptions/Method';
 import Currency from './WalletFormOptions/Currency';
 import Description from './WalletFormOptions/Description';
 import Value from './WalletFormOptions/Value';
-import fetchCurrencies from '../services/fetchCurrencies';
+// import updateExpenses from '../services/updateExpenses';
 
-class EditForm extends Component {
+class WalletForm extends Component {
   constructor(props) {
     super(props);
 
@@ -19,9 +19,6 @@ class EditForm extends Component {
 
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.resetState = this.resetState.bind(this);
-    this.setId = this.setId.bind(this);
-    this.createNewExpense = this.createNewExpense.bind(this);
 
     this.state = {
       value,
@@ -32,48 +29,13 @@ class EditForm extends Component {
     };
   }
 
-  resetState() {
-    this.setState({
-      value: '',
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
-    });
-  }
-
   handleInput({ target }) {
     const { value, name } = target;
     this.setState({ [name]: value });
   }
 
-  async createNewExpense() {
-    const { value, description, currency, method, tag, id } = this.state;
-    const formatValue = value.replace(',', '.');
-    const exchangeRates = await fetchCurrencies();
-    const newExpense = {
-      id,
-      value: formatValue,
-      description,
-      currency,
-      method,
-      tag,
-      exchangeRates,
-    };
-    return newExpense;
-  }
-
   async handleSubmit(event) {
     event.preventDefault();
-    this.createNewExpense();
-    const { expenses, updateExpenses } = this.props;
-    const updatedList = expenses.filter((expense) => {
-      if (expense.id !== newExpense.id) return expense;
-      return newExpense;
-    });
-    editCell(updatedList);
-    updateExpenses(Number((value * (exchangeRates[currency].ask)).toFixed(2)));
-    this.resetState();
   }
 
   render() {
@@ -95,7 +57,7 @@ class EditForm extends Component {
           type="submit"
           disabled={ isLoading }
         >
-          Editar Despesa
+          Adicionar Despesa
         </button>
       </form>
     );
@@ -106,16 +68,17 @@ const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   isLoading: state.wallet.isLoading,
   expenses: state.wallet.expenses,
-  id: state.edit.editCell,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  editCell: (data) => dispatch(setNewExpense(data)),
-  updateExpenses: (value) => dispatch(updateTotalExpenses(value)),
+  setCurrencies: () => dispatch(getCurrenciesThunk()),
+  setExpense: (data) => dispatch(setNewExpense(data)),
+  dispatchUpdatedExpenses: (value) => dispatch(updateTotalExpenses(value)),
 });
 
-EditForm.propTypes = {
+WalletForm.propTypes = {
+  setCurrencies: func,
   currencies: objectOf(object),
 }.isRequired;
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditForm);
+export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
