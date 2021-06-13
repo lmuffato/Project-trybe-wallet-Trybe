@@ -49,12 +49,9 @@ export const updateTotalExpenses = (payload) => ({
   payload,
 });
 
-export const removeExpense = (updatedList, updatedTotal) => ({
+export const removeExpense = (payload) => ({
   type: REMOVE_EXPENSE,
-  payload: {
-    updatedList,
-    updatedTotal,
-  },
+  payload,
 });
 
 export const setId = (payload) => ({

@@ -1,18 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, object, number, func } from 'prop-types';
-import { removeExpense } from '../../actions';
+import { removeExpense, updateTotalExpenses } from '../../actions';
+import updateExpenses from '../../services/updateExpenses';
 
 function DeleteButton(props) {
+  function updatedList() {
+    const { expenses, id } = props;
+    return expenses.filter((expense) => expense.id !== id);
+  }
+
   function deleteExpense() {
-    const { expenses, id, updateExpensesList } = props;
-    const updatedList = expenses.filter((expense) => expense.id !== id);
-    const updatedTotal = updatedList.reduce((acc, obj) => {
-      const { exchangeRates, currency, value } = obj;
-      const totalValue = acc + Number((value * (exchangeRates[currency].ask)).toFixed(2));
-      return totalValue;
-    }, 0);
-    updateExpensesList(updatedList, updatedTotal);
+    const { updateExpensesList, dispatchUpdatedExpenses } = props;
+    const updatedExpenses = updatedList();
+    updateExpensesList(updatedExpenses);
+    const updatedTotalValue = updateExpenses(updatedExpenses);
+    dispatchUpdatedExpenses(updatedTotalValue);
   }
 
   return (
@@ -30,9 +33,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updateExpensesList: (updatedList, updatedTotal) => (
-    dispatch(removeExpense(updatedList, updatedTotal))
+  updateExpensesList: (updatedList) => (
+    dispatch(removeExpense(updatedList))
   ),
+  dispatchUpdatedExpenses: (value) => dispatch(updateTotalExpenses(value)),
 });
 
 DeleteButton.propTypes = {
