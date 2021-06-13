@@ -44,8 +44,3 @@ export const getCurrencies = () => (dispatch) => {
   fetchCurrencies()
     .then((currencies) => dispatch(getCurrencySuccess(Object.keys(currencies))));
 };
-
-/* export const changeShouldFillEditForm = () => (dispatch) => {
-  fetchCurrencies()
-    .then((currencies) => dispatch(getCurrencySuccess(Object.keys(currencies))));
-}; */

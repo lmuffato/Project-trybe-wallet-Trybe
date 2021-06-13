@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import AddButton from './AddButton';
 import {
   getCurrencies as getCurrenciesThunk,
-  saveEditExpense as saveEditExpenseAction
+  saveEditExpense as saveEditExpenseAction,
 } from '../actions';
 
 class Form extends Component {
@@ -34,7 +34,6 @@ class Form extends Component {
   }
 
   componentDidUpdate() {
-   // console.log('ATUALIZOU!!!');
     const { expenseToEdit } = this.props;
     const { shouldUpdate } = this.state;
     if (!(JSON.stringify(expenseToEdit) === '{}' || shouldUpdate)) {
@@ -43,9 +42,7 @@ class Form extends Component {
   }
 
   fillEditForm(expenseToEdit) {
-    //console.log('CHAMOU O FILL');
     const { value, description, currency, method, tag } = expenseToEdit;
-    console.log(expenseToEdit.value);
     this.setState({
       value,
       description,

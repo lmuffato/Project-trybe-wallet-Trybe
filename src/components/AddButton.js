@@ -47,10 +47,9 @@ class AddButton extends Component {
       handleShouldUpdate,
     } = this.props;
 
-  
     const indexEditedExpense = expenses
       .findIndex((expense) => expense.id === expenseToEdit.id);
-      
+
     console.log(indexEditedExpense);
 
     editExpense({
@@ -98,6 +97,7 @@ const mapStateToProps = (state) => ({
 });
 
 AddButton.propTypes = {
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   expense: PropTypes.objectOf(PropTypes.shape({
     value: PropTypes.string,
     description: PropTypes.string,
@@ -116,6 +116,7 @@ AddButton.propTypes = {
   })).isRequired,
   addExpense: PropTypes.func.isRequired,
   editExpense: PropTypes.func.isRequired,
+  handleShouldUpdate: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddButton);
