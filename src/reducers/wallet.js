@@ -70,7 +70,6 @@ const wallet = (state = INITIAL_WALLET_STATE, action) => {
       item: action.payload,
     });
   case FINISH_EDIT:
-    console.log(action.payload.id);
     return editExpense(state, action);
   default:
     return state;

@@ -14,6 +14,7 @@ class Selects extends React.Component {
             type="text"
             name="currency"
             id="currency"
+            className="field"
             defaultValue={ currency }
             data-testid="currency-input"
             onChange={ handleChange }
@@ -28,6 +29,7 @@ class Selects extends React.Component {
             type="text"
             name="method"
             id="payment"
+            className="field"
             defaultValue={ method }
             data-testid="method-input"
             onChange={ handleChange }
@@ -36,11 +38,12 @@ class Selects extends React.Component {
           </select>
         </label>
         <label htmlFor="tag">
-          tag:
+          Tag:
           <select
             type="text"
             name="tag"
             id="tag"
+            className="field"
             defaultValue={ tag }
             data-testid="tag-input"
             onChange={ handleChange }

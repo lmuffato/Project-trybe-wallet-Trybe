@@ -1,12 +1,13 @@
 import React from 'react';
 import TBody from './TBody';
+import '../styles/Table.css';
 
 class Table extends React.Component {
   render() {
     return (
       <table className="table-content">
         <thead className="table-heading">
-          <tr>
+          <tr className="heading">
             <th>Descrição</th>
             <th>Tag</th>
             <th>Método de pagamento</th>

@@ -35,7 +35,7 @@ class TBody extends React.Component {
       const convertedValue = (value * ask).toFixed(2);
 
       return (
-        <tr key={ id }>
+        <tr key={ id } className="body">
           <td>{description}</td>
           <td>{tag}</td>
           <td>{method}</td>
@@ -44,20 +44,20 @@ class TBody extends React.Component {
           <td>{Number(ask).toFixed(2)}</td>
           <td>{convertedValue}</td>
           <td>Real</td>
-          <td>
+          <td className="buttons-container">
             <button
               type="button"
-              onClick={ () => this.editInfo(id) }
+              className="buttons edit-btn"
               data-testid="edit-btn"
+              onClick={ () => this.editInfo(id) }
             >
               Editar
             </button>
-          </td>
-          <td>
             <button
               type="button"
-              onClick={ () => this.removeItem(id) }
+              className="buttons delete-btn"
               data-testid="delete-btn"
+              onClick={ () => this.removeItem(id) }
             >
               Deletar
             </button>

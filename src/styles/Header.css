@@ -1,0 +1,15 @@
+.header , .content , .expenses {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+.content {
+  justify-content: space-between;
+  width: 50%;
+}
+
+.expenses {
+  justify-content: space-around;
+  width: 40%;
+}

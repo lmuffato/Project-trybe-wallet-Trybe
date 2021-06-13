@@ -6,6 +6,7 @@ import { createExchange } from '../actions/tableActions';
 import apiRequest from '../services/apiRequest';
 import Selects from './Selects';
 import Inputs from './Inputs';
+import '../styles/FormsAndEdit.css';
 
 class Forms extends React.Component {
   constructor() {
@@ -24,8 +25,6 @@ class Forms extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleExchanges = this.handleExchanges.bind(this);
     this.resetState = this.resetState.bind(this);
-    // this.createInput = this.createInput.bind(this);
-    // this.editInfo = this.editInfo.bind(this);
   }
 
   componentDidMount() {
@@ -63,13 +62,24 @@ class Forms extends React.Component {
     this.resetState();
   }
 
-  // Resertar os inputs de informação usando o estado, como o linter está reclamando do número de linhas, farei isso somente no meu projeto pessoal, a propriedade value recebe o state correspondente ao campo
   render() {
     return (
-      <form>
-        <Inputs handleChange={ this.handleChange } states={ this.state } />
-        <Selects handleChange={ this.handleChange } states={ this.state } />
-        <button type="button" onClick={ this.handleExchanges }>Adicionar despesa</button>
+      <form className="form">
+        <Inputs
+          handleChange={ this.handleChange }
+          states={ this.state }
+        />
+        <Selects
+          handleChange={ this.handleChange }
+          states={ this.state }
+        />
+        <button
+          type="button"
+          className="field button"
+          onClick={ this.handleExchanges }
+        >
+          Adicionar despesa
+        </button>
       </form>
     );
   }

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class Inputs extends React.Component {
   render() {
-    const { handleChange, states: { value, description } } = this.props;
+    const { props: { handleChange, states: { value, description } } } = this;
     return (
       <>
         <label htmlFor="expense">
@@ -13,6 +13,7 @@ class Inputs extends React.Component {
             type="text"
             name="value"
             id="expense"
+            className="field"
             defaultValue={ value }
             data-testid="value-input"
             onChange={ handleChange }
@@ -24,6 +25,7 @@ class Inputs extends React.Component {
             type="text"
             name="description"
             id="description"
+            className="field"
             defaultValue={ description }
             data-testid="description-input"
             onChange={ handleChange }

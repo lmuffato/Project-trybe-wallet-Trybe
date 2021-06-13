@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import Inputs from './Inputs';
 import Selects from './Selects';
 import { finishEdit } from '../actions/tableActions';
+import '../styles/FormsAndEdit.css';
 
 class Edit extends React.Component {
   constructor(props) {
@@ -27,8 +28,6 @@ class Edit extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    // this.handleExchanges = this.handleExchanges.bind(this);
-    // this.resetState = this.resetState.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
@@ -39,16 +38,14 @@ class Edit extends React.Component {
 
   render() {
     const { props: { item, editFinish } } = this;
-    // console.log(item[0]);
-    // console.log(this.state.id);
-    // const { value, currency, method, tag, description } = item[0];
     return (
-      <form>
+      <form className="edit">
         <Inputs handleChange={ this.handleChange } states={ item[0] } />
         <Selects handleChange={ this.handleChange } states={ item[0] } />
         <button
           type="button"
           onClick={ () => editFinish(this.state) }
+          className="field button"
         >
           Editar despesa
         </button>
