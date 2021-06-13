@@ -1,12 +1,24 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { func } from 'prop-types';
+import { apiCurrencyThunk } from '../actions/index';
 // reference: https://pt-br.reactjs.org/docs/forms.html
+// ideia das currencies tirada do projeto de Pollyana Oliveira 10a
 
 class Inputs extends React.Component {
   // constructor() {
   //   super()
   // };
+  componentDidMount() {
+    const { apiCurrency } = this.props;
+    apiCurrency();
+  }
 
   render() {
+    const { currencies } = this.props;
+    console.log(currencies);
+    const getCurrencies = Object.keys(currencies);
+    const currenciesNames = getCurrencies.filter((coin) => coin !== 'USDT');
     return (
       <form>
         <label htmlFor="value">
@@ -17,14 +29,11 @@ class Inputs extends React.Component {
           Descrição:
           <input type="text" name="description" id="description" />
         </label>
-        <label htmlFor="description">
-          Descrição:
-          <input type="text" name="description" id="description" />
-        </label>
         <label htmlFor="currency">
           Moeda:
           <select type="text" id="currency" name="currency">
-            <option>ANYTHING</option>
+            {currenciesNames
+              .map((currency, id) => (<option key={ id }>{currency}</option>))}
           </select>
         </label>
         <label htmlFor="payment">
@@ -50,4 +59,16 @@ class Inputs extends React.Component {
   }
 }
 
-export default Inputs;
+Inputs.propTypes = {
+  apiCurrency: func,
+}.isRequired;
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  apiCurrency: (payload) => dispatch(apiCurrencyThunk(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Inputs);
