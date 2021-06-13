@@ -8,7 +8,7 @@ const INITIAL_STATE = {
 function editReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case CHANGE_UPDATE:
-    return { ...state, editCell: action.payload.id, editing: true };
+    return { ...state, editCell: action.payload.id, editing: action.payload.editing };
   default:
     return state;
   }

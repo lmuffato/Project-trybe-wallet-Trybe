@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { func, objectOf, object } from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrenciesThunk, setNewExpense, updateTotalExpenses } from '../actions/index';
+import { getCurrenciesThunk, setNewExpense, updateTotalExpenses,
+  changeUpdate } from '../actions/index';
 import Tag from './WalletFormOptions/Tag';
 import Method from './WalletFormOptions/Method';
 import Currency from './WalletFormOptions/Currency';
@@ -9,7 +10,7 @@ import Description from './WalletFormOptions/Description';
 import Value from './WalletFormOptions/Value';
 // import updateExpenses from '../services/updateExpenses';
 
-class WalletForm extends Component {
+class EditForm extends Component {
   constructor(props) {
     super(props);
 
@@ -39,7 +40,7 @@ class WalletForm extends Component {
   }
 
   render() {
-    const { currencies, isLoading } = this.props;
+    const { currencies, isLoading, cancelEdit } = this.props;
     const { value, description, currency, method, tag } = this.state;
     const currenciesKeys = Object.keys(currencies).filter((key) => key !== 'USDT');
     return (
@@ -59,6 +60,12 @@ class WalletForm extends Component {
         >
           Adicionar Despesa
         </button>
+        <button
+          type="button"
+          onClick={ () => cancelEdit({ id: null, editing: false }) }
+        >
+          Cancelar
+        </button>
       </form>
     );
   }
@@ -74,11 +81,12 @@ const mapDispatchToProps = (dispatch) => ({
   setCurrencies: () => dispatch(getCurrenciesThunk()),
   setExpense: (data) => dispatch(setNewExpense(data)),
   dispatchUpdatedExpenses: (value) => dispatch(updateTotalExpenses(value)),
+  cancelEdit: (payload) => dispatch(changeUpdate(payload)),
 });
 
-WalletForm.propTypes = {
+EditForm.propTypes = {
   setCurrencies: func,
   currencies: objectOf(object),
 }.isRequired;
 
-export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
+export default connect(mapStateToProps, mapDispatchToProps)(EditForm);

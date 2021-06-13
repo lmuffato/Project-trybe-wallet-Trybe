@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { arrayOf, object, number, func } from 'prop-types';
+import { arrayOf, object, number, func, bool } from 'prop-types';
 import { updateExpense, updateTotalExpenses } from '../../actions';
 import updateExpenses from '../../services/updateExpenses';
 
@@ -18,11 +18,14 @@ function DeleteButton(props) {
     dispatchUpdatedExpenses(updatedTotalValue);
   }
 
+  const { isEditing } = props;
+
   return (
     <button
       type="button"
       onClick={ () => deleteExpense() }
       data-testid="delete-btn"
+      disabled={ isEditing }
     >
       Deletar
     </button>);
@@ -30,6 +33,7 @@ function DeleteButton(props) {
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
+  isEditing: state.edit.editing,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -43,6 +47,7 @@ DeleteButton.propTypes = {
   expenses: arrayOf(object),
   id: number,
   updateExpensesList: func,
+  isEditing: bool,
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeleteButton);
