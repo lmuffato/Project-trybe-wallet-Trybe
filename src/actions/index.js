@@ -3,7 +3,7 @@ import { ADD_USER,
   ADD_EXPENSE,
   FETCH_CURRENCIES,
   FETCH_CURRENCIES_SUCESS,
-  FETCH_CURRENCIES_ERROR, 
+  FETCH_CURRENCIES_ERROR,
   DELETE_EXPENSES } from './actionsTypes';
 
 import currencyApi from '../services/currencyApi';
