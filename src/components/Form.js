@@ -8,55 +8,127 @@ class Form extends Component {
     super(props);
 
     const { currencies } = this.props;
+    this.handleInput = this.handleInput.bind(this);
 
     this.state = {
       currencies,
+      valor: '0',
+      description: '',
+      currency: 'BRL',
+      method: 'dinheiro',
+      tag: 'alimentacao',
     };
   }
 
+  handleInput(event) {
+    const { value, name } = event.target;
+
+    console.log(name);
+
+    if (name === 'valor') {
+      this.setState({ valor: value });
+    }
+
+    if (name === 'descricao') {
+      this.setState({ description: value });
+    }
+
+    if (name === 'metodo') {
+      this.setState({ method: value });
+    }
+
+    if (name === 'tag') {
+      this.setState({ tag: value });
+    }
+  }
+
+  renderValueInput(valor) {
+    return (
+      <label htmlFor="valor">
+        Valor
+        <input
+          type="text"
+          name="valor"
+          id="valor"
+          value={ valor }
+          onChange={ this.handleInput }
+        />
+      </label>
+    );
+  }
+
+  renderDescriptionInput(description) {
+    return (
+      <label htmlFor="descricao">
+        Descrição
+        <input
+          type="text"
+          name="descricao"
+          id="descricao"
+          placeholder="..."
+          onChange={ this.handleInput }
+          value={ description }
+        />
+      </label>
+    );
+  }
+
+  renderCurrencySelect(currencies, currency) {
+    return (
+      <label htmlFor="moeda">
+        Moeda
+        <select name="moeda" id="moeda" onChange={ this.handleInput }>
+          { currencies.map((item) => (
+            <option value={ currency } key={ item }>{item}</option>
+          ))}
+        </select>
+      </label>
+    );
+  }
+
+  renderMethodSelect(method) {
+    return (
+      <label htmlFor="metodo">
+        Método de pagamento
+        <select name="metodo" id="metodo" onChange={ this.handleInput } value={ method }>
+          <option value="dinheiro">Dinheiro</option>
+          <option value="credito">Cartão de crédito</option>
+          <option value="debito">Cartão de débito</option>
+        </select>
+      </label>
+    );
+  }
+
+  renderTagSelect(tag) {
+    return (
+      <label htmlFor="tag">
+        Tag
+        <select name="tag" id="tag" onChange={ this.handleInput } value={ tag }>
+          <option value="alimentacao">Alimentação</option>
+          <option value="lazer">Lazer</option>
+          <option value="trabalho">Trabalho</option>
+          <option value="transporte">Transporte</option>
+          <option value="saude">Saúde</option>
+        </select>
+      </label>
+    );
+  }
+
   render() {
-    const { currencies } = this.state;
+    const { currencies, valor, description, currency, method, tag } = this.state;
+    // const { addExpences } = this.props;
 
     return (
       <form>
-        <label htmlFor="valor">
-          Valor
-          <input type="text" name="valor" id="valor" />
-        </label>
+        {this.renderValueInput(valor)}
 
-        <label htmlFor="descricao">
-          Descrição
-          <input type="text" name="descricao" id="descricao" />
-        </label>
+        {this.renderDescriptionInput(description)}
 
-        <label htmlFor="moeda">
-          Moeda
-          <select name="moeda" id="moeda">
-            { currencies.map((item) => (
-              <option value={ item } key={ item }>{item}</option>
-            ))}
-          </select>
-        </label>
+        {this.renderCurrencySelect(currencies, currency)}
 
-        <label htmlFor="metodo">
-          Método de pagamento
-          <select name="metodo" id="metodo">
-            <option value="dinheiro">Dinheiro</option>
-            <option value="credito">Cartão de crédito</option>
-            <option value="debito">Cartão de débito</option>
-          </select>
-        </label>
+        {this.renderMethodSelect(method)}
 
-        <label htmlFor="tag">
-          Tag
-          <select name="tag" id="tag">
-            <option value="alimentacao">Alimentação</option>
-            <option value="lazer">Lazer</option>
-            <option value="trabalho">Trabalho</option>
-            <option value="transporte">Transporte</option>
-            <option value="saude">Saúde</option>
-          </select>
-        </label>
+        {this.renderTagSelect(tag)}
 
         <button type="button">Adicionar despesa</button>
       </form>
@@ -66,6 +138,7 @@ class Form extends Component {
 
 Form.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  // addExpences: PropTypes.func.isRequired,
 };
 
 export default Form;
