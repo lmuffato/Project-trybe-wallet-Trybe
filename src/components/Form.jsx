@@ -25,13 +25,13 @@ export default class Form extends Component {
   }
 
   render() {
-    const { value } = this.state;
+    // const { value } = this.state;
     return (
       <form>
         <Input
           type="number"
           name="value"
-          value={ value }
+          // value={ value }
           textLabel="Valor"
           htmlFor="Valor"
         />
