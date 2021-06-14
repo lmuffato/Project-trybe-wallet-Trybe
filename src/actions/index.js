@@ -41,7 +41,7 @@ export const getCurrenciesListThunk = () => (dispatch) => {
   getCurrenciesFromAPI()
     .then((res) => {
       const currenciesList = Object.keys(res).filter((curr) => curr !== 'USDT');
-      dispatch(getCurrenciesSuccess(currenciesList));
+      dispatch(getCurrenciesListSuccess(currenciesList));
     })
     .catch((error) => {
       getCurrenciesListError(error);
