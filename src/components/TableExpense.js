@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteExpanse, addTotalExpense } from '../actions';
 
 class TableExpense extends React.Component {
   getCurrencyName(expense) {
@@ -24,8 +25,25 @@ class TableExpense extends React.Component {
     return parseFloat(Number(expense.value) * Number(Currency.ask)).toFixed(2);
   }
 
+  handleClick(event) {
+    const { userExpenses, excludeToExpenses } = this.props;
+    const deleteExpense = event.target;
+
+    delete userExpenses[deleteExpense.id];
+
+    excludeToExpenses(userExpenses);
+  }
+
+  summValue(expense) {
+    const { totalValue, summTotal } = this.props;
+    const Currency = Object
+      .values(expense.exchangeRates)
+      .find((exchange) => exchange.code === expense.currency);
+    summTotal(totalValue - (Number(expense.value) * Number(Currency.ask)));
+  }
+
   render() {
-    const { userExpenses } = this.props;
+    const { userExpenses, totalValue } = this.props;
     return (
       <table>
         <thead>
@@ -52,6 +70,22 @@ class TableExpense extends React.Component {
               <td>{ this.getCurrencyValue(expense) }</td>
               <td>{ this.getExpenseValue(expense) }</td>
               <td>Real</td>
+              <td>
+                <button type="button">Editar</button>
+                <button
+                  type="button"
+                  data-testid="delete-btn"
+                  id={ expense.id }
+                  onClick={ (event) => {
+                    event.preventDefault();
+                    this.summValue(expense);
+                    this.handleClick(event);
+                    console.log(totalValue);
+                  } }
+                >
+                  x
+                </button>
+              </td>
             </tr>
           )) }
         </tbody>
@@ -62,10 +96,16 @@ class TableExpense extends React.Component {
 
 const mapStateToProps = (state) => ({
   userExpenses: state.wallet.expenses,
+  totalValue: state.wallet.totalValue,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  excludeToExpenses: (componentState) => dispatch(deleteExpanse(componentState)),
+  summTotal: (totalValue) => dispatch(addTotalExpense(totalValue)),
 });
 
 TableExpense.propTypes = {
   userExpenses: PropTypes.array.isRequired,
 }.isRequired;
 
-export default connect(mapStateToProps, null)(TableExpense);
+export default connect(mapStateToProps, mapDispatchToProps)(TableExpense);

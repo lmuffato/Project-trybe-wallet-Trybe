@@ -49,3 +49,12 @@ export const addTotalExpense = (totalValue) => ({
     totalValue,
   },
 });
+
+export const DELETE_TO_WALLET = 'DELETE_TO_WALLET';
+
+export const deleteExpanse = (expenses) => ({
+  type: DELETE_TO_WALLET,
+  wallet: {
+    expenses,
+  },
+});
