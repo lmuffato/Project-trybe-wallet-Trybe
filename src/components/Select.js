@@ -3,13 +3,24 @@ import PropTypes from 'prop-types';
 
 export default class Select extends Component {
   render() {
-    const { options, value, title, id, htmlFor, label, name } = this.props;
+    const { options, title, value, id, htmlFor, label, handleChange } = this.props;
     return (
       <label htmlFor={ htmlFor }>
         {label}
-        <select className="form-select" defaultValue={ value } name={ name } id={ id }>
+        <select
+          className="form-select"
+          name={ htmlFor }
+          id={ id }
+          onChange={ handleChange }
+          defaultValue={ value }
+          required
+        >
+          <option disabled hidden>Selecione...</option>
           {options.map((option) => (
-            <option key={ option[title] || option } value={ option[title] || option }>
+            <option
+              key={ option[title] || option }
+              value={ option[title] || option }
+            >
               {option[title] || option}
             </option>
           ))}

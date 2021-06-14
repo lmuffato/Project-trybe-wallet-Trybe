@@ -1,9 +1,9 @@
-import fetchCurrencies from '../helpers/fetchCurrencies';
-import { getCurrencies } from '../actions';
+import fetchExchangeRates from '../helpers/fetchExchangeRates';
+import { getExchangeRates } from '../actions';
 
 const walletThunks = {
-  getCurrencies: () => (dispatch) => {
-    fetchCurrencies().then((currencies) => dispatch((getCurrencies(currencies))));
+  getExchangeRates: () => (dispatch) => {
+    fetchExchangeRates().then((data) => dispatch((getExchangeRates(data))));
   },
 };
 

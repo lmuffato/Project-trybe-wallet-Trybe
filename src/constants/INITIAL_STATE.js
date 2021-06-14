@@ -4,6 +4,7 @@ const INITIAL_STATE = {
     password: '',
   },
   wallet: {
+    exchangeRates: {},
     currencies: [],
     expenses: [],
   },

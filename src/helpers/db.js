@@ -4,6 +4,7 @@ const db = {
     password: '123456',
   },
   wallet: {
+    exchangeRates: {},
     currencies: [],
     expenses: [],
   },

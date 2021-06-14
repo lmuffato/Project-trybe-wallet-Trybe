@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default class WalletInput extends Component {
   render() {
-    const { label, type, id, htmlFor } = this.props;
+    const { label, type, id, htmlFor, handleChange } = this.props;
     return (
       <label htmlFor={ htmlFor }>
         {label}
@@ -11,6 +11,9 @@ export default class WalletInput extends Component {
           className="form-control"
           type={ type }
           id={ id }
+          name={ htmlFor }
+          onChange={ handleChange }
+          required
         />
       </label>
     );

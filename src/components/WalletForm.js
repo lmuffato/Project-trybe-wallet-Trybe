@@ -4,46 +4,66 @@ import Select from './Select';
 import WalletInput from './WalletInput';
 
 export default class WalletForm extends Component {
-  render() {
-    const { currencies, paymentMethods, categories } = this.props;
+  renderSelects = () => {
+    const {
+      currencies,
+      paymentMethods,
+      categories,
+      handleChange,
+      selectValue,
+    } = this.props;
     return (
-      <form className="wallet-inputs">
-        <WalletInput
-          htmlFor="value-input"
-          label="Valor"
-          type="number"
-          id="value-input"
-        />
+      <>
         <Select
           options={ currencies }
           title="code"
-          id="coin-input"
-          htmlFor="coin-input"
+          id="currency"
+          htmlFor="currency"
           label="Moeda"
           name="moeda"
+          handleChange={ handleChange }
+          value={ selectValue }
         />
         <Select
           options={ paymentMethods }
-          id="payment-method-input"
-          htmlFor="payment-method-input"
+          id="method"
+          htmlFor="method"
           label="Método de pagamento"
+          handleChange={ handleChange }
+          value={ selectValue }
         />
         <Select
           options={ categories }
-          id="tag-input"
-          htmlFor="tag-input"
+          id="tag"
+          htmlFor="tag"
           label="Tag"
+          handleChange={ handleChange }
+          value={ selectValue }
         />
+      </>
+    );
+  };
+
+  render() {
+    const { handleChange } = this.props;
+    return (
+      <>
+        <WalletInput
+          htmlFor="value"
+          label="Valor"
+          type="number"
+          id="value"
+          handleChange={ handleChange }
+        />
+        {this.renderSelects()}
         <WalletInput
           label="Descrição"
-          htmlFor="description-input"
+          htmlFor="description"
           type="text"
-          id="description-input"
+          id="description"
+          handleChange={ handleChange }
         />
-        <button type="button" className="btn btn-primary expense-add-button">
-          Adicionar
-        </button>
-      </form>
+      </>
     );
   }
 }
