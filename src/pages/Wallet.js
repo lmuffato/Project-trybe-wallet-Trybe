@@ -141,7 +141,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getExchangeRates: () => dispatch(walletThunks.getExchangeRates()),
   add: (expense) => dispatch(addExpense(expense)),
-  updateTotal: (total) => dispatch(updateTotalSpent(total)),
 });
 
 Wallet.propTypes = {
