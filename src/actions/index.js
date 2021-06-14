@@ -2,8 +2,10 @@ import getCurrenciesFromAPI from '../services/api';
 
 export const LOGIN = 'LOGIN';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
-export const GET_CURRENCIES_SUCCESS = 'GET_CURRENCIES_SUCCESS';
-export const GET_CURRENCIES_ERROR = 'GET_CURRENCIES_ERROR';
+export const GET_CURRENCIES_LIST_SUCCESS = 'GET_CURRENCIES_LIST_SUCCESS';
+export const GET_CURRENCIES_LIST_ERROR = 'GET_CURRENCIES_LIST_ERROR';
+export const GET_CURRENCIES_DATA_SUCCESS = 'GET_CURRENCIES_DATA_SUCCESS';
+export const GET_CURRENCIES_DATA_ERROR = 'GET_CURRENCIES_DATA_ERROR';
 
 // LOGIN action creator
 export const login = (email, password) => ({
