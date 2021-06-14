@@ -26,7 +26,7 @@ export const getCurrenciesError = (error) => ({
   error,
 });
 
-export const getCurrenciesThunk = () => (dispatch) => {
+export const getCurrenciesListThunk = () => (dispatch) => {
   dispatch(getCurrencies());
   getCurrenciesFromAPI()
     .then((res) => {
