@@ -23,15 +23,26 @@ class ExpenseTable extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {expenses.map((expense) => (
-            <tr key={ expense.id }>
-              <td>{expense.description}</td>
-              <td>{expense.tag}</td>
-              <td>{expense.method}</td>
-              <td>{expense.value}</td>
-              <td>{expense.currency}</td>
-            </tr>
-          ))}
+          {expenses.map((expense) => {
+            const convertValue = parseFloat(expense.exchangeRates[expense.currency].ask);
+            const value = parseFloat(expense.value);
+            return (
+              <tr key={ expense.id }>
+                <td>{expense.description}</td>
+                <td>{expense.tag}</td>
+                <td>{expense.method}</td>
+                <td>{ value }</td>
+                <td>{expense.exchangeRates[expense.currency].name}</td>
+                <td>
+                  { convertValue.toFixed(2) }
+                </td>
+                <td>
+                  { (value * convertValue).toFixed(2) }
+                </td>
+                <td>Real</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     );
@@ -39,9 +50,6 @@ class ExpenseTable extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  // id: state.wallet.expenses,
-  // value: state.wallet.expenses,
-  // currency: state.wallet.expenses,
   expenses: state.wallet.expenses,
 });
 
