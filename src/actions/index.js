@@ -21,8 +21,9 @@ export const getCurrenciesSuccess = (currenciesList) => ({
   currenciesList,
 });
 
-export const getCurrenciesError = () => ({
+export const getCurrenciesError = (error) => ({
   type: GET_CURRENCIES_ERROR,
+  error,
 });
 
 export const getCurrenciesThunk = () => (dispatch) => {
@@ -30,11 +31,9 @@ export const getCurrenciesThunk = () => (dispatch) => {
   getCurrenciesFromAPI()
     .then((res) => {
       const currenciesList = Object.keys(res).filter((curr) => curr !== 'USDT');
-      console.log(currenciesList);
       dispatch(getCurrenciesSuccess(currenciesList));
     })
     .catch((error) => {
-      console.log(error);
-      getCurrenciesError();
+      getCurrenciesError(error);
     });
 };
