@@ -48,7 +48,6 @@ class Login extends React.Component {
     // https://stackoverflow.com/questions/61899931/how-to-redirect-to-homepage-after-successful-login-in-reactjs
     // E também na doc do React Router: https://reactrouter.com/web/api/history
     history.push('/carteira');
-    console.log(history.push);
   }
 
   render() {

@@ -3,8 +3,26 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class AddExpenseForm extends React.Component {
-  render() {
+  constructor() {
+    super();
+    this.currenciesOptions = this.currenciesOptions.bind(this);
+  }
+
+  currenciesOptions() {
     const { currencies } = this.props;
+    return (
+      currencies.map((currency, index) => (
+        <option
+          value={ currency.code }
+          key={ index }
+        >
+          { currency.code }
+        </option>
+      ))
+    );
+  }
+
+  render() {
     return (
       <form>
         <label htmlFor="value">
@@ -18,16 +36,7 @@ class AddExpenseForm extends React.Component {
         <label htmlFor="select-currency">
           Moeda
           <select id="select-currency">
-            {
-              currencies.map((currency, index) => (
-                <option
-                  value={ currency.code }
-                  key={ index }
-                >
-                  { currency.code }
-                </option>
-              ))
-            }
+            { this.currenciesOptions() }
           </select>
         </label>
         <label htmlFor="select-payment-method">
