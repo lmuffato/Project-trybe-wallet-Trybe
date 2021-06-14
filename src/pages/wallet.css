@@ -1,11 +1,10 @@
-#header {
-  background-color: white;
-  display: flex;
+.header {
   background-color: yellow;
+  display: flex;
   padding: 10px;
 }
 
-#header-title {
+.header-title {
   font-size: 7vh;
   padding-top: 2.5vw;
 }

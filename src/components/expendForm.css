@@ -1,19 +1,19 @@
 .expend-div {
-  padding: 1vw 1vw 0 1vw;
+  padding: 1vw 1vw 0;
 }
 
 .expend-form {
-  padding: 2vh;
   display: flex;
   flex-wrap: nowrap;
+  padding: 2vh;
 }
 
 .input-f {
-  padding: 5px;
-  border-radius: 8px;
   border: solid 0.5px gray;
-  margin-left: 1vh;
+  border-radius: 8px;
   font-weight: 600;
+  margin-left: 1vh;
+  padding: 5px;
 }
 
 label {
@@ -21,20 +21,20 @@ label {
   font-weight: 500;
 }
 
-#add-button {
+.add-button {
+  background-color: greenyellow;
+  border: 2px solid gray;
   border-radius: 7px;
   font-size: 16px;
   font-weight: 600;
-  border: 2px solid gray;
-  background-color: greenyellow;
   transition: 0.2s;
 }
 
-#add-button:hover {
-  cursor: pointer;
+.add-button:hover {
   background-color: yellow;
+  cursor: pointer;
 }
 
-#add-button:active {
+.add-button:active {
   background-color: blue;
 }

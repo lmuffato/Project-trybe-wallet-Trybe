@@ -37,9 +37,9 @@ class Login extends React.Component {
     const passwordLength = 6;
     return (
       <div className="login">
-        <h1 id="title">My Wallet</h1>
-        <img id="logo" src={ logo } alt="wallet" />
-        <p id="login-word">Login</p>
+        <h1 className="title">My Wallet</h1>
+        <img className="logo" src={ logo } alt="wallet" />
+        <p className="login-word">Login</p>
         <p className="loginEmail">Email:</p>
         <input
           className="input"

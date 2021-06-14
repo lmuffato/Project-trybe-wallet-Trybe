@@ -32,8 +32,8 @@ class Wallet extends React.Component {
     const { email, isEditing } = this.props;
     return (
       <>
-        <header id="header">
-          <h2 id="header-title">My Wallet</h2>
+        <header className="header">
+          <h2 className="header-title">My Wallet</h2>
           <img id="logo2" src={ logo } alt="wallet" />
           <p className="header-text" data-testid="email-field">
             {`Email: ${email}`}

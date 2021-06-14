@@ -127,7 +127,7 @@ class ExpendForm extends Component {
             </select>
           </label>
           {this.methodTag()}
-          <button id="add-button" type="button" onClick={ this.addExpend }>
+          <button className="add-button" type="button" onClick={ this.addExpend }>
             Adicionar despesa
           </button>
         </form>
