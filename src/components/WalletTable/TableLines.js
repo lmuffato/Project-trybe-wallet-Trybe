@@ -11,30 +11,14 @@ function TableLines(props) {
 
   return (
     <tr className="table-body">
-      <td>
-        { description }
-      </td>
-      <td>
-        { tag }
-      </td>
-      <td>
-        { method }
-      </td>
-      <td>
-        { value }
-      </td>
-      <td>
-        { currencyNames[0] }
-      </td>
-      <td>
-        { Number(ask).toFixed(2) }
-      </td>
-      <td>
-        { Number(value * ask).toFixed(2) }
-      </td>
-      <td>
-        Real
-      </td>
+      <td>{ description }</td>
+      <td>{ tag }</td>
+      <td>{ method }</td>
+      <td>{ value }</td>
+      <td>{ currencyNames[0] }</td>
+      <td>{ Number(ask).toFixed(2) }</td>
+      <td>{ Number(value * ask).toFixed(2) }</td>
+      <td>Real</td>
       <td>
         <EditButton id={ id } />
         <DeleteButton id={ id } />

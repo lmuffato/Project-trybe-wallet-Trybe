@@ -34,9 +34,9 @@ export const getCurrenciesError = (payload) => ({
 export function getCurrenciesNamesThunk() {
   return async (dispatch) => {
     dispatch(getCurrencies());
-    const currencies = await fetchCurrencies();
-    const currenciesKeys = Object.keys(currencies).filter((key) => key !== 'USDT');
-    dispatch(getCurrenciesSuccess(currenciesKeys));
+    const exchangeRates = await fetchCurrencies();
+    const currencies = Object.keys(exchangeRates).filter((key) => key !== 'USDT');
+    dispatch(getCurrenciesSuccess({ exchangeRates, currencies }));
   };
 }
 

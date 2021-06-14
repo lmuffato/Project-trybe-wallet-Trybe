@@ -8,7 +8,7 @@ import Method from './WalletFormOptions/Method';
 import Currency from './WalletFormOptions/Currency';
 import Description from './WalletFormOptions/Description';
 import Value from './WalletFormOptions/Value';
-import fetchCurrencies from '../services/fetchCurrencies';
+// import fetchCurrencies from '../services/fetchCurrencies';
 import updateExpenses from '../services/updateExpenses';
 
 class WalletForm extends Component {
@@ -56,10 +56,11 @@ class WalletForm extends Component {
   }
 
   async createNewExpense() {
+    const { setCurrencies } = this.props;
+    setCurrencies();
     const { value, description, currency, method, tag } = this.state;
     const formatValue = value.replace(',', '.');
-    const { expenses } = this.props;
-    const exchangeRates = await fetchCurrencies();
+    const { expenses, exchangeRates } = this.props;
     const newExpense = {
       id: this.setId(expenses),
       value: formatValue,
@@ -112,6 +113,7 @@ const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   isLoading: state.wallet.isLoading,
   expenses: state.wallet.expenses,
+  exchangeRates: state.wallet.exchangeRates,
 });
 
 const mapDispatchToProps = (dispatch) => ({

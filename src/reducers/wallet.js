@@ -10,6 +10,7 @@ import {
 const INITIAL_STATE = {
   isLoading: false,
   currencies: [],
+  exchangeRates: [],
   expenses: [],
   totalExpenses: 0,
 };
@@ -19,7 +20,13 @@ function walletReducer(state = INITIAL_STATE, action) {
   case GET_CURRENCIES:
     return { ...state, isLoading: true };
   case GET_CURRENCIES_SUCCESS:
-    return { ...state, isLoading: false, currencies: action.payload, error: null };
+    return {
+      ...state,
+      isLoading: false,
+      currencies: action.payload.currencies,
+      exchangeRates: action.payload.exchangeRates,
+      error: null,
+    };
   case GET_CURRENCIES_ERROR:
     return { ...state, error: action.payload.error };
   case SET_NEW_EXPENSE:
