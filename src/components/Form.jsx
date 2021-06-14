@@ -47,6 +47,14 @@ class Form extends React.Component {
       tag,
       exchangeRates: fetchAPI,
     };
+    expense(currentExpense);
+
+    const findCurrency = Object.entries(currentExpense.exchangeRates).find(
+      (element) => element[0] === currency,
+    );
+    const newTotal = globalTotal + (parseFloat(findCurrency[1].ask) * parseFloat(value));
+    total(newTotal);
+
     this.setState({
       value: '',
       description: '',
@@ -54,12 +62,6 @@ class Form extends React.Component {
       method: 'Dinheiro',
       tag: 'Alimentação',
     });
-    expense(currentExpense);
-    const findCurrency = Object.entries(currentExpense.exchangeRates).find(
-      (element) => element[0] === currency,
-    );
-    const newTotal = globalTotal + (parseFloat(findCurrency[1].ask) * parseFloat(value));
-    total(newTotal);
   }
 
   handleChange(event) {
