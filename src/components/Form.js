@@ -69,6 +69,8 @@ class Form extends Component {
       method: 'Dinheiro',
       tag: 'Alimentação',
     });
+
+    document.getElementById('valor').value = null;
   }
 
   render() {
@@ -78,7 +80,7 @@ class Form extends Component {
       <form>
         <label htmlFor="valor">
           Valor
-          <input onChange={ this.handleChange } type="text" name="value" id="valor" />
+          <input onChange={ this.handleChange } type="number" name="value" id="valor" />
         </label>
         <label htmlFor="expense-description">
           Descrição

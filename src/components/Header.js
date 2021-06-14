@@ -13,7 +13,7 @@ class Header extends Component {
           {`Email: ${email}`}
         </span>
         <span data-testid="total-field">
-          {`Despesa Total: ${total || INITIAL_EXPENSE} `}
+          {`Despesa Total: ${total ? total.toFixed(2) : INITIAL_EXPENSE} `}
         </span>
         <span data-testid="header-currency-field">
           {currency}

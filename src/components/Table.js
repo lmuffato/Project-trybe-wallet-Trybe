@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { removeExpense } from '../actions';
+import { removeExpense, updateTotal } from '../actions';
 
 class Table extends Component {
   constructor(props) {
@@ -11,10 +11,11 @@ class Table extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(expense) {
+  handleClick(expense, resolvedValue) {
     const { id } = expense;
-    const { removeItem } = this.props;
+    const { removeItem, totalUpdate, total } = this.props;
     removeItem(id);
+    totalUpdate(total - resolvedValue);
   }
 
   handleHeadler() {
@@ -51,7 +52,7 @@ class Table extends Component {
         <button
           type="button"
           data-testid="delete-btn"
-          onClick={ () => this.handleClick(expense) }
+          onClick={ () => this.handleClick(expense, resolvedValue) }
         >
           Deletar
         </button>
@@ -73,14 +74,18 @@ class Table extends Component {
 Table.propTypes = {
   expenses: PropTypes.arrayOf(Object).isRequired,
   removeItem: PropTypes.func.isRequired,
+  totalUpdate: PropTypes.func.isRequired,
+  total: PropTypes.number.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   removeItem: (id) => dispatch(removeExpense(id)),
+  totalUpdate: (value) => dispatch(updateTotal(value)),
 });
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
+  total: state.wallet.total,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
