@@ -34,7 +34,7 @@ class Wallet extends React.Component {
       <>
         <header className="header">
           <h2 className="header-title">My Wallet</h2>
-          <img id="logo2" src={ logo } alt="wallet" />
+          <img className="logo2" src={ logo } alt="wallet" />
           <p className="header-text" data-testid="email-field">
             {`Email: ${email}`}
           </p>
