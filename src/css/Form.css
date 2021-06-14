@@ -2,10 +2,14 @@ form {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  background-color: #C0D4CE;
+  margin-top: -1px;
 }
 
 label {
-  margin: 10px;
+  margin: 10px 5px;
+  font-size: 15px;
+  color: #427D6C
 }
 
 input , select {
@@ -17,4 +21,21 @@ input , select {
   font-size: 16px;
   padding: 10px;
   width: 190px;
+  color: #427D6C;
+}
+
+button {
+  background-color: #7db290;
+  border: 0;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-family: Quicksand, sans-serif;
+  font-size: 16px;
+  margin: 28px 5px 10px;
+  padding: 0 60px;
+}
+
+button:hover {
+  background-color: #407d6c;
 }

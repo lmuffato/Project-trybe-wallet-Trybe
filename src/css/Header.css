@@ -23,7 +23,7 @@ html , body {
   height: 50px;
   min-width: 300px;
   position: relative;
-  width: 80%;
+  width: 99%;
 }
 
 .header-bar:after {
@@ -36,7 +36,7 @@ html , body {
   right: -10px;
   top: -10px;
   transition: 0.3s linear all;
-  width: 30%;
+  width: 100%;
 }
 
 .header-bar > .logo {

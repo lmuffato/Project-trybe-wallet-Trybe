@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { connect, useDispatch } from 'react-redux';
 import { currenciesThunk } from '../actions';
 
-function Currencies({ wallet: { currencies } }) {
+function Currencies({ wallet: { currencies }, value, change }) {
   const dispatch = useDispatch();
   useEffect(() => { dispatch(currenciesThunk()); }, []);
   return (
     <div className="container">
       <label htmlFor="currencies">
         Moeda
-        <select name="currencies" id="currencies">
+        <select name="currencies" id="currencies" value={ value } onChange={ change }>
           { currencies && currencies.map((currency) => (
             <option value={ currency } key={ currency }>{currency}</option>
           ))}

@@ -5,6 +5,7 @@ export const WALLET = 'WALLET';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const GET_CURRENCIES_SUCCESS = 'GET_CURRENCIES_SUCCESS';
 export const GET_CURRENCIES_FAILED = 'GET_CURRENCIES_FAILED';
+export const ADD_EXPENSE = 'ADD_EXPENSE';
 
 export const userLoginAction = (payload) => ({ type: USER_LOGIN, payload });
 export const walletAction = (payload) => ({ type: WALLET, payload });
@@ -15,6 +16,10 @@ export const getCurrenciesAPISuccess = (payload) => ({
 });
 export const getCurrenciesAPIFailed = (payload) => ({
   type: GET_CURRENCIES_FAILED,
+  payload,
+});
+export const addExpenses = (payload) => ({
+  type: ADD_EXPENSE,
   payload,
 });
 

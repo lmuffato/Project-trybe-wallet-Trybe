@@ -10,9 +10,9 @@ function Header(props) {
       <div className="header-bar">
         <h1 className="logo">TrybeWallet</h1>
         <ul className="slider-menu">
-          <li data-testid="email-field">{ email }</li>
+          <li data-testid="email-field">{`Email: ${email}`}</li>
           <li>$</li>
-          <li data-testid="total-field">0</li>
+          <li data-testid="total-field" id="total-field">0</li>
           <li data-testid="header-currency-field">BRL</li>
         </ul>
       </div>

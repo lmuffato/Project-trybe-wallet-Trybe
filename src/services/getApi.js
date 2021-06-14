@@ -17,4 +17,14 @@ const getCurrencies = async () => {
   }
 };
 
+export const getExchangeRates = async () => {
+  try {
+    const request = await fetch(ENDPOINT);
+    const data = await request.json();
+    return data;
+  } catch (error) {
+    throw error('Erro!');
+  }
+};
+
 export default getCurrencies;
