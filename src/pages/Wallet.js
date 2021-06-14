@@ -7,8 +7,8 @@ import { getCurrenciesListThunk } from '../actions';
 
 class Wallet extends React.Component {
   componentDidMount() {
-    const { getCurrencies } = this.props;
-    getCurrencies();
+    const { getCurrenciesList } = this.props;
+    getCurrenciesList();
   }
 
   render() {
@@ -22,7 +22,7 @@ class Wallet extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  getCurrencies: () => dispatch(getCurrenciesListThunk()),
+  getCurrenciesList: () => dispatch(getCurrenciesListThunk()),
 });
 
 Wallet.propTypes = {
