@@ -2,6 +2,7 @@ export const USER = 'USER';
 export const WALLET = 'WALLET';
 export const API_SUCESSED = 'API_SUCESSED';
 export const API_FAIL = 'API_FAIL';
+export const ADD_EXPENSES = 'ADD_EXPENSES';
 
 export const user = (payload) => ({
   type: USER,
@@ -22,6 +23,11 @@ export const apiFail = (payload) => ({
   payload,
 });
 
+export const addExpenses = (payload) => ({
+  type: ADD_EXPENSES,
+  payload,
+});
+
 export const getExchange = async () => {
   const response = await fetch('https://economia.awesomeapi.com.br/json/all');
   const json = await response.json();
@@ -36,10 +42,13 @@ export const apiCurrencyThunk = () => async (dispatch) => {
   } catch (error) {
     dispatch(apiFail(error));
   }
-  // return fetch('https://economia.awesomeapi.com.br/json/all')
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     dispatch(apiSucessed(data));
-  //   })
-  //   .catch((error) => dispatch(apiFail(error)));
+};
+
+export const expensesThunk = (state) => async (dispatch) => {
+  const exchangeRates = await getExchange();
+  const expenses = {
+    ...state,
+    exchangeRates,
+  };
+  dispatch(addExpenses(expenses));
 };

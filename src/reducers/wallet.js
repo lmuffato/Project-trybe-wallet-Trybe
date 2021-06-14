@@ -1,4 +1,4 @@
-import { WALLET, API_SUCESSED, API_FAIL } from '../actions/index';
+import { WALLET, API_SUCESSED, API_FAIL, ADD_EXPENSES } from '../actions/index';
 // REQUISITO 7 foi relaziado com ajuda do meu querido colega Luan Ramalho 10a.
 const INITIAL_STATE = {
   currencies: [],
@@ -26,6 +26,11 @@ const wallet = (state = INITIAL_STATE, action) => {
       error: action.payload.error,
       isLoading: false,
     });
+  case ADD_EXPENSES:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload],
+    };
   default:
     return {
       ...state,
