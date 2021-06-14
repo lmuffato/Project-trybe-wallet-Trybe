@@ -16,6 +16,11 @@ const requestCurrencies = (currencies) => ({
   currencies,
 });
 
+export const updatedExpenses = (expenses) => ({
+  type: 'UPDATER_EXPENSE',
+  expenses,
+});
+
 export function getCurruencies() {
   return async (dispatch) => {
     const data = await fetchCurrencies();
@@ -37,3 +42,7 @@ export function addExchangeRates() {
     return console.log(data);
   };
 }
+
+// export function updatedExpenses(expenses) {
+//   return (expenses);
+// }

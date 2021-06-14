@@ -22,6 +22,11 @@ function wallet(state = INITIAL_STATE, action) {
       ...state,
       currencies: action.currencies,
     };
+  case 'UPDATER_EXPENSE':
+    return {
+      ...state,
+      expenses: action.expenses,
+    };
   default:
     return state;
   }

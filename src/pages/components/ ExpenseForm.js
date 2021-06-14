@@ -95,7 +95,7 @@ class ExpenseForm extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchgetCurruencies: () => dispatch(getCurruencies()),
-  getExpenses: (e) => dispatch(addExpenses(e)),
+  getExpenses: (obj) => dispatch(addExpenses(obj)),
 });
 
 const mapStateToProps = (state) => ({

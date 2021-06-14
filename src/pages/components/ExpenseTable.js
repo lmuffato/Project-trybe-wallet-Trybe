@@ -2,11 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './expenseTable.css';
+import { updatedExpenses } from '../../actions';
 
 class ExpenseTable extends React.Component {
+  constructor() {
+    super();
+    this.deleteExpense = this.deleteExpense.bind(this);
+  }
+
+  deleteExpense(id) {
+    const { expenses, getUpdatedExpense } = this.props;
+    const upDatedExpenses = expenses.filter((expense) => expense.id !== id);
+    getUpdatedExpense(upDatedExpenses);
+  }
+
   render() {
     const { expenses } = this.props;
-    // console.log(expenses);
     return (
       <table id="table">
         <thead>
@@ -33,13 +44,18 @@ class ExpenseTable extends React.Component {
                 <td>{expense.method}</td>
                 <td>{ value }</td>
                 <td>{expense.exchangeRates[expense.currency].name}</td>
-                <td>
-                  { convertValue.toFixed(2) }
-                </td>
-                <td>
-                  { (value * convertValue).toFixed(2) }
-                </td>
+                <td>{ convertValue.toFixed(2) }</td>
+                <td>{ (value * convertValue).toFixed(2) }</td>
                 <td>Real</td>
+                <td>
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    onClick={ () => this.deleteExpense(expense.id) }
+                  >
+                    Excluir
+                  </button>
+                </td>
               </tr>
             );
           })}
@@ -52,9 +68,13 @@ class ExpenseTable extends React.Component {
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
+const mapDispatpchToProps = (dispatch) => ({
+  getUpdatedExpense: (obj) => dispatch(updatedExpenses(obj)),
+
+});
 
 ExpenseTable.propTypes = {
   expenses: PropTypes.array,
 }.isRequired;
 
-export default connect(mapStateToProps)(ExpenseTable);
+export default connect(mapStateToProps, mapDispatpchToProps)(ExpenseTable);
