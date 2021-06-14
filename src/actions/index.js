@@ -53,6 +53,59 @@ export const fetchApiThunk = () => async (dispatch) => {
   }
 };
 
+// ----------------------------- EXPENSES -----------------------------
+
+export const fetchApiExchangeSuccess = (payload) => ({
+  type: 'FETCH_API_EXCHANGE_SUCCESS',
+  payload: {
+    success: payload,
+  },
+});
+
+export const fetchApiExchangeError = (payload) => ({
+  type: 'FETCH_API_EXCHANGE_ERROR',
+  payload: {
+    error: payload,
+  },
+});
+
+export const fetchApiExchangeThunk = () => async (dispatch) => {
+  const API_URL = 'https://economia.awesomeapi.com.br/json/all';
+
+  const fetchApi = await fetch(API_URL);
+  const resolve = await fetchApi.json();
+  const data = await resolve;
+
+  const allCurrencies = Object.values(data);
+  const newCurrencies = allCurrencies.map((currency) => ({
+    code: currency.code,
+    name: currency.name,
+    ask: currency.ask,
+  }));
+
+  console.log(newCurrencies);
+
+  try {
+    dispatch(fetchApiExchangeSuccess(newCurrencies));
+  } catch (e) {
+    dispatch(fetchApiExchangeError(e));
+  }
+};
+
+export const addExpenseAction = (payload) => ({
+  type: 'ADD_EXPENSE',
+  payload: {
+    expenses: payload,
+  },
+});
+
+export const increaseCounterAction = (payload) => ({
+  type: 'INCREASE_COUNTER',
+  payload: {
+    counter: payload,
+  },
+});
+
 // Wallet Form Actions ............................................................
 
 export const setValorAction = (payload) => ({

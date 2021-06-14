@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   expenses: [],
   isLoadingApi: false,
   errorApi: '',
+  counter: 0,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -26,6 +27,25 @@ const wallet = (state = INITIAL_STATE, action) => {
       isLoadingApi: false,
       currencies: action.payload.error,
     };
+
+  case 'FETCH_API_EXCHANGE_SUCCESS':
+    return {
+      ...state,
+      isLoadingApi: false,
+      expenseRate: action.payload.success,
+    };
+
+  case 'ADD_EXPENSE':
+    return {
+      ...state,
+      expenses: state.expenses.concat(action.payload.expenses),
+    };
+  case 'INCREASE_COUNTER':
+    return {
+      ...state,
+      counter: state.counter + 1,
+    };
+
   default: return state;
   }
 };
