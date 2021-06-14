@@ -1,8 +1,8 @@
 form {
+  background-color: #c0d4ce;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: #c0d4ce;
   margin-top: -1px;
 }
 
@@ -13,10 +13,10 @@ label {
 }
 
 input , select {
-  color: #427d6c;
   background: white;
   border: 0;
   border-radius: 5px;
+  color: #427d6c;
   display: block;
   font-family: Quicksand, sans-serif;
   font-size: 16px;
