@@ -19,10 +19,10 @@ class AddExpenseForm extends React.Component {
           Moeda
           <select id="select-currency">
             {
-              currencies.map((currency) => (
+              currencies.map((currency, index) => (
                 <option
                   value={ currency.code }
-                  key={ currency.code }
+                  key={ index }
                 >
                   { currency.code }
                 </option>
@@ -41,11 +41,11 @@ class AddExpenseForm extends React.Component {
         <label htmlFor="select-tag">
           Tag
           <select id="select-tag">
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
+            <option key="food">Alimentação</option>
+            <option key="fun">Lazer</option>
+            <option key="work">Trabalho</option>
+            <option key="commuting">Transporte</option>
+            <option key="health">Saúde</option>
           </select>
         </label>
       </form>
