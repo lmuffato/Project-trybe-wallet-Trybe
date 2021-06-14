@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import ValueInput from './WalletForm/ValueInput';
 import DescriptionInput from './WalletForm/DescriptionInput';
 import CurrencyInput from './WalletForm/CurrencyInput';
@@ -49,13 +48,10 @@ class WalletForm extends Component {
           handleChange={ this.handleChange }
           tag={ tag }
         />
+        <button type="button">Adicionar despesa</button>
       </form>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  currenciesList: state.wallet.currencies,
-});
-
-export default connect(mapStateToProps, null)(WalletForm);
+export default WalletForm;
