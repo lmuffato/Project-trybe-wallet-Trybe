@@ -16,8 +16,8 @@ export const getCurrencies = () => ({
   type: GET_CURRENCIES,
 });
 
-export const getCurrenciesSuccess = (currenciesList) => ({
-  type: GET_CURRENCIES_SUCCESS,
+export const getCurrenciesListSuccess = (currenciesList) => ({
+  type: GET_CURRENCIES_LIST_SUCCESS,
   currenciesList,
 });
 
