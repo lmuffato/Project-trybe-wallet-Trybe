@@ -1,7 +1,9 @@
 import {
+  ADD_EXPENSES,
   GET_CURRENCES_LOADING,
   GET_CURRENCES_SUCCESS,
   GET_CURRENCES_ERROR,
+  TOTAL_VALUES,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -9,6 +11,7 @@ const INITIAL_STATE = {
   isloading: false,
   error: null,
   expenses: [],
+  total: 0,
 };
 
 function walletReducer(state = INITIAL_STATE, action) {
@@ -27,6 +30,16 @@ function walletReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       error: action.error,
+    };
+  case ADD_EXPENSES:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload],
+    };
+  case TOTAL_VALUES:
+    return {
+      ...state,
+      total: state.total + action.total,
     };
   default:
     return state;
