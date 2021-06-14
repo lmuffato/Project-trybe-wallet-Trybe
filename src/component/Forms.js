@@ -8,20 +8,19 @@ class Forms extends React.Component {
     super(props);
     const { currenciesDispatch } = this.props;
     this.state = {
-      expenses: {
-        id: 0,
-        value: 0,
-        description: '',
-        currencie: '',
-        method: '',
-        tag: '',
-        exchangeRates: {
-          ...currenciesDispatch,
-        },
-      },
+      id: 0,
+      value: 0,
+      description: '',
+      currencie: '',
+      method: '',
+      tag: '',
+      exchangeRates: {
+        ...currenciesDispatch,
+      }
     };
 
-    this.handleChange = this.handleChange.bind(this);
+
+    // this.handleChange = this.handleChange.bind(this);
     this.optionsCurrecies = this.optionsCurrecies.bind(this);
   }
 
@@ -30,12 +29,12 @@ class Forms extends React.Component {
     currenciesDispatch();
   }
 
-  handleChange({ target }) {
-    const { value, name } = target;
-    this.setState({
-      [name]: value,
-    });
-  }
+  // handleChange({ target }) {
+  //   const { value, name } = target;
+  //   this.setState({
+  //     [name]: value,
+  //   });
+  // }
 
   optionsCurrecies() {
     const { currenciesState } = this.props;
@@ -43,11 +42,15 @@ class Forms extends React.Component {
     return arrayCurrencies;
   }
 
-  formSelector(name, arrayOptions) {
+  formSelector(name, arrayOptions, expense, func) {
     return (
       <div>
-        <label htmlFor={ name }>
-          {name}
+        <label
+          htmlFor={ name }
+          name={ expense }
+          onChange={ func }
+        >
+          { `${name}: ` }
           <select aria-label={ name }>
             { arrayOptions.map((options) => <option key={ options }>{options}</option>)}
           </select>
@@ -56,34 +59,44 @@ class Forms extends React.Component {
     );
   }
 
+  formInput(title, expense) {
+    return (
+      <div>
+        <label htmlFor={ title }>
+          { `${title}: ` }
+          <input
+            aria-label={ title }
+            type="text"
+            name={ expense }
+            onChange={ ({ target }) => {
+              const { value, name } = target;
+              this.setState({
+                [name]: value,
+              });
+            } }
+          />
+        </label>
+      </div>
+    );
+  }
+
   render() {
     const { expensesDispach } = this.props;
-    const { expenses: { value } } = this.state;
+    const { value, description } = this.state;
     const optionsMethod = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const optionsTag = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <div>
         <form>
-          <label htmlFor="valor">
-            Valor:
-            <input
-              aria-label="valor"
-              type="text"
-              name="value"
-              onChange={ this.handleChange }
-            />
-          </label>
-          <label htmlFor="descrição">
-            Descrição
-            <input aria-label="descrição" type="text" />
-          </label>
+          { this.formInput('Valor', 'value') }
+          { this.formInput('Descrição', 'description') }
           {this.formSelector('Moeda', this.optionsCurrecies())}
           {this.formSelector('Método de pagamento', optionsMethod)}
           {this.formSelector('Tag', optionsTag)}
         </form>
         <button
           type="button"
-          onClick={ () => expensesDispach(value) }
+          onClick={ () => expensesDispach(value, description) }
         >
           Adicionar Despesa
         </button>
