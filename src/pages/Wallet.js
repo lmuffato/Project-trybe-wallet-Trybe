@@ -7,17 +7,27 @@ class Wallet extends React.Component {
   constructor(props) {
     super(props);
 
+    this.sumExpenses = this.sumExpenses.bind(this);
+
     const { email } = this.props;
 
     this.state = {
       userEmail: email,
-      totalField: 0,
       cambio: 'BRL',
     };
   }
 
+  sumExpenses() {
+    const { expense } = this.props;
+    console.log(expense);
+    const reduce = expense.reduce(
+      (acc, curr) => acc + (curr.value * curr.exchangeRates[curr.currency].ask), 0,
+    );
+    return reduce.toFixed(2);
+  }
+
   render() {
-    const { totalField, userEmail, cambio } = this.state;
+    const { userEmail, cambio } = this.state;
     return (
       <body>
         <header>
@@ -29,7 +39,7 @@ class Wallet extends React.Component {
           <p data-testid="total-field">
             Despesar Totais: R$
             {' '}
-            {totalField}
+            {this.sumExpenses()}
           </p>
           <p data-testid="header-currency-field">{cambio}</p>
         </header>
@@ -41,10 +51,12 @@ class Wallet extends React.Component {
 
 const mapStateToPros = (state) => ({
   email: state.user.email,
+  expense: state.wallet.expenses,
 });
 
 Wallet.propTypes = {
-  email: PropTypes.string.isRequired,
-};
+  email: PropTypes.string,
+  expense: PropTypes.arrayOf(PropTypes.object),
+}.isRequired;
 
 export default connect(mapStateToPros, null)(Wallet);
