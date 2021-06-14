@@ -4,7 +4,7 @@ import { func, string } from 'prop-types';
 export default function Method(props) {
   const { handleInput, method } = props;
   return (
-    <label htmlFor="expense-method">
+    <label className="form-label" htmlFor="expense-method">
       Método de pagamento:
       <select
         id="expense-method"

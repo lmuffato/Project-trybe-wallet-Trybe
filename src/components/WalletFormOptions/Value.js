@@ -4,9 +4,10 @@ import { func } from 'prop-types';
 export default function Value(props) {
   const { value, handleInput } = props;
   return (
-    <label htmlFor="expense-value">
+    <label className="form-label" htmlFor="expense-value">
       Valor:
       <input
+        className="value"
         id="expense-value"
         data-testid="value-input"
         type="number"
@@ -16,6 +17,7 @@ export default function Value(props) {
         value={ value }
         onChange={ handleInput }
         placeholder="0,00"
+        autoComplete="off"
       />
     </label>
   );

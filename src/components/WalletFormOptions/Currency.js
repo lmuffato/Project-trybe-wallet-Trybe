@@ -4,7 +4,7 @@ import { func, objectOf, object } from 'prop-types';
 function Currency(props) {
   const { currencies, selectedCur, handleInput } = props;
   return (
-    <label htmlFor="expense-currency">
+    <label className="form-label" htmlFor="expense-currency">
       Moeda:
       <select
         id="expense-currency"

@@ -8,7 +8,7 @@ import Method from './WalletFormOptions/Method';
 import Currency from './WalletFormOptions/Currency';
 import Description from './WalletFormOptions/Description';
 import Value from './WalletFormOptions/Value';
-// import fetchCurrencies from '../services/fetchCurrencies';
+import './WalletForm.css';
 import updateExpenses from '../services/updateExpenses';
 
 class WalletForm extends Component {
@@ -88,7 +88,7 @@ class WalletForm extends Component {
     const { currencies, isLoading } = this.props;
     const { value, description, currency, method, tag } = this.state;
     return (
-      <form onSubmit={ this.handleSubmit }>
+      <form className="input-form" onSubmit={ this.handleSubmit }>
         <Value value={ value } handleInput={ this.handleInput } />
         <Description description={ description } handleInput={ this.handleInput } />
         <Currency
@@ -98,12 +98,15 @@ class WalletForm extends Component {
         />
         <Method method={ method } handleInput={ this.handleInput } />
         <Tag tag={ tag } handleInput={ this.handleInput } />
-        <button
-          type="submit"
-          disabled={ isLoading }
-        >
-          Adicionar Despesa
-        </button>
+        <div className="button-container">
+          <button
+            className="expense-add"
+            type="submit"
+            disabled={ isLoading }
+          >
+            Adicionar Despesa
+          </button>
+        </div>
       </form>
     );
   }

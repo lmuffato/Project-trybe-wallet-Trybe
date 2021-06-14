@@ -1,0 +1,28 @@
+.wallet-header {
+  align-items: baseline;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2vh;
+  max-width: 1620px;
+  opacity: 0.9;
+}
+
+.wallet-header > div {
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;
+}
+
+.total-field , .logged-email , .project-name {
+  color: #323232;
+  font-weight: 800;
+}
+
+.project-name {
+  font-size: 2rem;
+}

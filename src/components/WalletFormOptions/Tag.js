@@ -4,7 +4,7 @@ import { func, string } from 'prop-types';
 export default function Tag(props) {
   const { handleInput, tag } = props;
   return (
-    <label htmlFor="expense-tag">
+    <label className="form-label" htmlFor="expense-tag">
       Tag:
       <select
         id="expense-tag"

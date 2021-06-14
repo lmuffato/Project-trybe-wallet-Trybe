@@ -1,0 +1,63 @@
+.input-form {
+  align-items: center;
+  background-color: #c3e0e5;
+  display: flex;
+  height: 60px;
+  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1620px;
+  opacity: 0.9;
+}
+
+.button-container {
+  margin: 0 20px;
+}
+
+.button-container > .expense-add {
+  background-color: #5885af;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  font-weight: 800;
+  height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 180px;
+}
+
+.button-container > .expense-add:hover {
+  background-color: #274472;
+  transition: 0.5s;
+}
+
+.button-container > .expense-add:disabled {
+  background-color: #bbb;
+  transition: 0.5s;
+}
+
+.form-label {
+  color: #274472;
+  font-weight: 600;
+  margin: 0 10px;
+}
+
+.form-label > input , .form-label > select {
+  border-radius: 3px;
+  font-size: 1.1rem;
+  margin-left: 10px;
+}
+
+.form-label > select {
+  background-color: white;
+}
+
+.form-label > .value {
+  text-align: right;
+  width: 80px;
+}
+
+.form-label > .description {
+  width: 300px;
+}
