@@ -1,61 +1,63 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchThunk, setExpenses } from '../actions';
+import { fetchCurrenciesThunk, fetchExchangeRatesThunk, setExpenses } from '../actions';
 import '../Wallet.css';
 
 class Wallet extends Component {
   constructor() {
     super();
+    this.updateTotal = this.updateTotal.bind(this);
     this.createStateValues = this.createStateValues.bind(this);
     this.state = {
       expenses: [],
+      total: 0,
     };
   }
 
   componentDidMount() {
-    const { requestFetch } = this.props;
-    return requestFetch();
+    const { requestCurrencies } = this.props;
+    return requestCurrencies();
+  }
+
+  updateTotal() {
+    const { props: { expenses }, state: { total } } = this;
+    expenses.forEach(({ value: v, currency: c, exchangeRates }) => {
+      this.setState((pre) => (
+        { ...pre,
+          total: (Math
+            .round((total + (Number(v) * exchangeRates[c].ask)) * 100) / 100) }));
+    });
   }
 
   async createStateValues(evt) {
     evt.preventDefault();
-    // console.log(evt.target.firstChild.firstElementChild.value);
-    // console.log(document.querySelectorAll('input')[0].value);
-    // console.log(document.querySelectorAll('input')[1].value);
-    // console.log(document.querySelectorAll('select')[0].value);
-    // console.log(document.querySelectorAll('select')[1].value);
-    // console.log(document.querySelectorAll('select')[2].value);
-    const { state: { expenses }, props: { exchangeRates, newReduxState } } = this;
+    const { state: { expenses }, props: { newReduxState, requestExchangeRates } } = this;
     if (expenses.length > 0) {
       this
         .setState((prev) => ({ expenses: [{ id: prev.expenses[0].id + 1 }] }));
-      const inputs = document.querySelectorAll('input');
-      inputs.forEach(({ name, value }) => this
-        .setState((prev) => ({ expenses: [{ ...prev.expenses, [name]: value }] })));
-      const selects = document.querySelectorAll('select');
-      selects.forEach(({ name, value }) => this
-        .setState((prev) => ({ expenses: [{ ...prev.expenses, [name]: value }] })));
-      await this.setState((prev) => ({ expenses: [{ ...prev.expenses, exchangeRates }] }));
-      console.log(this.state.expenses);
-      return newReduxState(this.state.expenses);
+    } else {
+      this
+        .setState(({ expenses: [{ id: 0 }] }));
     }
-    this
-      .setState(({ expenses: [{ id: 0 }] }));
-
     const inputs = document.querySelectorAll('input');
     inputs.forEach(({ name, value }) => this
       .setState((prev) => ({ expenses: [{ ...prev.expenses[0], [name]: value }] })));
     const selects = document.querySelectorAll('select');
     selects.forEach(({ name, value }) => this
       .setState((prev) => ({ expenses: [{ ...prev.expenses[0], [name]: value }] })));
-    await this.setState((prev) => ({ expenses: [{ ...prev.expenses[0], exchangeRates }] }));
-    console.log(this.state.expenses);
-    return newReduxState(this.state.expenses);
+    await requestExchangeRates();
+    const { props: { exchangeRates } } = this;
+    await this.setState((pre) => ({ expenses: [{ ...pre.expenses[0], exchangeRates }] }));
+    // console.log(this.state.expenses);
+    const { state: { expenses: oneHundredPercentUpdated } } = this;
+    await newReduxState(oneHundredPercentUpdated); // é ruim de aturar! Bomba patch virou moda...
+    return this.updateTotal();
   }
 
   render() {
-    const { props: { personEmail, currencies }, createStateValues } = this;
+    const { props: { personEmail, currencies },
+      state: { total }, createStateValues } = this;
     return (
       <>
         <div className="flex-container">
@@ -63,7 +65,7 @@ class Wallet extends Component {
             {personEmail}
           </header>
           <span data-testid="header-currency-field">BRL</span>
-          <span data-testid="total-field">{0}</span>
+          <span data-testid="total-field">{ total }</span>
         </div>
         <form className="fieldset" onSubmit={ createStateValues }>
           <label htmlFor="valor">
@@ -83,19 +85,19 @@ class Wallet extends Component {
           <label htmlFor="metodoDePagamento">
             Método de pagamento:
             <select id="metodoDePagamento" name="method">
-              <option value="dinheiro" selected>Dinheiro</option>
-              <option value="cartão-de-crédito">Cartão de crédito</option>
-              <option value="Cartão-de-débito">Cartão de débito</option>
+              <option value="Dinheiro" selected>Dinheiro</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
             </select>
           </label>
           <label htmlFor="tag">
             Tag:
             <select id="tag" name="tag">
-              <option value="alimentação" selected>Alimentação</option>
-              <option value="lazer">Lazer</option>
-              <option value="trabalho">Trabalho</option>
-              <option value="transporte">Transporte</option>
-              <option value="saúde">Saúde</option>
+              <option value="Alimentação" selected>Alimentação</option>
+              <option value="Lazer">Lazer</option>
+              <option value="Trabalho">Trabalho</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Saúde">Saúde</option>
             </select>
           </label>
           <button type="submit">Adicionar despesa</button>
@@ -106,19 +108,25 @@ class Wallet extends Component {
 }
 
 Wallet.propTypes = {
+  requestCurrencies: PropTypes.func.isRequired,
+  requestExchangeRates: PropTypes.func.isRequired,
+  newReduxState: PropTypes.func.isRequired,
   personEmail: PropTypes.string.isRequired,
-  requestFetch: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  exchangeRates: PropTypes.shape({}).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   personEmail: state.user.email,
   currencies: state.wallet.currencies,
-  exchangeRates: state.wallet.expenses[0].exchangeRates,
+  exchangeRates: state.wallet.exchangeRates,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  requestFetch: () => dispatch(fetchThunk()),
+  requestCurrencies: () => dispatch(fetchCurrenciesThunk()),
+  requestExchangeRates: () => dispatch(fetchExchangeRatesThunk()),
   newReduxState: (data) => dispatch(setExpenses(data)),
 });
 

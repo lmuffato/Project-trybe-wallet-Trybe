@@ -27,12 +27,19 @@ export const setExpenses = (data) => (
   }
 );
 
-export const fetchThunk = () => async (dispatch) => {
+export const fetchCurrenciesThunk = () => async (dispatch) => {
   const responseFetch = await fetch('https://economia.awesomeapi.com.br/json/all');
   const responseJSON = await responseFetch.json();
-  console.log(responseJSON);
+  // console.log(responseJSON);
   const currenciesArr = Object.keys(responseJSON).filter((key) => key !== 'USDT');
   const { USDT, ...exchangeRates } = responseJSON;
   dispatch(getCurrencies(currenciesArr));
   dispatch(getExchangeRates(exchangeRates));
+};
+
+export const fetchExchangeRatesThunk = () => async (dispatch) => {
+  const responseFetch = await fetch('https://economia.awesomeapi.com.br/json/all');
+  const responseJSON = await responseFetch.json();
+  // const { USDT, ...exchangeRates } = responseJSON;
+  dispatch(getExchangeRates(/* exchangeRates */responseJSON));
 };
