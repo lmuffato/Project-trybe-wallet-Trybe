@@ -44,6 +44,19 @@ export const getCurrenciesListThunk = () => (dispatch) => {
       dispatch(getCurrenciesSuccess(currenciesList));
     })
     .catch((error) => {
-      getCurrenciesError(error);
+      getCurrenciesListError(error);
+    });
+};
+
+export const getCurrenciesDataThunk = () => (dispatch) => {
+  dispatch(getCurrencies());
+  getCurrenciesFromAPI()
+    .then((res) => {
+      console.log(res);
+      // dispatch(getCurrenciesDataSuccess(res));
+    })
+    .catch((error) => {
+      console.log(error);
+      // getCurrenciesDataError(error);
     });
 };
