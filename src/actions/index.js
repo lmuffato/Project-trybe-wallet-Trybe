@@ -21,8 +21,18 @@ export const getCurrenciesListSuccess = (currenciesList) => ({
   currenciesList,
 });
 
-export const getCurrenciesError = (error) => ({
-  type: GET_CURRENCIES_ERROR,
+export const getCurrenciesListError = (error) => ({
+  type: GET_CURRENCIES_LIST_ERROR,
+  error,
+});
+
+export const getCurrenciesDataSuccess = (currenciesData) => ({
+  type: GET_CURRENCIES_DATA_SUCCESS,
+  currenciesData,
+});
+
+export const getCurrenciesDataError = (error) => ({
+  type: GET_CURRENCIES_DATA_ERROR,
   error,
 });
 
