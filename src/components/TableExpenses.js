@@ -10,24 +10,24 @@ class TableExpenses extends Component {
 
   getValues(info) {
     const getName = info.exchangeRates[info.currency].name.split('/')[0];
-    const cambio = info.exchangeRates[info.currency].ask;
-    const valorConvertido = cambio * info.value;
+    const exchange = info.exchangeRates[info.currency].ask;
+    const convertedValue = exchange * info.value;
     return {
       getName,
-      cambio,
-      valorConvertido,
+      cambio: exchange,
+      valorConvertido: convertedValue,
     };
   }
 
   render() {
-    const campos = ['Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda',
+    const fields = ['Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda',
       'Câmbio utilizado', 'Valor convertido', 'Moeda de conversão', 'Editar/Excluir'];
     const { getInfos } = this.props;
     return (
       <table>
         <tbody>
           <tr>
-            {campos.map((campo, index) => <th key={ index }>{campo}</th>)}
+            {fields.map((campo, index) => <th key={ index }>{campo}</th>)}
           </tr>
           {getInfos.map((info) => (
             <tr key={ info.id }>
