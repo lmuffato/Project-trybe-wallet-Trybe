@@ -1,10 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { thunkMoneyAPI } from '../actions';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    const { currenciesAll } = this.props;
+    currenciesAll();
+  }
+
   render() {
-    const { email } = this.props;
+    const { email, currencies } = this.props;
     return (
       <div>
         <header>
@@ -24,7 +30,7 @@ class Wallet extends React.Component {
           <label htmlFor="selected-in" data-testid="select-input-label">
             Moeda
             <select id="selected-in">
-              <option> </option>
+              {currencies.map((currency) => <option key={ currency }>{currency}</option>)}
             </select>
           </label>
           <label htmlFor="selected-in-payment" data-testid="select-label-payment">
@@ -53,10 +59,18 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  currencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  currenciesAll: () => dispatch(thunkMoneyAPI()),
+
 });
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currenciesAll: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, null)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
