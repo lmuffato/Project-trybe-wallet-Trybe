@@ -1,11 +1,18 @@
 import React from 'react';
 import { arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
+import { deleteExpense } from '../actions';
 
 class Table extends React.Component {
   constructor(props) {
     super(props);
     this.fillTableRows = this.fillTableRows.bind(this);
+  }
+
+  handleClick(key) {
+    const { expenses, newDeleteExpense } = this.props;
+    const filteredExpenses = expenses.filter((expense) => (expense.id !== key));
+    newDeleteExpense(filteredExpenses);
   }
 
   fillTableRows() {
@@ -26,7 +33,13 @@ class Table extends React.Component {
           <td>Real</td>
           <td>
             <button type="button">Editar</button>
-            <button type="button">Excluir</button>
+            <button
+              type="button"
+              data-testid="delete-btn"
+              onClick={ () => this.handleClick(expense.id) }
+            >
+              Excluir
+            </button>
           </td>
         </tr>
       ))
@@ -65,4 +78,8 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps)(Table);
+const mapDispatchToProps = (dispatch) => ({
+  newDeleteExpense: (updatedExpense) => dispatch(deleteExpense(updatedExpense)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
