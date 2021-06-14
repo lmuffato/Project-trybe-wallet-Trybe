@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import WalletHeader from '../components/WalletHeader';
 import WalletForm from '../components/WalletForm';
-import { getCurrenciesThunk } from '../actions';
+import { getCurrenciesListThunk } from '../actions';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -21,7 +22,11 @@ class Wallet extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  getCurrencies: () => dispatch(getCurrenciesThunk()),
+  getCurrencies: () => dispatch(getCurrenciesListThunk()),
 });
+
+Wallet.propTypes = {
+  getCurrencies: PropTypes.func,
+}.isRequired;
 
 export default connect(null, mapDispatchToProps)(Wallet);
