@@ -1,9 +1,9 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Expenses extends React.Component {
   render() {
+    const { currencies } = this.props;
     return (
       <form>
         <label htmlFor="value">
@@ -16,10 +16,13 @@ class Expenses extends React.Component {
         </label>
         <label htmlFor="currency">
           Moeda:
-          <select id="currency" name="currency">
-            { }
+          <select onChange={ this.handleChange } name="currency" id="currency">
+            { currencies ? currencies.map((currency) => (
+              <option key={ currency }>{currency}</option>
+            )) : '' }
           </select>
         </label>
+
         <label htmlFor="method">
           Método de pagamento:
           <select id="method" name="method">
@@ -45,7 +48,8 @@ class Expenses extends React.Component {
   }
 }
 
+Expenses.propTypes = {
+  currencies: PropTypes.arrayOf([]).isRequired,
+};
+
 export default Expenses;
-// connect(mapStateToProps, null)(Expenses);
-// const mapStateToProps = (state) => ({});
-// Header.propTypes = { user: PropTypes.string.isRequired };
