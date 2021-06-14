@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ValueInput from './WalletForm/ValueInput';
+import DescriptionInput from './WalletForm/DescriptionInput';
+import CurrencyInput from './WalletForm/CurrencyInput';
+import MethodInput from './WalletForm/MethodInput';
+import TagInput from './WalletForm/TagInput';
 
 class WalletForm extends Component {
   constructor() {
@@ -7,7 +12,7 @@ class WalletForm extends Component {
     this.state = {
       value: 0,
       description: '',
-      currency: '',
+      currency: 'USD',
       method: '',
       tag: '',
     };
@@ -20,53 +25,30 @@ class WalletForm extends Component {
   }
 
   render() {
-    const { currenciesList } = this.props;
     const { value, description, currency, method, tag } = this.state;
 
     return (
       <form>
-        <label htmlFor="value">
-          Valor
-          <input
-            id="value"
-            name="value"
-            value={ value }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="description">
-          Descrição
-          <input
-            id="description"
-            name="description"
-            value={ description }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="moeda">
-          Moeda
-          <select>
-            {currenciesList.map((curr) => <option key={ curr }>{curr}</option>)}
-          </select>
-        </label>
-        <label htmlFor="metodo-pgto">
-          Método de pagamento
-          <select>
-            <option value="money">Dinheiro</option>
-            <option value="credit-card">Cartão de crédito</option>
-            <option value="debit-card">Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="tag">
-          Tag
-          <select>
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
-          </select>
-        </label>
+        <ValueInput
+          handleChange={ this.handleChange }
+          value={ value }
+        />
+        <DescriptionInput
+          handleChange={ this.handleChange }
+          description={ description }
+        />
+        <CurrencyInput
+          handleChange={ this.handleChange }
+          currency={ currency }
+        />
+        <MethodInput
+          handleChange={ this.handleChange }
+          method={ method }
+        />
+        <TagInput
+          handleChange={ this.handleChange }
+          tag={ tag }
+        />
       </form>
     );
   }
