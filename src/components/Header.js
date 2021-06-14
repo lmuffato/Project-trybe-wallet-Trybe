@@ -17,7 +17,7 @@ function Header({ email, expences }) {
     const total = values.reduce((acc, current) => (Number(acc + current)), 0);
 
     return (
-      <span data-testid="total-field">{total}</span>
+      <span data-testid="total-field">{total.toFixed(2)}</span>
     );
   }
 

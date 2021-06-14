@@ -6,6 +6,7 @@ import Form from '../components/Form';
 import Header from '../components/Header';
 
 import { getCurrencyThunk, addExpenceThunk } from '../actions';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -21,6 +22,7 @@ class Wallet extends React.Component {
       <div>
         <Header email={ email } expences={ expences } />
         <Form currencies={ currencies } addExpences={ addExpences } />
+        <Table expences={ expences } />
       </div>);
   }
 }

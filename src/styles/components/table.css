@@ -1,0 +1,66 @@
+table {
+  border-collapse: collapse;
+  margin: 0;
+  width: 100%;
+}
+
+table tr:first-child {
+  background-color: gray;
+}
+
+table tr th {
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  color: white;
+  font-size: 1rem;
+  padding: 1.4rem 1.2rem;
+  width: 4rem;
+}
+
+table tr td {
+  background-color: white;
+  border-bottom: 1px solid gray;
+  border-right: 1px solid gray;
+  color: black;
+  font-size: 1rem;
+  height: 5rem;
+  padding: 0.8rem 1.2rem;
+  text-align: center;
+}
+
+button {
+  align-items: center;
+  border: none;
+  border-radius: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  height: 3rem;
+  justify-content: center;
+  margin: 0.4rem;
+  opacity: 0.7;
+  text-align: center;
+  transition: all 0.2s;
+  width: 3rem;
+}
+
+button:hover {
+  opacity: 1;
+}
+
+button img {
+  height: 2rem;
+  width: 2rem;
+}
+
+.edit {
+  background-color: brown;
+}
+
+.del {
+  background-color: red;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
