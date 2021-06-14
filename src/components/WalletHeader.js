@@ -26,8 +26,8 @@ WalletHeader.propTypes = {
   email: PropTypes.string.isRequired,
 };
 
-const mapDispatchToProps = (state) => ({
+const mapStateToProps = (state) => ({
   email: state.user.email,
 });
 
-export default connect(mapDispatchToProps)(WalletHeader);
+export default connect(mapStateToProps)(WalletHeader);
