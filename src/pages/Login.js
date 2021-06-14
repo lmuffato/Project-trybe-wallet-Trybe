@@ -1,8 +1,28 @@
 import React from 'react';
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+    };
+  }
+
   render() {
-    return <div>Login</div>;
+    const { email } = this.state;
+    return (
+      <form>
+        <label htmlFor="email-input">
+          <input
+            type="email"
+            data-testid="email-input"
+            name="email"
+            value={ email }
+            onChange={ (e) => this.setState({ email: e.target.value }) }
+          />
+        </label>
+      </form>
+    );
   }
 }
 
