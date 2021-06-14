@@ -26,7 +26,7 @@ class Login extends React.Component {
 
   render() {
     const { email, password } = this.state;
-    const passwordLength = 6;
+    const passLength = 6;
     return (
       <div>
         <h1>Login</h1>
@@ -59,7 +59,7 @@ class Login extends React.Component {
             type="button"
             onClick={ this.handleSubmit }
             /* A senha possui 6 ou mais caracteres. */
-            disabled={ password.length < passwordLength }
+            disabled={ password.length < passLength }
           >
             Entrar
           </button>
