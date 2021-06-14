@@ -11,6 +11,7 @@ export default class WalletInput extends Component {
           className="form-control"
           type={ type }
           id={ id }
+          min={ type === 'number' ? 0 : '' }
           name={ htmlFor }
           onChange={ handleChange }
           required

@@ -144,7 +144,7 @@ body {
   flex-direction: column;
   font-size: 1.6rem;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
 }
 
 .header-container {
@@ -221,3 +221,37 @@ body {
   font-size: 1.6rem;
   outline: none;
 }
+
+.table {
+  width: 100%;
+}
+
+.table thead {
+  display: flex;
+  width: 100%;
+}
+
+.table tbody tr {
+  display: flex;
+
+  /* flex: column nowrap; */
+
+  /* width: 100%; */
+}
+
+.table thead tr {
+  display: inline-flex;
+  width: 100%;
+}
+
+.table thead tr th , .table tbody tr td {
+  align-items: center;
+  display: flex;
+  flex: auto;
+  font-size: 1.6rem;
+  font-weight: 400;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+

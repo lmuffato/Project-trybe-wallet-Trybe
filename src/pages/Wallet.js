@@ -8,6 +8,7 @@ import { addExpense } from '../actions';
 
 import WalletHeader from '../components/WalletHeader';
 import WalletForm from '../components/WalletForm';
+import WalletTable from '../components/WalletTable';
 
 const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const categories = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -95,7 +96,7 @@ class Wallet extends React.Component {
 
   render() {
     const {
-      wallet: { currencies },
+      wallet: { currencies, expenses },
       user: { email },
     } = this.props;
     const {
@@ -128,6 +129,7 @@ class Wallet extends React.Component {
             Adicionar despesa
           </button>
         </form>
+        <WalletTable expenses={ expenses } />
       </section>
     );
   }
