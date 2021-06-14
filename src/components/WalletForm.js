@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import ValueInput from './WalletForm/ValueInput';
 import DescriptionInput from './WalletForm/DescriptionInput';
 import CurrencyInput from './WalletForm/CurrencyInput';
 import MethodInput from './WalletForm/MethodInput';
 import TagInput from './WalletForm/TagInput';
+import { getCurrenciesDataThunk } from '../actions';
 
 class WalletForm extends Component {
   constructor() {
@@ -25,6 +27,7 @@ class WalletForm extends Component {
 
   render() {
     const { value, description, currency, method, tag } = this.state;
+    const { getCurrenciesData } = this.props;
 
     return (
       <form>
@@ -48,10 +51,19 @@ class WalletForm extends Component {
           handleChange={ this.handleChange }
           tag={ tag }
         />
-        <button type="button">Adicionar despesa</button>
+        <button
+          type="button"
+          onClick={ () => getCurrenciesData() }
+        >
+          Adicionar despesa
+        </button>
       </form>
     );
   }
 }
 
-export default WalletForm;
+const mapDispatchToProps = (dispatch) => ({
+  getCurrenciesData: () => dispatch(getCurrenciesDataThunk()),
+});
+
+export default connect(null, mapDispatchToProps)(WalletForm);
