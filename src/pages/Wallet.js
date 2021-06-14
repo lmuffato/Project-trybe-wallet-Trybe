@@ -1,9 +1,14 @@
 import React from 'react';
+import Header from '../components/Header';
 
 class Wallet extends React.Component {
-  // const { userMail } = this.props;
   render() {
-    return <div>TrybeWallet</div>;
+    return (
+      <div>
+        <h1> TrybeWallet </h1>
+        <Header />
+      </div>
+    );
   }
 }
 
