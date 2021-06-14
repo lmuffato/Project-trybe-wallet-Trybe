@@ -2,6 +2,7 @@ import React from 'react';
 
 import Header from './components/Header';
 import Form from './components/Form';
+import ExpensesList from './components/ExpensesList';
 
 class Wallet extends React.Component {
   constructor() {
@@ -28,6 +29,7 @@ class Wallet extends React.Component {
       <div>
         <Header totalExpenses={ totalExpenses } />
         <Form updateExpenses={ this.updateState } />
+        <ExpensesList />
       </div>
     );
   }
