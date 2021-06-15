@@ -1,4 +1,4 @@
-import { RECEIVE_CURRENCIES, DATA_EXPENSES } from '../actions/index';
+import { RECEIVE_CURRENCIES, ADD_EXPENSES } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -12,10 +12,13 @@ const userReducer = (state = INITIAL_STATE, action) => {
       ...state,
       currencies: action.currencies,
     };
-  case DATA_EXPENSES:
+  case ADD_EXPENSES:
     return {
       ...state,
-      expenses: action.expenses,
+      expenses: [
+        ...state.expenses,
+        action.expenses,
+      ],
     };
   default:
     return { ...state };

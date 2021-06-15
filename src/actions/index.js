@@ -1,14 +1,19 @@
 export const VALID_EMAIL = 'VALID_EMAIL';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const RECEIVE_CURRENCIES = 'RECEIVE_CURRENCIES';
-export const DATA_EXPENSES = 'DATA_EXPENSES';
+export const ADD_EXPENSES = 'ADD_EXPENSES';
 
 export const validEmail = (payload) => ({ type: VALID_EMAIL, payload });
 
 const requestCurrencies = () => ({ type: REQUEST_CURRENCIES });
 const receiveCurrencies = (currencies) => ({ type: RECEIVE_CURRENCIES, currencies });
 
-export const dataExpenses = (payload) => ({ type: DATA_EXPENSES, payload });
+const addExpenses = (expenses) => ({ type: ADD_EXPENSES, expenses });
+export function dataExpenses(expenses) {
+  return async (dispatch) => {
+    dispatch(addExpenses(expenses));
+  };
+}
 
 export function fetchCurrencies() {
   return (dispatch) => {
