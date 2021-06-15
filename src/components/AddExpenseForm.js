@@ -143,8 +143,14 @@ class AddExpenseForm extends React.Component {
 AddExpenseForm.propTypes = {
   currencies: PropTypes.arrayOf(Object).isRequired,
   addExpenseDispatch: PropTypes.func.isRequired,
-  currentCurrencies: PropTypes.objectOf(Object).isRequired,
+  currentCurrencies: PropTypes.shape({}),
   getCurrentCurrencies: PropTypes.func.isRequired,
+};
+
+// defaultProps utilizada conforme dica do Lucas Pedroso no slack para tirar o erro:
+// Warning: Failed prop type: The prop `currentCurrencies` is marked as required in `AddExpenseForm`, but its value is `undefined`.
+AddExpenseForm.defaultProps = {
+  currentCurrencies: {},
 };
 
 const mapStateToProps = (state) => ({
