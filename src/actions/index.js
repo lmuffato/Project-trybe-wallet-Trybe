@@ -2,10 +2,9 @@ import getCurrenciesFromAPI from '../services/api';
 
 export const LOGIN = 'LOGIN';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
+export const GET_CURRENCIES_ERROR = 'GET_CURRENCIES_ERROR';
 export const GET_CURRENCIES_LIST_SUCCESS = 'GET_CURRENCIES_LIST_SUCCESS';
-export const GET_CURRENCIES_LIST_ERROR = 'GET_CURRENCIES_LIST_ERROR';
 export const GET_CURRENCIES_DATA_SUCCESS = 'GET_CURRENCIES_DATA_SUCCESS';
-export const GET_CURRENCIES_DATA_ERROR = 'GET_CURRENCIES_DATA_ERROR';
 
 // LOGIN action creator
 export const login = (email, password) => ({
@@ -18,24 +17,20 @@ export const getCurrencies = () => ({
   type: GET_CURRENCIES,
 });
 
+export const getCurrenciesError = (error) => ({
+  type: GET_CURRENCIES_ERROR,
+  error,
+});
+
 export const getCurrenciesListSuccess = (currenciesList) => ({
   type: GET_CURRENCIES_LIST_SUCCESS,
   currenciesList,
 });
 
-export const getCurrenciesListError = (error) => ({
-  type: GET_CURRENCIES_LIST_ERROR,
-  error,
-});
 
 export const getCurrenciesDataSuccess = (currenciesData) => ({
   type: GET_CURRENCIES_DATA_SUCCESS,
   currenciesData,
-});
-
-export const getCurrenciesDataError = (error) => ({
-  type: GET_CURRENCIES_DATA_ERROR,
-  error,
 });
 
 export const getCurrenciesListThunk = () => (dispatch) => {
@@ -46,7 +41,7 @@ export const getCurrenciesListThunk = () => (dispatch) => {
       dispatch(getCurrenciesListSuccess(currenciesList));
     })
     .catch((error) => {
-      getCurrenciesListError(error);
+      getCurrenciesError(error);
     });
 };
 
