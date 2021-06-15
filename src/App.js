@@ -8,6 +8,7 @@ function App() {
     <Switch>
       {/* A rota para esta página deve ser ‘/’. */}
       <Route exact path="/" component={ Login } />
+      {/* A rota para esta página deve ser /carteira */}
       <Route path="/wallet" component={ Wallet } />
     </Switch>
   );
