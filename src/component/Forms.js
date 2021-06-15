@@ -2,25 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { dataExpenses, fetchCurrencies } from '../actions';
+import { formSelector, formInput } from './MethodsForms';
 
 class Forms extends React.Component {
   constructor(props) {
     super(props);
-    const { currenciesDispatch } = this.props;
+
     this.state = {
-      id: 0,
       value: 0,
       description: '',
-      currencie: '',
-      method: '',
-      tag: '',
-      exchangeRates: {
-        ...currenciesDispatch,
-      }
+      // currencie: 'USD',
+      // method: 'Dinheiro',
+      // tag: 'Alimentação',
     };
 
-
-    // this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.optionsCurrecies = this.optionsCurrecies.bind(this);
   }
 
@@ -29,12 +25,12 @@ class Forms extends React.Component {
     currenciesDispatch();
   }
 
-  // handleChange({ target }) {
-  //   const { value, name } = target;
-  //   this.setState({
-  //     [name]: value,
-  //   });
-  // }
+  handleChange(e) {
+    const { value, name } = e.target;
+    this.setState({
+      [name]: value,
+    });
+  }
 
   optionsCurrecies() {
     const { currenciesState } = this.props;
@@ -42,57 +38,19 @@ class Forms extends React.Component {
     return arrayCurrencies;
   }
 
-  formSelector(name, arrayOptions, expense, func) {
-    return (
-      <div>
-        <label
-          htmlFor={ name }
-          name={ expense }
-          onChange={ func }
-        >
-          { `${name}: ` }
-          <select aria-label={ name }>
-            { arrayOptions.map((options) => <option key={ options }>{options}</option>)}
-          </select>
-        </label>
-      </div>
-    );
-  }
-
-  formInput(title, expense) {
-    return (
-      <div>
-        <label htmlFor={ title }>
-          { `${title}: ` }
-          <input
-            aria-label={ title }
-            type="text"
-            name={ expense }
-            onChange={ ({ target }) => {
-              const { value, name } = target;
-              this.setState({
-                [name]: value,
-              });
-            } }
-          />
-        </label>
-      </div>
-    );
-  }
-
   render() {
     const { expensesDispach } = this.props;
     const { value, description } = this.state;
-    const optionsMethod = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+    const optionMethod = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const optionsTag = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <div>
         <form>
-          { this.formInput('Valor', 'value') }
-          { this.formInput('Descrição', 'description') }
-          {this.formSelector('Moeda', this.optionsCurrecies())}
-          {this.formSelector('Método de pagamento', optionsMethod)}
-          {this.formSelector('Tag', optionsTag)}
+          {formInput('Valor', 'value', this.handleChange)}
+          {formInput('Descrição', 'description', this.handleChange)}
+          {formSelector('Moeda', this.optionsCurrecies(), 'currencie', this.handleChange)}
+          {formSelector('Método de pagamento', optionMethod, 'method', this.handleChange)}
+          {formSelector('Tag', optionsTag, 'tag', this.handleChange)}
         </form>
         <button
           type="button"
