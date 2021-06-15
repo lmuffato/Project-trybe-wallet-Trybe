@@ -26,12 +26,13 @@ export default class InputSelect extends Component {
   render() {
     // const {  } = this.state;
     const array = this.options();
-    const { htmlFor, textLabel, name } = this.props;
+    const { htmlFor, textLabel, name, id } = this.props;
     console.log(this.state);
     return (
       <label htmlFor={ htmlFor }>
         { textLabel }
         <select
+          id={ id }
           name={ name }
           onChange={ (event) => this.handleChange(name, event.target.value) }
         >
@@ -47,4 +48,5 @@ InputSelect.propTypes = {
   htmlFor: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   arrayOption: PropTypes.arrayOf(PropTypes.string).isRequired,
+  id: PropTypes.string.isRequired,
 };

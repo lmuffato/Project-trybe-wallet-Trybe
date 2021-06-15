@@ -3,12 +3,12 @@ import Input from './Input';
 import InputSelect from './inputSelect';
 
 export default class Form extends Component {
-  // constructor() {
-  // super();
-  // this.state = {
-  // coins: ['USD'],
-  // };
-  // }
+  constructor() {
+    super();
+    this.state = {
+      coins: ['USD'],
+    };
+  }
 
   componentDidMount() {
     this.fetchAPI();
@@ -19,45 +19,49 @@ export default class Form extends Component {
     const objJson = await api.json();
     const obj = await objJson;
     const arr = Object.keys(obj);
-    return arr;
-    // const arrFilter = arr.filter((index) => index !== 'USDT' && index !== 'DOGE');
-    // this.setState({ coins: arrFilter });
+    const arrFilter = arr.filter((index) => index !== 'USDT' && index !== 'DOGE');
+    this.setState({ coins: arrFilter });
   }
 
   render() {
-    // const { value } = this.state;
+    const { value, coins } = this.state;
     return (
       <form>
         <Input
           type="number"
           name="value"
-          // value={ value }
+          value={ value }
           textLabel="Valor"
-          htmlFor="Valor"
+          htmlFor="value"
+          id="value"
         />
         <Input
           type="text"
           name="description"
           textLabel="Descrição"
-          htmlFor="Descrição"
+          htmlFor="description"
+          id="description"
         />
         <InputSelect
-          htmlFor="Moeda"
+          id="coin"
+          htmlFor="coin"
           name="moeda"
           textLabel="Moeda"
-          // arrayOption={ coins }
+          arrayOption={ coins }
         />
         <InputSelect
-          htmlFor="Método de pagamento"
-          name="Método de pagamento"
+          htmlFor="payment"
+          name="payment"
+          id="payment"
           textLabel="Método de pagamento"
-          // arrayOption={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
+          arrayOption={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
         />
         <InputSelect
           htmlFor="tag"
           name="tag"
+          id="tag"
           textLabel="Tag"
-          // arrayOption={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
+          arrayOption={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
         />
         <input
           type="button"

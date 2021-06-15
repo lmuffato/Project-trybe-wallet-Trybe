@@ -16,7 +16,7 @@ class Input extends Component {
 
   render() {
     const objState = this.state;
-    const { type, htmlFor, name, textLabel } = this.props;
+    const { type, htmlFor, name, textLabel, id } = this.props;
     return (
       <label htmlFor={ htmlFor }>
         { textLabel }
@@ -25,6 +25,7 @@ class Input extends Component {
           type={ type }
           name={ name }
           onChange={ (event) => this.handleChange(name, event.target.value) }
+          id={ id }
         />
       </label>
     );
@@ -40,6 +41,7 @@ Input.propTypes = {
   textLabel: PropTypes.string.isRequired,
   htmlFor: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default Input;
