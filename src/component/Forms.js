@@ -11,13 +11,14 @@ class Forms extends React.Component {
     this.state = {
       value: 0,
       description: '',
-      // currencie: 'USD',
-      // method: 'Dinheiro',
-      // tag: 'Alimentação',
+      currencie: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.optionsCurrecies = this.optionsCurrecies.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -38,9 +39,18 @@ class Forms extends React.Component {
     return arrayCurrencies;
   }
 
+  async handleClick() {
+    const { expensesDispach, expensesState, currenciesDispatch } = this.props;
+    const id = expensesState.length;
+    const currenciesApi = await currenciesDispatch();
+    expensesDispach({
+      id,
+      ...this.state,
+      exchangeRates: currenciesApi,
+    });
+  }
+
   render() {
-    const { expensesDispach } = this.props;
-    const { value, description } = this.state;
     const optionMethod = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const optionsTag = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
@@ -54,7 +64,7 @@ class Forms extends React.Component {
         </form>
         <button
           type="button"
-          onClick={ () => expensesDispach(value, description) }
+          onClick={ () => this.handleClick() }
         >
           Adicionar Despesa
         </button>
@@ -64,13 +74,15 @@ class Forms extends React.Component {
 }
 
 Forms.propTypes = {
-  currenciesState: PropTypes.func.isRequired,
-  currenciesDispatch: PropTypes.func.isRequired,
-  expensesDispach: PropTypes.func.isRequired,
-};
+  currenciesState: PropTypes.func,
+  currenciesDispatch: PropTypes.func,
+  expensesDispach: PropTypes.func,
+  expensesState: PropTypes.array,
+}.isRequired;
 
 const mapStateToProps = (state) => ({
   currenciesState: state.wallet.currencies,
+  expensesState: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
