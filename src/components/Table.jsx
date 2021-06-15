@@ -1,7 +1,7 @@
 import React from 'react';
 import { arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
-import { deleteExpense } from '../actions';
+import { deleteExpense, getExpense } from '../actions';
 
 class Table extends React.Component {
   constructor(props) {
@@ -9,10 +9,16 @@ class Table extends React.Component {
     this.fillTableRows = this.fillTableRows.bind(this);
   }
 
-  handleClick(key) {
-    const { expenses, newDeleteExpense } = this.props;
-    const filteredExpenses = expenses.filter((expense) => (expense.id !== key));
-    newDeleteExpense(filteredExpenses);
+  handleClick(key, event) {
+    const { expenses, globalDeleteExpense, globalGetExpense } = this.props;
+    const { name } = event.target;
+    const newFilteredExpenses = expenses.filter((expense) => (expense.id !== key));
+    const newGetExpDetails = expenses.find((expense) => (expense.id === key));
+    if (name === 'delete-btn') {
+      globalDeleteExpense(newFilteredExpenses);
+    } else {
+      globalGetExpense(newGetExpDetails);
+    }
   }
 
   fillTableRows() {
@@ -32,11 +38,19 @@ class Table extends React.Component {
           </td>
           <td>Real</td>
           <td>
-            <button type="button">Editar</button>
+          <button
+              type="button"
+              data-testid="edit-btn"
+              name="edit-btn"
+              onClick={ (event) => this.handleClick(expense.id, event) }
+            >
+              Editar
+            </button>
             <button
               type="button"
               data-testid="delete-btn"
-              onClick={ () => this.handleClick(expense.id) }
+              name="delete-btn"
+              onClick={ (event) => this.handleClick(expense.id, event) }
             >
               Excluir
             </button>
@@ -78,8 +92,14 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  newDeleteExpense: (updatedExpense) => dispatch(deleteExpense(updatedExpense)),
-});
-
+const mapDispatchToProps = (dispatch) => (
+  {
+    globalDeleteExpense: (filteredExpenses) => {
+      dispatch(deleteExpense(filteredExpenses));
+    },
+    globalGetExpense: (getExpenseDetails) => {
+      dispatch(getExpense(getExpenseDetails));
+    },
+  }
+);
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
