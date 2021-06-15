@@ -1,8 +1,13 @@
-/* eslint-disable */ 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { updateTotal, addExpense, getCurrenciesThunk, editExpense, editItem } from '../actions';
+import {
+  updateTotal,
+  addExpense,
+  getCurrenciesThunk,
+  editExpense,
+  editItem,
+} from '../actions';
 
 class Form extends Component {
   constructor(props) {
@@ -49,8 +54,15 @@ class Form extends Component {
   handleClick() {
     this.fetchAPI();
     const { value, description, currency, tag, method } = this.state;
-    const { dispatchExpense, expenses, currencies, idEdit, dispatchEditExpense, dispatchEditId } = this.props;
-    
+    const {
+      dispatchExpense,
+      expenses,
+      currencies,
+      idEdit,
+      dispatchEditExpense,
+      dispatchEditId,
+    } = this.props;
+
     const expense = {
       id: idEdit || expenses.length,
       value,
@@ -65,7 +77,7 @@ class Form extends Component {
       dispatchEditExpense(expense);
     } else {
       dispatchExpense(expense);
-    };
+    }
 
     dispatchEditId(null);
     this.updateTotal(expense);
@@ -81,15 +93,18 @@ class Form extends Component {
     document.getElementById('valor').value = null;
   }
 
-  render() {
-    const { currencies } = this.props;
-    const currenciesName = Object.keys(currencies);
+  formBody(currenciesName) {
     return (
-     <> 
-      <form>
+      <>
         <label htmlFor="valor">
           Valor
-          <input data-testid="value-input" onChange={ this.handleChange } type="number" name="value" id="valor" />
+          <input
+            data-testid="value-input"
+            onChange={ this.handleChange }
+            type="number"
+            name="value"
+            id="valor"
+          />
         </label>
         <label htmlFor="expense-description">
           Descrição
@@ -103,15 +118,32 @@ class Form extends Component {
         </label>
         <label htmlFor="moeda">
           Moeda
-          <select data-testid="currency-input" onChange={ this.handleChange } name="currency" id="moeda">
+          <select
+            data-testid="currency-input"
+            onChange={ this.handleChange }
+            name="currency"
+            id="moeda"
+          >
             {currenciesName.map((currency, index) => (
               <option key={ index }>{currency}</option>
             ))}
           </select>
         </label>
+      </>
+    );
+  }
+
+  formBody2() {
+    return (
+      <>
         <label htmlFor="payment-method">
           Método de pagamento
-          <select data-testid="method-input" onChange={ this.handleChange } name="method" id="payment-method">
+          <select
+            data-testid="method-input"
+            onChange={ this.handleChange }
+            name="method"
+            id="payment-method"
+          >
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
@@ -119,7 +151,12 @@ class Form extends Component {
         </label>
         <label htmlFor="tag">
           Tag
-          <select data-testid="tag-input" onChange={ this.handleChange } name="tag" id="tag">
+          <select
+            data-testid="tag-input"
+            onChange={ this.handleChange }
+            name="tag"
+            id="tag"
+          >
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
@@ -127,6 +164,18 @@ class Form extends Component {
             <option>Saúde</option>
           </select>
         </label>
+      </>
+    );
+  }
+
+  render() {
+    const { currencies } = this.props;
+    const currenciesName = Object.keys(currencies);
+    return (
+      <>
+        <form>
+          {this.formBody(currenciesName)}
+          {this.formBody2()}
         </form>
         <button type="button" onClick={ this.handleClick }>
           Adicionar Despesa
@@ -143,6 +192,9 @@ Form.propTypes = {
   expenses: PropTypes.arrayOf(Object).isRequired,
   total: PropTypes.number.isRequired,
   dispatchExpense: PropTypes.number.isRequired,
+  idEdit: PropTypes.string.isRequired,
+  dispatchEditExpense: PropTypes.func.isRequired,
+  dispatchEditId: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

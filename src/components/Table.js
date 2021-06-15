@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -8,14 +6,6 @@ import { editItem, removeExpense, updateTotal } from '../actions';
 class Table extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      value: '',
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
-    };
 
     this.handleTable = this.handleTable.bind(this);
     this.deleteExpense = this.deleteExpense.bind(this);
@@ -79,7 +69,7 @@ class Table extends Component {
         <button
           type="button"
           data-testid="edit-btn"
-          onClick={() => this.editExpense(expense)}
+          onClick={ () => this.editExpense(expense) }
         >
           Editar despesa
         </button>
@@ -103,6 +93,7 @@ Table.propTypes = {
   removeItem: PropTypes.func.isRequired,
   totalUpdate: PropTypes.func.isRequired,
   total: PropTypes.number.isRequired,
+  dispatchEditItem: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,8 +1,6 @@
-/* eslint-disable */
 import {
   GET_CURRENCIES,
   GET_CURRENCIES_SUCCESS,
-  GET_CURRENCIES_ERROR,
   ADD_EXPENSE,
   REMOVE_EXPENSE,
   UPDATE_TOTAL,
@@ -35,12 +33,6 @@ const wallet = (
       isLoading: false,
       currencies: action.payload,
     };
-  case GET_CURRENCIES_ERROR:
-    return {
-      ...state,
-      isLoading: false,
-      error: action.payload,
-    };
   case ADD_EXPENSE:
     return {
       ...state,
@@ -59,7 +51,7 @@ const wallet = (
       expenses: [
         ...state.expenses.filter((expense) => expense.id !== action.expense.id),
         action.expense,
-      ], 
+      ],
     };
   case REMOVE_EXPENSE:
     return {
