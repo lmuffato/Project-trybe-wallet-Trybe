@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -9,6 +9,7 @@ class Login extends React.Component {
       isValidSenha: false,
     };
     this.validEmail = this.validEmail.bind(this);
+    this.validSenha = this.validSenha.bind(this);
   }
 
   validEmail({ target: { value } }) {
@@ -39,7 +40,9 @@ class Login extends React.Component {
           data-testid="password-input"
           placeholder="Senha"
         />
-        <button disabled={ !enable } type="button">Entrar</button>
+        <Link to="/carteira">
+          <button disabled={ !enable } type="button">Entrar</button>
+        </Link>
 
       </div>);
   }
