@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ValueInput from './WalletForm/ValueInput';
 import DescriptionInput from './WalletForm/DescriptionInput';
@@ -22,7 +23,7 @@ class WalletForm extends Component {
   }
 
   handleChange({ target }) {
-    this.setState({ [target.name]: target.value });
+    this.setState({ [target.id]: target.value });
   }
 
   render() {
@@ -65,5 +66,9 @@ class WalletForm extends Component {
 const mapDispatchToProps = (dispatch) => ({
   getCurrenciesData: () => dispatch(getCurrenciesDataThunk()),
 });
+
+WalletForm.propTypes = {
+  getCurrenciesData: PropTypes.func,
+}.isRequired;
 
 export default connect(null, mapDispatchToProps)(WalletForm);
