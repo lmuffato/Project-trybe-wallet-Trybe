@@ -30,7 +30,13 @@ const wallet = (state = initialState, action) => {
       currencies: action.currenciesList,
     };
   case GET_CURRENCIES_DATA_SUCCESS:
-    return state;
+    return {
+      ...state,
+      expenses: [...state.expenses, {
+        id: state.expenses.length,
+        ...action.newExpense,
+      }],
+    };
   default:
     return state;
   }
