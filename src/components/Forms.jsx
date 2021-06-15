@@ -13,9 +13,9 @@ class Forms extends React.Component {
       id: 0,
       value: '0',
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -56,7 +56,7 @@ class Forms extends React.Component {
           value={ value }
           step={ 0 }
           min={ 0 }
-          onChange={ ({ target }) => handleChange({ target }) }
+          onChange={ (e) => handleChange(e) }
         />
       </label>
     );
@@ -74,7 +74,7 @@ class Forms extends React.Component {
           type="text"
           name="description"
           value={ description }
-          onChange={ ({ target }) => handleChange({ target }) }
+          onChange={ (e) => handleChange(e) }
         />
       </label>
     );
@@ -93,7 +93,7 @@ class Forms extends React.Component {
           id="moedas"
           name="currency"
           value={ currency }
-          onChange={ ({ target }) => handleChange({ target }) }
+          onChange={ (e) => handleChange(e) }
         >
           { currencies
             .map((currencie, index) => (<option key={ index }>{ currencie }</option>))}
@@ -113,11 +113,11 @@ class Forms extends React.Component {
           id="Pagamento"
           name="method"
           value={ method }
-          onChange={ ({ target }) => handleChange({ target }) }
+          onChange={ (e) => handleChange(e) }
         >
-          <option value="money">Dinheiro</option>
-          <option value="credit-cart">Cartão de crédito</option>
-          <option value="debit-cart">Cartão de Débito</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de Débito</option>
         </select>
       </label>
     );
@@ -134,7 +134,7 @@ class Forms extends React.Component {
           id="Tags"
           name="tag"
           value={ tag }
-          onChange={ ({ target }) => handleChange({ target }) }
+          onChange={ (e) => handleChange(e) }
         >
           <option value="Alimentacao">Alimentação</option>
           <option value="Lazer">Lazer</option>
@@ -192,7 +192,6 @@ class Forms extends React.Component {
 
 const mapStateToProps = (state) => ({
   currencieStore: state.wallet.currencies,
-  // expensesStore: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -206,7 +205,6 @@ Forms.propTypes = {
   currencieStore: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string,
   })).isRequired,
-  // expensesStore: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forms);
