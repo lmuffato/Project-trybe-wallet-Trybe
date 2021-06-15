@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Forms from '../components/Forms';
-// import Table from '../components/Table';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   render() {
@@ -26,7 +26,7 @@ class Wallet extends React.Component {
           </div>
         </header>
         <Forms />
-        {/* <Table /> */}
+        <Table />
       </div>);
   }
 }
@@ -37,7 +37,7 @@ const mapStateToProps = (state) => ({
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
-  totalDespesas: PropTypes.func.isRequired,
+  totalDespesas: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps)(Wallet);
