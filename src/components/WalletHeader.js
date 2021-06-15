@@ -4,11 +4,21 @@ import PropTypes from 'prop-types';
 
 class WalletHeader extends React.Component {
   render() {
-    const { user } = this.props;
+    const { user, expenses } = this.props;
+    let totalExpensesValue = 0;
+    if (expenses.length > 0) {
+      totalExpensesValue = expenses.reduce((accum, expense) => {
+        const expenseValue = parseFloat(expense.value);
+        const expenseCurrency = expense.exchangeRates[expense.currency];
+        const expenseExchangeRate = parseFloat(expenseCurrency.ask);
+        return accum + expenseValue * expenseExchangeRate;
+      }, 0);
+    }
+
     return (
       <header>
         <div data-testid="email-field">{user.email}</div>
-        <div data-testid="total-field">0</div>
+        <div data-testid="total-field">{totalExpensesValue}</div>
         <div data-testid="header-currency-field">BRL</div>
       </header>
     );
@@ -17,13 +27,23 @@ class WalletHeader extends React.Component {
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  expenses: state.wallet.expenses,
 });
 
 WalletHeader.propTypes = {
   user: PropTypes.shape({
     email: PropTypes.string,
     password: PropTypes.string,
-  }).isRequired,
-};
+  }),
+  expenses: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    value: PropTypes.number,
+    description: PropTypes.string,
+    currency: PropTypes.string,
+    method: PropTypes.string,
+    tag: PropTypes.string,
+    exchangeRates: PropTypes.objectOf(PropTypes.string),
+  })),
+}.isRequired;
 
 export default connect(mapStateToProps, null)(WalletHeader);
