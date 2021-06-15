@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import WalletHeader from '../components/WalletHeader';
 import WalletForm from '../components/WalletForm';
+import WalletTable from '../components/WalletTable';
 import { getCurrenciesListThunk } from '../actions';
 
 class Wallet extends React.Component {
@@ -16,6 +17,7 @@ class Wallet extends React.Component {
       <div>
         <WalletHeader />
         <WalletForm />
+        <WalletTable />
       </div>
     );
   }
