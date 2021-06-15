@@ -1,36 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import AddForm from '../components/addform';
+import Header from '../components/Header';
 
 class Wallet extends React.Component {
   render() {
-    const { getEmailS } = this.props;
     return (
       <main>
-        <header>
-          <h5 data-testid="email-field">
-            {getEmailS}
-          </h5>
-          <h5 data-testid="total-field">
-            Valor: 0
-          </h5>
-          <h5 data-testid="header-currency-field">
-            Câmbio utilizado: BRL
-          </h5>
-        </header>
+        <Header />
         <AddForm />
       </main>
     );
   }
 }
 
+// const mapDispatchToProps = (dispatch) => ({
+//   adicionaMoeda: () => dispatch(thunkApi()),
+// });
+
 const mapStateToProps = (state) => ({
-  getEmailS: state.user.email,
+  getEmail: state.user.email,
 });
 
 Wallet.propTypes = {
-  getEmailS: PropTypes.string,
+  getEmail: propTypes.string,
 }.isRequired;
 
 export default connect(mapStateToProps)(Wallet);
