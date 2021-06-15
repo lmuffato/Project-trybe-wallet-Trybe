@@ -1,6 +1,6 @@
 export const LOGIN = 'LOGIN';
 
-export const loginReducer = (payload) => ({
+export const addNewUser = (payload) => ({
   type: LOGIN,
   payload,
 });

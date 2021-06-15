@@ -4,13 +4,13 @@ import {
 
 const INITIAL_STATE = [];
 
-function addNewUser(state = INITIAL_STATE, action) {
+function addNewUserAction(state = INITIAL_STATE, action) {
   switch (action.type) {
   case LOGIN:
-    return [...state, action.type];
+    return [...state, action];
   default:
     return state;
   }
 }
 
-export default addNewUser;
+export default addNewUserAction;

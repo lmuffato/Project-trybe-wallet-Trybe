@@ -35,19 +35,22 @@ class Routers extends React.Component {
           value={ email }
           onChange={ (event) => this.setState({ email: event.target.value }) }
         />
-        <imput
+        <br />
+        <input
           type="password"
           placeholder="Password"
           data-testid="password-input"
           value={ password }
           onChange={ (event) => this.setState({ password: event.target.value }) }
         />
+        <br />
         <button
           type="button"
           onClick={ this.checkRegistered }
         >
           Entrar
         </button>
+        <br />
         <Link to="/register">Clientes Registrados</Link>
       </div>
     );
