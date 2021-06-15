@@ -1,0 +1,35 @@
+.loginPage {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.loginBox {
+  align-items: center;
+  background-color: teal;
+  border-style: solid;
+  color: yellow;
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  padding: 25px;
+  width: 30%;
+}
+
+.loginBox label {
+  font-family: monospace;
+  font-size: 15px;
+}
+
+.loginBox input {
+  font-family: monospace;
+  font-size: 10px;
+  padding: 10px;
+}
+
+.loginBox button {
+  font-family: monospace;
+  margin-left: 45px;
+  margin-top: 50px;
+  padding: 10px;
+}

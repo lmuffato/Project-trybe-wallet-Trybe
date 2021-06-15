@@ -1,0 +1,14 @@
+.HeaderClass {
+  background-color: rgb(101, 101, 189);
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  width: 100%;
+}
+
+.HeaderClass div {
+  border-color: yellow;
+  border-style: solid;
+  font-weight: 800;
+  padding: 10px;
+}
