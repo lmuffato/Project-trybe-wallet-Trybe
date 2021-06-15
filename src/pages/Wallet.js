@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
+import { ThunkAPI } from '../actions/wallet';
+
 import Header from '../components/Header';
 import Form from '../components/Form';
-import { ThunkAPI } from '../actions/wallet';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -17,6 +20,7 @@ class Wallet extends React.Component {
       <section>
         <Header />
         <Form />
+        <Table />
       </section>
     );
   }
@@ -27,7 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 // uso o mapDispatchToProps pois estou usando uma action para passar uma inforção para o reducer e estado global,
 // nesse caso a action é uma função e a informação é a chamada dessa função que ira encadear com a chamada da api e o dispatch de outra actions
-// como a atction que guarda a informação da api dentro do estado global em wallet.scurrencies
+// como a atction que guarda a informação da api dentro do estado global em wallet.currencies
 
 Wallet.propTypes = {
   ThunkAPIDispatch: PropTypes.func.isRequired,

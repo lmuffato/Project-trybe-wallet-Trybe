@@ -27,3 +27,30 @@ export const ThunkAPI = () => async (dispatch) => {
   dispatch(successRequest(arrayAPI));
   // faço o dispatch para chamar a action e passar para o reducer
 };
+
+export const getExpenses = (expenses) => ({
+  type: 'GET_EXPENSES',
+  expenses,
+});
+
+export const exchangeRates = (data) => ({
+  type: 'GET_EXCHANGE_RATES',
+  data,
+});
+
+export const ThunkAPI2 = () => async (dispatch) => {
+  // chamo a actin loadingRequest para atualizar o estado global para eu ter a informação toda vez que a api estiver carregando
+  dispatch(loadingRequest());
+
+  // chama a api
+  const api = await currencyAPI(); // a api é retornada em um grade objeto
+  console.log(api);
+
+  dispatch(exchangeRates(api));
+  // faço o dispatch para chamar a action e passar para o reducer
+};
+
+export const getTotalValue = (value) => ({
+  type: 'GET_TOTAL_VALUE',
+  value,
+});
