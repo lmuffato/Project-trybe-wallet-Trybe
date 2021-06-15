@@ -1,16 +1,19 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
+import Wallet from './pages/Wallet';
+import './App.css';
 
 function App() {
   return (
-    <>
-      Hello, TrybeWallet!
-      <br />
-      <Route path="/">
+    <Switch>
+      <Route exact path="/">
         <Login />
       </Route>
-    </>
+      <Route path="/carteira">
+        <Wallet />
+      </Route>
+    </Switch>
   );
 }
 
