@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   GET_CURRENCIES,
   GET_CURRENCIES_SUCCESS,
@@ -5,12 +6,15 @@ import {
   ADD_EXPENSE,
   REMOVE_EXPENSE,
   UPDATE_TOTAL,
+  EDIT_ITEM,
+  EDIT_EXPENSE,
 } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   isLoading: false,
+  idEdit: null,
   error: null,
   total: 0,
 };
@@ -42,6 +46,21 @@ const wallet = (
       ...state,
       expenses: [...state.expenses, action.expense],
     };
+
+  case EDIT_ITEM:
+    return {
+      ...state,
+      idEdit: action.id,
+    };
+
+  case EDIT_EXPENSE:
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses.filter((expense) => expense.id !== action.expense.id),
+        action.expense,
+      ], 
+    };
   case REMOVE_EXPENSE:
     return {
       ...state,
@@ -58,27 +77,3 @@ const wallet = (
 };
 
 export default wallet;
-
-/* function wallet(state = INITIAL_STATE, action) {
-  switch (action.type) {
-  case SEND_CURRENCIES:
-    return {
-      ...state,
-      currencies: action.currencies,
-    };
-  case ADD_EXPENSE:
-    return {
-      ...state,
-      expenses: [...state.expenses, action.expense],
-    };
-  case UPDATE_TOTAL:
-    return {
-      ...state,
-      total: action.value,
-    };
-  default:
-    return state;
-  }
-}
-
-export default wallet; */

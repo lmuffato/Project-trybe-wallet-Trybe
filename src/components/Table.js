@@ -1,17 +1,37 @@
+/* eslint-disable */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { removeExpense, updateTotal } from '../actions';
+import { editItem, removeExpense, updateTotal } from '../actions';
 
 class Table extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    };
+
     this.handleTable = this.handleTable.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.deleteExpense = this.deleteExpense.bind(this);
+    this.editExpense = this.editExpense.bind(this);
   }
 
-  handleClick(expense, resolvedValue) {
+  editExpense(expense) {
+    const { dispatchEditItem } = this.props;
+    const { id } = expense;
+    dispatchEditItem(id);
+    document.getElementById('valor').value = expense.value;
+    document.getElementById('expense-description').value = expense.description;
+    document.getElementById('valor').focus();
+  }
+
+  deleteExpense(expense, resolvedValue) {
     const { id } = expense;
     const { removeItem, totalUpdate, total } = this.props;
     removeItem(id);
@@ -52,9 +72,16 @@ class Table extends Component {
         <button
           type="button"
           data-testid="delete-btn"
-          onClick={ () => this.handleClick(expense, resolvedValue) }
+          onClick={ () => this.deleteExpense(expense, resolvedValue) }
         >
           Deletar
+        </button>
+        <button
+          type="button"
+          data-testid="edit-btn"
+          onClick={() => this.editExpense(expense)}
+        >
+          Editar despesa
         </button>
       </tr>
     );
@@ -81,6 +108,7 @@ Table.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   removeItem: (id) => dispatch(removeExpense(id)),
   totalUpdate: (value) => dispatch(updateTotal(value)),
+  dispatchEditItem: (id) => dispatch(editItem(id)),
 });
 
 const mapStateToProps = (state) => ({
