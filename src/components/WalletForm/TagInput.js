@@ -10,7 +10,7 @@ class TagInput extends Component {
         Tag
         <select
           value={ tag }
-          name="tag"
+          id="tag"
           onChange={ handleChange }
         >
           <option value="Alimentação">Alimentação</option>

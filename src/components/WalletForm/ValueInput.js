@@ -10,7 +10,6 @@ class ValueInput extends Component {
         Valor
         <input
           id="value"
-          name="value"
           value={ value }
           onChange={ handleChange }
         />

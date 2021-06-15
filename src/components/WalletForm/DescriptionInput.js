@@ -10,7 +10,6 @@ class DescriptionInput extends Component {
         Descrição
         <input
           id="description"
-          name="description"
           value={ description }
           onChange={ handleChange }
         />

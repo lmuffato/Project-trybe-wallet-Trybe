@@ -6,11 +6,11 @@ class MethodInput extends Component {
     const { handleChange, method } = this.props;
 
     return (
-      <label htmlFor="metodo-pgto">
+      <label htmlFor="method">
         Método de pagamento
         <select
           value={ method }
-          name="method"
+          id="method"
           onChange={ handleChange }
         >
           <option value="Dinheiro">Dinheiro</option>
