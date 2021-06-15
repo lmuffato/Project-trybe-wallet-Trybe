@@ -55,13 +55,13 @@ class AddCurrencies extends Component {
 
   renderOptions() {
     const { exchanges } = this.props;
-    return Object.values(exchanges).map((coin, index) => (
+    return Object.values(exchanges).map((coin, index) => index !== 1 && (
       <option
         name="coin"
         key={ index }
         title={ coin.name }
       >
-        {coin.code}
+        { coin.code }
       </option>
     ));
   }
@@ -85,7 +85,6 @@ class AddCurrencies extends Component {
             onChange={ this.handleCurrencie }
             data-testid="header-currency-field"
           >
-            <option name="coin"> BRL </option>
             { isFetching === 'success' ? this.renderOptions() : console.log('waiting') }
           </select>
         </label>
