@@ -2,14 +2,14 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   height: 100vh;
+  justify-content: center;
 }
 
 .wallet_butto {
   background: black;
-  border-radius: 3px;
   border: none;
+  border-radius: 3px;
   color: white;
   font-size: 14px;
   margin-top: 20px;
