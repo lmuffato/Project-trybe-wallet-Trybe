@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Wallet.propTypes = {
-  getCurrencies: PropTypes.func,
+  getCurrenciesList: PropTypes.func,
 }.isRequired;
 
 export default connect(null, mapDispatchToProps)(Wallet);
