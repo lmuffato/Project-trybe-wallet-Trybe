@@ -2,10 +2,11 @@
 import { LOGIN } from '../actions';
 
 const INITIAL_STATE = {
-  email: 'heloisa@gmail.com',
+  email: '',
+  senha: '',
 };
 
-const userReducer = (state = INITIAL_STATE, action) => {
+export default function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case LOGIN:
     return {
@@ -15,6 +16,4 @@ const userReducer = (state = INITIAL_STATE, action) => {
   default:
     return state;
   }
-};
-
-export default userReducer;
+}

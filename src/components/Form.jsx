@@ -1,60 +1,53 @@
 import React from 'react';
+import ValueInput from './FormInputs/ValueInput';
+import DescriptionInput from './FormInputs/description';
+import SelectedCoinInput from './FormInputs/SelectedCoinInput';
+import PaymentInput from './FormInputs/PaymentInput';
+import TagInput from './FormInputs/TagInput';
 // import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
+// import { ThunkAPI } from '../actions/index';
 
 class Form extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      value: '',
+      description: '',
+      selectedCoin: '',
+      payment: '',
+      tag: '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    });
+  }
+
   render() {
+    const { value, description, selectedCoin, payment, tag } = this.state;
     return (
       <form>
-        <label htmlFor="value_input">
-          Valor:
-          <input id="value_input" type="text" name="value" />
-        </label>
-
-        <label htmlFor="value_description">
-          Descrição:
-          <input id="value_description" type="text" name="value" />
-        </label>
-
-        <label htmlFor="moedaSelected">
-          Moeda:
-          <select id="moedaSelected">
-            <option value="BRL">BRL</option>
-          </select>
-        </label>
-
-        <label htmlFor="pagamentoSelected">
-          Método de pagamento
-          <select id="pagamentoSelected">
-            <option value="dinheiro">Dinheiro</option>
-            <option value="cartaoCredito">Cartão de Crédito</option>
-            <option value="CartaoDebito">Cartão de débito</option>
-          </select>
-        </label>
-
-        <label htmlFor="tag">
-          Tag:
-          <select id="tag">
-            <option value="alimentacao">Alimentação</option>
-            <option value="lazer">Lazer</option>
-            <option value="trabalho">Trabalho</option>
-            <option value="transporte">Transporte</option>
-            <option value="saude">Saúde</option>
-          </select>
-        </label>
+        <ValueInput localValue={ value } onChange={ this.handleChange } />
+        <DescriptionInput localValue={ description } onChange={ this.handleChange } />
+        <SelectedCoinInput localValue={ selectedCoin } onChange={ this.handleChange } />
+        <PaymentInput localValue={ payment } onChange={ this.handleChange } />
+        <TagInput localValue={ tag } onChange={ this.handleChange } />
       </form>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  email: state.user.email,
-  // totalValue: state.user.user.totalValue,
+export default Form;
+
+/* mapStateToProps = (state) => ({
+  APIContent: state.wallet.coins,
 });
 
-export default connect(mapStateToProps, null)(Form);
-
-/* Form.propTypes = {
-  // email: PropTypes.string,
-  // totalValue: PropTypes.number,
+Form.propTypes = {
+  fetchApiCoin: PropTypes.func,
 }.isRequired; */
