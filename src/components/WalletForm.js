@@ -54,7 +54,7 @@ class WalletForm extends Component {
         />
         <button
           type="button"
-          onClick={ () => getCurrenciesData() }
+          onClick={ () => getCurrenciesData(this.state) }
         >
           Adicionar despesa
         </button>
@@ -64,7 +64,7 @@ class WalletForm extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  getCurrenciesData: () => dispatch(getCurrenciesDataThunk()),
+  getCurrenciesData: (formState) => dispatch(getCurrenciesDataThunk(formState)),
 });
 
 WalletForm.propTypes = {
