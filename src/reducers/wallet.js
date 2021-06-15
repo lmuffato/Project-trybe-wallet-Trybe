@@ -1,9 +1,10 @@
-import { API_SUCCESS, API_LOADING } from '../actions/index';
+import { API_SUCCESS, API_LOADING, ADD_EXPENSE, UPDATE_TOTAL } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: ['BRL'],
   expenses: [],
   loading: true,
+  total: 0,
 
 };
 
@@ -20,6 +21,17 @@ function wallet(state = INITIAL_STATE, action) {
       ...state,
       loading: false,
     };
+  case ADD_EXPENSE:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload],
+    };
+  case UPDATE_TOTAL:
+    return {
+      ...state,
+      total: state.total + action.payload,
+    };
+
   default:
     return state;
   }
