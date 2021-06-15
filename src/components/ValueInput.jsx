@@ -10,6 +10,7 @@ class ValueInput extends Component {
         <input
           type="number"
           name="valor"
+          id="valor"
           className="input is-success"
           onChange={ handler }
         />

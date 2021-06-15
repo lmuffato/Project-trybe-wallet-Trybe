@@ -30,7 +30,7 @@ class Wallet extends React.Component {
     const { userEmail } = this.props;
     const { totalExpense } = this.state;
     return (
-      <main>
+      <>
         <header className="header-wallet">
           <img src="https://www.abcdacomunicacao.com.br/wp-content/uploads/Trybe_logo-baixa.png" alt="trywallet logo" />
           <div className="user-info">
@@ -38,10 +38,8 @@ class Wallet extends React.Component {
             <p data-testid="total-field">{ `Despesa Total: ${totalExpense}` }</p>
           </div>
         </header>
-        <main>
-          <AddCurrencies totalEx={ this.totalExpenses } />
-        </main>
-      </main>
+        <AddCurrencies totalEx={ this.totalExpenses } />
+      </>
     );
   }
 }

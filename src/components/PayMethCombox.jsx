@@ -9,12 +9,13 @@ class PayMethCombox extends Component {
         Método de pagamento
         <select
           name="payment-method"
+          id="payment-method"
           className="input is-success"
           onChange={ handler }
         >
-          <option name="payment-method"> Crédito </option>
-          <option name="payment-method"> Débito </option>
-          <option name="payment-method"> Dinheiro </option>
+          <option name="creditOption"> Cartão de Crédito </option>
+          <option name="debitOption"> Cartão de Débito </option>
+          <option name="moneyOption"> Dinheiro </option>
         </select>
       </label>
     );

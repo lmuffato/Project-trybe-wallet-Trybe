@@ -20,6 +20,7 @@ class AddCurrencies extends Component {
     this.renderOptions = this.renderOptions.bind(this);
     this.handleValue = this.handleValue.bind(this);
     this.handleCurrencie = this.handleCurrencie.bind(this);
+    this.handleDescription = this.handleDescription.bind(this);
     this.handleTag = this.handleTag.bind(this);
     this.handleMethod = this.handleMethod.bind(this);
     this.getExpenseData = this.getExpenseData.bind(this);

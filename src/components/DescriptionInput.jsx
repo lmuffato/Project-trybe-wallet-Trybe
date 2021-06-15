@@ -10,6 +10,7 @@ class DescriptionInput extends Component {
         <input
           type="text"
           name="desc"
+          id="desc"
           className="input is-success"
           onChange={ handler }
         />
