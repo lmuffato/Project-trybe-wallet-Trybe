@@ -41,7 +41,11 @@ class WalletTableBody extends Component {
             <td>{this.getExchangeRateFromExpense(expense)}</td>
             <td>{this.getConvertedValueFromExpense(expense)}</td>
             <td>Real</td>
-            <td>Editar/Excluir</td>
+            <td>
+              <button type="button" data-testid="delete-btn">
+                X
+              </button>
+            </td>
           </tr>
         ))}
       </tbody>
