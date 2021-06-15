@@ -1,4 +1,4 @@
-import { SET_CURRENCIES } from '../actions/actionsType';
+import { SET_CURRENCIES, SET_EXPENSES } from '../actions/actionsType';
 
 const INITIAL_STATE = {
   currencies: null,
@@ -11,6 +11,11 @@ const wallet = (state = INITIAL_STATE, { type, payload }) => {
     return {
       ...state,
       currencies: payload,
+    };
+  case SET_EXPENSES:
+    return {
+      ...state,
+      expenses: [...state.expenses, payload],
     };
 
   default:

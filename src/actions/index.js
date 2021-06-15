@@ -1,4 +1,4 @@
-import { SET_USER, SET_CURRENCIES } from './actionsType';
+import { SET_USER, SET_CURRENCIES, SET_EXPENSES } from './actionsType';
 import getApi from '../service/getApi';
 
 export const userAction = (payload) => ({
@@ -11,6 +11,11 @@ export const currenciesAction = (payload) => ({
   payload,
 });
 
+export const expensesAction = (payload) => ({
+  type: SET_EXPENSES,
+  payload,
+});
+
 export const getApiThunk = () => (dispatch) => {
   getApi().then((res) => {
     if (res.USDT) {
@@ -18,4 +23,15 @@ export const getApiThunk = () => (dispatch) => {
     }
     dispatch(currenciesAction(Object.keys(res)));
   });
+};
+
+export const expensesActionThunk = (state) => (dispatch) => {
+  getApi()
+    .then((response) => {
+      const expenses = {
+        ...state,
+        exchangeRates: response,
+      };
+      dispatch(expensesAction(expenses));
+    });
 };
