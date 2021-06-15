@@ -1,13 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import Header from '../components/Header';
-/* <form>
-  <label>
-    Nome:
-    <input type="text" name="name" />
-  </label>
-</form> */
+import { getCoins as getCoinsThunk } from '../actions/index';
 
 class Wallet extends React.Component {
   constructor() {
@@ -15,7 +9,15 @@ class Wallet extends React.Component {
     this.returnForm = this.returnForm.bind(this);
   }
 
+  componentDidMount() {
+    const { getCoins } = this.props;
+    getCoins();
+  }
+
   returnForm() {
+    const { currencies } = this.props;
+    const currenciesKeys = Object.keys(currencies);
+    // console.log(currenciesKeys);
     return (
       <form>
         <label htmlFor="value">
@@ -29,7 +31,15 @@ class Wallet extends React.Component {
         <label htmlFor="currency">
           Moeda
           <select type="select" name="moeda" id="currency">
-            <option>BRL</option>
+            {
+              currenciesKeys.map((currency) => (
+                <option
+                  key={ currency }
+                  value={ currency }
+                >
+                  { currency }
+                </option>))
+            }
           </select>
         </label>
         <label htmlFor="payment-method">
@@ -71,10 +81,17 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  currencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getCoins: () => dispatch(getCoinsThunk()),
 });
 
 Wallet.propTypes = {
-  email: PropTypes.string.isRequired,
-};
+  email: PropTypes.string,
+  getCoins: PropTypes.func,
+  currencies: PropTypes.object,
+}.isRequerid;
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
