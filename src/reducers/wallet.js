@@ -3,7 +3,7 @@ import {
   GET_CURRENCIES_LIST_SUCCESS,
   GET_CURRENCIES_LIST_ERROR,
   GET_CURRENCIES_DATA_SUCCESS,
-  GET_CURRENCIES_DATA_ERROR
+  GET_CURRENCIES_DATA_ERROR,
 } from '../actions';
 
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
