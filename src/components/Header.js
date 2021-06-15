@@ -19,7 +19,7 @@ class Header extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({ // recebe o estado como props
   userMail: state.user.email,
 });
 

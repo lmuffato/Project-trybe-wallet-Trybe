@@ -1,7 +1,19 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchCurrency } from '../actions';
 
 class Forms extends React.Component {
+  componentDidMount() {
+    const { saveCurrency } = this.props;
+    saveCurrency();
+  }
+
   render() {
+    const { currencies } = this.props;
+    // console.log(currencies);
+    const listKeys = Object.keys(currencies).filter((currency) => currency !== 'USDT');
+    // constante monta a lista de com o resultado das chaves da API, tirando a chave "usdt"
     return (
       <form>
         <label htmlFor="value">
@@ -17,12 +29,9 @@ class Forms extends React.Component {
         <label htmlFor="currency">
           Moeda:
           <select type="text" id="currency" name="currency">
-            <option>
-              {}
-            </option>
+            {listKeys.map((key) => <option key={ key }>{ key }</option>)}
           </select>
         </label>
-
         <label htmlFor="payment">
           Método de pagamento:
           <select type="text" id="payment" name="payment">
@@ -48,4 +57,16 @@ class Forms extends React.Component {
   }
 }
 
-export default Forms;
+const mapDispatchToProps = (dispatch) => ({
+  saveCurrency: () => dispatch(fetchCurrency()),
+});
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+Forms.propTypes = {
+  saveCurrency: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Forms);

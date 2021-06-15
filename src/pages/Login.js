@@ -76,7 +76,7 @@ class Login extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({ // recebe a action que vai ser usada
   reducerLogin: (email) => dispatch(saveEmail(email)),
 });
 Login.propTypes = {

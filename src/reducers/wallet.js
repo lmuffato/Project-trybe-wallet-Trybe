@@ -1,3 +1,5 @@
+import { GET_CURRENCY } from '../actions';
+// recebe a action e manipula ela
 const GET_VALUE = {
   currencies: [],
   expenses: [],
@@ -5,8 +7,8 @@ const GET_VALUE = {
 
 const value = (state = GET_VALUE, action) => {
   switch (action.type) {
-  case 'WALLET':
-    return { ...state };
+  case GET_CURRENCY:
+    return { ...state, currencies: action.currency };
   default:
     return state;
   }
