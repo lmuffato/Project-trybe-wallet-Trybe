@@ -22,9 +22,9 @@ class Form extends React.Component {
         <label htmlFor="id_moeda">
           Moeda
           <select name="select">
-            <option value="valor1">Valor 1</option>
-            <option value="valor2" selected>Valor 2</option>
-            <option value="valor3">Valor 3</option>
+            <option value="valor1">{}</option>
+            <option value="valor2">{}</option>
+            <option value="valor3">{}</option>
           </select>
         </label>
         <label htmlFor="id_metodo_pagamento">

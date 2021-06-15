@@ -6,12 +6,6 @@ import Wallet from './pages/Wallet';
 import getAPI from './getAPI';
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-    };
-  }
-
   componentDidMount() {
     getAPI();
   }
@@ -27,12 +21,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.email,
-  Wallet: state.expenses,
+  email: state.email,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  objApi: (recebeArray) => dispatch({ type: 'ADD_GASTO', data: recebeArray }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
