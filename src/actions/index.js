@@ -27,10 +27,9 @@ export const getCurrenciesListSuccess = (currenciesList) => ({
   currenciesList,
 });
 
-
-export const getCurrenciesDataSuccess = (currenciesData) => ({
+export const getCurrenciesDataSuccess = (newExpense) => ({
   type: GET_CURRENCIES_DATA_SUCCESS,
-  currenciesData,
+  newExpense,
 });
 
 export const getCurrenciesListThunk = () => (dispatch) => {
@@ -45,15 +44,18 @@ export const getCurrenciesListThunk = () => (dispatch) => {
     });
 };
 
-export const getCurrenciesDataThunk = () => (dispatch) => {
+export const getCurrenciesDataThunk = (formState) => (dispatch) => {
   dispatch(getCurrencies());
   getCurrenciesFromAPI()
-    .then((res) => {
-      console.log(res);
-      // dispatch(getCurrenciesDataSuccess(res));
+    .then((exchangeRates) => {
+      const newExpense = {
+        ...formState,
+        exchangeRates,
+      };
+      dispatch(getCurrenciesDataSuccess(newExpense));
     })
     .catch((error) => {
       console.log(error);
-      // getCurrenciesDataError(error);
+      getCurrenciesError(error);
     });
 };
