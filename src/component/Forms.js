@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { dataExpenses, fetchCurrencies } from '../actions';
-import { formSelector, formInput } from './MethodsForms';
+import { formSelector, formInput } from './FormsMethods';
 
 class Forms extends React.Component {
   constructor(props) {
