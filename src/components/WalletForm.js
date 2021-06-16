@@ -28,8 +28,7 @@ class WalletForm extends Component {
 
   render() {
     const { value, description, currency, method, tag } = this.state;
-    const { getCurrenciesData } = this.props;
-
+    const { getCurrenciesData, formType } = this.props;
     return (
       <form>
         <ValueInput
@@ -63,6 +62,10 @@ class WalletForm extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  formType: state.wallet.formType,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   getCurrenciesData: (formState) => dispatch(getCurrenciesDataThunk(formState)),
 });
@@ -71,4 +74,4 @@ WalletForm.propTypes = {
   getCurrenciesData: PropTypes.func,
 }.isRequired;
 
-export default connect(null, mapDispatchToProps)(WalletForm);
+export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
