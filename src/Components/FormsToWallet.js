@@ -7,29 +7,29 @@ class FormsToWallet extends Component {
       <form>
         <label htmlFor="valor">
           Valor
-          <input type="text" name="valor" />
+          <input type="text" id="valor" />
         </label>
         <label htmlFor="descricao">
           Descrição
-          <input type="text" name="descricao" />
+          <input type="text" id="descricao" />
         </label>
         <label htmlFor="coin">
           Moeda
-          <select name="coin">
+          <select id="coin">
             <option value="empty">Vazio</option>
           </select>
         </label>
         <label htmlFor="metpagamento">
           Método de pagamento
-          <select name="metpagamento">
-            <option value="money">Dienheiro</option>
+          <select id="metpagamento">
+            <option value="money">Dinheiro</option>
             <option value="credCard">Cartão de crédito</option>
             <option value="debCard">Cartão de débito</option>
           </select>
         </label>
         <label htmlFor="Tag">
           Tag
-          <select name="Tag">
+          <select id="Tag">
             <option value="food">Alimentação</option>
             <option value="lazer">Lazer</option>
             <option value="work">Trabalho</option>
@@ -43,4 +43,4 @@ class FormsToWallet extends Component {
   }
 }
 
-export default (FormsToWallet);
+export default FormsToWallet;
