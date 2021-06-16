@@ -98,7 +98,6 @@ class AddCurrencies extends Component {
             id="coin"
             className="input is-success"
             onChange={ this.handleCurrencie }
-            data-testid="header-currency-field"
           >
             { isFetching === 'success' ? this.renderOptions() : console.log('waiting') }
           </select>
