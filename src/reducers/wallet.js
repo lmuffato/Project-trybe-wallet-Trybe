@@ -8,7 +8,7 @@ import {
 const INITIAL_STATE = {
   totalValue: 0,
   loading: false,
-  coins: {},
+  coins: [],
 };
 
 const walletReducer = (state = INITIAL_STATE, action) => {
@@ -27,13 +27,12 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       loading: false,
-      coins: action.data,
+      coins: action.realValueCoins,
     };
   case ERROR_REQUEST:
     return {
       ...state,
       loading: false,
-      erro: action.payload.error,
     };
   default:
     return state;

@@ -32,9 +32,9 @@ export const errorRequest = (error) => ({
   error,
 });
 
-export const successRequest = (data) => ({
+export const successRequest = (realValueCoins) => ({
   type: 'SUCCESS_REQUEST',
-  data,
+  realValueCoins,
 });
 
 export const ThunkAPI = () => (dispatch) => {
@@ -42,6 +42,18 @@ export const ThunkAPI = () => (dispatch) => {
 
   return fetch(URL)
     .then((response) => (response.json()))
-    .then((data) => dispatch(successRequest(data)))
+    .then((data) => {
+      const valuesCoins = Object.values(data);
+      console.log(valuesCoins);
+      const realValueCoins = valuesCoins.map((coin) => (
+        coin.code
+      ));
+      realValueCoins.splice(1, 1);
+      console.log('realValueCoins in action');
+      console.log(realValueCoins);
+      dispatch(successRequest(realValueCoins));
+    })
     .catch((error) => dispatch(errorRequest(error)));
 };
+
+// Referencia uso do splice: https://pt.stackoverflow.com/questions/108032/remover-um-elemento-especifico-do-array-javascript;
