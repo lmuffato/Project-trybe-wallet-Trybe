@@ -3,12 +3,14 @@ import {
   LOADING_REQUEST,
   ERROR_REQUEST,
   SUCCESS_REQUEST,
-  TOTAL_VALUE } from '../actions/index';
+  TOTAL_VALUE,
+  EXPENSES_SUCESS } from '../actions/index';
 
 const INITIAL_STATE = {
   totalValue: 0,
   loading: false,
   coins: [],
+  expenses: [],
 };
 
 const walletReducer = (state = INITIAL_STATE, action) => {
@@ -16,7 +18,7 @@ const walletReducer = (state = INITIAL_STATE, action) => {
   case TOTAL_VALUE:
     return {
       ...state,
-      totalValue: state + action.payload,
+      totalValue: state.totalValue + action.payload,
     };
   case LOADING_REQUEST:
     return {
@@ -33,6 +35,11 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       loading: false,
+    };
+  case EXPENSES_SUCESS:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.expensesInfo],
     };
   default:
     return state;
