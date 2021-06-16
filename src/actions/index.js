@@ -16,10 +16,6 @@ export function deleteExpense(updatedExpense) {
   return { type: DELETE_EXPENSE, updatedExpense };
 }
 
-export function deleteExpense(filteredExpenses) {
-  return { type: DELETE_EXPENSE, filteredExpenses };
-}
-
 export function getExpense(getExpenseDetails) {
   return { type: GET_EXPENSE, getExpenseDetails };
 }
