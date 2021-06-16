@@ -5,6 +5,7 @@ export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const GET_CURRENCIES_ERROR = 'GET_CURRENCIES_ERROR';
 export const GET_CURRENCIES_LIST_SUCCESS = 'GET_CURRENCIES_LIST_SUCCESS';
 export const GET_CURRENCIES_DATA_SUCCESS = 'GET_CURRENCIES_DATA_SUCCESS';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 // LOGIN action creator
 export const login = (email, password) => ({
@@ -30,6 +31,11 @@ export const getCurrenciesListSuccess = (currenciesList) => ({
 export const getCurrenciesDataSuccess = (newExpense) => ({
   type: GET_CURRENCIES_DATA_SUCCESS,
   newExpense,
+});
+
+export const deleteExpense = (updatedExpenses) => ({
+  type: DELETE_EXPENSE,
+  updatedExpenses,
 });
 
 export const getCurrenciesListThunk = () => (dispatch) => {
@@ -58,4 +64,10 @@ export const getCurrenciesDataThunk = (formState) => (dispatch) => {
       console.log(error);
       getCurrenciesError(error);
     });
+};
+
+export const deleteExpenseThunk = (expId, expenses) => (dispatch) => {
+  const updatedExp = [...expenses.slice(0, expId), ...expenses.slice(expId + 1)];
+  // const updatedExpReIndexed = updatedExp.map((exp, index) => ({ ...exp, id: index }));
+  dispatch(deleteExpense(updatedExp));
 };
