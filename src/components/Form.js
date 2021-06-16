@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrencyThunk } from '../actions/index';
 /* Ao entrar na página /carteira, você deverá fazer uma requisição para a API das moedas e preencher as opções do <select> de "Moedas" com os valores retornados. Utilizando as siglas das moedas. /Linha 33/ */
+/* As opções devem conter os valores: 'USD', 'CAD', 'EUR', 'GBP', 'ARS', 'BTC', 'LTC', 'JPY', 'CHF', 'AUD', 'CNY', 'ILS', 'ETH' e 'XRP'. /Linha 17/ */
 class Form extends React.Component {
   componentDidMount() {
     const { getCurrency } = this.props;

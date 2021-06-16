@@ -1,4 +1,5 @@
 // Coloque aqui suas actions
+/* 7. Implemente a lógica para preencher as opções do campo "Moedas", buscando as siglas das moedas da API: */
 import { currenciesAPI } from '../services/currenciesAPI';
 
 export const LOGIN = 'LOGIN';

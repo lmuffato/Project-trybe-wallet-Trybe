@@ -1,3 +1,4 @@
+/* Esses valores devem vir da API através do endpoint: https://economia.awesomeapi.com.br/json/all. */
 const url = 'https://economia.awesomeapi.com.br/json/all';
 
 export const currenciesAPI = () => (
