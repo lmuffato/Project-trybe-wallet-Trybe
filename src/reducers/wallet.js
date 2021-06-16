@@ -3,6 +3,7 @@ import {
   GET_CURRENCIES_ERROR,
   GET_CURRENCIES_LIST_SUCCESS,
   GET_CURRENCIES_DATA_SUCCESS,
+  DELETE_EXPENSE,
 } from '../actions';
 
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
@@ -36,6 +37,11 @@ const wallet = (state = initialState, action) => {
         id: state.expenses.length,
         ...action.newExpense,
       }],
+    };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: action.updatedExpenses,
     };
   default:
     return state;
