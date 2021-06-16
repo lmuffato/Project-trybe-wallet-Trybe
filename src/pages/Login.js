@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import setEmail from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -30,6 +33,7 @@ class Login extends React.Component {
 
   render() {
     const { email, senha } = this.state;
+    const { handleClick } = this.props;
     return (
       <>
         <div>Login</div>
@@ -53,15 +57,25 @@ class Login extends React.Component {
             name="senha"
           />
         </label>
-        <button
-          disabled={ this.validation() }
-          type="button"
-        >
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button
+            onClick={ () => { handleClick(email); } }
+            disabled={ this.validation() }
+            type="button"
+          >
+            Entrar
+          </button>
+        </Link>
       </>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  handleClick: (email) => dispatch(
+    setEmail(email),
+  ),
+});
+
+// export default Login;
+export default connect(null, mapDispatchToProps)(Login);
