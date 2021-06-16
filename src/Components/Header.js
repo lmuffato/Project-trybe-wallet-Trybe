@@ -6,19 +6,13 @@ class Header extends React.Component {
   render() {
     const { email } = this.props;
     return (
-      <div>
-        Email:
-        <span data-testid="email-field">{ email }</span>
-        <p>total de gastos:</p>
-        <input
-          type="text"
-          data-testid="total-field"
-          role="combobox"
-          aria-controls="0"
-          aria-expanded="false"
-        />
+      <header>
+        <h3>Email:</h3>
+        <span data-testid="email-field">{email}</span>
+        <h3>total de gastos: R$ </h3>
+        <p data-testid="total-field">0</p>
         <p data-testid="header-currency-field">BRL</p>
-      </div>
+      </header>
     );
   }
 }

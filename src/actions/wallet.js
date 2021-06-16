@@ -12,10 +12,12 @@ const receiveCurrencies = (currencies) => ({
 
 // action creator que retorna uma função, possível por conta do pacote redux-thunk
 export function fetchCurrencies() {
-  return (dispatch) => { // thunk declarado
+  return async (dispatch) => { // thunk declarado
     dispatch(requestCurrencies());
-    return fetch('https://economia.awesomeapi.com.br/json/all')
-      .then((response) => response.json())
-      .then((currencies) => dispatch(receiveCurrencies(currencies)));
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const currencies = await response.json();
+    delete currencies.USDT;
+    const currenciesCode = Object.values(currencies);
+    return dispatch(receiveCurrencies(currenciesCode));
   };
 }
