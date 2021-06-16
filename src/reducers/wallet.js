@@ -4,6 +4,7 @@ import {
   GET_CURRENCIES_SUCCESS,
   GET_RAW_CURRENCIES,
   GET_CURRENCIES_ERROR,
+  REMOVE_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -22,6 +23,15 @@ function wallet(state = INITIAL_STATE, action) {
     return { ...state, currentCurrencies: action.payload };
   case ADD_EXPENSE:
     return { ...state, expenses: [...state.expenses, action.payload] };
+  case REMOVE_EXPENSE:
+    // Lógica de remoção de despesa inspirada na resolução do exercício
+    // de Redux do freeCodeCamp: Remove an Item from an Array
+    return {
+      ...state,
+      expenses: state.expenses
+        .slice(0, action.payload)
+        .concat(state.expenses.slice(action.payload + 1)),
+    };
   default:
     return state;
   }
