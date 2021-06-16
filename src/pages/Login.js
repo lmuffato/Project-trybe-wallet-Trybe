@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import imagem from '../money.jpg';
-import { login } from '../actions';
+import { userName } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -12,7 +12,6 @@ class Login extends React.Component {
       password: '',
       isBlocked: false,
     };
-    // this.handlePassword = this.handlePassword.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -31,6 +30,16 @@ class Login extends React.Component {
     });
   }
 
+  // requisito 3 refeito com ajuda do Nilson e Tiago Santos
+  // visto que não estava passando o estado para o redux
+  handleClick(e) {
+    e.preventDefault();
+    const { email } = this.state;
+    const { getUser, history } = this.props;
+    getUser(email);
+    history.push('/carteira');
+  }
+
   handleChange(e) {
     const { value, id } = e.target;
     this.setState({
@@ -39,7 +48,6 @@ class Login extends React.Component {
   }
 
   render() {
-    const { LogIn } = this.props;
     const { email, password, isBlocked } = this.state;
     return (
       <div className="mainLogin">
@@ -72,7 +80,7 @@ class Login extends React.Component {
         <button
           type="button"
           disabled={ !isBlocked }
-          onClick={ () => LogIn() }
+          onClick={ (e) => this.handleClick(e) }
         >
           Entrar
         </button>
@@ -81,16 +89,13 @@ class Login extends React.Component {
   }
 }
 
-// const mapStateToProps = (state) => ({
-//   email: state.user.email,
-// });
-
 const mapDispatchToProps = (dispatch) => ({
-  LogIn: ({ data }) => dispatch(login({ data })),
+  getUser: (email) => dispatch(userName(email)),
 });
 
 Login.propTypes = {
-  LogIn: Proptypes.func.isRequired,
+  history: PropTypes.string.isRequired,
+  getUser: PropTypes.string.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Login);
