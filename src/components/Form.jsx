@@ -34,9 +34,9 @@ class Form extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.createOptionsElements = this.createOptionsElements.bind(this);
-    this.createTextInputs = this.createTextInputs.bind(this);
-    this.createDropdownElements = this.createDropdownElements.bind(this);
+    // this.createOptionsElements = this.createOptionsElements.bind(this);
+    // this.createTextInputs = this.createTextInputs.bind(this);
+    // this.createDropdownElements = this.createDropdownElements.bind(this);
     this.getExpenseDetailsToEdit = this.getExpenseDetailsToEdit.bind(this);
   }
 
@@ -142,63 +142,93 @@ class Form extends React.Component {
     this.setState({ currencies: currenciesNames });
   }
 
-  createOptionsElements(item) {
-    return (
-      <option
-        data-testid={ item }
-        key={ `${item}-option` }
-        value={ item }
-      >
-        { item }
-      </option>
-    );
-  }
+  // createOptionsElements(item) {
+  //   return (
+  //     <option
+  //       data-testid={ item }
+  //       key={ `${item}-option` }
+  //       value={ item }
+  //     >
+  //       { item }
+  //     </option>
+  //   );
+  // }
 
-  createDropdownElements(inputName, stateKey) {
-    return (
-      <label htmlFor={ inputName }>
-        <select
-          id={ inputName }
-          name={ inputName }
-          data-testid={ `${inputName}-input` }
-          onChange={ this.handleChange }
-        >
-          {stateKey.map((item) => (this.createOptionsElements(item)))}
-        </select>
-      </label>
-    );
-  }
+  // createDropdownElements(inputName, stateKey) {
+  //   return (
+  //     <label htmlFor={ inputName }>
+  //       <select
+  //         id={ inputName }
+  //         name={ inputName }
+  //         data-testid={ `${inputName}-input` }
+  //         onChange={ this.handleChange }
+  //       >
+  //         {stateKey.map((item) => (this.createOptionsElements(item)))}
+  //       </select>
+  //     </label>
+  //   );
+  // }
 
-  createTextInputs(inputName, stateKey) {
-    return (
-      <label htmlFor={ inputName }>
-        <input
-          data-testid={ `${inputName}-input` }
-          id={ inputName }
-          type="text"
-          name={ inputName }
-          value={ stateKey }
-          onChange={ this.handleChange }
-        />
-      </label>
-    );
-  }
+  // createTextInputs(inputName, stateKey) {
+  //   return (
+  //     <label htmlFor={ inputName }>
+  //       <input
+  //         data-testid={ `${inputName}-input` }
+  //         id={ inputName }
+  //         type="text"
+  //         name={ inputName }
+  //         value={ stateKey }
+  //         onChange={ this.handleChange }
+  //       />
+  //     </label>
+  //   );
+  // }
 
   render() {
-    const { value, description, currencies, paymentMethods, expenseTag } = this.state;
+    const { currencies } = this.state;
     return (
       <div>
         <form>
-          Valor da despesa:
-          { this.createTextInputs('value', value) }
-          Descrição da despesa:
-          { this.createTextInputs('description', description)}
-          Moeda:
-          { this.createDropdownElements('currency', currencies)}
-          Método de pagamento:
-          { this.createDropdownElements('method', paymentMethods)}
-          Categoria da despesa:
-          { this.createDropdownElements('tag', expenseTag)}
+        <label htmlFor="value">
+          Valor
+          <input id="value" type="text" />
+        </label>
+
+        <label htmlFor="description">
+          Descrição
+          <textarea id="description" />
+        </label>
+
+        <label htmlFor="currency">
+          Moeda
+          <select id="currency">
+            {
+              Object.keys(currencies).map((currency) => (
+                <option key={ currency } value={ currency }>{currency}</option>
+              ))
+            }
+          </select>
+        </label>
+
+        <label htmlFor="payment-option">
+          Método de pagamento
+          <select id="payment-option">
+            <option value="cash">Dinheiro</option>
+            <option value="c_credit">Cartão de crédito</option>
+            <option value="c_debit">Cartão de débito</option>
+          </select>
+        </label>
+
+        <label htmlFor="tag">
+          Tag:
+          <select id="tag">
+            <option value="food">Alimentação</option>
+            <option value="leisure">Lazer</option>
+            <option value="work">Trabalho</option>
+            <option value="transport">Transporte</option>
+            <option value="healthy">Saúde</option>
+          </select>
+        </label>
         </form>
         <button
           type="button"
