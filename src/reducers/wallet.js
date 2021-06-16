@@ -2,7 +2,9 @@
 import {
   CURRENCIES_REQUEST,
   CURRENCIES_REQUEST_ERROR,
-  CURRENCIES_REQUEST_SUCESS } from '../actions/index';
+  CURRENCIES_REQUEST_SUCESS,
+  PRICE_REQUEST,
+  PRICE_REQUEST_SUCESS } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -19,6 +21,13 @@ function wallet(state = INITIAL_STATE, action) {
     return { ...state, isLoading: false, currencies: action.state };
   case CURRENCIES_REQUEST_ERROR:
     return { ...state, error: action.state };
+  case PRICE_REQUEST:
+    return { ...state, isLoading: true };
+  case PRICE_REQUEST_SUCESS:
+    return { ...state,
+      isLoading: false,
+      expenses: [...state.expenses, action.state] };
+
   default: return state;
   }
 }
