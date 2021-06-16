@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteExpenseThunk } from '../../actions';
 
 class WalletTableBody extends Component {
   constructor() {
@@ -27,7 +28,7 @@ class WalletTableBody extends Component {
   }
 
   render() {
-    const { expenses } = this.props;
+    const { expenses, deleteExpense } = this.props;
 
     return (
       <tbody>
@@ -42,7 +43,11 @@ class WalletTableBody extends Component {
             <td>{this.getConvertedValueFromExpense(expense)}</td>
             <td>Real</td>
             <td>
-              <button type="button" data-testid="delete-btn">
+              <button
+                type="button"
+                data-testid="delete-btn"
+                onClick={ () => deleteExpense(expense.id, expenses) }
+              >
                 X
               </button>
             </td>
@@ -57,6 +62,10 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteExpense: (expId, expenses) => dispatch(deleteExpenseThunk(expId, expenses)),
+});
+
 WalletTableBody.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
@@ -69,4 +78,4 @@ WalletTableBody.propTypes = {
   })),
 }.isRequired;
 
-export default connect(mapStateToProps, null)(WalletTableBody);
+export default connect(mapStateToProps, mapDispatchToProps)(WalletTableBody);
