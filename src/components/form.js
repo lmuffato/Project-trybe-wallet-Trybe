@@ -13,7 +13,7 @@ class Form extends React.Component {
   }
 
   async currencyAPI() {
-    const fetc = await fetch(' https://economia.awesomeapi.com.br/json/all');
+    const fetc = await fetch('https://economia.awesomeapi.com.br/json/all');
     const response = await fetc.json();
     const filtered = Object.keys(response).filter((cur) => cur !== 'USDT');
     this.setState({
