@@ -1,8 +1,8 @@
 const ADD_WALLET = 'ADD_WALLET';
 
 const initialState = {
-  currencies: [],
-  expenses: [],
+  currencies: [], // moedas
+  expenses: [], // despesas
 };
 
 function wallet(state = initialState, action) {
