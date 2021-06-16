@@ -29,14 +29,9 @@ class Form extends React.Component {
         'ETH',
         'XRP',
       ],
-      paymentMethods: ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'],
-      expenseTag: ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    // this.createOptionsElements = this.createOptionsElements.bind(this);
-    // this.createTextInputs = this.createTextInputs.bind(this);
-    // this.createDropdownElements = this.createDropdownElements.bind(this);
     this.getExpenseDetailsToEdit = this.getExpenseDetailsToEdit.bind(this);
   }
 
@@ -142,93 +137,52 @@ class Form extends React.Component {
     this.setState({ currencies: currenciesNames });
   }
 
-  // createOptionsElements(item) {
-  //   return (
-  //     <option
-  //       data-testid={ item }
-  //       key={ `${item}-option` }
-  //       value={ item }
-  //     >
-  //       { item }
-  //     </option>
-  //   );
-  // }
-
-  // createDropdownElements(inputName, stateKey) {
-  //   return (
-  //     <label htmlFor={ inputName }>
-  //       <select
-  //         id={ inputName }
-  //         name={ inputName }
-  //         data-testid={ `${inputName}-input` }
-  //         onChange={ this.handleChange }
-  //       >
-  //         {stateKey.map((item) => (this.createOptionsElements(item)))}
-  //       </select>
-  //     </label>
-  //   );
-  // }
-
-  // createTextInputs(inputName, stateKey) {
-  //   return (
-  //     <label htmlFor={ inputName }>
-  //       <input
-  //         data-testid={ `${inputName}-input` }
-  //         id={ inputName }
-  //         type="text"
-  //         name={ inputName }
-  //         value={ stateKey }
-  //         onChange={ this.handleChange }
-  //       />
-  //     </label>
-  //   );
-  // }
-
+// Com orientação de Matheus Alencar https://github.com/tryber/sd-010-a-project-trybewallet/pull/106
   render() {
     const { currencies } = this.state;
     return (
       <div>
         <form>
-        <label htmlFor="value">
-          Valor
-          <input id="value" type="text" />
-        </label>
+          <label htmlFor="value">
+            Valor
+           <input id="value" type="text" />
+          </label>
 
-        <label htmlFor="description">
-          Descrição
-          <textarea id="description" />
-        </label>
+          <label htmlFor="description">
+            Descrição
+            <textarea id="description" />
+          </label>
 
-        <label htmlFor="currency">
-          Moeda
-          <select id="currency">
-            {
-              Object.keys(currencies).map((currency) => (
-                <option key={ currency } value={ currency }>{currency}</option>
-              ))
-            }
-          </select>
-        </label>
+          <label htmlFor="currency">
+            Moeda
+            <select id="currency">
+              {
+                Object.keys(currencies).map((currency) => (
+                  <option key={ currency } value={ currency }>{currency}</option>
+                ))
+              }
+            </select>
+          </label>
 
-        <label htmlFor="payment-option">
-          Método de pagamento
-          <select id="payment-option">
-            <option value="cash">Dinheiro</option>
-            <option value="c_credit">Cartão de crédito</option>
-            <option value="c_debit">Cartão de débito</option>
-          </select>
-        </label>
+          <label htmlFor="payment-option">
+            Método de pagamento
+            <select id="payment-option">
+              <option value="cash">Dinheiro</option>
+              <option value="c_credit">Cartão de crédito</option>
+              <option value="c_debit">Cartão de débito</option>
+            </select>
+          </label>
 
-        <label htmlFor="tag">
-          Tag:
-          <select id="tag">
-            <option value="food">Alimentação</option>
-            <option value="leisure">Lazer</option>
-            <option value="work">Trabalho</option>
-            <option value="transport">Transporte</option>
-            <option value="healthy">Saúde</option>
-          </select>
-        </label>
+          <label htmlFor="tag">
+            Tag:
+            <select id="tag">
+              <option value="food">Alimentação</option>
+              <option value="leisure">Lazer</option>
+              <option value="work">Trabalho</option>
+              <option value="transport">Transporte</option>
+              <option value="healthy">Saúde</option>
+            </select>
+          </label>
         </form>
         <button
           type="button"
