@@ -28,7 +28,8 @@ class Form extends React.Component {
         'ILS',
         'ETH',
         'XRP',
-      ],      paymentMethods: ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'],
+      ],
+      paymentMethods: ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'],
       expenseTag: ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'],
     };
     this.handleChange = this.handleChange.bind(this);
@@ -49,10 +50,10 @@ class Form extends React.Component {
       this.getExpenseDetailsToEdit();
     }
   }
-    getExpenseDetailsToEdit() {
-      const { expenseToEdit } = this.props;
-      const { value, description, currency, method, tag } = expenseToEdit;
-      this.setState({
+  getExpenseDetailsToEdit() {
+    const { expenseToEdit } = this.props;
+    const { value, description, currency, method, tag } = expenseToEdit;
+    this.setState({
       value,
       description,
       currency,
@@ -122,7 +123,6 @@ class Form extends React.Component {
       dispatchEditExpense(editedExpenses);
     }
   }
-
 
   async fetchCurrenciesAPI() {
     const url = 'https://economia.awesomeapi.com.br/json/all';
