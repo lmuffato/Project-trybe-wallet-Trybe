@@ -3,14 +3,14 @@
 const WALLET_STATE = {
   wallet: {
     currencies: [],
-    expenses: []
-  }
-}
+    expenses: [],
+  },
+};
 
-function wallet (state = ALLET_STATE, action) {
+function wallet(state = WALLET_STATE, action) {
   switch (action.type) {
-    default:
-      return state;
+  default:
+    return state;
   }
 }
 

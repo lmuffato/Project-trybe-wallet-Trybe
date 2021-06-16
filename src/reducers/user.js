@@ -4,12 +4,12 @@ const USER_STATE = {
   user: {
     email: '',
   },
-}
+};
 
-function user(state=USER_STATE, action) {
+function user(state = USER_STATE, action) {
   switch (action.type) {
-    default:
-      return state;
+  default:
+    return state;
   }
 }
 
