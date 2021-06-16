@@ -9,7 +9,7 @@ function App() {
       {/* A rota para esta página deve ser ‘/’. */}
       <Route exact path="/" component={ Login } />
       {/* A rota para esta página deve ser /carteira */}
-      <Route path="/wallet" component={ Wallet } />
+      <Route path="/carteira" component={ Wallet } />
     </Switch>
   );
 }

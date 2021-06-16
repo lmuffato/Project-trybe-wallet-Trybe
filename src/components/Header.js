@@ -26,40 +26,6 @@ class Header extends React.Component {
           <p data-testid="total-field">0</p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
-        <form>
-          <label htmlFor="value">
-            Valor:
-            <input type="text" id="value" />
-          </label>
-          <label htmlFor="description">
-            Descrição:
-            <input type="text" id="description" />
-          </label>
-          <label htmlFor="currency">
-            Moeda:
-            <select id="currency">
-              <option value="BRL">BRL</option>
-            </select>
-          </label>
-          <label htmlFor="payment">
-            Método de pagamento:
-            <select id="payment">
-              <option value="cash">Dinheiro</option>
-              <option value="credit">Cartão de crédito</option>
-              <option value="debit">Cartão de débito</option>
-            </select>
-          </label>
-          <label htmlFor="type">
-            Tag
-            <select id="type">
-              <option value="food">Alimentação</option>
-              <option value="leisure">Lazer</option>
-              <option value="work">Trabalho</option>
-              <option value="transportation">Transporte</option>
-              <option value="health">Saúde</option>
-            </select>
-          </label>
-        </form>
       </div>
     );
   }
