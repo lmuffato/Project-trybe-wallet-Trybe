@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+const pay = [
+  'Dinheiro',
+  'Cartão de crédito',
+  'Cartão de débito',
+];
 class PaymentInput extends Component {
   render() {
     const { handleChange, method } = this.props;
@@ -13,13 +19,16 @@ class PaymentInput extends Component {
           value={ method }
           onChange={ handleChange }
         >
-          <option value="dinheiro">Dinheiro</option>
-          <option value="cartão de credito">Cartão de crédito</option>
-          <option value="cartão de debito">Cartão de débito</option>
+          {pay.map((value) => <option key={ value } value={ value }>{value}</option>)}
         </select>
       </label>
     );
   }
 }
 
+PaymentInput.propTypes = {
+  handleChange: PropTypes.func,
+  method: PropTypes.string,
+
+}.isRequired;
 export default connect()(PaymentInput);

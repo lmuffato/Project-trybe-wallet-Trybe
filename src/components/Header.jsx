@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Header extends Component {
-
   render() {
     const { email, totalValue } = this.props;
     return (
@@ -14,7 +13,7 @@ class Header extends Component {
         </p>
         <p data-testid="total-field">
           Total:
-          {totalValue}
+          {totalValue.toFixed(2)}
         </p>
         <p data-testid="header-currency-field">
           Taxa:BRL

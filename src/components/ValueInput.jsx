@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class ValueInput extends Component {
@@ -18,5 +19,10 @@ class ValueInput extends Component {
     );
   }
 }
+ValueInput.propTypes = {
+  handleChange: PropTypes.func,
+  value: PropTypes.string,
+
+}.isRequired;
 
 export default connect()(ValueInput);

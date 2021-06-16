@@ -6,6 +6,7 @@ import ValueInput from './ValueInput';
 import DescriptionInput from './DescriptionInput';
 import PaymentInput from './PaymentInput';
 
+const arrayTag = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 class Form extends Component {
   constructor() {
     super();
@@ -16,7 +17,6 @@ class Form extends Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      expenses: [],
       count: 0,
 
     };
@@ -53,8 +53,10 @@ class Form extends Component {
     // this.setState(() => ({ expenses: newExpense }));
     // const { expenses } = this.state;
     add(newExpense);
-    const exRate = parseFloat(newExpense.exchangeRates[currency].ask).toFixed(2);
+    console.log(actualTax);
+    const exRate = parseFloat(newExpense.exchangeRates[currency].ask);
     const expenseValue = newExpense.value * exRate;
+    console.log(expenseValue);
     total(expenseValue);
   }
 
@@ -74,7 +76,7 @@ class Form extends Component {
             onChange={ this.handleChange }
 
           >
-            {currecies.map((coin) => (
+            { currecies && currecies.map((coin) => (
               <option value={ coin[0] } key={ coin[0] }>{coin[0]}</option>
             ))}
           </select>
@@ -90,11 +92,9 @@ class Form extends Component {
             value={ tag }
             onChange={ this.handleChange }
           >
-            <option value="alimentação">Alimentação</option>
-            <option value="lazer">Lazer</option>
-            <option value="trabalho">Trabalho</option>
-            <option value="transporte">Transporte</option>
-            <option value="saude">Saúde</option>
+            {arrayTag.map((item) => (
+              <option value={ item } key={ item }>{item}</option>
+            ))}
           </select>
         </label>
         <button type="submit">Adicionar despesa</button>
