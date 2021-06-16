@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addEmail } from '../actions';
 
@@ -71,14 +72,16 @@ class Login extends React.Component {
             onChange={ this.handleChange }
           />
         </label>
-        <button
-          data-testid="my-action"
-          onClick={ this.handleClick }
-          type="button"
-          disabled={ this.validaEmail() }
-        >
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button
+            data-testid="my-action"
+            onClick={ this.handleClick }
+            type="button"
+            disabled={ this.validaEmail() }
+          >
+            Entrar
+          </button>
+        </Link>
       </form>
     );
   }
