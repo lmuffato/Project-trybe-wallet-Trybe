@@ -65,7 +65,7 @@ class Form extends React.Component {
             </select>
           </label>
           <label htmlFor="tag">
-            Moeda
+            Tag
             <select id="tag" name="tag">
               <option value="ali" name="tag">Alimentação</option>
               <option value="laz" name="tag">Lazer</option>
