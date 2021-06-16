@@ -87,8 +87,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(Form);
 
 Form.propTypes = {
   currencies: PropTypes.arrayOf(String),
+  expenses: PropTypes.arrayOf(Object),
+  priceRequest: PropTypes.func.isRequired,
 };
 
 Form.defaultProps = {
   currencies: [],
+  expenses: [],
 };

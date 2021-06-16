@@ -60,4 +60,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
   requestCurrencies: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(Object),
+};
+
+Wallet.defaultProps = {
+  expenses: [],
 };
