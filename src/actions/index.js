@@ -2,7 +2,9 @@
 
 export const ADD_EMAIL = 'ADD_EMAIL';
 
-export const addEmail = (email) => ({
-  type: ADD_EMAIL,
-  payload: email,
-});
+export function addEmail(payload) {
+  return {
+    type: ADD_EMAIL,
+    payload,
+  };
+}

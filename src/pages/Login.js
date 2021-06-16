@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { addEmail } from '../actions';
 
 const passwordMinlength = 6;
 class Login extends React.Component {
@@ -6,7 +8,7 @@ class Login extends React.Component {
     super(props);
     this.state = {
       email: '',
-      password: '',
+      name: '',
 
     };
     this.handleClick = this.handleClick.bind(this);
@@ -16,7 +18,6 @@ class Login extends React.Component {
 
   verifyEmail(email) {
     const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
-
     return regex.test(email);
   }
 
@@ -43,14 +44,14 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, name } = this.state;
     return (
       <form>
         <h1>Login</h1>
         <label htmlFor="id_login_email">
           Email
           <input
-            type="email"
+            type="text"
             name="email"
             id="id_login_email"
             data-testid="email-input"
@@ -61,11 +62,11 @@ class Login extends React.Component {
         <label htmlFor="id_login_password">
           Senha
           <input
-            type="password"
-            name="password"
+            type="text"
+            name="name"
             id="id_login_password"
             data-testid="password-input"
-            value={ password }
+            value={ name }
             onChange={ this.handleChange }
           />
         </label>
@@ -73,6 +74,7 @@ class Login extends React.Component {
           data-testid="my-action"
           onClick={ this.handleClick }
           type="button"
+          disabled
         >
           Entrar
         </button>
@@ -81,4 +83,8 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  addEmail: (payload) => dispatch(addEmail(payload)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);

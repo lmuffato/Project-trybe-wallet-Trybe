@@ -21,7 +21,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  email: state.email,
+  email: state.user.email,
 });
 
 export default connect(mapStateToProps)(App);
