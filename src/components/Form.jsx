@@ -50,6 +50,7 @@ class Form extends React.Component {
       this.getExpenseDetailsToEdit();
     }
   }
+
   getExpenseDetailsToEdit() {
     const { expenseToEdit } = this.props;
     const { value, description, currency, method, tag } = expenseToEdit;

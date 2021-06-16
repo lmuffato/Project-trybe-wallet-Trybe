@@ -39,10 +39,10 @@ class Table extends React.Component {
           <td>Real</td>
           <td>
             <button
-                type="button"
-                data-testid="edit-btn"
-                name="edit-btn"
-                onClick={ (event) => this.handleClick(expense.id, event) }
+              type="button"
+              data-testid="edit-btn"
+              name="edit-btn"
+              onClick={ (event) => this.handleClick(expense.id, event) }
             >
               Editar
             </button>
