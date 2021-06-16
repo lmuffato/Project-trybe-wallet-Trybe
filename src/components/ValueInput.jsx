@@ -9,6 +9,7 @@ class ValueInput extends Component {
         Valor
         <input
           type="number"
+          step="any"
           name="valor"
           id="valor"
           className="input is-success"

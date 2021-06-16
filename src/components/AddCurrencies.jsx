@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addExpense } from '../actions';
+import { addExpense, fetchExchangeRate, sumValues } from '../actions';
+
 import ValueInput from './ValueInput';
 import PayMethCombox from './PayMethCombox';
 import TagOptions from './TagOptions';
 import DescriptionInput from './DescriptionInput';
 
 class AddCurrencies extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
+      id: 0,
       value: '',
-      currencie: 'BRL',
-      method: 'Crédito',
-      tag: 'Lazer',
+      currency: 'USD',
+      method: 'Cartão de crédito',
+      tag: '',
       description: '',
+      exchangeRates: '',
     };
     this.renderOptions = this.renderOptions.bind(this);
     this.handleValue = this.handleValue.bind(this);
@@ -26,11 +29,17 @@ class AddCurrencies extends Component {
     this.getExpenseData = this.getExpenseData.bind(this);
   }
 
-  getExpenseData() {
-    const { addExpenseAction, totalEx } = this.props;
-    const halfSecond = 500;
-    setTimeout(() => totalEx(), halfSecond);
-    return addExpenseAction(this.state);
+  async getExpenseData() {
+    const { id } = this.state;
+    const {
+      addExpenseAction, fetchExchangeRateThunk, sumExpenseValues, expenses } = this.props;
+    await addExpenseAction(this.state);
+    await fetchExchangeRateThunk(id);
+    await sumExpenseValues([
+      ...expenses,
+      this.state,
+    ]);
+    this.setState({ id: id + 1 });
   }
 
   handleValue(e) {
@@ -38,7 +47,7 @@ class AddCurrencies extends Component {
   }
 
   handleCurrencie(e) {
-    this.setState({ currencie: e.target.value });
+    this.setState({ currency: e.target.value });
   }
 
   handleMethod(e) {
@@ -59,6 +68,7 @@ class AddCurrencies extends Component {
       <option
         name="coin"
         key={ index }
+        ask={ coin.ask }
         title={ coin.name }
       >
         { coin.code }
@@ -68,6 +78,11 @@ class AddCurrencies extends Component {
 
   render() {
     const { isFetching } = this.props;
+    const { ask } = this.state;
+    if (ask === 0) {
+      const halfSecond = 500;
+      setTimeout(() => this.setInitialAsk(), halfSecond);
+    }
     return (
       <form
         className="addCurrencies-form"
@@ -111,10 +126,13 @@ AddCurrencies.propTypes = {
 const mapStateToProps = (state) => ({
   exchanges: state.wallet.currencies,
   isFetching: state.wallet.isFetching,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   addExpenseAction: (expense) => dispatch(addExpense(expense)),
+  fetchExchangeRateThunk: (id) => dispatch(fetchExchangeRate(id)),
+  sumExpenseValues: (expense) => dispatch(sumValues(expense)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddCurrencies);

@@ -5,40 +5,25 @@ import AddCurrencies from '../components/AddCurrencies';
 import { fetchAPI } from '../reducers/wallet';
 
 class Wallet extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      totalExpense: 0,
-    };
-    this.totalExpenses = this.totalExpenses.bind(this);
-  }
-
   componentDidMount() {
     const { fetchApiThunk } = this.props;
     fetchApiThunk();
   }
 
-  async totalExpenses() {
-    const { userExpenses } = this.props;
-    const expenses = userExpenses
-      .map(((exp) => Number(exp.value)));
-    const totalExpense = expenses.reduce(((exp1, exp2) => exp1 + exp2), 0);
-    this.setState({ totalExpense });
-  }
-
   render() {
-    const { userEmail } = this.props;
-    const { totalExpense } = this.state;
+    const { userEmail, totalExpense } = this.props;
     return (
       <>
         <header className="header-wallet">
           <img src="https://www.abcdacomunicacao.com.br/wp-content/uploads/Trybe_logo-baixa.png" alt="trywallet logo" />
           <div className="user-info">
             <p data-testid="email-field">{ userEmail }</p>
-            <p data-testid="total-field">{ `Despesa Total: ${totalExpense}` }</p>
+            <p data-testid="total-field">
+              { `Despesa Total: $${totalExpense.toFixed(2)}` }
+            </p>
           </div>
         </header>
-        <AddCurrencies totalEx={ this.totalExpenses } />
+        <AddCurrencies />
       </>
     );
   }
@@ -51,6 +36,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
   userExpenses: state.wallet.expenses,
+  totalExpense: state.totalValue.totalExpensesValue,
 });
 
 Wallet.propTypes = {

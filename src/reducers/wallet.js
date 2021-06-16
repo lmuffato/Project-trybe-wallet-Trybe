@@ -4,6 +4,8 @@ import { ADD_EXPENSE,
   REQUEST_SUCCESS,
   REQUEST_ERROR,
   GET_EXCHANGE,
+  GET_EXCHANGE_RATE,
+  SUM_VALUES,
   requestedApi,
   requestSuccess,
   getExchange } from '../actions';
@@ -12,6 +14,13 @@ const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   isFetching: false,
+};
+
+const setExchangeRates = (expenses, action) => {
+  const filtered = expenses.filter((expense) => expense.id === action.exRa.id).pop();
+  const index = expenses.indexOf(filtered);
+  expenses[index].exchangeRates = action.exRa.value;
+  return expenses;
 };
 
 export default function walletReducer(state = INITIAL_STATE, action) {
@@ -29,6 +38,21 @@ export default function walletReducer(state = INITIAL_STATE, action) {
     return { ...state, isFetching: 'error' };
   case GET_EXCHANGE:
     return { ...state, currencies: action.exchanges };
+  case GET_EXCHANGE_RATE:
+    return { ...state, expenses: setExchangeRates(expenses, action) };
+  default:
+    return state;
+  }
+}
+
+const TOTAL_INITIAL_VALUE = {
+  totalExpensesValue: 0,
+};
+
+export function totalValue(state = TOTAL_INITIAL_VALUE, action) {
+  switch (action.type) {
+  case SUM_VALUES:
+    return { ...state, totalExpensesValue: action.sum };
   default:
     return state;
   }

@@ -13,8 +13,8 @@ class PayMethCombox extends Component {
           className="input is-success"
           onChange={ handler }
         >
-          <option name="creditOption"> Cartão de Crédito </option>
-          <option name="debitOption"> Cartão de Débito </option>
+          <option name="creditOption"> Cartão de crédito </option>
+          <option name="debitOption"> Cartão de débito </option>
           <option name="moneyOption"> Dinheiro </option>
         </select>
       </label>
