@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { ThunkAPI } from '../../actions';
 
-// src/components/InputCurrencies.js
 class SelectedCoinInput extends React.Component {
   componentDidMount() {
     const { getCoins } = this.props;
@@ -11,30 +10,33 @@ class SelectedCoinInput extends React.Component {
   }
 
   render() {
-    const { allCoins, localValue, onChange } = this.props;
-    console.log('aqui alcoins');
-    console.log(allCoins);
-    return (
-      <label htmlFor="moedaSelected">
-        Moeda:
-        <select
-          id="moedaSelected"
-          name="selectedCoin"
-          value={ localValue }
-          onChange={ onChange }
-        >
-          {allCoins.map((coin) => (
-            <option value={ coin } key={ coin }>
-              {coin}
-            </option>
-          ))}
-        </select>
-      </label>
+    const { currencies, localValue, onChange } = this.props;
+
+    if (currencies !== undefined) {
+      return (
+        <label htmlFor="moedaSelected">
+          Moeda:
+          <select
+            id="moedaSelected"
+            name="selectedCoin"
+            value={ localValue }
+            onChange={ onChange }
+          >
+            {currencies.map((coin) => (
+              <option value={ coin } key={ coin }>
+                {coin}
+              </option>
+            ))}
+          </select>
+        </label>
+      );
+    } return (
+      <div>Loading</div>
     );
   }
 }
 const mapStateToProps = (state) => ({
-  allCoins: state.wallet.coins,
+  currencies: state.wallet.coins,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -3,7 +3,6 @@ import { LOGIN } from '../actions';
 
 const INITIAL_STATE = {
   email: '',
-  senha: '',
 };
 
 export default function userReducer(state = INITIAL_STATE, action) {
