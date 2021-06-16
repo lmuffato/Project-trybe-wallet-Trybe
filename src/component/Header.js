@@ -3,8 +3,27 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Header extends Component {
+  constructor() {
+    super();
+
+    this.sumValues = this.sumValues.bind(this);
+  }
+
+  sumValues() {
+    const { expensesState } = this.props;
+    expensesState.reduce((a, b) => console.log(parseFloat(a.value + b.value)));
+    // arrayValues.reduce((a, b) => a + b);
+  }
+
   render() {
-    const { emailState, valueExpenseState = 0 } = this.props;
+    const { emailState, expensesState } = this.props;
+
+    // console.log(sumValues());
+
+    const validation = () => {
+      if (expensesState.length === 0) return true;
+      return false;
+    };
     return (
       <header>
         <p data-testid="email-field">
@@ -13,7 +32,7 @@ class Header extends Component {
         </p>
         <p data-testid="total-field">
           Despesa total:
-          { valueExpenseState }
+          {validation() ? 0 : this.sumValues() }
         </p>
         <p data-testid="header-currency-field">BRL</p>
       </header>
@@ -22,13 +41,13 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  emailState: PropTypes.string.isRequired,
-  valueExpenseState: PropTypes.number.isRequired,
-};
+  emailState: PropTypes.stringnumber,
+  expensesState: PropTypes.array,
+}.isRequerid;
 
 const mapStateProps = (state) => ({
   emailState: state.user.email,
-  valueExpenseState: state.wallet.expenses.value,
+  expensesState: state.wallet.expenses,
 });
 
 export default connect(mapStateProps, null)(Header);

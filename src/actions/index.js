@@ -9,6 +9,7 @@ const requestCurrencies = () => ({ type: REQUEST_CURRENCIES });
 const receiveCurrencies = (currencies) => ({ type: RECEIVE_CURRENCIES, currencies });
 
 const addExpenses = (expenses) => ({ type: ADD_EXPENSES, expenses });
+
 export function dataExpenses(expenses) {
   return async (dispatch) => {
     dispatch(addExpenses(expenses));
