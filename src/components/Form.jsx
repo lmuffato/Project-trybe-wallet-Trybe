@@ -16,8 +16,8 @@ class Form extends React.Component {
       value: '',
       description: '',
       currency: '',
-      method: '',
-      tag: '',
+      method: 'Cartão de crédito',
+      tag: 'Alimentação',
     };
     this.handleChange = this.handleChange.bind(this);
     this.sendInfo = this.sendInfo.bind(this);

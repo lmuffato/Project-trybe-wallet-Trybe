@@ -6,18 +6,18 @@ class TagInput extends React.Component {
     const { localValue, onChange } = this.props;
     return (
       <label htmlFor="tag">
-        Tag:
+        tag
         <select
           id="tag"
           name="tag"
           value={ localValue }
           onChange={ onChange }
         >
-          <option value="alimentacao">Alimentação</option>
-          <option value="lazer">Lazer</option>
-          <option value="trabalho">Trabalho</option>
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
           <option value="transporte">Transporte</option>
-          <option value="saude">Saúde</option>
+          <option value="Transporte">Saúde</option>
         </select>
       </label>
     );
