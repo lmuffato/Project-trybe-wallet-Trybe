@@ -50,6 +50,12 @@ class WalletTableBody extends Component {
               >
                 X
               </button>
+              <button
+                type="button"
+                data-testid="edit-btn"
+              >
+                Edit
+              </button>
             </td>
           </tr>
         ))}
