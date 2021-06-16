@@ -57,27 +57,13 @@ export const actionExpenses = (expensesInfo) => ({
   expensesInfo,
 });
 
-// TOTAL_VALUE
-export const totalValueAction = (payload) => ({
-  type: TOTAL_VALUE,
-  payload,
-});
-
 export const actionThunkAdd = (payload) => (dispatch) => {
-  // payload vem de form, com estado e com ID
-  console.log(payload);
+  // payload vem do form, com estado e com ID
   fetch(URL)
     .then((respo) => (respo.json()))
     .then((info) => {
       // juntar em uma variavel o payload e o retorno da api
       const expensesInfo = { ...payload, exchangeRate: { ...info } };
-      console.log(info);
       dispatch(actionExpenses(expensesInfo));
-      dispatch(totalValueAction(payload.value));
     });
-  // fazer o fetch
-  // dispatch de sucseso
-  // dispatch de erro
-  // action que envia estado para estado global
-  // dispatch total value
 };

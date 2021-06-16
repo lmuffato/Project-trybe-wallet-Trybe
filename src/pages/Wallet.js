@@ -1,22 +1,56 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Form from '../components/Form';
-import Header from '../components/Header';
-// import { ThunkAPI } from '../actions';
+import './headerCSS.css';
 
-// const TWO_SECONDS = 2000;
 class Wallet extends React.Component {
+  constructor() {
+    super();
+    this.totalValue = this.totalValue.bind(this);
+  }
+
+  totalValue() {
+    let total = 0;
+    const { myExpenses } = this.props;
+    console.log('aqui my expenses');
+    console.log(myExpenses);
+    myExpenses.forEach((expense) => {
+      const { exchangeRates, value, selectedCoin } = expense;
+      console.log('value');
+      console.log(value);
+      total += parseFloat(exchangeRates[selectedCoin].ask) * value;
+    });
+    return total.toFixed(2);
+  }
+
   render() {
-    // const { fetchApiCoin, APIContent } = this.props;
+    const { emaildoEstado } = this.props;
     return (
-      <section>
-        <div>TrybeWallet</div>
-        <Header />
+      <div>
+        <header className="HeaderClass">
+          <div>TrybeWallet</div>
+          <div data-testid="email-field">{ emaildoEstado }</div>
+          <div data-testid="total-field">
+            Despesa total:
+            {this.totalValue()}
+          </div>
+          <div data-testid="header-currency-field">BRL</div>
+        </header>
         <Form />
-      </section>
+      </div>
     );
   }
 }
 
-export default Wallet;
+const mapStateToProps = (state) => ({
+  emaildoEstado: state.user.email,
+  myExpenses: state.wallet.expenses,
+});
+
+Wallet.propTypes = {
+  email: PropTypes.string,
+  totalValue: PropTypes.number,
+}.isRequired;
+
+export default connect(mapStateToProps)(Wallet);

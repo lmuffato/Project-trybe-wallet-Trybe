@@ -3,11 +3,9 @@ import {
   LOADING_REQUEST,
   ERROR_REQUEST,
   SUCCESS_REQUEST,
-  TOTAL_VALUE,
   EXPENSES_SUCESS } from '../actions/index';
 
 const INITIAL_STATE = {
-  totalValue: 0,
   loading: false,
   coins: [],
   expenses: [],
@@ -15,11 +13,6 @@ const INITIAL_STATE = {
 
 const walletReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case TOTAL_VALUE:
-    return {
-      ...state,
-      totalValue: state.totalValue + action.payload,
-    };
   case LOADING_REQUEST:
     return {
       ...state,
