@@ -37,6 +37,7 @@ class Form extends React.Component {
 
   componentDidMount() {
     this.convertCurrencyDataToInitials();
+    this.fetchCurrenciesAPI();
   }
 
   componentDidUpdate(prevProps) {
