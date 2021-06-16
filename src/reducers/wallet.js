@@ -4,6 +4,7 @@ import {
   GET_CURRENCIES_LIST_SUCCESS,
   GET_CURRENCIES_DATA_SUCCESS,
   DELETE_EXPENSE,
+  EDIT_EXPENSE,
 } from '../actions';
 
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
@@ -12,6 +13,8 @@ const initialState = {
   expenses: [],
   loading: false,
   error: null,
+  formType: 'add',
+  editableExpense: '',
 };
 
 const wallet = (state = initialState, action) => {
@@ -42,6 +45,12 @@ const wallet = (state = initialState, action) => {
     return {
       ...state,
       expenses: action.updatedExpenses,
+    };
+  case EDIT_EXPENSE:
+    return {
+      ...state,
+      formType: 'edit',
+      editableExpense: action.expId,
     };
   default:
     return state;
