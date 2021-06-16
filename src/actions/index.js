@@ -6,6 +6,7 @@ export const LOGIN = 'LOGIN';
 export const GET_CURRENCY = 'GET_CURRENCY';
 export const GET_CURRENCY_SUCCESS = 'GET_CURRENCY_SUCCESS';
 export const GET_CURRENCY_ERROR = 'GET_CURRENCY_ERROR';
+export const NEW_EXPENSE = 'NEW_EXPENSE';
 
 export const userData = (email, password) => ({
   type: LOGIN,
@@ -26,6 +27,11 @@ export const getCurrencySuccess = (payload) => ({
 
 export const getCurrencyError = (payload) => ({
   type: GET_CURRENCY_ERROR,
+  payload,
+});
+
+export const newExpense = (payload) => ({
+  type: NEW_EXPENSE,
   payload,
 });
 
