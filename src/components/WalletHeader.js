@@ -12,7 +12,7 @@ class WalletHeader extends React.Component {
         const expenseCurrency = expense.exchangeRates[expense.currency];
         const expenseExchangeRate = parseFloat(expenseCurrency.ask);
         return accum + expenseValue * expenseExchangeRate;
-      }, 0);
+      }, 0).toFixed(2);
     }
 
     return (
