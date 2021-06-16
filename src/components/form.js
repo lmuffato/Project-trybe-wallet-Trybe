@@ -24,23 +24,15 @@ class Form extends React.Component {
   currencyOptions() {
     const { currencyOpt } = this.state;
     return (
-      <form>
-        <label htmlFor="currency">
-          Moeda
-          <select id="currency">
-            {Object.values(currencyOpt)
-              .map((cur, i) => (
-                <option
-                  key={ i }
-                  value={ cur }
-                  name="currency"
-                >
-                  {cur}
-                </option>))}
-          </select>
-        </label>
-      </form>
-    );
+      Object.values(currencyOpt)
+        .map((cur, i) => (
+          <option
+            key={ i }
+            value={ cur }
+            name="money"
+          >
+            {cur}
+          </option>)));
   }
 
   render() {
@@ -55,9 +47,14 @@ class Form extends React.Component {
             Descrição
             <input id="despesa_description" type="text" />
           </label>
-          {this.currencyOptions()}
-          <label htmlFor="payment_method">
+          <label htmlFor="money">
             Moeda
+            <select id="money">
+              {this.currencyOptions()}
+            </select>
+          </label>
+          <label htmlFor="payment_method">
+            Método de pagamento
             <select id="payment_method" name="payment_method">
               <option value="din" name="payment_method">Dinheiro</option>
               <option value="cdc" name="payment_method">Cartão de crédito</option>
