@@ -15,7 +15,7 @@ class AddExpenseForm extends React.Component {
       value: '0',
       description: '',
       currency: 'USD',
-      method: 'Cartão de crédito',
+      method: 'Dinheiro',
       tag: 'Alimentação',
     };
   }
