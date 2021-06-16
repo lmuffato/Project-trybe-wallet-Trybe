@@ -1,19 +1,20 @@
+import { ADD_EXPENSE } from '../actions';
+
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
-const updateCurrency = (state = INITIAL_STATE, action) => {
+function updateWallet(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'UPDATE_CURRENCY':
+  case ADD_EXPENSE:
     return {
       ...state,
-      currencies: action.payload };
+      expenses: state.expenses.concat(action.payload),
+    };
   default:
     return state;
   }
-};
+}
 
-export default updateCurrency;
+export default updateWallet;
