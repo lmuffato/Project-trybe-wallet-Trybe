@@ -6,8 +6,9 @@ export const GET_CURRENCIES_ERROR = 'GET_CURRENCIES_ERROR';
 export const GET_CURRENCIES_LIST_SUCCESS = 'GET_CURRENCIES_LIST_SUCCESS';
 export const GET_CURRENCIES_DATA_SUCCESS = 'GET_CURRENCIES_DATA_SUCCESS';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 
-// LOGIN action creator
+// ACTION CREATORS
 export const login = (email, password) => ({
   type: LOGIN,
   email,
@@ -38,6 +39,12 @@ export const deleteExpense = (updatedExpenses) => ({
   updatedExpenses,
 });
 
+export const editExpenseClick = (expId) => ({
+  type: EDIT_EXPENSE,
+  expId,
+});
+
+// THUNKS
 export const getCurrenciesListThunk = () => (dispatch) => {
   dispatch(getCurrencies());
   getCurrenciesFromAPI()
