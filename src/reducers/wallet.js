@@ -1,4 +1,4 @@
-import { ADD_EXPENSE } from '../actions';
+import { ADD_EXPENSE, DELETE_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -11,6 +11,11 @@ function updateWallet(state = INITIAL_STATE, action) {
     return {
       ...state,
       expenses: state.expenses.concat(action.payload),
+    };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: [...state.expenses.filter((expense) => expense !== action.payload)],
     };
   default:
     return state;
