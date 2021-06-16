@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addNewUser } from '../actions';
+import PropTypes from 'prop-types';
+import { addNewUser as addNewUserAction } from '../actions/index';
 
-class Routers extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
 
@@ -17,7 +18,14 @@ class Routers extends React.Component {
 
   checkRegistered() {
     const { email, password } = this.state;
+    const { addNewUser } = this.props;
+    // const mailformat = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
+    // const maxLen = 6;
     addNewUser({ email, password });
+    // if (email.match(mailformat) && password.length <= maxLen) {
+    // } else {
+    //  return undefined;
+    // }
     this.setState({
       email: '',
       password: '',
@@ -27,7 +35,7 @@ class Routers extends React.Component {
   render() {
     const { password, email } = this.state;
     return (
-      <div>
+      <form>
         <input
           type="email"
           placeholder="name@mail.com"
@@ -35,7 +43,6 @@ class Routers extends React.Component {
           value={ email }
           onChange={ (event) => this.setState({ email: event.target.value }) }
         />
-        <br />
         <input
           type="password"
           placeholder="Password"
@@ -43,22 +50,29 @@ class Routers extends React.Component {
           value={ password }
           onChange={ (event) => this.setState({ password: event.target.value }) }
         />
-        <br />
         <button
           type="button"
           onClick={ this.checkRegistered }
         >
           Entrar
         </button>
-        <br />
         <Link to="/register">Clientes Registrados</Link>
-      </div>
+      </form>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addNewUser: (e) => dispatch(addNewUser(e)),
+  addNewUser: (e) => dispatch(addNewUserAction(e)),
 });
 
-export default connect(null, mapDispatchToProps)(Routers);
+Login.propTypes = {
+  addNewUser: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
+
+/* References
+https://www.edureka.co/blog/javascript-email-validation/
+https://stackoverflow.com/questions/39740832/password-validation-is-at-least-6-character/39874275
+*/
