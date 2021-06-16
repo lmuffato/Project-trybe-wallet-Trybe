@@ -137,24 +137,19 @@ class Form extends React.Component {
     this.setState({ currencies: currenciesNames });
   }
 
-// Com orientação de Matheus Alencar https://github.com/tryber/sd-010-a-project-trybewallet/pull/106
+  // Com orientação de Matheus Alencar https://github.com/tryber/sd-010-a-project-trybewallet/pull/106
   render() {
     const { currencies } = this.state;
     return (
       <div>
         <form>
-          <label htmlFor="value">
-            Valor
+          <label htmlFor="value">Valor
            <input id="value" type="text" />
           </label>
-
-          <label htmlFor="description">
-            Descrição
+          <label htmlFor="description">Descrição
             <textarea id="description" />
           </label>
-
-          <label htmlFor="currency">
-            Moeda
+          <label htmlFor="currency">Moeda
             <select id="currency">
               {
                 Object.keys(currencies).map((currency) => (
@@ -163,18 +158,14 @@ class Form extends React.Component {
               }
             </select>
           </label>
-
-          <label htmlFor="payment-option">
-            Método de pagamento
+          <label htmlFor="payment-option">Método de pagamento
             <select id="payment-option">
               <option value="cash">Dinheiro</option>
               <option value="c_credit">Cartão de crédito</option>
               <option value="c_debit">Cartão de débito</option>
             </select>
           </label>
-
-          <label htmlFor="tag">
-            Tag:
+          <label htmlFor="tag">Tag:
             <select id="tag">
               <option value="food">Alimentação</option>
               <option value="leisure">Lazer</option>
@@ -184,10 +175,7 @@ class Form extends React.Component {
             </select>
           </label>
         </form>
-        <button
-          type="button"
-          onClick={ this.handleClick }
-        >
+        <button type="button" onClick={ this.handleClick }>
           { this.changeButtonName() }
         </button>
       </div>
