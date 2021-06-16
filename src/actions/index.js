@@ -8,3 +8,12 @@ export function addEmail(payload) {
     payload,
   };
 }
+
+export const ADD_GASTO = 'ADD_GASTO';
+
+export function addGasto(payload) {
+  return {
+    type: ADD_GASTO,
+    payload,
+  };
+}

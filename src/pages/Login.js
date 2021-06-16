@@ -1,50 +1,51 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addEmail } from '../actions';
 
-const passwordMinlength = 6;
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       email: '',
-      name: '',
-
+      senha: '',
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  verifyEmail(email) {
+  validaEmail() {
+    const { email, senha } = this.state;
+    const passwordMinlength = 6;
     const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
-    return regex.test(email);
-  }
 
-  verifyPassword(password) {
-    if (password.length >= passwordMinlength) {
-      return true;
+    if (senha.length >= passwordMinlength && regex.test(email)) {
+      return false;
     }
 
-    return false;
+    return true;
   }
 
   handleClick() {
-    this.handleChange();
-    this.handleSubmit();
-    console.log('alguma coisa');
+    const { addEmailAtual } = this.props;
+    const { email } = this.state;
+    const emailAtual = {
+      email,
+    };
+    addEmailAtual(emailAtual);
   }
 
   handleChange({ target: { value, name } }) {
     this.setState({ [name]: value });
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-  }
+  // handleSubmit(event) {
+  //   event.preventDefault();
+  // }
 
   render() {
-    const { email, name } = this.state;
+    const { email, senha } = this.state;
     return (
       <form>
         <h1>Login</h1>
@@ -62,11 +63,11 @@ class Login extends React.Component {
         <label htmlFor="id_login_password">
           Senha
           <input
-            type="text"
-            name="name"
+            type="password"
+            name="senha"
             id="id_login_password"
             data-testid="password-input"
-            value={ name }
+            value={ senha }
             onChange={ this.handleChange }
           />
         </label>
@@ -74,7 +75,7 @@ class Login extends React.Component {
           data-testid="my-action"
           onClick={ this.handleClick }
           type="button"
-          disabled
+          disabled={ this.validaEmail() }
         >
           Entrar
         </button>
@@ -84,7 +85,11 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addEmail: (payload) => dispatch(addEmail(payload)),
+  addEmailAtual: (payload) => dispatch(addEmail(payload)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  email: PropTypes.string,
+}.isRiquered;
