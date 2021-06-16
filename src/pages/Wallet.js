@@ -16,10 +16,10 @@ class Wallet extends React.Component {
     console.log('aqui my expenses');
     console.log(myExpenses);
     myExpenses.forEach((expense) => {
-      const { exchangeRates, value, selectedCoin } = expense;
-      console.log('value');
-      console.log(value);
-      total += parseFloat(exchangeRates[selectedCoin].ask) * value;
+      const { exchangeRates, value, currency } = expense;
+      console.log('exchangeRates');
+      console.log(exchangeRates);
+      total += parseFloat(exchangeRates[currency].ask) * value;
     });
     return total.toFixed(2);
   }

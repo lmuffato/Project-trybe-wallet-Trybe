@@ -18,7 +18,7 @@ class SelectedCoinInput extends React.Component {
           Moeda:
           <select
             id="moedaSelected"
-            name="selectedCoin"
+            name="currency"
             value={ localValue }
             onChange={ onChange }
           >

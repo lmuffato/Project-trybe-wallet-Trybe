@@ -15,8 +15,8 @@ class Form extends React.Component {
     this.state = {
       value: '',
       description: '',
-      selectedCoin: '',
-      payment: '',
+      currency: '',
+      method: '',
       tag: '',
     };
     this.handleChange = this.handleChange.bind(this);
@@ -34,21 +34,20 @@ class Form extends React.Component {
     event.preventDefault();
     const { expenses, dispatchAdd } = this.props;
     const id = expenses.length;
-    const { value, description, selectedCoin, payment, tag } = this.state;
-    const formInfos = { id, value, description, selectedCoin, payment, tag };
+    const { value, description, currency, method, tag } = this.state;
+    const formInfos = { id, value, description, currency, method, tag };
     dispatchAdd(formInfos);
-    console.log(expenses);
   }
 
   render() {
-    const { value, description, selectedCoin, payment, tag } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     return (
       <secttion>
         <form>
           <ValueInput localValue={ value } onChange={ this.handleChange } />
           <DescriptionInput localValue={ description } onChange={ this.handleChange } />
-          <SelectedCoinInput localValue={ selectedCoin } onChange={ this.handleChange } />
-          <PaymentInput localValue={ payment } onChange={ this.handleChange } />
+          <SelectedCoinInput localValue={ currency } onChange={ this.handleChange } />
+          <PaymentInput localValue={ method } onChange={ this.handleChange } />
           <TagInput localValue={ tag } onChange={ this.handleChange } />
         </form>
         <button

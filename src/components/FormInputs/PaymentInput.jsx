@@ -9,7 +9,7 @@ class PaymentInput extends React.Component {
         Método de pagamento
         <select
           id="pagamentoSelected"
-          name="payment"
+          name="method"
           value={ localValue }
           onChange={ onChange }
         >

@@ -38,7 +38,11 @@ export const ThunkAPI = () => (dispatch) => {
   return fetch(URL)
     .then((response) => (response.json()))
     .then((data) => {
+      console.log('data fetch');
+      console.log(data);
       const valuesCoins = Object.values(data);
+      console.log('valor de valuecoins');
+      console.log(valuesCoins);
       const realValueCoins = valuesCoins.map((coin) => (
         coin.code
       ));
@@ -63,7 +67,7 @@ export const actionThunkAdd = (payload) => (dispatch) => {
     .then((respo) => (respo.json()))
     .then((info) => {
       // juntar em uma variavel o payload e o retorno da api
-      const expensesInfo = { ...payload, exchangeRate: { ...info } };
+      const expensesInfo = { ...payload, exchangeRates: { ...info } };
       dispatch(actionExpenses(expensesInfo));
     });
 };
