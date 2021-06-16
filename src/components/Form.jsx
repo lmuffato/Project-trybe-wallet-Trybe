@@ -13,22 +13,7 @@ class Form extends React.Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      currencies: [
-        'USD',
-        'CAD',
-        'EUR',
-        'GBP',
-        'ARS',
-        'BTC',
-        'LTC',
-        'JPY',
-        'CHF',
-        'AUD',
-        'CNY',
-        'ILS',
-        'ETH',
-        'XRP',
-      ],
+      currencies: {},
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -124,9 +109,10 @@ class Form extends React.Component {
   async fetchCurrenciesAPI() {
     const url = 'https://economia.awesomeapi.com.br/json/all';
     const fetchResponse = await fetch(url);
-    const response = await fetchResponse.json();
-    delete response.USDT;
-    return response;
+    const { USDT, ...currencies } = await fetchResponse.json();
+    this.setState({
+      currencies,
+    });
   }
 
   async convertCurrencyDataToInitials() {
