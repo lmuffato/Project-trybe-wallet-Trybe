@@ -39,7 +39,8 @@ class Header extends Component {
           Email:
           {(email)}
         </p>
-        {istotal ? <span data-testid="total-field">{parseFloat(totalValue).toFixed(2)}</span>
+        {istotal
+          ? <span data-testid="total-field">{parseFloat(totalValue).toFixed(2)}</span>
           : <span data-testid="total-field">0</span>}
         <p data-testid="header-currency-field">
           Taxa:BRL
