@@ -1,4 +1,4 @@
-import getAPI from '../services/api';
+import getAPICurrency from '../services/api';
 
 export const USERLOGIN = 'user_Login';
 export const CURRENCIES = 'currencies';
@@ -18,7 +18,7 @@ export function currencyFind(currency) {
 }
 
 export const fetchCurrency = () => async (dispatch) => {
-  const resultAPI = await getAPI();
+  const resultAPI = await getAPICurrency();
   delete resultAPI.USDT;
   const result = Object.values(resultAPI);
   return dispatch(currencyFind(result));
