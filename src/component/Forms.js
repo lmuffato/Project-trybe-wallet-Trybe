@@ -11,7 +11,7 @@ class Forms extends React.Component {
     this.state = {
       value: 0,
       description: '',
-      currencie: 'USD',
+      currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
     };
@@ -39,11 +39,11 @@ class Forms extends React.Component {
     return arrayCurrencies;
   }
 
-  handleClick() {
-    const { expensesDispach, expensesState, currenciesState } = this.props;
+  async handleClick() {
+    const { expensesDispach, expensesState, currenciesDispatch } = this.props;
     const id = expensesState.length;
-    const currenciesApi = currenciesState;
-    expensesDispach({
+    const currenciesApi = await currenciesDispatch();
+    await expensesDispach({
       id,
       ...this.state,
       exchangeRates: currenciesApi,
@@ -58,7 +58,7 @@ class Forms extends React.Component {
         <form>
           {formInput('Valor', 'value', this.handleChange)}
           {formInput('Descrição', 'description', this.handleChange)}
-          {formSelector('Moeda', this.optionsCurrecies(), 'currencie', this.handleChange)}
+          {formSelector('Moeda', this.optionsCurrecies(), 'currency', this.handleChange)}
           {formSelector('Método de pagamento', optionMethod, 'method', this.handleChange)}
           {formSelector('Tag', optionsTag, 'tag', this.handleChange)}
         </form>

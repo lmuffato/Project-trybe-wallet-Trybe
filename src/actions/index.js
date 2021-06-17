@@ -24,6 +24,7 @@ export function fetchCurrencies() {
       .then((currencies) => {
         delete currencies.USDT;
         dispatch(receiveCurrencies(currencies));
+        return currencies;
         // const arrayCurrencies = Object.entries(currencies);
         // dispatch(receiveCurrencies(arrayCurrencies.filter((cur) => cur[0] !== 'USDT')));
       });

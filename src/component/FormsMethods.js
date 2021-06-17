@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const formSelector = (name, arrayOptions, expense, func) => {
+export const formSelector = (name, arrayOptions, type, func) => {
   const select = (
     <div>
       <label
@@ -8,8 +8,9 @@ export const formSelector = (name, arrayOptions, expense, func) => {
       >
         { `${name}: ` }
         <select
+          id={ name }
           aria-label={ name }
-          name={ expense }
+          name={ type }
           onChange={ (e) => func(e) }
         >
           { arrayOptions.map((options) => <option key={ options }>{options}</option>)}

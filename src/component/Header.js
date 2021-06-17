@@ -20,7 +20,6 @@ class Header extends Component {
 
   render() {
     const { emailState, expensesState } = this.props;
-    console.log(expensesState);
 
     const validation = () => {
       if (expensesState.length === 0) return true;
@@ -36,7 +35,7 @@ class Header extends Component {
         <p data-testid="total-field">
           Despesa total:
           {validation() ? 0 : expensesState.reduce((a, b) => {
-            const corrency = b.exchangeRates[b.currencie].ask;
+            const corrency = b.exchangeRates[b.currency].ask;
             a += parseFloat(b.value) * parseFloat(corrency);
             return a;
           }, 0).toFixed(2)}
