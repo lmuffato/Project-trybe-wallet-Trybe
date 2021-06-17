@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { getCoins as getCoinsThunk, setExpense as setExpenseThunk }
   from '../actions/index';
 import { fetchAPI } from '../services/fetchAPI';
+import TableWallet from '../components/TableWallet';
 
 class Wallet extends React.Component {
   constructor() {
@@ -176,8 +177,6 @@ class Wallet extends React.Component {
 
   render() {
     const { email, totalAmount } = this.props;
-    // console.log(`expenses:${expenses.value}`);
-    // console.log(totalAmount);
     return (
       <>
         <header>
@@ -198,6 +197,7 @@ class Wallet extends React.Component {
             Adicionar despesa
           </button>
         </form>
+        <TableWallet />
       </>
     );
   }
@@ -213,7 +213,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getCoins: () => dispatch(getCoinsThunk()),
   setExpense: (payload) => dispatch(setExpenseThunk(payload)),
-  // getRates: (payload) => dispatch(getRatesThunk(payload)),
 });
 
 Wallet.propTypes = {

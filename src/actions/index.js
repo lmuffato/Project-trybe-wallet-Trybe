@@ -1,4 +1,3 @@
-// import fetchAPIRates, { fetchAPI } from '../services/fetchAPI';
 import { fetchAPI } from '../services/fetchAPI';
 
 // Coloque aqui suas actions
@@ -25,16 +24,6 @@ export const getCoins = () => (dispatch) => {
   fetchAPI()
     .then((currencies) => dispatch(setCoins(currencies)));
 };
-
-// export const setRates = (rates) => ({
-//   type: RATES,
-//   payload: rates,
-// });
-
-// export const getRates = () => (dispatch) => {
-//   fetchAPIRates()
-//     .then((rates) => dispatch(setRates(rates)));
-// };
 
 export const setExpense = (expense) => {
   console.log('setexpense on.');
