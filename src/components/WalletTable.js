@@ -1,25 +1,43 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { removeExpense } from '../actions';
+import { removeExpense, startEditingExpense } from '../actions';
 
 class WalletTable extends Component {
   constructor() {
     super();
     this.renderExpenseRow = this.renderExpenseRow.bind(this);
-    this.renderDeleteBtn = this.renderDeleteBtn.bind(this);
+    this.renderBtns = this.renderBtns.bind(this);
+    this.renderEditBtn = this.renderEditBtn.bind(this);
   }
 
-  renderDeleteBtn(index) {
+  renderBtns(index) {
     const { deleteExpense } = this.props;
+
+    return (
+      <>
+        <button
+          type="button"
+          data-testid="delete-btn"
+          onClick={ () => deleteExpense(index) }
+        >
+          Delete
+        </button>
+        { this.renderEditBtn(index) }
+      </>
+    );
+  }
+
+  renderEditBtn(index) {
+    const { startEditing } = this.props;
 
     return (
       <button
         type="button"
-        data-testid="delete-btn"
-        onClick={ () => deleteExpense(index) }
+        data-testid="edit-btn"
+        onClick={ () => startEditing(index) }
       >
-        Delete
+        Edit
       </button>
     );
   }
@@ -42,7 +60,7 @@ class WalletTable extends Component {
           <td>{ Number(currentAsk).toFixed(2) }</td>
           <td>{ Number(convertedValue).toFixed(2) }</td>
           <td>Real</td>
-          <td>{ this.renderDeleteBtn(index) }</td>
+          <td>{ this.renderBtns(index) }</td>
         </tr>
       );
     });
@@ -75,6 +93,7 @@ class WalletTable extends Component {
 WalletTable.propTypes = {
   allExpenses: PropTypes.arrayOf(Object).isRequired,
   deleteExpense: PropTypes.func.isRequired,
+  startEditing: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -83,6 +102,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   deleteExpense: (index) => dispatch(removeExpense(index)),
+  startEditing: (index) => dispatch(startEditingExpense(index)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletTable);
