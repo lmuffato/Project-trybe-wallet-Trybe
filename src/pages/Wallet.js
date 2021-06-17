@@ -12,6 +12,7 @@ class Wallet extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.state = {
       exchange: {},
+      filtered: [],
       expenses: expense,
     };
   }
@@ -23,9 +24,19 @@ class Wallet extends React.Component {
   async currencyAPI() {
     const fetc = await fetch('https://economia.awesomeapi.com.br/json/all');
     const response = await fetc.json();
-    const filtered = Object.values(response).filter((cur) => cur !== 'USDT');
+    const filtered = Object.values(response)
+      .filter((cur) => {
+        console.log();
+        return (cur !== 'USDT');
+      });
+    const filter = Object.keys(response)
+      .filter((cur) => {
+        console.log();
+        return (cur !== 'USDT');
+      });
     this.setState({
       exchange: filtered,
+      filtered: filter,
     });
   }
 
@@ -68,20 +79,20 @@ class Wallet extends React.Component {
   }
 
   currencyOptions() {
-    const { exchange } = this.state;
+    const { filtered } = this.state;
     return (
       <label htmlFor="currency">
         Moeda
         <select id="currency" onChange={ (e) => this.handleChange(e) }>
           {
-            Object.values(exchange)
+            Object.values(filtered)
               .map((cur, i) => (
                 <option
                   key={ i }
-                  value={ cur.code }
+                  value={ cur }
                   name="currency"
                 >
-                  {cur.code}
+                  {cur }
                 </option>))
           }
         </select>
