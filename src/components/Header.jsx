@@ -6,31 +6,41 @@ class Header extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      istotal: Boolean,
+    };
+
     this.handleTotal = this.handleTotal.bind(this);
+  }
+
+  componentDidMount() {
+    this.handleTotal();
   }
 
   handleTotal() {
     const { totalValue } = this.props;
     if (totalValue === 0) {
-      return true;
+      this.setState({
+        istotal: true,
+      });
+    } else {
+      this.setState({
+        istotal: false,
+      });
     }
-    return false;
   }
 
   render() {
     const { email, totalValue } = this.props;
-    const total = parseFloat(totalValue).toFixed(2);
+    const { istotal } = this.state;
     return (
       <header>
         <p data-testid="email-field">
           Email:
           {(email)}
         </p>
-        <p>
-          Total:
-          {this.handleTotal ? <p data-testid="total-field">0</p>
-            : <p data-testid="total-field">{total}</p>}
-        </p>
+        {istotal ? <span data-testid="total-field">{parseFloat(totalValue).toFixed(2)}</span>
+          : <span data-testid="total-field">0</span>}
         <p data-testid="header-currency-field">
           Taxa:BRL
         </p>
