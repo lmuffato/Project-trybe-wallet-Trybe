@@ -61,7 +61,7 @@ const mapStateToProps = (state) => ({
 
 Form.propTypes = {
   getValue: PropTypes.func.isRequired,
-  currencies: PropTypes.objectOf(PropTypes.object).isRequired,
+  currencies: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

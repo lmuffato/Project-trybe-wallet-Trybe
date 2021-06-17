@@ -5,24 +5,24 @@ export const userName = (email) => ({
   payload: email,
 });
 
-export const ADD_OUTLAY = 'ADD_OUTLAY';
-export const REMOVE_OUTLAY = 'REMOVE_OUTLAY';
-export const EDIT_OUTLAY = 'EDIT_OUTLAY';
+// export const ADD_OUTLAY = 'ADD_OUTLAY';
+// export const REMOVE_OUTLAY = 'REMOVE_OUTLAY';
+// export const EDIT_OUTLAY = 'EDIT_OUTLAY';
 
-export const addOutlay = (outLay) => ({
-  type: ADD_OUTLAY,
-  outLay,
-});
+// export const addOutlay = (outLay) => ({
+//   type: ADD_OUTLAY,
+//   outLay,
+// });
 
-export const removeOutlay = (outLay) => ({
-  type: REMOVE_OUTLAY,
-  outLay,
-});
+// export const removeOutlay = (outLay) => ({
+//   type: REMOVE_OUTLAY,
+//   outLay,
+// });
 
-export const editOutlay = (outLay) => ({
-  type: EDIT_OUTLAY,
-  outLay,
-});
+// export const editOutlay = (outLay) => ({
+//   type: EDIT_OUTLAY,
+//   outLay,
+// });
 
 export const REQUEST_CURRENCY = 'REQUEST_CURRENCY';
 const requestCurrency = () => ({
@@ -32,7 +32,7 @@ const requestCurrency = () => ({
 export const RECEIVED_CURRENCY = 'RECEIVED_CURRENCY';
 const receivedCurrency = (currency) => ({
   type: RECEIVED_CURRENCY,
-  currency });
+  currencies: currency });
 
 export function fetchCurrencyExchange() {
   return (dispatch) => {
