@@ -5,14 +5,6 @@ import ExpenseForm from '../component/ExpenseForm';
 // import TableExpenses from '../component/TableExpenses';
 
 class Wallet extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      sum: 0,
-    };
-    this.sumExpenses = this.sumExpenses.bind(this);
-  }
-
   sumExpenses() {
     const { totalExpenses } = this.props;
     console.log(totalExpenses);
@@ -20,9 +12,6 @@ class Wallet extends React.Component {
     totalExpenses.forEach((expense) => {
       sum += expense.value * expense.exchangeRates[expense.currency].ask;
     });
-    /*     this.setState({
-      sum,
-    }); */
     return sum;
   }
 
