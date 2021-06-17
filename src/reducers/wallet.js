@@ -1,8 +1,15 @@
 import initialState from './initialState';
 
 const wallet = (state = initialState, action) => {
-  console.log(action);
-  return (state);
+  switch (action.type) {
+    case 'ADD_EXPENSES':
+    return {
+      ...state,
+      expenses: action.expenses
+    };
+    default:
+    return state;
+  }
 };
 
 export default wallet;

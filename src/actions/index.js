@@ -5,8 +5,17 @@ const logginSucess = (email) => ({
   email,
 });
 
+const addExpenses = (expenses) =>({
+  type: 'ADD_EXPENSES',
+  expenses,
+})
+
 const storeLog = (email) => (dispatch) => {
   dispatch(logginSucess(email));
 };
+
+export const storeExpenses = (expenses) => (dispatch) => {
+  dispatch(addExpenses(expenses));
+}
 
 export default storeLog;
