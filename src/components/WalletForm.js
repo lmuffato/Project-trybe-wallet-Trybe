@@ -68,7 +68,7 @@ class WalletForm extends Component {
 
   render() {
     const { value, description, currency, method, tag } = this.state;
-    const { getCurrenciesData, formType } = this.props;
+    const { formType } = this.props;
     return (
       <form>
         <ValueInput
@@ -91,12 +91,8 @@ class WalletForm extends Component {
           handleChange={ this.handleChange }
           tag={ tag }
         />
-        <button
-          type="button"
-          onClick={ () => getCurrenciesData(this.state) }
-        >
-          Adicionar despesa
-        </button>
+
+        {this.renderButton(formType)}
       </form>
     );
   }
@@ -104,6 +100,7 @@ class WalletForm extends Component {
 
 const mapStateToProps = (state) => ({
   formType: state.wallet.formType,
+  editableExpense: state.wallet.editableExpense,
 });
 
 const mapDispatchToProps = (dispatch) => ({
