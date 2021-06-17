@@ -3,27 +3,34 @@ import React from 'react';
 class Login extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       email: '',
+      password: '',
     };
   }
 
+  handleChange =({ target: { value, name } }) => {
+    this.setState(() => ({ [name]: value }));
+  }
+
   render() {
-    const { email } = this.state;
     return (
-      <form>
-        <label htmlFor="email-input">
-          <input
-            type="email"
-            data-testid="email-input"
-            name="email"
-            value={ email }
-            onChange={ (e) => this.setState({ email: e.target.value }) }
-          />
-        </label>
-      </form>
+      <main>
+        <header>TRYBE</header>
+        <form>
+          <input type="email" placeholder="email" 
+          name="email"
+          onChange={ this.handleChange } />
+          <input type="password" 
+          placeholder="password" 
+          name="password"
+           onChange={ this.handleChange }
+           />
+           <button type="button">Entrar</button>
+        </form>
+      </main>
     );
   }
 }
-
 export default Login;
