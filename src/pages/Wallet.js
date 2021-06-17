@@ -76,9 +76,8 @@ class Wallet extends React.Component {
     });
   }
 
-  async handleClick() {
-    await this.AddDebtAPI();
-    await this.clearInputs();
+  handleClick() {
+    this.clearInputs();
   }
 
   currencyOptions() {
