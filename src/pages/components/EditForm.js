@@ -1,9 +1,9 @@
 import React from 'react';
-import './expenseForm.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getCurruencies, addExpenses, finishEditExpense } from '../../actions/index';
 import fetchCurrencies from '../../api/api';
+import './CSS/editForm.css';
 
 class EditForm extends React.Component {
   constructor(props) {
@@ -100,7 +100,7 @@ class EditForm extends React.Component {
     const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
     return (
-      <form className="expense">
+      <form className="expense-edit">
         { this.handleInput('Valor:', 'value', 'value-input') }
         { this.handleInput('Descrição:', 'description', 'description-input') }
         { this.handleSelect('Moeda:', 'currency', currencys, 'currency-input') }

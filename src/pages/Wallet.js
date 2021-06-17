@@ -9,6 +9,7 @@ import Header from './components/Header';
 class Wallet extends React.Component {
   render() {
     const { edit } = this.props;
+    // if (!email) return <div>Login não efetuado</div>;
     return (
       <div>
         <Header />
@@ -25,5 +26,6 @@ Wallet.propTypes = {
 
 const mapStateToProps = (state) => ({
   edit: state.wallet.edit,
+  // email: state.user.email,
 });
 export default connect(mapStateToProps)(Wallet);

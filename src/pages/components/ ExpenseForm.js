@@ -42,11 +42,17 @@ class ExpenseForm extends React.Component {
     });
   }
 
-  handleInput(l, n) {
+  handleInput(l, n, v) {
     return (
       <label htmlFor={ n }>
         { l}
-        <input type="text" name={ n } id={ n } onChange={ this.handleChange } />
+        <input
+          type="text"
+          name={ n }
+          id={ n }
+          onChange={ this.handleChange }
+          value={ v }
+        />
       </label>
     );
   }
@@ -80,17 +86,24 @@ class ExpenseForm extends React.Component {
   }
 
   render() {
+    // value: 0,
+    // description: '',
+    // currency: 'USD',
+    // method: 'Dinheiro',
+    // tag: 'Alimentação',
+
+    const { value, description, currency, method, tag } = this.state;
     const { currencys } = this.props;
     const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
     return (
       <form className="expense">
-        { this.handleInput('Valor:', 'value') }
-        { this.handleInput('Descrição:', 'description') }
-        { this.handleSelect('Moeda:', 'currency', currencys) }
-        { this.handleSelect('Método de pagamento:', 'method', methods) }
-        { this.handleSelect('Tag:', 'tag', tags) }
+        { this.handleInput('Valor:', 'value', value) }
+        { this.handleInput('Descrição:', 'description', description) }
+        { this.handleSelect('Moeda:', 'currency', currencys, currency) }
+        { this.handleSelect('Método de pagamento:', 'method', methods, method) }
+        { this.handleSelect('Tag:', 'tag', tags, tag) }
         <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
       </form>
     );

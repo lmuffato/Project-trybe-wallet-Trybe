@@ -1,6 +1,6 @@
 .header {
   align-items: flex-end;
-  border: 1px solid black;
+  background-color: silver;
   display: flex;
   flex-direction: column;
   padding: 20px;

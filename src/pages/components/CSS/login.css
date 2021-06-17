@@ -1,0 +1,18 @@
+.login {
+  align-content: center;
+  align-items: center;
+  background-color: #fdfbf9;
+  border: 1px solid #c9c9c9;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  justify-content: center;
+  margin-left: 32%;
+  margin-top: 10%;
+  width: 500px;
+}
+
+h2 {
+  color: #1f304e;
+}

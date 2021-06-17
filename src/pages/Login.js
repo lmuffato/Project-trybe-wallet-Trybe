@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { loginAction } from '../actions/index';
+import './components/CSS/login.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -55,6 +56,7 @@ class Login extends React.Component {
     const validateEmail = /\S+@\S+\.\S+/;
     return (
       <div className="login">
+        <h2>Ttrybe Wallet</h2>
         <h3>Login</h3>
         <form className="form-login">
           <input
