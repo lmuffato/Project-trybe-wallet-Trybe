@@ -1,23 +1,19 @@
-const INITIAL_STATE = {
+import { USERLOGIN } from '../actions';
+
+const initialState = {
   user: {
     email: '',
   },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
 };
-  
-function user(state = INITIAL_STATE, action) {
-  switch (action.type) {
-  case 'ACTION_LOGIN':
+
+export default (state = initialState, { type, payload }) => {
+  switch (type) {
+  case USERLOGIN:
     return {
-      ...state,
-      email: action.payload,
+      email: payload.email,
+      password: payload.password,
     };
   default:
     return state;
   }
 }
-
-export default user;
