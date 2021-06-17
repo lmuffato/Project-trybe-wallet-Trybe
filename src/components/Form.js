@@ -9,6 +9,7 @@ class Form extends Component {
   constructor() {
     super();
     this.handleChangeInput = this.handleChangeInput.bind(this);
+    this.handleDispatch = this.handleDispatch.bind(this);
     this.state = {
       value: '',
       currency: '',
@@ -53,7 +54,7 @@ class Form extends Component {
           pagamento={ method }
           tag={ tag }
         />
-        <button onClick={ this.handleDispatch } type="submit"> Adcionar Despesas</button>
+        <button onClick={ this.handleDispatch } type="submit"> Adicionar despesa</button>
       </form>
     );
   }

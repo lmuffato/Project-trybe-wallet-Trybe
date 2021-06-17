@@ -28,14 +28,19 @@ export default class InputOne extends Component {
         </label>
         <label htmlFor="currency">
           Moeda:
-          <select onChange={ handleChangeInput } value={ currency } name="currency" id="currency">
+          <select
+            onChange={ handleChangeInput }
+            value={ currency }
+            name="currency"
+            id="currency"
+          >
             { currencies
-              .map((currency) => (
+              .map((curr) => (
                 <option
-                  value={ currency }
-                  key={ currency }
+                  value={ curr }
+                  key={ curr }
                 >
-                  {currency}
+                  {curr}
                 </option>)) }
           </select>
         </label>

@@ -7,7 +7,7 @@ export default class InputTwo extends Component {
     return (
       <>
         <label htmlFor="method">
-          Método de method:
+          Método de pagamento:
           <select
             onChange={ handleChangeInput }
             value={ method }
