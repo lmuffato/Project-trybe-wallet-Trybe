@@ -20,5 +20,9 @@ class Pagamentoinput extends Component {
     );
   }
 }
+Pagamentoinput.propTypes = {
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+}.isRequired;
 
 export default Pagamentoinput;
