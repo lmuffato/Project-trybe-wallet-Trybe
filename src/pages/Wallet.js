@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/header';
-import { expense } from './index';
 import { addDespesa } from '../actions';
 
 class Wallet extends React.Component {
@@ -13,7 +12,14 @@ class Wallet extends React.Component {
     this.state = {
       exchange: {},
       filtered: [],
-      expenses: expense,
+      expenses: {
+        currency: 'USD',
+        tag: 'ali',
+        payment_method: 'din',
+        despesa: 0,
+        despesa_description: '',
+        exchangeRates: {},
+      },
     };
   }
 
@@ -40,6 +46,19 @@ class Wallet extends React.Component {
     });
   }
 
+  async AddDebtAPI() {
+    const fetc = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const response = await fetc.json();
+    const filtered = Object.values(response)
+      .filter((cur) => {
+        console.log();
+        return (cur !== 'USDT');
+      });
+    this.setState({
+      exchange: filtered,
+    });
+  }
+
   handleChange({ target }) {
     const { id, value } = target;
     const { expenses } = this.state;
@@ -63,19 +82,19 @@ class Wallet extends React.Component {
     despesa({ ...expenses });
     this.setState({
       expenses: {
-        id: expenses.id + 1,
         currency: 'USD',
         tag: 'ali',
         payment_method: 'din',
         despesa: 0,
         despesa_description: '',
-        exchangeRates: [],
+        exchangeRates: {},
       },
     });
   }
 
-  handleClick() {
-    this.clearInputs();
+  async handleClick() {
+    await this.AddDebtAPI();
+    await this.clearInputs();
   }
 
   currencyOptions() {
