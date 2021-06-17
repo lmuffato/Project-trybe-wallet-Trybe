@@ -1,33 +1,44 @@
 export const LOGIN = 'LOGIN';
 
-// export const userName = (email, password) => ({
-//   type: LOGIN,
-//   payload: {
-//     email,
-//     password,
-//   },
-// });
-
 export const userName = (email) => ({
   type: LOGIN,
   payload: email,
 });
 
-// export const ADD_OUTLAY = 'ADD_OUTLAY';
-// export const REMOVE_OUTLAY = 'REMOVE_OUTLAY';
-// export const EDIT_OUTLAY = 'EDIT_OUTLAY';
+export const ADD_OUTLAY = 'ADD_OUTLAY';
+export const REMOVE_OUTLAY = 'REMOVE_OUTLAY';
+export const EDIT_OUTLAY = 'EDIT_OUTLAY';
 
-// const addOutlay = (payload) => ({
-//   type: ADD_OUTLAY,
-//   payload,
-// });
+export const addOutlay = (outLay) => ({
+  type: ADD_OUTLAY,
+  outLay,
+});
 
-// const removeOutlay = (payload) => ({
-//   type: REMOVE_OUTLAY,
-//   payload,
-// });
+export const removeOutlay = (outLay) => ({
+  type: REMOVE_OUTLAY,
+  outLay,
+});
 
-// const editOutlay = (payload) => ({
-//   type: EDIT_OUTLAY,
-//   payload,
-// });
+export const editOutlay = (outLay) => ({
+  type: EDIT_OUTLAY,
+  outLay,
+});
+
+export const REQUEST_CURRENCY = 'REQUEST_CURRENCY';
+const requestCurrency = () => ({
+  type: REQUEST_CURRENCY,
+});
+
+export const RECEIVED_CURRENCY = 'RECEIVED_CURRENCY';
+const receivedCurrency = (currency) => ({
+  type: RECEIVED_CURRENCY,
+  currency });
+
+export function fetchCurrencyExchange() {
+  return (dispatch) => {
+    dispatch(requestCurrency());
+    return fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => response.json())
+      .then((currency) => dispatch(receivedCurrency(currency)));
+  };
+}
