@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+// const { expenses } = this.props;
+
 function Table({ expenses }) {
+  console.log(expenses);
   return (
     <table>
       <thead>
@@ -40,6 +43,7 @@ function Table({ expenses }) {
                 <td>
                   <button type="submit">Editar</button>
                   <button type="submit" data-testid="delete-btn">Remover</button>
+                  <button type="submit" name="/adicionar despesa/i">Adicionar Despesas</button>
                   <button type="submit">Excluir</button>
                 </td>
               </tr>

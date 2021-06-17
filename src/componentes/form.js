@@ -1,4 +1,6 @@
+/* eslint-disable no-trailing-spaces */
 import React from 'react';
+import { connect } from 'react-redux';
 import getApi from '../getApi';
 
 class Form extends React.Component {
@@ -13,12 +15,10 @@ class Form extends React.Component {
     getApi().then((data) => { this.setState({ currencies: data }); });
   }
 
-  ver(currenciesArray) {
-    console.log(currenciesArray);
-  }
-
+  // eslint-disable-next-line max-lines-per-function
   render() {
     const { currencies } = this.state;
+    console.log(currencies);
     const currenciesArray = Object.keys(currencies).filter((c) => c !== 'USDT');
     return (
       <form>
@@ -41,7 +41,7 @@ class Form extends React.Component {
           Moeda
           <select name="select" id="id_moeda">
             { currenciesArray.map((currencie) => (
-              <option value="" key={ currencie }>
+              <option key={ currencie }>
                 {currencie}
               </option>))}
           </select>
@@ -64,9 +64,18 @@ class Form extends React.Component {
             <option value="valor3">Saúde</option>
           </select>
         </label>
+        <button type="button">Adicionar Despesa</button>
       </form>
     );
   }
 }
 
-export default Form;
+const mapStateToProps = ({ wallet }) => ({
+  currencies: wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  get: () => dispatch(getApi()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
