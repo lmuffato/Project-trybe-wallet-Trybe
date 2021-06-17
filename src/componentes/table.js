@@ -20,6 +20,7 @@ class Table extends React.Component {
             <th>Editar/Excluir</th>
             <th>{}</th>
             <button
+              data-testid="delete-btn"
               type="submit"
               onClick={ getApi() }
             >

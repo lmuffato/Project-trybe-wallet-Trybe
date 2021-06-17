@@ -1,9 +1,32 @@
+/* eslint-disable max-lines-per-function */
 import React from 'react';
+import getApi from '../getApi';
 
 class Form extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      currencies: { },
+
+    };
+  }
+
+  componentDidMount() {
+    getApi().then((data) => { this.setState({ currencies: data }); });
+  }
+
+  handeClick() {
+    getApi().then((data) => console.log(data));
+  }
+
   render() {
+    const { currencies } = this.state;
+    const currenciesArray = Object.keys(currencies);
+
     return (
       <form>
+        <button type="button" onClick={ this.handeClick }>Entrar</button>
+
         <label htmlFor="id_valor">
           Valor
           <input
@@ -22,9 +45,13 @@ class Form extends React.Component {
         <label htmlFor="id_moeda">
           Moeda
           <select name="select" id="id_moeda">
-            <option value="valor1">{}</option>
-            <option value="valor2">{}</option>
-            <option value="valor3">{}</option>
+            { currenciesArray.map((currencie) => (
+              <option
+                value=""
+                key={ currencie }
+              >
+                {currencie}
+              </option>))}
           </select>
         </label>
         <label htmlFor="id_metodo_pagamento">
