@@ -11,12 +11,12 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email } = this.props;
+    const { email, total } = this.props;
     return (
       <>
         <header>
           <p data-testid="email-field">{ email }</p>
-          <p data-testid="total-field">{ 0 }</p>
+          <p data-testid="total-field">{ total > 0 ? total : 0}</p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
         <Form />
@@ -25,8 +25,9 @@ class Wallet extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user: { email } }) => ({
-  email,
+const mapStateToProps = (state) => ({
+  email: state.user.email,
+  total: state.wallet.total_value,
 });
 
 const mapDispatchToProps = (dispatch) => ({
