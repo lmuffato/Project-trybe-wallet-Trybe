@@ -8,7 +8,6 @@ class Form extends React.Component {
     super(props);
 
     this.state = {
-      // id: '',
       value: '',
       currency: 'USD',
       method: 'Dinheiro',
@@ -76,11 +75,7 @@ class Form extends React.Component {
   // }
 
   async HandleButton() {
-    const {
-      id,
-      totalValue,
-      ThunkAPI2Dispatch,
-      firstDispatchGetExpenses,
+    const { id, totalValue, ThunkAPI2Dispatch, firstDispatchGetExpenses,
       firstGetTotalValue } = this.props;
     // pego do estado global a partir do mapStateToProps e as funções tunk do mapDispatchToProps
 
@@ -103,21 +98,25 @@ class Form extends React.Component {
       value,
       currency,
       method,
-      description,
       tag,
+      description,
       exchangeRates,
     };
+
+    console.log(expenses);
 
     firstDispatchGetExpenses(expenses);
     // passo o expenses para o estado global
 
-    const valueNumber = parseInt(value, 10);
+    const valueNumber = parseFloat(value); // Number(value); // Number(value).toFixed(2); // parseFloat(value); parseInt(value, 10);
     // transformo o value em numero
-    const total = totalValue + valueNumber;
+    const valueMoeda = exchangeRates[currency].ask;
+    const total = totalValue + (valueNumber * valueMoeda);
+
     // na mesa logica da const idNumber, faço a soma do valor total das despesas
     // crio um totalValue no estado global e atualizo ele cada vez que clico no botão o enviando para o estado global,
     console.log(typeof value);
-    firstGetTotalValue(total);
+    firstGetTotalValue(total); // colocar set
     // passo o valor total para o estado global na chave totalvalue
   }
 
@@ -139,20 +138,20 @@ class Form extends React.Component {
         <label htmlFor="pag">
           Método de pagamento:
           <select id="pag" onChange={ this.HandlePag }>
-            <option value="dinheiro"> Dinheiro </option>
-            <option value="crédito"> Cartão de crédito </option>
-            <option value="débito"> Cartão de débito </option>
+            <option value="Dinheiro"> Dinheiro </option>
+            <option value="Cartão de crédito"> Cartão de crédito </option>
+            <option value="Cartão de débito"> Cartão de débito </option>
           </select>
         </label>
 
         <label htmlFor="tag">
           Tag:
           <select id="tag" onChange={ this.HandleTag }>
-            <option value="alimentação"> Alimentação </option>
-            <option value="lazer"> Lazer </option>
-            <option value="trabalho"> Trabalho </option>
-            <option value="transporte"> Transporte </option>
-            <option value="saude"> Saúde </option>
+            <option value="Alimentação"> Alimentação </option>
+            <option value="Lazer"> Lazer </option>
+            <option value="Trabalho"> Trabalho </option>
+            <option value="Transporte"> Transporte </option>
+            <option value="Saúde"> Saúde </option>
           </select>
         </label>
 

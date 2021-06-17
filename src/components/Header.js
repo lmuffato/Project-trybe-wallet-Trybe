@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 class Header extends React.Component {
   render() {
     const { email, totalValue } = this.props;
+    console.log(totalValue);
     return (
       <section>
         <div>
@@ -17,7 +18,7 @@ class Header extends React.Component {
         <div>
           <span> Despesas totais: </span>
           <span data-testid="total-field">
-            { totalValue }
+            { totalValue === undefined ? 0 : totalValue }
           </span>
           <span data-testid="header-currency-field"> BRL </span>
         </div>
