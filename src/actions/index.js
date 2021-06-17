@@ -52,3 +52,16 @@ export const fatchExpDisp = (expenses) => (dispathc) => {
     dispathc(receiveExpenses(exRates));
   });
 };
+
+/* Agradeço meu amigos da Turma 10 Tribo A por me auxiliar no desenvolvimento deste
+projeto. Obrigado todos envolvidos, e saibam que sou muito grato pois sem vocês eu não
+teria consigo.
+
+Referências
+
+📌 Beatriz Estebanez - Turma 10 - Tribo A | https://github.com/beatriz-estebanez
+📌 Victor Canto - Turma 10 - Tribo A | https://github.com/victorcanto
+📌 Nilson Ribeiro - Turma 10 - Tribo A | https://github.com/NilsonRCS
+📌 Guilherme Dornelles - Turma 10 - Tribo A | https://github.com/guilhermemd
+📌 Rafael Medeiros - Turma 10 - Tribo A | https://github.com/RafaelMedeirosGomes
+*/
