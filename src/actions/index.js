@@ -4,6 +4,8 @@ import getCurrentMoneyAPILocation from '../services/MoneyAPI';
 export const LOGIN = 'LOGIN';
 export const REQUEST_API = 'REQUEST_API';
 export const GET_MONEY = 'GET_MONEY';
+export const ADD_EXPENSES = 'ADD_EXPENSES';
+export const SUM_TOTAL = 'SUM_TOTAL';
 
 export const login = (email) => ({
   type: LOGIN,
@@ -34,3 +36,10 @@ export const thunkMoneyAPI = () => (dispatch) => {
       dispatch(getMoney(filterUSDT));
     });
 };
+
+export const addExpenses = (expenses) => ({
+  type: ADD_EXPENSES,
+  payload: {
+    expenses,
+  },
+}); // REQ 8
