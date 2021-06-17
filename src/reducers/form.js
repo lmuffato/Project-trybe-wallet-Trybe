@@ -1,7 +1,7 @@
 const FORM_INITIAL_STATE = {
-  valor: '',
+  valor: 0,
   moeda: 'USD',
-  metodoPagamento: 'dinheiro',
+  metodo: 'Dinheiro',
   tag: 'Lazer',
   descricao: '',
 };
@@ -23,7 +23,7 @@ const form = (state = FORM_INITIAL_STATE, action) => {
   case 'SET_METODO':
     return {
       ...state,
-      metodoPagamento: action.payload.metodo,
+      metodo: action.payload.metodo,
     };
 
   case 'SET_TAG':

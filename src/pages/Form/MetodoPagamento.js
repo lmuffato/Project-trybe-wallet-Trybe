@@ -7,22 +7,31 @@ class MetodoPagamento extends Component {
   constructor() {
     super();
 
+    this.state = {
+      method: 'Dinheiro',
+    };
+
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange({ target }) {
     const { setMetodo } = this.props;
     setMetodo(target.value);
+
+    // this.setState({
+    //   method: target.value,
+    // });
   }
 
   render() {
+    const { method } = this.state;
     return (
-      <label htmlFor="select-payMethod">
+      <label htmlFor="Método">
         Método de pagamento
-        <select id="select-payMethod" onChange={ this.handleChange }>
-          <option value="dinheiro">Dinheiro</option>
-          <option value="credito">Cartão de Crédito</option>
-          <option value="debito">Cartão de Débito</option>
+        <select id="Método" onChange={ this.handleChange } value={ method }>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de Crédito</option>
+          <option value="Cartão de débito">Cartão de Débito</option>
         </select>
       </label>
     );

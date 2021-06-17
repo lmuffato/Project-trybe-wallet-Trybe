@@ -75,18 +75,10 @@ export const fetchApiExchangeThunk = () => async (dispatch) => {
   const fetchApi = await fetch(API_URL);
   const resolve = await fetchApi.json();
   const data = await resolve;
-
-  const allCurrencies = Object.values(data);
-  const newCurrencies = allCurrencies.map((currency) => ({
-    code: currency.code,
-    name: currency.name,
-    ask: currency.ask,
-  }));
-
-  console.log(newCurrencies);
+  // const { USDT, ...newData } = data;
 
   try {
-    dispatch(fetchApiExchangeSuccess(newCurrencies));
+    dispatch(fetchApiExchangeSuccess(data));
   } catch (e) {
     dispatch(fetchApiExchangeError(e));
   }
@@ -103,6 +95,20 @@ export const increaseCounterAction = (payload) => ({
   type: 'INCREASE_COUNTER',
   payload: {
     counter: payload,
+  },
+});
+
+export const increaseTotalExpenseAction = (payload) => ({
+  type: 'INCREASE_EXPENSE',
+  payload: {
+    totalValue: payload,
+  },
+});
+
+export const updateTotalValueAction = (payload) => ({
+  type: 'UPDATE_TOTAL_VALUE',
+  payload: {
+    totalValue: payload,
   },
 });
 

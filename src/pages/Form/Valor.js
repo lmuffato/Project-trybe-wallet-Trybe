@@ -12,14 +12,14 @@ class Valor extends Component {
 
   handleChange({ target }) {
     const { setValor } = this.props;
-    setValor(target.value);
+    setValor((target.value));
   }
 
   render() {
     return (
       <label htmlFor="input-value">
         Valor
-        <input type="text" id="input-value" size="4" onChange={ this.handleChange } />
+        <input type="number" id="input-value" onChange={ this.handleChange } />
       </label>
     );
   }

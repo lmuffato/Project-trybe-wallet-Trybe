@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   isLoadingApi: false,
   errorApi: '',
   counter: 0,
+  totalValue: 0,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -25,16 +26,13 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       isLoadingApi: false,
-      currencies: action.payload.error,
+      exchangeRates: action.payload.success,
     };
-
   case 'FETCH_API_EXCHANGE_SUCCESS':
     return {
       ...state,
-      isLoadingApi: false,
-      expenseRate: action.payload.success,
+      exchangeRates: action.payload.success,
     };
-
   case 'ADD_EXPENSE':
     return {
       ...state,
@@ -44,6 +42,14 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       counter: state.counter + 1,
+    };
+
+  case 'INCREASE_EXPENSE':
+    return {
+      ...state,
+      totalValue: state.expenses.reduce((acc, curr) => (
+        acc + Number(curr.value) * Number(curr.exchangeRates[curr.currency].ask)
+      ), 0).toFixed(2),
     };
 
   default: return state;

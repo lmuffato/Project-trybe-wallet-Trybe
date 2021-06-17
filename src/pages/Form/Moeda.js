@@ -22,12 +22,13 @@ class Moeda extends Component {
 
   render() {
     const { getCurrencies } = this.props;
+    // const { USDT, ...newData } = data;
     return (
       <label htmlFor="select-currency">
         Moeda
         <select id="select-currency" onChange={ this.handleChange }>
           {getCurrencies.map((currency) => (
-            <option key={ currency }>
+            <option value={ currency } key={ currency }>
               { currency }
             </option>
           ))}
