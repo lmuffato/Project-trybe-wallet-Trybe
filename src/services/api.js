@@ -1,6 +1,5 @@
 // Impossibilitado pelo avaliador da Trybe em fazer a requisição
-// com o uso do axios. Logo, fiz com aquela merda ali embaixo, mas
-// o axios passou.
+// com o uso do axios.
 
 // import axios from 'axios';
 
@@ -22,4 +21,11 @@ export default async function getCurrency(url) {
     .then((res) => res.json())
     .then((currency) => Object.keys(currency));
   return response.filter((currency) => currency !== 'USDT');
+}
+
+export async function getExchange(url) {
+  const response = await fetch(url)
+    .then((res) => res.json())
+    .then((exchange) => (exchange));
+  return response;
 }
