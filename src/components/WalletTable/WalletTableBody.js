@@ -37,7 +37,7 @@ class WalletTableBody extends Component {
             <td>{expense.description}</td>
             <td>{expense.tag}</td>
             <td>{expense.method}</td>
-            <td>{expense.value}</td>
+            <td>{parseFloat(expense.value)}</td>
             <td>{this.getCurrencyNameFromExpense(expense)}</td>
             <td>{this.getExchangeRateFromExpense(expense)}</td>
             <td>{this.getConvertedValueFromExpense(expense)}</td>
@@ -53,7 +53,7 @@ class WalletTableBody extends Component {
               <button
                 type="button"
                 data-testid="edit-btn"
-                onClick={ () => editExpense(expense.id) }
+                onClick={ () => editExpense(expense) }
               >
                 Edit
               </button>
@@ -71,7 +71,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   deleteExpense: (expId, expenses) => dispatch(deleteExpenseThunk(expId, expenses)),
-  editExpense: (expId) => dispatch(editExpenseClick(expId)),
+  editExpense: (exp) => dispatch(editExpenseClick(exp)),
 });
 
 WalletTableBody.propTypes = {

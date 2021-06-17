@@ -6,7 +6,7 @@ import DescriptionInput from './WalletForm/DescriptionInput';
 import CurrencyInput from './WalletForm/CurrencyInput';
 import MethodInput from './WalletForm/MethodInput';
 import TagInput from './WalletForm/TagInput';
-import { getCurrenciesDataThunk } from '../actions';
+import { getCurrenciesDataThunk, editExpenseThunk } from '../actions';
 
 class WalletForm extends Component {
   constructor() {
@@ -39,7 +39,11 @@ class WalletForm extends Component {
   }
 
   renderButton(type) {
-    const { getCurrenciesData } = this.props;
+    const {
+      getCurrenciesData,
+      editExpense,
+      editableExpense,
+      expenses } = this.props;
 
     if (type === 'add') {
       return (
@@ -58,7 +62,7 @@ class WalletForm extends Component {
       return (
         <button
           type="button"
-          onClick={ () => console.log('this is edit form') }
+          onClick={ () => editExpense(this.state, editableExpense, expenses) }
         >
           Editar despesa
         </button>
@@ -101,10 +105,14 @@ class WalletForm extends Component {
 const mapStateToProps = (state) => ({
   formType: state.wallet.formType,
   editableExpense: state.wallet.editableExpense,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrenciesData: (formState) => dispatch(getCurrenciesDataThunk(formState)),
+  editExpense: (formState, editableExp, exp) => (
+    dispatch(editExpenseThunk(formState, editableExp, exp))
+  ),
 });
 
 WalletForm.propTypes = {

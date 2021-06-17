@@ -6,7 +6,8 @@ export const GET_CURRENCIES_ERROR = 'GET_CURRENCIES_ERROR';
 export const GET_CURRENCIES_LIST_SUCCESS = 'GET_CURRENCIES_LIST_SUCCESS';
 export const GET_CURRENCIES_DATA_SUCCESS = 'GET_CURRENCIES_DATA_SUCCESS';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
-export const EDIT_EXPENSE = 'EDIT_EXPENSE';
+export const EDIT_EXPENSE_CLICK = 'EDIT_EXPENSE_CLICK';
+export const SAVE_EDITED_EXPENSE = 'SAVE_EDITED_EXPENSE';
 
 // ACTION CREATORS
 export const login = (email, password) => ({
@@ -39,9 +40,14 @@ export const deleteExpense = (updatedExpenses) => ({
   updatedExpenses,
 });
 
-export const editExpenseClick = (expId) => ({
-  type: EDIT_EXPENSE,
-  expId,
+export const editExpenseClick = (exp) => ({
+  type: EDIT_EXPENSE_CLICK,
+  exp,
+});
+
+export const saveEditedExpense = (editedExpenses) => ({
+  type: SAVE_EDITED_EXPENSE,
+  editedExpenses,
 });
 
 // THUNKS
@@ -77,4 +83,18 @@ export const deleteExpenseThunk = (expId, expenses) => (dispatch) => {
   const updatedExp = [...expenses.slice(0, expId), ...expenses.slice(expId + 1)];
   // const updatedExpReIndexed = updatedExp.map((exp, index) => ({ ...exp, id: index }));
   dispatch(deleteExpense(updatedExp));
+};
+
+export const editExpenseThunk = (formState, editableExp, exp) => (dispatch) => {
+  console.log(formState);
+  console.log(editableExp);
+  console.log(exp);
+  const updatedExpenses = [
+    ...exp.slice(0, editableExp.id),
+    { id: editableExp.id,
+      exchangeRates: editableExp.exchangeRates,
+      ...formState },
+    ...exp.slice(editableExp.id + 1),
+  ];
+  dispatch(saveEditedExpense(updatedExpenses));
 };
