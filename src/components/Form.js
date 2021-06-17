@@ -70,6 +70,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(Form);
 Form.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   fetchApi: PropTypes.func.isRequired,
-  // expenses: PropTypes.string.isRequired,
-  // getExpense: PropTypes.func.isRequired,
+  expenses: PropTypes.string.isRequired,
+  getExpense: PropTypes.func.isRequired,
 };
