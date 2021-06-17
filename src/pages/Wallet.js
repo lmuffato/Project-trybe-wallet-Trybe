@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCurrenciesThunk, fetchExchangeRatesThunk, setExpenses } from '../actions';
+import Table from '../Components/Table';
 import '../Wallet.css';
 
 class Wallet extends Component {
@@ -56,7 +57,9 @@ class Wallet extends Component {
   }
 
   render() {
-    const { props: { personEmail, currencies },
+    const payments = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+    const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+    const { props: { personEmail, currencies, expenses },
       state: { total }, createStateValues } = this;
     return (
       <>
@@ -85,23 +88,18 @@ class Wallet extends Component {
           <label htmlFor="metodoDePagamento">
             Método de pagamento:
             <select id="metodoDePagamento" name="method">
-              <option value="Dinheiro" selected>Dinheiro</option>
-              <option value="Cartão de crédito">Cartão de crédito</option>
-              <option value="Cartão de débito">Cartão de débito</option>
+              {payments.map((pay) => <option key={ pay } value={ pay }>{pay}</option>)}
             </select>
           </label>
           <label htmlFor="tag">
             Tag:
             <select id="tag" name="tag">
-              <option value="Alimentação" selected>Alimentação</option>
-              <option value="Lazer">Lazer</option>
-              <option value="Trabalho">Trabalho</option>
-              <option value="Transporte">Transporte</option>
-              <option value="Saúde">Saúde</option>
+              {tags.map((tag) => <option key={ tag } value={ tag }>{tag}</option>)}
             </select>
           </label>
           <button type="submit">Adicionar despesa</button>
         </form>
+        <Table expenses={ expenses } />
       </>
     );
   }
