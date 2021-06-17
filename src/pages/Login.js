@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { userLogin } from '../actions';
+import { fetchAPI, userLogin } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -36,9 +36,9 @@ class Login extends React.Component {
   handleClick(e) {
     e.preventDefault();
     const { email } = this.state;
-    const { loginUser, history } = this.props;
+    const { loginUser, history, fetchApi } = this.props;
     loginUser(email);
-
+    fetchApi();
     history.push('/carteira');
   }
 
@@ -80,12 +80,13 @@ class Login extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   loginUser: (email) => dispatch(userLogin(email)),
+  fetchApi: () => dispatch(fetchAPI()),
 });
 
 Login.propTypes = {
   history: PropTypes.func.isRequired,
   loginUser: PropTypes.func.isRequired,
-  // logInUser: PropTypes.arrayOf(PropTypes.object).isRequired,
+  fetchApi: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Login);
