@@ -1,18 +1,17 @@
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const RECEIVE_CURRENCIES = 'RECEIVE_CURRENCIES';
+export const ADD_EXCHANGERATES = 'ADD_EXCHANGERATES';
+export const ADD_EXPENSES = 'ADD_EXPENSES';
 
-// action creator que retorna um objeto, que você tem feito até então
 const requestCurrencies = () => ({
   type: REQUEST_CURRENCIES });
 
-// outro action creator que retorna um objeto, que você tem feito até então
 const receiveCurrencies = (currencies) => ({
   type: RECEIVE_CURRENCIES,
   currencies });
 
-// action creator que retorna uma função, possível por conta do pacote redux-thunk
 export function fetchCurrencies() {
-  return async (dispatch) => { // thunk declarado
+  return async (dispatch) => {
     dispatch(requestCurrencies());
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
     const currencies = await response.json();
@@ -21,3 +20,17 @@ export function fetchCurrencies() {
     return dispatch(receiveCurrencies(currenciesCode));
   };
 }
+export const requestExchangeRates = () => ({ type: ADD_EXCHANGERATES });
+
+export const addExpenses = (expenses) => ({ type: ADD_EXPENSES, expenses });
+
+/* export function fetchExchangesRates() {
+  return async (dispatch) => {
+    dispatch(requestExchangeRates());
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const currencies = await response.json();
+    delete currencies.USDT;
+    const currenciesCode = Object.values(currencies);
+    return dispatch(addExpenses(currenciesCode));
+  };
+} */

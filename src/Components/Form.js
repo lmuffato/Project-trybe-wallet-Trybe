@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { addExpenses } from '../actions/wallet';
+import getCurrencies from '../Service/data';
 
 class Form extends React.Component {
   constructor() {
@@ -8,11 +10,23 @@ class Form extends React.Component {
     this.state = {
       value: '',
       description: '',
-      currencies: '',
-      payment: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      exchangeRates: [],
     };
     this.handleChange = this.handleChange.bind(this);
+    this.setExchangeRates = this.setExchangeRates.bind(this);
+  }
+
+  componentDidMount() {
+    this.setExchangeRates();
+  }
+
+  async setExchangeRates() {
+    const response = await getCurrencies();
+    this.setState({ exchangeRates: response });
+    return response;
   }
 
   handleChange({ target: { name, value } }) {
@@ -21,12 +35,12 @@ class Form extends React.Component {
 
   selectCurrency(currenciesCode, currencies) {
     return (
-      <label htmlFor="Moeda">
+      <label htmlFor="currencies">
         Moeda:
         <select
           value={ currencies }
-          name="Moeda"
-          id="Moeda"
+          name="currency"
+          id="currencies"
           onChange={ this.handleChange }
         >
           {currenciesCode.map((currency, index) => (
@@ -60,13 +74,13 @@ class Form extends React.Component {
         Método de pagamento:
         <select
           value={ payment }
-          name="payment"
+          name="method"
           id="payment"
           onChange={ this.handleChange }
         >
           <option value="Dinheiro">Dinheiro</option>
-          <option value="Crédito">Cartão de crédito</option>
-          <option value="Debito">Cartão de débito</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
     );
@@ -103,26 +117,38 @@ class Form extends React.Component {
   }
 
   render() {
-    const { currenciesCode } = this.props;
-    const { value, description, currencies, payment, tag } = this.state;
+    const { currenciesCode, expenses } = this.props;
+    const { value, description, currency, method, tag } = this.state;
+    console.log(currenciesCode);
     return (
       <form>
         {this.renderValue(value)}
         {this.renderDescription(description)}
-        {this.selectCurrency(currenciesCode, currencies)}
-        {this.renderPayment(payment)}
+        {this.selectCurrency(currenciesCode, currency)}
+        {this.renderPayment(method)}
         {this.renderTag(tag)}
-        <button type="button"> Adicionar Despesa </button>
+        <button
+          type="button"
+          onClick={ () => expenses(this.state) }
+        >
+          Adicionar Despesa
+        </button>
       </form>
     );
   }
 }
+
 Form.propTypes = {
-  currenciesCode: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
+  currenciesCode: PropTypes.arrayOf(PropTypes.string),
+  expenses: PropTypes.func,
+}.isRequired;
+
+const mapDispatchToProps = (dispatch) => ({
+  expenses: (expense) => dispatch(addExpenses(expense)),
+});
 
 const mapStateToProps = (state) => ({
   currenciesCode: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
