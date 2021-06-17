@@ -42,5 +42,5 @@ export const expensesAdd = (state) => async (dispatch) => {
     ...state,
     exchangeRates,
   };
-  dispatch(expensesAdd(expenses));
+  dispatch(addExpense(expenses));
 }; // exchangeRates é a chave q vai guardar o valor retornado pela API
