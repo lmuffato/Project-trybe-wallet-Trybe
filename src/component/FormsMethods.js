@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const formSelector = (name, arrayOptions, expense, func) => {
-  const selector = (
+  const select = (
     <div>
       <label
         htmlFor={ name }
@@ -17,7 +17,7 @@ export const formSelector = (name, arrayOptions, expense, func) => {
       </label>
     </div>
   );
-  return selector;
+  return select;
 };
 
 export const formInput = (title, expense, func) => {

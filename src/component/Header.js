@@ -9,15 +9,18 @@ class Header extends Component {
   //   this.sumValues = this.sumValues.bind(this);
   // }
 
+  // sumValues() {
+  //   const { expensesState } = this.props;
+  //   expensesState.reduce((a, b) => {
+  //     const corrency = b.exchangeRates[b.currencie].ask;
+  //     a += parseFloat(b.value) * parseFloat(corrency);
+  //     return a;
+  //   }, 0);
+  // }
+
   render() {
     const { emailState, expensesState } = this.props;
     console.log(expensesState);
-
-    // const sumValues = () => {
-    //   // const { expensesState } = this.props;
-    //   expensesState.reduce((a, b) => {
-    //     parseFloat(a.value) + parseFloat(b.value));
-    // };
 
     const validation = () => {
       if (expensesState.length === 0) return true;
@@ -32,9 +35,11 @@ class Header extends Component {
         </p>
         <p data-testid="total-field">
           Despesa total:
-          {/* {validation() ? 0 : expensesState.reduce((a, b) => {
-            const corrency = 
-          }) } */}
+          {validation() ? 0 : expensesState.reduce((a, b) => {
+            const corrency = b.exchangeRates[b.currencie].ask;
+            a += parseFloat(b.value) * parseFloat(corrency);
+            return a;
+          }, 0).toFixed(2)}
         </p>
         <p data-testid="header-currency-field">BRL</p>
       </header>

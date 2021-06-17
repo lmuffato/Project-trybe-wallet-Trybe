@@ -41,7 +41,6 @@ class Forms extends React.Component {
 
   handleClick() {
     const { expensesDispach, expensesState, currenciesState } = this.props;
-    console.log(currenciesState);
     const id = expensesState.length;
     const currenciesApi = currenciesState;
     expensesDispach({
@@ -65,7 +64,7 @@ class Forms extends React.Component {
         </form>
         <button
           type="button"
-          onClick={ () => console.log(this.handleClick()) }
+          onClick={ () => this.handleClick() }
         >
           Adicionar Despesa
         </button>
