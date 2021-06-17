@@ -24,3 +24,8 @@ export const getCoinsThunk = () => async (dispatch) => {
   const filteredCurrencies = responseWithoutUSDT(response);
   dispatch(addCurrencies(filteredCurrencies));
 };
+
+export const addExpense = (value) => ({
+  type: 'ADD_EXPENSE',
+  value,
+});
