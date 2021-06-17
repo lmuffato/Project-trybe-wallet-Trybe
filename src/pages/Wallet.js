@@ -36,16 +36,9 @@ class Wallet extends React.Component {
     const fetc = await fetch('https://economia.awesomeapi.com.br/json/all');
     const response = await fetc.json();
     const filtered = Object.values(response)
-      .filter((cur) => {
-        console.log();
-        return (cur !== 'USDT');
-      });
-    console.log(filtered);
+      .filter((cur) => (cur !== 'USDT'));
     const filter = Object.keys(response)
-      .filter((cur) => {
-        console.log();
-        return (cur !== 'USDT');
-      });
+      .filter((cur) => (cur !== 'USDT'));
     this.setState({
       exchange: filtered,
       filtered: filter,
@@ -56,10 +49,7 @@ class Wallet extends React.Component {
     const fetc = await fetch('https://economia.awesomeapi.com.br/json/all');
     const response = await fetc.json();
     const filtered = Object.values(response)
-      .filter((cur) => {
-        console.log();
-        return (cur !== 'USDT');
-      });
+      .filter((cur) => (cur !== 'USDT'));
     this.setState({
       exchange: filtered,
     });
