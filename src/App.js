@@ -14,3 +14,6 @@ function App() {
 }
 
 export default App;
+
+// Agradeço aos colegas, Anderson Silva,Lucas Lara,Nathi Zebral,Alan ALbuquerque, Marcus Cesar, Mateus Alencar,Rafael Medeiros
+// Por me ajudarem no projeto
