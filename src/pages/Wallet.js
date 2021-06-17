@@ -19,7 +19,7 @@ class Wallet extends React.Component {
         method: 'Dinheiro',
         value: 0,
         description: '',
-        exchangeRates: {},
+        exchangeRates: [],
       },
     };
   }
@@ -92,7 +92,7 @@ class Wallet extends React.Component {
         method: 'Dinheiro',
         value: 0,
         description: '',
-        exchangeRates: {},
+        exchangeRates: [],
       },
     });
   }
