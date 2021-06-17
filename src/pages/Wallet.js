@@ -5,14 +5,16 @@ import Header from '../components/header';
 import { addDespesa } from '../actions';
 
 class Wallet extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { idx } = this.props;
     const tag = this.alimentos();
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.state = {
       filtered: [],
       expenses: {
+        id: idx,
         currency: 'USD',
         tag,
         method: 'Dinheiro',
@@ -54,7 +56,7 @@ class Wallet extends React.Component {
     const response = await fetc.json();
     const tag = this.alimentos();
     const { expenses } = this.state;
-    const { despesa } = this.props;
+    const { despesa, idx } = this.props;
     expenses.exchangeRates = response;
     document.getElementById('currency').value = 'USD';
     document.getElementById('tag').value = { tag };
@@ -64,6 +66,7 @@ class Wallet extends React.Component {
     despesa({ ...expenses });
     this.setState({
       expenses: {
+        id: idx + 1,
         currency: 'USD',
         tag,
         method: 'Dinheiro',
@@ -158,7 +161,12 @@ class Wallet extends React.Component {
         <form>
           <label htmlFor="value">
             Valor
-            <input id="value" type="number" onChange={ (e) => this.handleChange(e) } />
+            <input
+              id="value"
+              type="number"
+              step=".01"
+              onChange={ (e) => this.handleChange(e) }
+            />
           </label>
           {this.DescriptionInput()}
           {this.paymentMethod()}
@@ -175,10 +183,15 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   despesa: PropTypes.objectOf(PropTypes.func).isRequired,
+  idx: PropTypes.number.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   despesa: (e) => dispatch(addDespesa(e)),
 });
 
-export default connect(null, mapDispatchToProps)(Wallet);
+const mapStateToProps = (state) => ({
+  idx: state.wallet.id,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

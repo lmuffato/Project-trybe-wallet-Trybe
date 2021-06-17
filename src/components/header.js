@@ -5,10 +5,13 @@ import { connect } from 'react-redux';
 class Form extends React.Component {
   render() {
     const { email, total } = this.props;
-    let initialValue = 0;
-    if (total !== initialValue) {
-      initialValue = total;
-    }
+    let sum = 0;
+    total.map((e) => {
+      const { currency, exchangeRates } = e;
+      const cot = Object.values(exchangeRates).find((el) => el.code === currency);
+      sum += (Math.round(e.value * 100) / 100) * cot.ask;
+      return cot;
+    });
     return (
       <div>
         <span data-testid="email-field">
@@ -20,7 +23,7 @@ class Form extends React.Component {
             data-testid="total-field"
             readOnly
             name="total-expense"
-            value="0"
+            value={ sum }
           />
         </span>
         <span
@@ -35,7 +38,7 @@ class Form extends React.Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
-  total: state.wallet.totalGasto,
+  total: state.wallet.expenses,
 });
 
 Form.propTypes = {
