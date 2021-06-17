@@ -1,3 +1,5 @@
-export const addRegister = (value) => ({ type: 'ADD_REGISTER', data: value });
-export const deleteRegister = (value) => ({ type: 'DELETE_REGISTER', value });
-export const login = (value) => ({ type: 'LOGIN', value });
+const LOGIN = 'LOGIN';
+const ADD_DESPESA = 'ADD_DESPESA';
+
+export const login = (value) => ({ type: LOGIN, value });
+export const addDespesa = (value) => ({ type: ADD_DESPESA, payload: value });

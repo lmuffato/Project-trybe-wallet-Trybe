@@ -32,15 +32,8 @@ class Login extends React.Component {
 
   notWorkingButton() {
     return (
-      <button
-        type="button"
-        disabled
-      >
-        <Link
-          to="/carteira"
-        >
-          Entrar
-        </Link>
+      <button type="button" disabled>
+        <Link to="/">Entrar </Link>
       </button>
     );
   }
