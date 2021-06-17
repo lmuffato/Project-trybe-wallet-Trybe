@@ -22,3 +22,33 @@ export const fetchAPI = () => async (dispatch) => {
   dispatch(receiveCurrencies(Object.keys(data)
     .filter((currency) => currency !== 'USDT')));
 };
+
+export const REQUEST_EXPENSES = 'REQUEST_EXPENSES';
+export const requestExpenses = () => ({
+  type: REQUEST_EXPENSES,
+});
+
+export const RECEIVE_EXPENSES = 'RECEIVE_EXPENSES';
+export const receiveExpenses = (payload) => ({
+  type: RECEIVE_EXPENSES,
+  payload,
+});
+
+const fetchExpense = async () => {
+  const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+  const data = await response.json();
+  return data;
+};
+
+export const fatchExpDisp = (expenses) => (dispathc) => {
+  dispathc(requestExpenses());
+  fetchExpense().then((expense) => {
+    const exRates = {
+      ...expenses,
+      exchangeRates: {
+        ...expense,
+      },
+    };
+    dispathc(receiveExpenses(exRates));
+  });
+};

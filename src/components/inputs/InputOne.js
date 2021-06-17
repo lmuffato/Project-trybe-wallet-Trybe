@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default class InputOne extends Component {
   render() {
-    const { currencies, handleChangeInput, value, descricao, moeda } = this.props;
+    const { currencies, handleChangeInput, value, description, currency } = this.props;
     return (
       <div>
         <label htmlFor="value">
@@ -16,19 +16,19 @@ export default class InputOne extends Component {
             onChange={ handleChangeInput }
           />
         </label>
-        <label htmlFor="descricao">
+        <label htmlFor="description">
           Descrição:
           <input
             type="text"
-            name="descricao"
-            id="descricao"
-            value={ descricao }
+            name="description"
+            id="description"
+            value={ description }
             onChange={ handleChangeInput }
           />
         </label>
-        <label htmlFor="moeda">
+        <label htmlFor="currency">
           Moeda:
-          <select onChange={ handleChangeInput } value={ moeda } name="moeda" id="moeda">
+          <select onChange={ handleChangeInput } value={ currency } name="currency" id="currency">
             { currencies
               .map((currency) => (
                 <option
@@ -48,6 +48,6 @@ InputOne.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   handleChangeInput: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
-  descricao: PropTypes.string.isRequired,
-  moeda: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  currency: PropTypes.string.isRequired,
 };

@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 
 export default class InputTwo extends Component {
   render() {
-    const { handleChangeInput, pagamento, tag } = this.props;
+    const { handleChangeInput, method, tag } = this.props;
     return (
       <>
-        <label htmlFor="pagamento">
-          Método de pagamento:
+        <label htmlFor="method">
+          Método de method:
           <select
             onChange={ handleChangeInput }
-            value={ pagamento }
-            name="pagamento"
-            id="pagamento"
+            value={ method }
+            name="method"
+            id="method"
           >
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
@@ -41,7 +41,7 @@ export default class InputTwo extends Component {
 
 InputTwo.propTypes = {
   handleChangeInput: PropTypes.func.isRequired,
-  pagamento: PropTypes.string.isRequired,
+  method: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
 
 };

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchAPI } from '../actions/index';
+import { fetchAPI, fatchExpDisp } from '../actions/index';
 import InputOne from './inputs/InputOne';
 import InputTwo from './inputs/InputTwo';
 
@@ -11,10 +11,10 @@ class Form extends Component {
     this.handleChangeInput = this.handleChangeInput.bind(this);
     this.state = {
       value: '',
-      descricao: '',
-      moeda: 'USD',
-      pagamento: 'Dinheiro',
-      tag: 'Alimentação',
+      currency: '',
+      method: '',
+      tag: '',
+      description: '',
     };
   }
 
@@ -29,35 +29,47 @@ class Form extends Component {
     });
   }
 
+  handleDispatch(e) {
+    e.preventDefault();
+    const { expenses, getExpense } = this.props;
+    const id = expenses.length;
+    getExpense({ ...this.state, id });
+  }
+
   render() {
     const { currencies } = this.props;
-    const { value, descricao, moeda, pagamento, tag } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     return (
       <form>
         <InputOne
           currencies={ currencies }
           handleChangeInput={ this.handleChangeInput }
           value={ value }
-          descricao={ descricao }
-          moeda={ moeda }
+          descricao={ description }
+          moeda={ currency }
         />
         <InputTwo
           handleChangeInput={ this.handleChangeInput }
-          pagamento={ pagamento }
+          pagamento={ method }
           tag={ tag }
         />
+        <button onClick={ this.handleDispatch } type="submit"> Adcionar Despesas</button>
       </form>
     );
   }
 }
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 const mapDispatchToProps = (dispatch) => ({
   fetchApi: () => dispatch(fetchAPI()),
+  getExpense: (expenses) => dispatch(fatchExpDisp(expenses)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
 Form.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   fetchApi: PropTypes.func.isRequired,
+  // expenses: PropTypes.string.isRequired,
+  // getExpense: PropTypes.func.isRequired,
 };
