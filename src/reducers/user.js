@@ -1,7 +1,7 @@
 import { USER } from '../actions';
 
 const INITIAL_STATE = {
-  email: 'none',
+  email: "nome@zada.com",
 };
 
 function user(state = INITIAL_STATE, action) {
