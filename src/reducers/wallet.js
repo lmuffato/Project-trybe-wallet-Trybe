@@ -5,7 +5,7 @@ const GET_VALUE = {
   expenses: [],
 };
 
-const value = (state = GET_VALUE, action) => {
+const wallet = (state = GET_VALUE, action) => {
   switch (action.type) {
   case GET_CURRENCY:
     return { ...state, currencies: action.currency };
@@ -20,4 +20,4 @@ const value = (state = GET_VALUE, action) => {
   }
 };
 
-export default value;
+export default wallet;

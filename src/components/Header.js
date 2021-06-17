@@ -3,13 +3,10 @@ import { connect } from 'react-redux';
 import { string, shape } from 'prop-types';
 
 class Header extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      sum: 0,
-    };
-    this.totalValue = this.totalValue.bind(this);
-  }
+  // constructor() {
+  //   super();
+  //   this.totalValue = this.totalValue.bind(this);
+  // }
 
   totalValue() {
     const { expenses } = this.props;
@@ -17,9 +14,6 @@ class Header extends React.Component {
     expenses.forEach((expense) => {
       sum += expense.value * expense.exchangeRates[expense.currency].ask;
     });
-    /*     this.setState({
-      sum,
-    }); */
     return sum;
   }
 
@@ -28,7 +22,7 @@ class Header extends React.Component {
     // const totalValue = expenses.reduce((acc, curr) => {
     //   const { currency } = curr;
     //   return acc + (Number(curr.value) * curr.exchangeRates[currency].ask);
-    // }, 0); // retorna o acumulador, transformando em numero, iniciando o id em 0.
+    // }, 0);
 
     return (
       <div>
@@ -54,4 +48,4 @@ Header.propTypes = {
   expenses: shape.isRequired,
 };
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps)(Header);

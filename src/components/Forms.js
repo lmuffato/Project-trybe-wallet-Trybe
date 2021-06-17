@@ -1,7 +1,7 @@
 import React from 'react';
 import { func } from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCurrency, expensesAdd } from '../actions';
+import { fetchCurrency, addExpense } from '../actions';
 // ajuda IMENSA do colega Guiherme pra entender pq nunca passava no teste
 
 class Forms extends React.Component {
@@ -16,6 +16,7 @@ class Forms extends React.Component {
       tag: 'Alimentação',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.listCurrencies = this.listCurrencies.bind(this);
   }
 
   componentDidMount() {
@@ -31,13 +32,13 @@ class Forms extends React.Component {
   }
 
   listCurrencies() {
-    const { currencies, dispachingExpense, getCurrency } = this.props;
-    getCurrency();
+    const { currencies, expenseDispatch, saveCurrency } = this.props;
+    saveCurrency();
     const newExpenses = {
       ...this.state,
       exchangeRates: currencies,
     };
-    dispachingExpense(newExpenses);
+    expenseDispatch(newExpenses);
     this.setState((previousState) => ({ id: previousState.id + 1 }));
   }
 
@@ -59,6 +60,7 @@ class Forms extends React.Component {
               <option key={ currencyKey }>{ currencyKey }</option>))}
           </select>
         </label>
+
         <label htmlFor="payment">
           Método de pagamento
           <select id="payment" name="method" onChange={ this.handleChange }>
@@ -67,6 +69,7 @@ class Forms extends React.Component {
             <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
+
         <label htmlFor="typeOfExpense">
           Tag
           <select id="typeOfExpense" name="tag" onChange={ this.handleChange }>
@@ -77,11 +80,13 @@ class Forms extends React.Component {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
+
         <label htmlFor="descricao">
           Descrição
           <input id="descricao" name="description" onChange={ this.handleChange } />
         </label>
-        <button type="button" onClick={ this.addNewExpenses }>
+
+        <button type="button" onClick={ this.listCurrencies }>
           Adicionar despesa
         </button>
       </form>
@@ -91,7 +96,7 @@ class Forms extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   saveCurrency: () => dispatch(fetchCurrency()),
-  addExpense: () => dispatch(expensesAdd()),
+  expenseDispatch: (expenses) => dispatch(addExpense(expenses)),
 });
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
