@@ -3,11 +3,11 @@ import { Route, Switch } from 'react-router';
 import { connect } from 'react-redux';
 import Login from './pages/Login';
 import Wallet from './pages/Wallet';
-import getAPI from './getAPI';
+import getApi from './getApi';
 
 class App extends React.Component {
   componentDidMount() {
-    getAPI();
+    getApi();
   }
 
   render() {

@@ -32,7 +32,7 @@ class Form extends React.Component {
           <select name="select" id="id_metodo_pagamento">
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito" selected>Cartão de crédito</option>
-            <option value="valoCartão de débitor">Cartão de débito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
 

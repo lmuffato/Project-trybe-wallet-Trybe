@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { addGasto } from '../actions';
+import getApi from '../getApi';
 
 class Table extends React.Component {
   render() {
@@ -16,10 +18,14 @@ class Table extends React.Component {
             <th>Valor convertido</th>
             <th>Moeda de conversão</th>
             <th>Editar/Excluir</th>
-            <td>
-              <button type="submit">Editar</button>
-              <button type="submit">Excluir</button>
-            </td>
+            <th>{}</th>
+            <button
+              type="submit"
+              onClick={ getApi() }
+            >
+              Editar
+            </button>
+            <button type="submit">Excluir</button>
           </tr>
         </thead>
       </table>
@@ -27,8 +33,8 @@ class Table extends React.Component {
   }
 }
 
-const mapStateToProps = ({ wallet: { expenses } }) => ({
-  expenses,
+const mapDispatchToProps = (dispatch) => ({
+  responseProp: (payload) => dispatch(addGasto(payload)),
 });
 
-export default connect(mapStateToProps)(Table);
+export default connect(mapDispatchToProps)(Table);
