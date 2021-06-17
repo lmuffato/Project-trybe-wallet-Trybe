@@ -26,6 +26,44 @@ class WalletForm extends Component {
     this.setState({ [target.id]: target.value });
   }
 
+  resetFormState() {
+    this.setState({
+      value: 0,
+      description: '',
+      currency: 'USD',
+      method: '',
+      tag: '',
+    });
+  }
+
+  renderButton(type) {
+    const { getCurrenciesData } = this.props;
+
+    if (type === 'add') {
+      return (
+        <button
+          type="button"
+          onClick={ () => {
+            getCurrenciesData(this.state);
+            this.resetFormState();
+          } }
+        >
+          Adicionar despesa
+        </button>
+      );
+    }
+    if (type === 'edit') {
+      return (
+        <button
+          type="button"
+          onClick={ () => console.log('this is edit form') }
+        >
+          Editar despesa
+        </button>
+      );
+    }
+  }
+
   render() {
     const { value, description, currency, method, tag } = this.state;
     const { getCurrenciesData, formType } = this.props;
