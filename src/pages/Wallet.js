@@ -7,17 +7,18 @@ import { addDespesa } from '../actions';
 class Wallet extends React.Component {
   constructor() {
     super();
+    const tag = this.alimentos();
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.state = {
       exchange: {},
-      filtered: [],
+      filtered: {},
       expenses: {
         currency: 'USD',
-        tag: 'ali',
-        payment_method: 'din',
-        despesa: 0,
-        despesa_description: '',
+        tag,
+        method: 'Dinheiro',
+        value: 0,
+        description: '',
         exchangeRates: {},
       },
     };
@@ -25,6 +26,10 @@ class Wallet extends React.Component {
 
   componentDidMount() {
     this.currencyAPI();
+  }
+
+  alimentos() {
+    return ('Alimentação');
   }
 
   async currencyAPI() {
@@ -35,6 +40,7 @@ class Wallet extends React.Component {
         console.log();
         return (cur !== 'USDT');
       });
+    console.log(filtered);
     const filter = Object.keys(response)
       .filter((cur) => {
         console.log();
@@ -69,24 +75,23 @@ class Wallet extends React.Component {
   }
 
   clearInputs() {
+    const tag = this.alimentos();
     const { expenses, exchange } = this.state;
     const { despesa } = this.props;
-    if (expenses.exchangeRates.length === 0) {
-      expenses.exchangeRates.push(exchange);
-    }
+    expenses.exchangeRates = exchange;
     document.getElementById('currency').value = 'USD';
-    document.getElementById('tag').value = 'ali';
-    document.getElementById('payment_method').value = 'din';
-    document.getElementById('despesa').value = 0;
-    document.getElementById('despesa_description').value = '';
+    document.getElementById('tag').value = { tag };
+    document.getElementById('method').value = 'Dinheiro';
+    document.getElementById('value').value = 0;
+    document.getElementById('description').value = '';
     despesa({ ...expenses });
     this.setState({
       expenses: {
         currency: 'USD',
-        tag: 'ali',
-        payment_method: 'din',
-        despesa: 0,
-        despesa_description: '',
+        tag,
+        method: 'Dinheiro',
+        value: 0,
+        description: '',
         exchangeRates: {},
       },
     });
@@ -121,31 +126,37 @@ class Wallet extends React.Component {
 
   paymentMethod() {
     return (
-      <label htmlFor="payment_method">
+      <label htmlFor="method">
         Método de pagamento
         <select
-          id="payment_method"
-          name="payment_method"
+          id="method"
+          name="method"
           onChange={ (e) => this.handleChange(e) }
         >
-          <option value="din" name="payment_method">Dinheiro</option>
-          <option value="cdc" name="payment_method">Cartão de crédito</option>
-          <option value="cdd" name="payment_method">Cartão de débito</option>
+          <option value="Dinheiro" name="method">Dinheiro</option>
+          <option
+            value="Cartão de crédito"
+            name="method"
+          >
+            Cartão de crédito
+          </option>
+          <option value="Cartão de débito" name="method">Cartão de débito</option>
         </select>
       </label>
     );
   }
 
   tagOptions() {
+    const tag = this.alimentos();
     return (
       <label htmlFor="tag">
         Tag
         <select id="tag" name="tag" onChange={ (e) => this.handleChange(e) }>
-          <option value="ali" name="tag">Alimentação</option>
-          <option value="laz" name="tag">Lazer</option>
-          <option value="tra" name="tag">Trabalho</option>
-          <option value="tre" name="tag">Transporte</option>
-          <option value="sau" name="tag">Saúde</option>
+          <option value={ tag } name="tag">{tag}</option>
+          <option value="Lazer" name="tag">Lazer</option>
+          <option value="Trabalho" name="tag">Trabalho</option>
+          <option value="Transporte" name="tag">Transporte</option>
+          <option value="Saúde" name="tag">Saúde</option>
         </select>
       </label>
     );
@@ -153,10 +164,10 @@ class Wallet extends React.Component {
 
   DescriptionInput() {
     return (
-      <label htmlFor="despesa_description">
+      <label htmlFor="description">
         Descrição
         <input
-          id="despesa_description"
+          id="description"
           type="text"
           onChange={ (e) => this.handleChange(e) }
         />
@@ -169,9 +180,9 @@ class Wallet extends React.Component {
       <div>
         <Header />
         <form>
-          <label htmlFor="despesa">
+          <label htmlFor="value">
             Valor
-            <input id="despesa" type="number" onChange={ (e) => this.handleChange(e) } />
+            <input id="value" type="number" onChange={ (e) => this.handleChange(e) } />
           </label>
           {this.DescriptionInput()}
           {this.paymentMethod()}
