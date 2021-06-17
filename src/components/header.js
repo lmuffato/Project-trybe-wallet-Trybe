@@ -40,6 +40,7 @@ const mapStateToProps = (state) => ({
 
 Form.propTypes = {
   email: PropTypes.string.isRequired,
+  total: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, null)(Form);
