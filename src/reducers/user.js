@@ -1,9 +1,8 @@
 import { USERLOGIN } from '../actions';
 
 const initialState = {
-  user: {
-    email: '',
-  },
+  email: '',
+  password: '',
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -16,4 +15,4 @@ export default (state = initialState, { type, payload }) => {
   default:
     return state;
   }
-}
+};

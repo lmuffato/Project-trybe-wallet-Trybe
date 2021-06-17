@@ -51,19 +51,19 @@ class Login extends React.Component {
     return (
       <section>
         <form>
-          <input 
+          <input
             type="text"
             data-testid="email-input"
             onChange={ this.emailChecker }
           />
-          <input 
-            type="password" 
+          <input
+            type="password"
             data-testid="password-input"
             onChange={ this.passChecker }
           />
           <Link to="/carteira" onClick={ () => username({ email, password }) }>
-            <button 
-              type="button" 
+            <button
+              type="button"
               disabled={ this.test() }
             >
               Entrar
