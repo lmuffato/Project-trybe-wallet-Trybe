@@ -20,6 +20,8 @@ class WalletForm extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.resetFormState = this.resetFormState.bind(this);
+    this.renderButton = this.renderButton.bind(this);
   }
 
   handleChange({ target }) {
