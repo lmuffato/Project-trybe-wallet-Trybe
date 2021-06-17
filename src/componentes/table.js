@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-// const { expenses } = this.props;
-
 function Table({ expenses }) {
   console.log(expenses);
   return (
@@ -29,7 +27,6 @@ function Table({ expenses }) {
               .toFixed(2);
             const valueC = (expense.value * expense.exchangeRates[expense.currency].ask)
               .toFixed(2);
-
             return (
               <tr key={ expense.id }>
                 <td>{expense.description}</td>
@@ -43,7 +40,7 @@ function Table({ expenses }) {
                 <td>
                   <button type="submit">Editar</button>
                   <button type="submit" data-testid="delete-btn">Remover</button>
-                  <button type="submit" name="/adicionar despesa/i">Adicionar Despesas</button>
+                  <button type="submit">Adicionar Despesas</button>
                   <button type="submit">Excluir</button>
                 </td>
               </tr>

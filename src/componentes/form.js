@@ -8,6 +8,11 @@ class Form extends React.Component {
     super();
     this.state = {
       currencies: { },
+      value: 0,
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
   }
 
@@ -15,10 +20,19 @@ class Form extends React.Component {
     getApi().then((data) => { this.setState({ currencies: data }); });
   }
 
+  addGasto() {
+
+  }
+
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  }
+
   // eslint-disable-next-line max-lines-per-function
   render() {
-    const { currencies } = this.state;
-    console.log(currencies);
+    const { currencies, value, description, currency, method, tag } = this.state;
+    console.log(currencies, value, description, currency, method, tag);
     const currenciesArray = Object.keys(currencies).filter((c) => c !== 'USDT');
     return (
       <form>
@@ -26,8 +40,9 @@ class Form extends React.Component {
           Valor
           <input
             type="number"
-            name="name"
+            name="value"
             id="id_valor"
+            onChange={ (e) => this.handleChange(e) }
           />
         </label>
         <label htmlFor="id_descricao">
@@ -35,20 +50,26 @@ class Form extends React.Component {
           <input
             type="text"
             id="id_descricao"
+            name="description"
+            onChange={ (e) => this.handleChange(e) }
           />
         </label>
         <label htmlFor="id_moeda">
           Moeda
-          <select name="select" id="id_moeda">
+          <select id="id_moeda" name="currency" onChange={ (e) => this.handleChange(e) }>
             { currenciesArray.map((currencie) => (
               <option key={ currencie }>
                 {currencie}
               </option>))}
           </select>
         </label>
-        <label htmlFor="id_metodo_pagamento">
+        <label htmlFor="id_metodo_pagamento" onChange={ (e) => this.handleChange(e) }>
           Método de pagamento
-          <select name="select" id="id_metodo_pagamento">
+          <select 
+            id="id_metodo_pagamento" 
+            name="method" 
+            onChange={ (e) => this.handleChange(e) }
+          >
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito" selected>Cartão de crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
@@ -56,7 +77,7 @@ class Form extends React.Component {
         </label>
         <label htmlFor="id_Tag">
           Tag
-          <select name="select" id="id_Tag">
+          <select id="id_Tag" name="tag" onChange={ (e) => this.handleChange(e) }>
             <option value="valor1">Alimentação</option>
             <option value="valor2" selected>Lazer</option>
             <option value="valor3">Trabalho</option>
@@ -72,6 +93,7 @@ class Form extends React.Component {
 
 const mapStateToProps = ({ wallet }) => ({
   currencies: wallet.currencies,
+  expenses: wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({

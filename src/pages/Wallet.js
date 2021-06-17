@@ -22,4 +22,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default Wallet;
 
-connect(null, mapDispatchToProps)
+connect(null, mapDispatchToProps);
