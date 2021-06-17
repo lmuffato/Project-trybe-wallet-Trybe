@@ -23,7 +23,6 @@ class Wallet extends React.Component {
     this.returnMethodPayment = this.returnMethodPayment.bind(this);
     this.returnTag = this.returnTag.bind(this);
     this.fetchRate = this.fetchRate.bind(this);
-    this.attValueExpense = this.attValueExpense.bind(this);
   }
 
   componentDidMount() {
@@ -45,7 +44,7 @@ class Wallet extends React.Component {
     // const { value, description, currency, method, tag, exchangeRates } = this.state;
     // console.log(`${value}, ${description}, ${currency}, ${method}, ${tag}`);
     const { expenses } = this.props;
-    console.log(expenses);
+    // console.log(expenses);
     // fazer requisição de api (é feita no componentDidMouny)
     // criando objeto que será posto no estado global
     const payload = {
@@ -76,6 +75,7 @@ class Wallet extends React.Component {
   }
 
   returnValueInput() {
+    const { value } = this.state;
     return (
       <label htmlFor="value">
         Valor
@@ -84,12 +84,14 @@ class Wallet extends React.Component {
           type="text"
           name="value"
           id="value"
+          value={ value }
         />
       </label>
     );
   }
 
   returnDescriptionInput() {
+    const { description } = this.state;
     return (
       <label htmlFor="description">
         Descrição
@@ -98,6 +100,7 @@ class Wallet extends React.Component {
           type="text"
           name="description"
           id="description"
+          value={ description }
         />
       </label>
     );
@@ -105,6 +108,7 @@ class Wallet extends React.Component {
 
   returnCurrencyInput() {
     const { currencies } = this.props;
+    const { currency } = this.state;
     const currenciesKeys = Object.keys(currencies);
     return (
       <label htmlFor="currency">
@@ -114,14 +118,15 @@ class Wallet extends React.Component {
           name="currency"
           id="currency"
           onChange={ (e) => this.handelChange(e) }
+          value={ currency }
         >
           {
-            currenciesKeys.map((currency) => (
+            currenciesKeys.map((currencyU) => (
               <option
-                key={ currency }
-                value={ currency }
+                key={ currencyU }
+                value={ currencyU }
               >
-                { currency }
+                { currencyU }
               </option>))
           }
         </select>
@@ -130,6 +135,7 @@ class Wallet extends React.Component {
   }
 
   returnMethodPayment() {
+    const { method } = this.state;
     return (
       <label htmlFor="payment-method">
         Método de pagamento
@@ -138,6 +144,7 @@ class Wallet extends React.Component {
           type="select"
           name="method"
           id="payment-method"
+          value={ method }
         >
           <option>Dinheiro</option>
           <option>Cartão de crédito</option>
@@ -167,24 +174,15 @@ class Wallet extends React.Component {
     );
   }
 
-  attValueExpense() {
-    const { expenses } = this.props;
-    return expenses[0].reduce((acc, curr) => {
-      const valueCurr = curr.value;
-      const askCurr = curr.exchangeRates[curr.currency].ask;
-      const total = valueCurr * askCurr;
-      return acc + total;
-    }, 0);
-  }
-
   render() {
-    const { email, expenses, totalAmount } = this.props;
-    console.log(`expenses:${expenses.value}`);
+    const { email, totalAmount } = this.props;
+    // console.log(`expenses:${expenses.value}`);
+    // console.log(totalAmount);
     return (
       <>
         <header>
           <span data-testid="email-field">{email}</span>
-          <span data-testid="total-field">{ totalAmount }</span>
+          <span data-testid="total-field">{ totalAmount || 0 }</span>
           <span data-testid="header-currency-field">BRL</span>
         </header>
         <form>

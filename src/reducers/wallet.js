@@ -20,7 +20,9 @@ function walletReducer(state = INITIAL_STATE, action) {
     console.log('expense here.');
     return { ...state,
       expenses: [...state.expenses, action.payload],
-      totalAmount: Number(state.totalAmount) + Number(action.payload.value),
+      totalAmount: Number(state.totalAmount)
+      + Number(action.payload.value)
+      * (action.payload.exchangeRates[action.payload.currency].ask),
     };
   default:
     return state;
