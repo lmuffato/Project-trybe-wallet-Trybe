@@ -12,6 +12,7 @@ class MethodInput extends Component {
           value={ method }
           id="method"
           onChange={ handleChange }
+          data-testid="method-input"
         >
           <option value="Dinheiro">Dinheiro</option>
           <option value="Cartão de crédito">Cartão de crédito</option>

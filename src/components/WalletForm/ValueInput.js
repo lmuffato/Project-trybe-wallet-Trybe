@@ -12,6 +12,7 @@ class ValueInput extends Component {
           id="value"
           value={ value }
           onChange={ handleChange }
+          data-testid="value-input"
         />
       </label>
     );

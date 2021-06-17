@@ -12,6 +12,7 @@ class DescriptionInput extends Component {
           id="description"
           value={ description }
           onChange={ handleChange }
+          data-testid="description-input"
         />
       </label>
     );

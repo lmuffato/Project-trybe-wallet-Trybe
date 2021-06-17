@@ -12,6 +12,7 @@ class TagInput extends Component {
           value={ tag }
           id="tag"
           onChange={ handleChange }
+          data-testid="tag-input"
         >
           <option value="Alimentação">Alimentação</option>
           <option value="Lazer">Lazer</option>

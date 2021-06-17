@@ -13,6 +13,7 @@ class CurrencyInput extends Component {
           value={ currency }
           onChange={ handleChange }
           id="currency"
+          data-testid="currency-input"
         >
           {currenciesList.map((curr) => (
             <option
