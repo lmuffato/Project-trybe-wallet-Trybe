@@ -11,8 +11,7 @@ class Wallet extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.state = {
-      exchange: {},
-      filtered: {},
+      filtered: [],
       expenses: {
         currency: 'USD',
         tag,
@@ -35,23 +34,9 @@ class Wallet extends React.Component {
   async currencyAPI() {
     const fetc = await fetch('https://economia.awesomeapi.com.br/json/all');
     const response = await fetc.json();
-    const filtered = Object.values(response)
-      .filter((cur) => (cur !== 'USDT'));
     const filter = Object.keys(response)
       .filter((cur) => (cur !== 'USDT'));
-    this.setState({
-      exchange: filtered,
-      filtered: filter,
-    });
-  }
-
-  async AddDebtAPI() {
-    const fetc = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const response = await fetc.json();
-    const filtered = Object.values(response)
-      .filter((cur) => (cur !== 'USDT'));
-    this.setState({
-      exchange: filtered,
+    this.setState({ filtered: filter,
     });
   }
 
@@ -64,11 +49,15 @@ class Wallet extends React.Component {
     });
   }
 
-  clearInputs() {
+  async clearInputs() {
+    const fetc = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const response = await fetc.json();
+    const filtered = Object.entries(response)
+      .filter((cur) => (cur !== 'USDT'));
     const tag = this.alimentos();
-    const { expenses, exchange } = this.state;
+    const { expenses } = this.state;
     const { despesa } = this.props;
-    expenses.exchangeRates = exchange;
+    expenses.exchangeRates.push(...filtered);
     document.getElementById('currency').value = 'USD';
     document.getElementById('tag').value = { tag };
     document.getElementById('method').value = 'Dinheiro';
