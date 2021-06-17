@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchAPI, userLogin } from '../actions';
+import { userLogin } from '../actions';
 
 class Login extends React.Component {
   constructor() {
     super();
-
     this.handleChange = this.handleChange.bind(this);
     this.handleValidate = this.handleValidate.bind(this);
-
     this.state = {
       email: '',
       password: '',
@@ -36,9 +34,8 @@ class Login extends React.Component {
   handleClick(e) {
     e.preventDefault();
     const { email } = this.state;
-    const { loginUser, history, fetchApi } = this.props;
+    const { loginUser, history } = this.props;
     loginUser(email);
-    fetchApi();
     history.push('/carteira');
   }
 
@@ -77,16 +74,11 @@ class Login extends React.Component {
     );
   }
 }
-
 const mapDispatchToProps = (dispatch) => ({
   loginUser: (email) => dispatch(userLogin(email)),
-  fetchApi: () => dispatch(fetchAPI()),
 });
-
 Login.propTypes = {
-  history: PropTypes.func.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
   loginUser: PropTypes.func.isRequired,
-  fetchApi: PropTypes.func.isRequired,
 };
-
 export default connect(null, mapDispatchToProps)(Login);

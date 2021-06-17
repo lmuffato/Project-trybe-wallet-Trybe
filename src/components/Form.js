@@ -1,24 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { fetchAPI } from '../actions/index';
 import InputOne from './inputs/InputOne';
 import InputTwo from './inputs/InputTwo';
 
 class Form extends Component {
   constructor() {
     super();
-    this.handleChangeInput = this.handleChangeInput(this);
+    this.handleChangeInput = this.handleChangeInput.bind(this);
     this.state = {
       value: '',
       descricao: '',
-      moeda: '',
-      pagamento: '',
-      tag: '',
+      moeda: 'USD',
+      pagamento: 'Dinheiro',
+      tag: 'Alimentação',
     };
   }
 
-  handleChangeInput({ target }) {
-    const { name, value } = target;
+  componentDidMount() {
+    const { fetchApi } = this.props;
+    fetchApi();
+  }
+
+  handleChangeInput({ target: { name, value } }) {
     this.setState({
       [name]: value,
     });
@@ -40,20 +45,19 @@ class Form extends Component {
           handleChangeInput={ this.handleChangeInput }
           pagamento={ pagamento }
           tag={ tag }
-
         />
-
       </form>
     );
   }
 }
-
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
-
-export default connect(mapStateToProps)(Form);
-
+const mapDispatchToProps = (dispatch) => ({
+  fetchApi: () => dispatch(fetchAPI()),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
 Form.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  fetchApi: PropTypes.func.isRequired,
 };
