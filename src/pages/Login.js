@@ -1,45 +1,50 @@
 import React from 'react';
 
 class Login extends React.Component {
-  /* constructor(props) {
+  constructor(props) {
     super(props);
-
     this.state = {
       email: '',
       password: '',
-      loged: false,
+      logged: false,
     };
   }
 
-  handleChange({ target: { value } }) {
-    this.setState(() => ({ email: value }));
+  handleChange({ target: { name, value } }) {
+    this.setState({
+      [name]: value,
+    }, this.validateForm);
   }
-  /* handleChange = ({target: {value, name}}) => {
-    this.setState({ [name]: value });
-  } */
 
   render() {
+    const { email, password, logged } = this.state;
     return (
-      <main>
-        <header>TRYBE</header>
-        <form>
-          <input
-            type="email"
-            placeholder="email"
-            name="email"
-            data-testid="email-input"
-            onChange={ this.handleChange }
-          />
-          <input
-            type="password"
-            placeholder="password"
-            name="password"
-            data-testid="password-input"
-            onChange={ this.handleChange }
-          />
-          <button type="button">Entrar</button>
-        </form>
-      </main>
+      <div>
+        {logged ? <Redirect to="/carteira" /> : ''}
+        <main>
+          <header>TRYBE</header>
+          <form>
+            <input
+              type="email"
+              placeholder="email"
+              value={ email }
+              name="email"
+              data-testid="email-input"
+              onChange={ this.handleChange }
+            />
+            <input
+              type="password"
+              placeholder="password"
+              minLength="6"
+              value={ password }
+              name="password"
+              data-testid="password-input"
+              onChange={ this.handleChange }
+            />
+            <button id="btn-submit" type="submit" disabled>Entrar</button>
+          </form>
+        </main>
+      </div>
     );
   }
 }
