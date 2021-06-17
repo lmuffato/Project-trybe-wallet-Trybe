@@ -9,7 +9,7 @@ class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
-      value: '0',
+      value: 0,
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
@@ -42,23 +42,28 @@ class Wallet extends React.Component {
   async handleClick(e) {
     e.preventDefault();
     await this.fetchRate();
-    const { value, description, currency, method, tag, exchangeRates } = this.state;
+    // const { value, description, currency, method, tag, exchangeRates } = this.state;
     // console.log(`${value}, ${description}, ${currency}, ${method}, ${tag}`);
+    const { expenses } = this.props;
+    console.log(expenses);
     // fazer requisição de api (é feita no componentDidMouny)
     // criando objeto que será posto no estado global
     const payload = {
-      value,
-      description,
-      currency,
-      method,
-      tag,
-      exchangeRates,
+      ...this.state,
+      id: expenses.length,
     };
     // const {  as getRatesThunk } = this.props;
-    console.log(payload);
+    // console.log(payload);
     // getRatesThunk(payload);
     const { setExpense } = this.props;
     setExpense(payload);
+    this.setState({
+      value: 0,
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    });
     // const rates = getRates();
     // console.log(rates);
   }
@@ -173,13 +178,13 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email, expenses } = this.props;
+    const { email, expenses, totalAmount } = this.props;
     console.log(`expenses:${expenses.value}`);
     return (
       <>
         <header>
           <span data-testid="email-field">{email}</span>
-          <span data-testid="total-field">{ 0 }</span>
+          <span data-testid="total-field">{ totalAmount }</span>
           <span data-testid="header-currency-field">BRL</span>
         </header>
         <form>
@@ -204,6 +209,7 @@ const mapStateToProps = (state) => ({
   email: state.user.email,
   currencies: state.wallet.currencies,
   expenses: state.wallet.expenses,
+  totalAmount: state.wallet.totalAmount,
 });
 
 const mapDispatchToProps = (dispatch) => ({

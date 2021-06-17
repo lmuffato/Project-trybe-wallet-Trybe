@@ -1,4 +1,5 @@
-import fetchAPIRates, { fetchAPI } from '../services/fetchAPI';
+// import fetchAPIRates, { fetchAPI } from '../services/fetchAPI';
+import { fetchAPI } from '../services/fetchAPI';
 
 // Coloque aqui suas actions
 export const LOGIN_USER = 'LOGIN_USER';
@@ -25,15 +26,15 @@ export const getCoins = () => (dispatch) => {
     .then((currencies) => dispatch(setCoins(currencies)));
 };
 
-export const setRates = (rates) => ({
-  type: RATES,
-  payload: rates,
-});
+// export const setRates = (rates) => ({
+//   type: RATES,
+//   payload: rates,
+// });
 
-export const getRates = () => (dispatch) => {
-  fetchAPIRates()
-    .then((rates) => dispatch(setRates(rates)));
-};
+// export const getRates = () => (dispatch) => {
+//   fetchAPIRates()
+//     .then((rates) => dispatch(setRates(rates)));
+// };
 
 export const setExpense = (expense) => {
   console.log('setexpense on.');
