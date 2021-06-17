@@ -26,3 +26,38 @@ export function fetchCurrency() {
       .then((currency) => dispatch(receiveCurrency(currency)));
   };
 }
+
+// export function fetchExpenses(expenses) {
+//   return (dispatch) => (
+//     fetch('https://economia.awesomeapi.com.br/json/all')
+//       .then((response) => response.json())
+//       .then((currency) => dispatch(saveExpenses(expenses, currency)))
+//   );
+// }
+
+export const REQUEST_EXPENSES = 'REQUEST_EXPENSES';
+
+export const RECEIVE_EXPENSES = 'RECEIVE_EXPENSES';
+
+export const requestExpenses = () => ({
+  type: REQUEST_EXPENSES,
+});
+
+export const receiveExpenses = (payload) => ({
+  type: RECEIVE_EXPENSES,
+  payload,
+});
+
+const fetchExpense = async () => {
+  const fetchExp = await fetch('https://economia.awesomeapi.com.br/json/all');
+  const fetchExp2 = fetchExp.json();
+  return fetchExp2;
+};
+
+export const fetchExpenses = (value) => (dispatch) => {
+  dispatch(requestExpenses());
+  fetchExpense().then((expense) => {
+    const xablau = { ...value, exchangeRates: { ...expense } };
+    dispatch(receiveExpenses(xablau));
+  });
+};

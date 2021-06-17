@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import AddForm from '../components/addform';
 import Header from '../components/Header';
+import TableExpenses from '../components/TableExpenses';
 
 class Wallet extends React.Component {
   render() {
@@ -10,14 +11,11 @@ class Wallet extends React.Component {
       <main>
         <Header />
         <AddForm />
+        <TableExpenses />
       </main>
     );
   }
 }
-
-// const mapDispatchToProps = (dispatch) => ({
-//   adicionaMoeda: () => dispatch(thunkApi()),
-// });
 
 const mapStateToProps = (state) => ({
   getEmail: state.user.email,
