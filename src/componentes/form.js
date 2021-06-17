@@ -13,9 +13,13 @@ class Form extends React.Component {
     getApi().then((data) => { this.setState({ currencies: data }); });
   }
 
+  ver(currenciesArray) {
+    console.log(currenciesArray);
+  }
+
   render() {
     const { currencies } = this.state;
-    const currenciesArray = Object.keys(currencies);
+    const currenciesArray = Object.keys(currencies).filter((c) => c !== 'USDT');
     return (
       <form>
         <label htmlFor="id_valor">
