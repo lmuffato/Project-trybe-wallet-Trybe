@@ -1,5 +1,4 @@
 // Coloque aqui suas actions
-// compara texto do e-mail se
 export const GET_EMAIL = 'GET_EMAIL';
 export const getEmail = (email) => ({
   type: GET_EMAIL,
@@ -7,13 +6,16 @@ export const getEmail = (email) => ({
 });
 export const REQUEST_CURRENCY = 'REQUEST_CURRENCY';
 const requestCurrency = () => ({
-  type: REQUEST_CURRENCY });
+  type: REQUEST_CURRENCY,
+});
 
 export const RECEIVE_CURRENCY = 'RECEIVE_CURRENCY';
 const receiveCurrency = (currency) => ({
   type: RECEIVE_CURRENCY,
-  currency });
+  currency,
+});
 
+// thunk para pegar as moedas na api;
 export function fetchCurrency() {
   return (dispatch) => {
     dispatch(requestCurrency());
@@ -22,3 +24,9 @@ export function fetchCurrency() {
       .then((currency) => dispatch(receiveCurrency(currency)));
   };
 }
+
+export const ADD_EXPENSES = 'ADD_EXPENSES';
+export const addExpenses = (expense) => ({
+  type: ADD_EXPENSES,
+  expense,
+});

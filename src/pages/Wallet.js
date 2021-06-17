@@ -2,6 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import ExpenseForm from '../component/ExpenseForm';
+import TableExpenses from '../component/TableExpenses';
 
 class Wallet extends React.Component {
   render() {
@@ -18,6 +19,7 @@ class Wallet extends React.Component {
           0
         </div>
         <ExpenseForm />
+{/*         <TableExpenses /> */}
       </div>
     );
   }
