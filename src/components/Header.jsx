@@ -19,7 +19,6 @@ class Header extends Component {
 
   render() {
     const { email, totalValue } = this.props;
-    console.log(totalValue)
     const total = parseFloat(totalValue).toFixed(2);
     return (
       <header>
@@ -29,7 +28,8 @@ class Header extends Component {
         </p>
         <p>
           Total:
-          {this.handleTotal ? <p data-testid="total-field">0</p> : total}
+          {this.handleTotal ? <p data-testid="total-field">0</p>
+            : <p data-testid="total-field">{total}</p>}
         </p>
         <p data-testid="header-currency-field">
           Taxa:BRL
