@@ -10,7 +10,28 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { emailget } = this.props;
+    const { emailget, totalCurrency } = this.props;
+    if (!totalCurrency) {
+      return (
+        <>
+          <p
+            data-testid="email-field"
+          >
+            {`${emailget}`}
+          </p>
+          <p
+            data-testid="total-field"
+          >
+            0
+          </p>
+          <p
+            data-testid="header-currency-field"
+          >
+            BRL
+          </p>
+        </>
+      );
+    }
     return (
       <>
         <p
@@ -21,7 +42,7 @@ class Wallet extends React.Component {
         <p
           data-testid="total-field"
         >
-          0
+          {`${totalCurrency === 0 ? '0' : totalCurrency}`}
         </p>
         <p
           data-testid="header-currency-field"
@@ -35,9 +56,12 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   emailget: state.user.email,
+  totalCurrency: state.wallet.totalCurrency,
 });
 
 Wallet.propTypes = {
+  wallet: PropTypes.arrayOf(PropTypes.object),
+  totalCurrency: PropTypes.number.isRequired,
   emailget: PropTypes.string,
 }.isRequired;
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { total, wallet } from '../actions';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -32,6 +33,7 @@ class Wallet extends React.Component {
     let response = await fetchApi.json();
     response = Object.keys(response);
     response = response.filter((coin) => coin !== 'USDT');
+    response = response.filter((coin) => coin !== 'DOGE');
     this.setState({
       currencySelect: response,
     });
@@ -45,26 +47,35 @@ class Wallet extends React.Component {
 
   async handleClick() {
     const { curr, tag, paymethod, name, desc } = this.state;
+    const { walletInsert, walletTotal, totalCurrency, walletStore } = this.props;
     const fetchApi = await fetch('https://economia.awesomeapi.com.br/json/all');
-    let response = await fetchApi.json();
-    response = Object.keys(response);
+    const response = await fetchApi.json();
+    const parseTotalBefore = parseFloat(totalCurrency);
+    const parseTotalafter = parseFloat(name);
+    const parseTotalafterMult = parseTotalafter * response[curr].ask;
+    console.log(parseTotalafterMult);
+    const totalFinal = parseTotalBefore + parseFloat(parseTotalafterMult);
     const preOrder = {
-      name,
-      desc,
-      curr,
-      paymethod,
+      id: walletStore.length,
+      value: name,
+      currency: curr,
+      method: paymethod,
       tag,
+      description: desc,
+      exchangeRates: response,
     };
-    console.log(response && preOrder);
+    await walletTotal(totalFinal);
+    await walletInsert(preOrder);
   }
 
   handleCost() {
     return (
-      <label htmlFor="value">
-        Nome:
+      <label name="Valor" htmlFor="value">
+        Valor:
         <input
           onChange={ (event) => this.handleChange(event.target) }
-          type="text"
+          type="number"
+          step="0.01"
           name="name"
           id="value"
         />
@@ -74,7 +85,7 @@ class Wallet extends React.Component {
 
   handleDesc() {
     return (
-      <label htmlFor="descrip">
+      <label name="Descrição" htmlFor="descrip">
         Descrição:
         <input
           onChange={ (event) => this.handleChange(event.target) }
@@ -89,7 +100,7 @@ class Wallet extends React.Component {
   handleCurrency() {
     const { currencySelect } = this.state;
     return (
-      <label htmlFor="currency">
+      <label name="Moeda" htmlFor="currency">
         Moeda:
         <select
           name="curr"
@@ -105,8 +116,8 @@ class Wallet extends React.Component {
 
   handlePayMeth() {
     return (
-      <label htmlFor="PayMethod">
-        Método:
+      <label name="Método de pagamento" htmlFor="PayMethod">
+        método de pagamento:
         <select
           name="paymethod"
           id="PayMethod"
@@ -123,19 +134,19 @@ class Wallet extends React.Component {
 
   handleTag() {
     return (
-      <label htmlFor="Tag">
-        Método:
+      <label name="tag" htmlFor="tag">
+        tag
         <select
           name="tag"
-          id="Tag"
           form="carform"
+          id="tag"
           onChange={ (event) => this.handleChange(event.target) }
         >
           <option value="Alimentação">Alimentação</option>
           <option value="Lazer">Lazer</option>
           <option value="Trabalho">Trabalho</option>
           <option value="Transporte">Transporte</option>
-          <option value="Sáude">Sáude</option>
+          <option value="Sáude">Saúde</option>
         </select>
       </label>
     );
@@ -153,19 +164,26 @@ class Wallet extends React.Component {
           type="button"
           onClick={ () => this.handleClick() }
         >
-          Calcular
+          adicionar despesa
         </button>
       </form>
     );
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  walletInsert: (payload) => dispatch(wallet(payload)),
+  walletTotal: (payload) => dispatch(total(payload)),
+});
+
 const mapStateToProps = (state) => ({
-  emailget: state.user.email,
+  totalCurrency: state.wallet.totalCurrency,
+  walletStore: state.wallet.expenses,
 });
 
 Wallet.propTypes = {
-  emailget: PropTypes.string,
+  wallet: PropTypes.arrayOf(PropTypes.object),
+  totalCurrency: PropTypes.number.isRequired,
 }.isRequired;
 
-export default connect(mapStateToProps, null)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
