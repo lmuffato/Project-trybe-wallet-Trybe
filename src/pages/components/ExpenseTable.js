@@ -2,18 +2,47 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './expenseTable.css';
-import { updatedExpenses } from '../../actions';
+import { updatedExpenses, editExpense } from '../../actions';
 
 class ExpenseTable extends React.Component {
   constructor() {
     super();
     this.deleteExpense = this.deleteExpense.bind(this);
+    this.handleButton = this.handleButton.bind(this);
+    this.editExpense = this.editExpense.bind(this);
   }
 
   deleteExpense(id) {
     const { expenses, getUpdatedExpense } = this.props;
     const upDatedExpenses = expenses.filter((expense) => expense.id !== id);
     getUpdatedExpense(upDatedExpenses);
+  }
+
+  editExpense(expense) {
+    const { editExpenses } = this.props;
+    editExpenses(expense);
+  }
+
+  handleButton(expense) {
+    const { id } = expense;
+    return (
+      <td>
+        <button
+          type="button"
+          data-testid="edit-btn"
+          onClick={ () => this.editExpense(expense) }
+        >
+          Editar
+        </button>
+        <button
+          type="button"
+          data-testid="delete-btn"
+          onClick={ () => this.deleteExpense(id) }
+        >
+          Excluir
+        </button>
+      </td>
+    );
   }
 
   render() {
@@ -30,7 +59,7 @@ class ExpenseTable extends React.Component {
             <th>Câmbio utilizado</th>
             <th>Valor convertido</th>
             <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
+            <th rowSpan="2">Editar/Excluir</th>
           </tr>
         </thead>
         <tbody>
@@ -47,15 +76,7 @@ class ExpenseTable extends React.Component {
                 <td>{ convertValue.toFixed(2) }</td>
                 <td>{ (value * convertValue).toFixed(2) }</td>
                 <td>Real</td>
-                <td>
-                  <button
-                    type="button"
-                    data-testid="delete-btn"
-                    onClick={ () => this.deleteExpense(expense.id) }
-                  >
-                    Excluir
-                  </button>
-                </td>
+                { this.handleButton(expense) }
               </tr>
             );
           })}
@@ -70,7 +91,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatpchToProps = (dispatch) => ({
   getUpdatedExpense: (obj) => dispatch(updatedExpenses(obj)),
-
+  editExpenses: (obj) => dispatch(editExpense(obj)),
 });
 
 ExpenseTable.propTypes = {

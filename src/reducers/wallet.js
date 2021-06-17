@@ -5,6 +5,8 @@
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  expense: null,
+  edit: false,
 };
 
 function wallet(state = INITIAL_STATE, action) {
@@ -25,6 +27,19 @@ function wallet(state = INITIAL_STATE, action) {
   case 'UPDATER_EXPENSE':
     return {
       ...state,
+      expenses: action.expenses,
+    };
+  case 'EDIT_EXPENSE':
+    return {
+      ...state,
+      expense: action.edit,
+      edit: true,
+    };
+  case 'FINISH_EDITIG':
+    return {
+      ...state,
+      expense: {},
+      edit: false,
       expenses: action.expenses,
     };
   default:

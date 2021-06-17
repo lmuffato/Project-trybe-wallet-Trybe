@@ -12,11 +12,6 @@ function user(state = INITIAL_STATE, action) {
       ...state,
       email: action.email,
     };
-  // case 'DISABLED':
-  //   return {
-  //     ...state,
-  //     isDisabled: true,
-  //   };
   default:
     return state;
   }

@@ -67,10 +67,14 @@ class ExpenseForm extends React.Component {
     const { expenses, getExpenses } = this.props;
     const id = expenses.length;
     const rates = await this.getApi();
+    // 0: Array(2)
+    // 0: "USD"
+    // 1: {code: "USD", codein: "BRL", name: "Dólar Americano/Real Brasileiro", high: "5.0771", low: "5.056", …}
+    // length: 2
     getExpenses({ id,
       ...this.state,
       exchangeRates: Object.entries(rates).reduce((obj, rate) => ({
-        ...obj,
+        ...obj, // {}
         [rate[0]]: rate[1],
       }), {}) });
   }
@@ -101,6 +105,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   currencys: state.wallet.currencies,
   expenses: state.wallet.expenses,
+  edit: state.wallet.edit,
 });
 
 ExpenseForm.propTypes = {

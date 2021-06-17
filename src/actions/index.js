@@ -21,6 +21,11 @@ export const updatedExpenses = (expenses) => ({
   expenses,
 });
 
+export const editExpense = (edit) => ({
+  type: 'EDIT_EXPENSE',
+  edit,
+});
+
 export function getCurruencies() {
   return async (dispatch) => {
     const data = await fetchCurrencies();
@@ -43,6 +48,13 @@ export function addExchangeRates() {
   };
 }
 
-// export function updatedExpenses(expenses) {
-//   return (expenses);
-// }
+const finishEditing = (expenses) => ({
+  type: 'FINISH_EDITIG',
+  expenses,
+});
+
+export function finishEditExpense(expenses) {
+  return async (dispatch) => {
+    dispatch(finishEditing(expenses));
+  };
+}
