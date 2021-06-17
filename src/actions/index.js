@@ -7,7 +7,7 @@ export const saveEmail = (email) => ({
 
 // Course 16.3
 // action creator que retorna um objeto
-export const ASK_CURRENCY = 'SAVE_CURRENCY';
+export const ASK_CURRENCY = 'ASK_CURRENCY';
 const askCurrency = () => ({
   type: ASK_CURRENCY });
 
@@ -18,7 +18,7 @@ const getCurrency = (currency) => ({
   currency });
 
 // action creator que retorna uma função, possível por conta do pacote redux-thunk
-// daqui, envio a função para o reducers
+// daqui, envio a função (requisição da API) para o reducers
 export function fetchCurrency() {
   return (dispatch) => {
     dispatch(askCurrency());
@@ -27,3 +27,20 @@ export function fetchCurrency() {
       .then((currency) => dispatch(getCurrency(currency)));
   };
 }
+
+// outro action creator que retorna um objeto
+export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const addExpense = (payload) => ({
+  type: ADD_EXPENSE,
+  payload,
+});
+
+// pega novamente a API e faz um dispatch para usar no comp. Header e Forms
+export const expensesAdd = (state) => async (dispatch) => {
+  const exchangeRates = await fetchCurrency();
+  const expenses = {
+    ...state,
+    exchangeRates,
+  };
+  dispatch(expensesAdd(expenses));
+}; // exchangeRates é a chave q vai guardar o valor retornado pela API
