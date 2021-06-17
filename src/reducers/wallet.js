@@ -27,8 +27,6 @@ function wallet(state = INITIAL_STATE, action) {
       expenses: [...state.expenses, action.payload],
     };
   case UPDATE_TOTAL:
-    console.log(state.total);
-    console.log(action.payload);
     return {
       ...state,
       total: action.payload + state.total,
