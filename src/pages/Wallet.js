@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../components/header';
 import { expense } from './index';
 import { addDespesa } from '../actions';
@@ -40,7 +41,6 @@ class Wallet extends React.Component {
   clearInputs() {
     const { expenses, exchange } = this.state;
     const { despesa } = this.props;
-    const position = expenses.length - 1;
     if (expenses.exchangeRates.length === 0) {
       expenses.exchangeRates.push(exchange);
     }
@@ -155,6 +155,10 @@ class Wallet extends React.Component {
     );
   }
 }
+
+Wallet.propTypes = {
+  despesa: PropTypes.objectOf(PropTypes.func).isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   despesa: (e) => dispatch(addDespesa(e)),
