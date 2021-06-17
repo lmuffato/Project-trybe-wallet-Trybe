@@ -74,7 +74,6 @@ export const getCurrenciesDataThunk = (formState) => (dispatch) => {
       dispatch(getCurrenciesDataSuccess(newExpense));
     })
     .catch((error) => {
-      console.log(error);
       getCurrenciesError(error);
     });
 };
@@ -86,9 +85,6 @@ export const deleteExpenseThunk = (expId, expenses) => (dispatch) => {
 };
 
 export const editExpenseThunk = (formState, editableExp, exp) => (dispatch) => {
-  console.log(formState);
-  console.log(editableExp);
-  console.log(exp);
   const updatedExpenses = [
     ...exp.slice(0, editableExp.id),
     { id: editableExp.id,
