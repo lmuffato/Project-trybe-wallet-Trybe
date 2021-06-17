@@ -16,7 +16,7 @@ function wallet(state = initialState, action) {
       expenses: [...state.expenses, action.value],
       id: state.id + 1,
       totalGasto: sumDebt(state, [action.value]),
-      currencies: [...action.value.exchangeRates],
+      currencies: action.value.exchangeRates,
     };
   case 'DELETE_DESPESA':
     return state.filter((register) => register !== action.value);

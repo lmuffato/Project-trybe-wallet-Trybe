@@ -18,7 +18,7 @@ class Wallet extends React.Component {
         method: 'Dinheiro',
         value: 0,
         description: '',
-        exchangeRates: [],
+        exchangeRates: {},
       },
     };
   }
@@ -52,12 +52,10 @@ class Wallet extends React.Component {
   async clearInputs() {
     const fetc = await fetch('https://economia.awesomeapi.com.br/json/all');
     const response = await fetc.json();
-    const filtered = Object.entries(response)
-      .filter((cur) => (cur !== 'USDT'));
     const tag = this.alimentos();
     const { expenses } = this.state;
     const { despesa } = this.props;
-    expenses.exchangeRates.push(...filtered);
+    expenses.exchangeRates = response;
     document.getElementById('currency').value = 'USD';
     document.getElementById('tag').value = { tag };
     document.getElementById('method').value = 'Dinheiro';
@@ -71,7 +69,7 @@ class Wallet extends React.Component {
         method: 'Dinheiro',
         value: 0,
         description: '',
-        exchangeRates: [],
+        exchangeRates: {},
       },
     });
   }
