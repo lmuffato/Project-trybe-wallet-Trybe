@@ -55,7 +55,7 @@ class Wallet extends React.Component {
       paymethod,
       tag,
     };
-    console.log(response);
+    console.log(response && preOrder);
   }
 
   handleCost() {
