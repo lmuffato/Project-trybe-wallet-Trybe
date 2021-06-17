@@ -3,27 +3,27 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Header extends Component {
-  constructor() {
-    super();
+  // constructor() {
+  //   super();
 
-    this.sumValues = this.sumValues.bind(this);
-  }
-
-  sumValues() {
-    const { expensesState } = this.props;
-    expensesState.reduce((a, b) => console.log(parseFloat(a.value + b.value)));
-    // arrayValues.reduce((a, b) => a + b);
-  }
+  //   this.sumValues = this.sumValues.bind(this);
+  // }
 
   render() {
     const { emailState, expensesState } = this.props;
+    console.log(expensesState);
 
-    // console.log(sumValues());
+    // const sumValues = () => {
+    //   // const { expensesState } = this.props;
+    //   expensesState.reduce((a, b) => {
+    //     parseFloat(a.value) + parseFloat(b.value));
+    // };
 
     const validation = () => {
       if (expensesState.length === 0) return true;
       return false;
     };
+
     return (
       <header>
         <p data-testid="email-field">
@@ -32,7 +32,9 @@ class Header extends Component {
         </p>
         <p data-testid="total-field">
           Despesa total:
-          {validation() ? 0 : this.sumValues() }
+          {/* {validation() ? 0 : expensesState.reduce((a, b) => {
+            const corrency = 
+          }) } */}
         </p>
         <p data-testid="header-currency-field">BRL</p>
       </header>

@@ -39,10 +39,11 @@ class Forms extends React.Component {
     return arrayCurrencies;
   }
 
-  async handleClick() {
-    const { expensesDispach, expensesState, currenciesDispatch } = this.props;
+  handleClick() {
+    const { expensesDispach, expensesState, currenciesState } = this.props;
+    console.log(currenciesState);
     const id = expensesState.length;
-    const currenciesApi = await currenciesDispatch();
+    const currenciesApi = currenciesState;
     expensesDispach({
       id,
       ...this.state,
@@ -64,7 +65,7 @@ class Forms extends React.Component {
         </form>
         <button
           type="button"
-          onClick={ () => this.handleClick() }
+          onClick={ () => console.log(this.handleClick()) }
         >
           Adicionar Despesa
         </button>
