@@ -21,11 +21,8 @@ class Login extends React.Component {
 
   handleChange({ target: { name, value } }) {
     this.setState({ [name]: value }, () => {
-      if (this.hasValidEmail() && this.hasValidPassword()) {
-        this.setState({ hasValidLogin: true });
-      } else {
-        this.setState({ hasValidLogin: false });
-      }
+      const valid = this.hasValidEmail() && this.hasValidPassword();
+      this.setState({ hasValidLogin: valid });
     });
   }
 
