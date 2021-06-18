@@ -1,0 +1,16 @@
+:root {
+  --pink: #ff958d;
+  --yellow: #ffd070;
+  --brown: #33100d;
+  --gray: #7d7574;
+  --white: #e2e2e2;
+}
+
+.wallet-header-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding: 10px 0;
+  background-color: var(--brown);
+  color:#e2e2e2;
+}

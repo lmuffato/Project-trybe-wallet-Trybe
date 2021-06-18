@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import '../style/WalletHeader.css';
 
 class WalletHeader extends React.Component {
   render() {
@@ -16,9 +17,9 @@ class WalletHeader extends React.Component {
     }
 
     return (
-      <header>
+      <header className="wallet-header-container">
         <div data-testid="email-field">{user.email}</div>
-        <div data-testid="total-field">{totalExpensesValue}</div>
+        <div data-testid="total-field">{`Total: R$ ${totalExpensesValue}`}</div>
         <div data-testid="header-currency-field">BRL</div>
       </header>
     );
