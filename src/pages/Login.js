@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 import { login } from '../actions';
+import '../style/Login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -45,26 +46,31 @@ class Login extends React.Component {
     return (
       buttonClicked ? <Redirect to="/carteira" />
         : (
-          <div>
-            <form>
-              <label htmlFor="email">
-                Email:
+          <div className="login-page">
+            <h1>trybewallet</h1>
+            <form className="login-container">
+              <label htmlFor="email" className="login-label-input">
+                {/* Email: */}
                 <input
                   type="email"
                   name="email"
                   id="email"
                   data-testid="email-input"
                   onChange={ this.handleChange }
+                  className="login-text-input"
+                  placeholder="email"
                 />
               </label>
-              <label htmlFor="password">
-                Password:
+              <label htmlFor="password" className="login-label-input">
+                {/* Password: */}
                 <input
                   type="password"
                   name="password"
                   id="password"
                   data-testid="password-input"
                   onChange={ this.handleChange }
+                  className="login-text-input"
+                  placeholder="password"
                 />
               </label>
               <button
@@ -74,6 +80,7 @@ class Login extends React.Component {
                   loginDispatcher(email, password);
                   this.setState({ buttonClicked: true });
                 } }
+                className="login-button"
               >
                 Entrar
               </button>
