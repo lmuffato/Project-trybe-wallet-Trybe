@@ -1,26 +1,37 @@
-import { SET_CURRENCIES, SET_EXPENSES } from '../actions';
+import { REQUEST_API, GET_COTATION, ADD_DESPESA } from '../actions';
 
 const INITIAL_STATE = {
-  currencies: null,
+  currencies: [],
   expenses: [],
 };
 
-const wallet = (state = INITIAL_STATE, { type, payload }) => {
-  switch (type) {
-  case SET_CURRENCIES:
+function walletReducer(state = INITIAL_STATE, action) {
+  switch (action.type) {
+  case REQUEST_API:
     return {
       ...state,
-      currencies: payload,
+      loading: true,
     };
-  case SET_EXPENSES:
+  case GET_COTATION:
     return {
       ...state,
-      expenses: [...state.expenses, payload],
+      loading: false,
+      currencies: action.data,
+      simpleCurrencies: action.simpleData,
     };
-
+  case ADD_DESPESA:
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses,
+        {
+          ...action.state,
+        },
+      ],
+    };
   default:
     return state;
   }
-};
+}
 
-export default wallet;
+export default walletReducer;

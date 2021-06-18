@@ -1,40 +1,73 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchAPI } from './actions';
 
 class Header extends React.Component {
+  constructor() {
+    super();
+
+    this.amoutValues = this.amoutValues.bind(this);
+  }
+
+  amoutValues() {
+    let valorTotal = 0;
+    const { expenses } = this.props;
+
+    // Lógica feita com ajuda do Henrique Clementino
+    expenses.forEach(({ value, currency, exchangeRates }) => {
+      valorTotal += exchangeRates[currency].ask * value;
+    });
+
+    return valorTotal;
+  }
+
   render() {
-    const { user: { email }, expenses } = this.props;
+    const { userLogin } = this.props;
+
     return (
-      <>
-        <h4 data-testid="email-field">
-          E-mail:
-          { email }
-        </h4>
-        <p>
-          Despesa Total:
-          <span data-testid="total-field">
-            { expenses ? expenses
-              .reduce((acc, { currency, exchangeRates, value }) => {
-                const price = exchangeRates[currency].ask * value;
-                return acc + price;
-              }, 0) : 0 }
-          </span>
-          <span data-testid="header-currency-field">BRL</span>
-        </p>
-      </>
+      <div>
+        <header>
+          <p
+            data-testid="email-field"
+          >
+            E-mail:
+            {' '}
+            { userLogin }
+          </p>
+          <p
+            data-testid="total-field"
+            name="despesa"
+          >
+            Despesa Total:
+            {' '}
+            {' R$ '}
+            { this.amoutValues() }
+          </p>
+          <p
+            data-testid="header-currency-field"
+            name="cambio"
+          >
+            BRL
+          </p>
+        </header>
+      </div>
     );
   }
 }
 
-Header.propTypes = {
-  user: PropTypes.string.isRequired,
-  expenses: PropTypes.arrayOf([]).isRequired,
-};
-
 const mapStateToProps = (state) => ({
-  user: state.user,
+  userLogin: state.user.email,
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps, null)(Header);
+const mapDispatchToProps = (dispatch) => ({
+  getCurrency: () => dispatch(fetchAPI()),
+});
+
+Header.propTypes = {
+  userLogin: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

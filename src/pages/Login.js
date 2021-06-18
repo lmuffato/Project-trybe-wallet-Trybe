@@ -1,72 +1,81 @@
 import React from 'react';
-
-import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addEmail } from '../actions/index';
+import { userLogin } from '../actions';
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+
     this.state = {
       email: '',
-      password: '',
-      logged: false,
+      senha: '',
     };
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
     this.setState({
       [name]: value,
-    }, this.validateForm);
+    });
   }
 
   render() {
-    const { email, password, logged } = this.state;
-    const { user } = this.props;
+    const { history, updateUser } = this.props;
+    const { email, senha } = this.state;
+    // Crédito Alessandra Rezende
+    const validaEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    const min = 6;
+    const habilitaBotao = email.match(validaEmail) && senha.length >= min ? null : true;
+    const checkLogin = () => {
+      updateUser(email);
+      history.push('/carteira');
+    };
+
     return (
-      <div>
-        {logged ? <Redirect to="/carteira" /> : ''}
-        <main>
-          <header>TRYBE</header>
-          <form>
-            <input
-              type="email"
-              placeholder="email"
-              value={ email }
-              name="email"
-              data-testid="email-input"
-              onChange={ this.handleChange }
-            />
-            <input
-              type="password"
-              placeholder="password"
-              minLength="6"
-              value={ password }
-              name="password"
-              data-testid="password-input"
-              onChange={ this.handleChange }
-            />
-            <button
-              type="button"
-              onClick={ () => this.setState({ logged: true }, () => user(email)) }
-              disabled={ !(password.length >= quanty
-              && email.includes('.com') && email.includes('@')) }
-            >
-              Entrar
-            </button>
-          </form>
-        </main>
+      <div className="login">
+        <label htmlFor="email">
+          <input
+            type="email"
+            placeholder="E-mail"
+            data-testid="email-input"
+            name="email"
+            onChange={ this.handleChange }
+          />
+        </label>
+        <br />
+        <label htmlFor="senha">
+          <input
+            type="password"
+            placeholder="Senha"
+            data-testid="password-input"
+            name="senha"
+            onChange={ this.handleChange }
+          />
+        </label>
+        <br />
+        <button
+          type="button"
+          className="btnLogin"
+          onClick={ checkLogin }
+          disabled={ habilitaBotao }
+        >
+          {' '}
+          Entrar
+        </button>
       </div>
     );
   }
 }
-Login.propTypes = {
-  user: PropTypes.func.isRequired,
-};
 
 const mapDispatchToProps = (dispatch) => ({
-  user: (data) => dispatch(addEmail(data)),
+  updateUser: (email) => dispatch(userLogin(email)),
 });
+
+Login.propTypes = {
+  updateUser: PropTypes.func.isRequired,
+  history: PropTypes.string.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(Login);

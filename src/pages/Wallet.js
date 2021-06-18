@@ -1,38 +1,42 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import Expenses from '../Expenses';
 import Header from '../Header';
-import { getApiThunk } from '../actions/index';
+import FormDespesa from '../Expenses';
 
 class Wallet extends React.Component {
-  componentDidMount() {
-    const { upDate } = this.props;
-    upDate();
+  constructor() {
+    super();
+    this.state = {
+      id: 0,
+    };
+    this.updateId = this.updateId.bind(this);
+  }
+
+  updateId() {
+    this.setState((prev) => ({ id: prev.id + 1 }));
   }
 
   render() {
-    const { currencies } = this.props;
+    const { id } = this.state;
+
     return (
-      <>
-        <Header />
-        <Expenses currencies={ currencies } />
-      </>
+      <div>
+        <div>
+          <Header />
+        </div>
+        <div>
+          <FormDespesa
+            id={ id }
+            updateId={ this.updateId }
+          />
+        </div>
+      </div>
     );
   }
 }
 
-Wallet.propTypes = {
-  upDate: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf([]).isRequired,
-};
-
 const mapStateToProps = (state) => ({
-  currencies: state.wallet.currencies,
+  editing: state.wallet.editing,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  upDate: () => dispatch(getApiThunk()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
+export default connect(mapStateToProps)(Wallet);
