@@ -14,7 +14,6 @@ class Header extends React.Component {
     let valorTotal = 0;
     const { expenses } = this.props;
 
-    // Lógica feita com ajuda do Henrique Clementino
     expenses.forEach(({ value, currency, exchangeRates }) => {
       valorTotal += exchangeRates[currency].ask * value;
     });
