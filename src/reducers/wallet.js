@@ -1,6 +1,6 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 // import { SET_COINS, RATES, EXPENSE } from '../actions';
-import { SET_COINS, EXPENSE } from '../actions';
+import { SET_COINS, EXPENSE, ATT_EXPENSES } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -24,6 +24,15 @@ function walletReducer(state = INITIAL_STATE, action) {
       + Number(action.payload.value)
       * (action.payload.exchangeRates[action.payload.currency].ask),
     };
+  case ATT_EXPENSES: {
+    const { id, newTotalAmount } = action.payload;
+    return { ...state,
+      expenses: [...state.expenses.slice(0, id), // https://qastack.com.br/programming/34582678/is-this-the-correct-way-to-delete-an-item-using-redux
+        ...state.expenses.slice(id + 1),
+      ],
+      totalAmount: Number(newTotalAmount),
+    };
+  }
   default:
     return state;
   }

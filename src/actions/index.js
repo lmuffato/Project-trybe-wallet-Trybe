@@ -6,6 +6,7 @@ export const WALLET = 'WALLET';
 export const SET_COINS = 'SET_COINS';
 export const RATES = 'RATES';
 export const EXPENSE = 'EXPENSE';
+export const ATT_EXPENSES = 'ATT_EXPENSES';
 
 // action utilizada para colocar login (email) no Store.
 const loginUser = (payload) => ({
@@ -20,17 +21,21 @@ export const setCoins = (currencies) => ({
 });
 
 export const getCoins = () => (dispatch) => {
-  // console.log('getCoins on.');
   fetchAPI()
     .then((currencies) => dispatch(setCoins(currencies)));
 };
 
-export const setExpense = (expense) => {
+export const setExpense = (expenses) => {
   console.log('setexpense on.');
   return {
     type: EXPENSE,
-    payload: expense,
+    payload: expenses,
   };
 };
+
+export const attExpense = (expenses) => ({
+  type: ATT_EXPENSES,
+  payload: expenses,
+});
 
 export default loginUser;

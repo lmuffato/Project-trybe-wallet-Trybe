@@ -29,7 +29,6 @@ class Wallet extends React.Component {
   componentDidMount() {
     const { getCoins } = this.props;
     getCoins();
-    // this.fetchRate();
   }
 
   async fetchRate() {
@@ -42,21 +41,13 @@ class Wallet extends React.Component {
   async handleClick(e) {
     e.preventDefault();
     await this.fetchRate();
-    // const { value, description, currency, method, tag, exchangeRates } = this.state;
-    // console.log(`${value}, ${description}, ${currency}, ${method}, ${tag}`);
     const { expenses } = this.props;
-    // console.log(expenses);
-    // fazer requisição de api (é feita no componentDidMouny)
-    // criando objeto que será posto no estado global
     const payload = {
       ...this.state,
       id: expenses.length,
     };
-    // const {  as getRatesThunk } = this.props;
-    // console.log(payload);
-    // getRatesThunk(payload);
     const { setExpense } = this.props;
-    setExpense(payload);
+    setExpense(payload); // aqui eu disparo um thunk com o payload, que é o objeto (q esta no estado local)
     this.setState({
       value: 0,
       description: '',
@@ -64,8 +55,6 @@ class Wallet extends React.Component {
       method: 'Dinheiro',
       tag: 'Alimentação',
     });
-    // const rates = getRates();
-    // console.log(rates);
   }
 
   handelChange(event) {
@@ -177,12 +166,16 @@ class Wallet extends React.Component {
 
   render() {
     const { email, totalAmount } = this.props;
+    let totalAmountFixed = 0;
+    if (totalAmount) {
+      totalAmountFixed = totalAmount.toFixed(2);
+    }
     return (
       <>
         <header>
           <span data-testid="email-field">{email}</span>
-          <span data-testid="total-field">{ totalAmount || 0 }</span>
-          <span data-testid="header-currency-field">BRL</span>
+          <span data-testid="total-field">{ totalAmountFixed || 0.00 }</span>
+          <span data-testid="header-currency-field"> BRL</span>
         </header>
         <form>
           { this.returnValueInput() }

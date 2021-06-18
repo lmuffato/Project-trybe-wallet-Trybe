@@ -1,8 +1,47 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { attExpense as attExpenseAction } from '../actions';
 
 class TableWallet extends Component {
+  constructor() {
+    super();
+
+    this.handleClick = this.handleClick.bind(this);
+    this.returnButton = this.returnButton.bind(this);
+  }
+
+  handleClick(id) {
+    // console.log(id);
+    const { expenses } = this.props;
+    const expensesFilter = expenses.filter((expense) => expense.id !== id);
+    console.log(expensesFilter);
+    const total = expensesFilter.reduce((acc, curr) => acc + Number(curr.value)
+     * (curr.exchangeRates[curr.currency].ask), 0);
+    // console.log(total);
+    const payload = {
+      id,
+      newTotalAmount: total,
+    };
+    const { attExpense } = this.props;
+    attExpense(payload);
+    // a lógica acima vai percorrer o arr de obj, e só retornará objs cujo id for dif. do recebodido por argumento.
+    // simplesmente substituo o expenses do estado global pelo expensesFilter;
+  }
+
+  returnButton(idm) {
+    return (
+      <button
+        id={ idm }
+        type="button"
+        data-testid="delete-btn"
+        onClick={ () => this.handleClick(idm) }
+      >
+        X
+      </button>
+    );
+  }
+
   render() {
     const { expenses } = this.props;
     return (
@@ -39,6 +78,9 @@ class TableWallet extends Component {
                 }
               </td>
               <td>Real</td>
+              <td>
+                { this.returnButton(expense.id) }
+              </td>
             </tr>
           ))}
         </tbody>
@@ -51,10 +93,14 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  attExpense: (payload) => dispatch(attExpenseAction(payload)),
+});
+
 TableWallet.propTypes = {
   currencies: PropTypes.object,
 }.isRequerid;
 
-export default connect(mapStateToProps)(TableWallet);
+export default connect(mapStateToProps, mapDispatchToProps)(TableWallet);
 
 // Descrição, Tag, Método de pagamento, Valor, Moeda, Câmbio utilizado, Valor convertido, Moeda de conversão e Editar/Excluir
