@@ -2,6 +2,8 @@ export const EMAIL = 'email';
 export const REQUEST = 'REQUEST';
 export const RES_SUCCESS = 'RES_SUCCESS';
 export const RES_FAILED = 'RES_FAILED';
+export const ADD = 'ADD';
+export const TOTAL = 'TOTAL';
 
 export const request = () => ({
   type: REQUEST,
@@ -12,6 +14,16 @@ export const actionEmail = (value) => ({
   payload: {
     value,
   },
+});
+
+export const sumTotal = (payload) => ({
+  type: TOTAL,
+  payload,
+});
+
+export const addExpense = (payload) => ({
+  type: ADD,
+  payload,
 });
 
 export const requestSucess = (payload) => ({

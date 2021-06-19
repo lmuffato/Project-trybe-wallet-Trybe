@@ -1,10 +1,11 @@
-import { RES_SUCCESS, REQUEST, RES_FAILED } from '../actions';
+import { RES_SUCCESS, REQUEST, RES_FAILED, ADD, TOTAL } from '../actions';
 
 const INITIAL_STATE = {
   expenses: [],
   loading: false,
   error: '',
   currencies: [],
+  total: 0,
 };
 
 function walletReducer(state = INITIAL_STATE, action) {
@@ -25,6 +26,16 @@ function walletReducer(state = INITIAL_STATE, action) {
       ...state,
       loading: false,
       error: action.payload.error,
+    };
+  case ADD:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload],
+    };
+  case TOTAL:
+    return {
+      ...state,
+      total: action.payload,
     };
   default: return state;
   }

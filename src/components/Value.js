@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class Description extends Component {
+export default class Expenses extends Component {
   render() {
     const { handleChange } = this.props;
     return (
-      <label htmlFor="description">
-        Descrição
+      <label htmlFor="expense">
+        Valor
         <input
           onChange={ handleChange }
-          type="text"
-          id="description"
-          name="description"
+          type="number"
+          id="expense"
+          name="value"
         />
       </label>
     );
   }
 }
 
-Description.propTypes = {
+Expenses.propTypes = {
   handleChange: PropTypes.func.isRequired,
 };

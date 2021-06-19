@@ -19,11 +19,16 @@ class Currency extends Component {
   }
 
   render() {
+    const { handleChange } = this.props;
     this.filteredCoin();
     return (
       <label htmlFor="currency">
         Moeda
-        <select id="currency">
+        <select
+          onChange={ handleChange }
+          name="currency"
+          id="currency"
+        >
           {this.filteredCoin()}
         </select>
       </label>
@@ -41,6 +46,7 @@ Currency.defaultProps = {
 
 Currency.propTypes = {
   apiCoin: PropTypes.objectOf(PropTypes.object),
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(Currency);
