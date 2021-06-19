@@ -19,7 +19,9 @@ class WalletHeader extends React.Component {
     return (
       <header className="wallet-header-container">
         <div data-testid="email-field">{user.email}</div>
-        <div data-testid="total-field">{`Total: R$ ${totalExpensesValue}`}</div>
+        <div data-testid="total-field" className="wallet-header-total-field">
+          {`Total: R$ ${totalExpensesValue}`}
+        </div>
         <div data-testid="header-currency-field">BRL</div>
       </header>
     );
