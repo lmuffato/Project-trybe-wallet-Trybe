@@ -12,5 +12,9 @@
   width: 100%;
   padding: 10px 0;
   background-color: var(--brown);
-  color:#e2e2e2;
+  color:var(--white);
+}
+
+.wallet-header-total-field {
+  font-weight: 900;
 }
