@@ -1,0 +1,12 @@
+.wallet-table-container {
+  width: 96%;
+  margin: auto;
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+.wallet-table-container td, .wallet-table-container td {
+  width: 11%;
+  text-align: center;
+  border: 1px solid black;
+}

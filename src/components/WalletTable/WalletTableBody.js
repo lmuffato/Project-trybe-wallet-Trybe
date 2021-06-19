@@ -45,17 +45,17 @@ class WalletTableBody extends Component {
             <td>
               <button
                 type="button"
-                data-testid="delete-btn"
-                onClick={ () => deleteExpense(expense.id, expenses) }
-              >
-                X
-              </button>
-              <button
-                type="button"
                 data-testid="edit-btn"
                 onClick={ () => editExpense(expense) }
               >
                 Edit
+              </button>
+              <button
+                type="button"
+                data-testid="delete-btn"
+                onClick={ () => deleteExpense(expense.id, expenses) }
+              >
+                X
               </button>
             </td>
           </tr>
