@@ -58,6 +58,7 @@ const wallet = (state = initialState, action) => {
     return {
       ...state,
       expenses: action.editedExpenses,
+      formType: 'add',
     };
   default:
     return state;
