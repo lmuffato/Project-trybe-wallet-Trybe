@@ -1,13 +1,28 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { delExpense } from '../actions';
 
 class Table extends Component {
+  constructor() {
+    super();
+    this.deleteExpenseInRedux = this.deleteExpenseInRedux.bind(this);
+  }
+
+  async deleteExpenseInRedux({ target: { id: buttonID } }) {
+    // console.log('buttonID:', buttonID);
+    const { props: { expenses, deleteExpense } } = this;
+    const newArrayOfExpenses = expenses
+      .filter(({ id: expenseID }) => expenseID !== Number(buttonID));
+    await deleteExpense(newArrayOfExpenses);
+  }
+
   render() {
     // console.log(this.props.expenses);
     const arr1 = ['Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda'];
     const arr2 = ['Câmbio utilizado', 'Valor convertido'];
     const tableHeader = [...arr1, ...arr2, 'Moeda de conversão', 'Editar/Excluir'];
-    const { props: { expenses } } = this;
+    const { props: { expenses }, deleteExpenseInRedux } = this;
     return (
       <table>
         <tr>
@@ -32,7 +47,15 @@ class Table extends Component {
                 .round((Number(v.value) * v.exchangeRates[v.currency].ask) * 100) / 100) }
             </td>
             <td key={ index }>Real</td>
-            <td key={ index }> botões </td>
+            <button
+              id={ v.id }
+              type="button"
+              key={ index }
+              data-testid="delete-btn"
+              onClick={ deleteExpenseInRedux }
+            >
+              Deletar
+            </button>
           </tr>
         )) }
       </table>
@@ -41,8 +64,13 @@ class Table extends Component {
 }
 
 Table.propTypes = {
-  exchangeRates: PropTypes.shape({}).isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-};
+  exchangeRates: PropTypes.shape({}),
+  expenses: PropTypes.arrayOf(PropTypes.shape({})),
+  deleteExpense: PropTypes.func,
+}.isRequired;
 
-export default Table;
+const mapDispatchToProps = (dispatch) => ({
+  deleteExpense: (newArrayOfExpenses) => dispatch(delExpense(newArrayOfExpenses)),
+});
+
+export default connect(null, mapDispatchToProps)(Table);

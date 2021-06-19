@@ -8,27 +8,16 @@ import '../Wallet.css';
 class Wallet extends Component {
   constructor() {
     super();
-    this.updateTotal = this.updateTotal.bind(this);
+    this.total = this.total.bind(this);
     this.createStateValues = this.createStateValues.bind(this);
     this.state = {
       expenses: [],
-      total: 0,
     };
   }
 
   componentDidMount() {
     const { requestCurrencies } = this.props;
     return requestCurrencies();
-  }
-
-  updateTotal() {
-    const { props: { expenses }, state: { total } } = this;
-    expenses.forEach(({ value: v, currency: c, exchangeRates }) => {
-      this.setState((pre) => (
-        { ...pre,
-          total: (Math
-            .round((total + (Number(v) * exchangeRates[c].ask)) * 100) / 100) }));
-    });
   }
 
   async createStateValues(evt) {
@@ -49,26 +38,34 @@ class Wallet extends Component {
       .setState((prev) => ({ expenses: [{ ...prev.expenses[0], [name]: value }] })));
     await requestExchangeRates();
     const { props: { exchangeRates } } = this;
-    await this.setState((pre) => ({ expenses: [{ ...pre.expenses[0], exchangeRates }] }));
+    this.setState((pre) => ({ expenses: [{ ...pre.expenses[0], exchangeRates }] }));
     // console.log(this.state.expenses);
     const { state: { expenses: oneHundredPercentUpdated } } = this;
     await newReduxState(oneHundredPercentUpdated); // é ruim de aturar! Bomba patch virou moda...
-    return this.updateTotal();
+  }
+
+  total() {
+    const { props: { expenses } } = this;
+    const retorno = Math
+      .round(expenses
+        .reduce((acc, curr) => acc + (Number(curr
+          .value) * Number(curr
+          .exchangeRates[curr
+            .currency].ask)), 0) * 100) / 100;
+    return retorno;
   }
 
   render() {
     const payments = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     const { props: { personEmail, currencies, expenses },
-      state: { total }, createStateValues } = this;
+      createStateValues, resetTotal, total } = this;
     return (
       <>
         <div className="flex-container">
-          <header data-testid="email-field">
-            {personEmail}
-          </header>
+          <header data-testid="email-field">{personEmail}</header>
           <span data-testid="header-currency-field">BRL</span>
-          <span data-testid="total-field">{ total }</span>
+          <span data-testid="total-field">{ total()}</span>
         </div>
         <form className="fieldset" onSubmit={ createStateValues }>
           <label htmlFor="valor">
@@ -99,7 +96,10 @@ class Wallet extends Component {
           </label>
           <button type="submit">Adicionar despesa</button>
         </form>
-        <Table expenses={ expenses } />
+        <Table
+          expenses={ expenses }
+          resetTotal={ resetTotal }
+        />
       </>
     );
   }

@@ -2,6 +2,7 @@ export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const GET_EXCHANGERATES = 'GET_EXCHANGERATES';
 export const SET_EXPENSES = 'SET_EXPENSES';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const saveEmail = (user) => (
   { type: SAVE_EMAIL,
@@ -23,6 +24,12 @@ export const getExchangeRates = (data) => (
 
 export const setExpenses = (data) => (
   { type: SET_EXPENSES,
+    data,
+  }
+);
+
+export const delExpense = (data) => (
+  { type: DELETE_EXPENSE,
     data,
   }
 );
