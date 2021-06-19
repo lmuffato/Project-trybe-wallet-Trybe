@@ -1,6 +1,20 @@
 import React from 'react';
 
 class Login extends React.Component {
+  // constructor() {
+  //   super();
+
+  //   this.handleClick = this.handleClick.bind(this);
+
+  //   this.state = {
+  //     validation: false,
+  //   };
+  // }
+
+  // handleClick() {
+
+  // }
+
   render() {
     return (
       <div>
@@ -22,7 +36,13 @@ class Login extends React.Component {
             type="text"
           />
         </label>
-        <button type="button">Entrar</button>
+        <button
+          type="submit"
+          // onClick={ () => this.handleClick() }
+          // disabled={ validation }
+        >
+          Entrar
+        </button>
       </div>
     );
   }
