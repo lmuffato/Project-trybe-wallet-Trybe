@@ -5,19 +5,19 @@ class Login extends React.Component {
     return (
       <div>
         <label htmlFor="email">
-          Login
+          Email
           <input
             data-testid="email-input"
-            placeholder="Insira o subtítulo"
+            placeholder="Insira seu email"
             id="email"
             type="email"
           />
         </label>
         <label htmlFor="password">
-          Login
+          Senha
           <input
             data-testid="password-input"
-            placeholder="Insira o subtítulo"
+            placeholder="Insira uma senha"
             id="password"
             type="text"
           />
