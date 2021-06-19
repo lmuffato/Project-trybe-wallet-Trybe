@@ -13,6 +13,9 @@
 import React from 'react';
 import './login.css';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
+import { transportarEmail } from '../actions';
 import money from '../images/money.png';
 
 class Login extends React.Component {
@@ -51,6 +54,8 @@ class Login extends React.Component {
   }
 
   render() {
+    const { funcaoEnviarEmail } = this.props;
+    const { email } = this.state;
     return (
       <fieldset>
         <img
@@ -85,6 +90,7 @@ class Login extends React.Component {
           </label>
           <Link to="/carteira" style={ { textDecoration: 'none' } }>
             <button
+              onClick={ () => funcaoEnviarEmail(email) }
               disabled={ this.habilitarBotao() }
               type="button"
               className="alinhamento"
@@ -98,4 +104,14 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+// A Função "funcaoEnviarEmail" pega o "STATE email" e enviar
+// através da "ACTION transportarEmail" para o "reducer"
+const mapDispatchToProps = (dispatch) => ({
+  funcaoEnviarEmail: (email) => dispatch(transportarEmail(email)) });
+
+Login.propTypes = {
+  funcaoEnviarEmail: PropTypes.func.isRequired,
+};
+
+// Para entender melhor o código abaixo, consultar a aula do dia 16.2
+export default connect(null, mapDispatchToProps)(Login);
