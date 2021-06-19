@@ -7,13 +7,14 @@ class CurrencyInput extends Component {
     const { currenciesList, handleChange, currency } = this.props;
 
     return (
-      <label htmlFor="currency">
+      <label htmlFor="currency" className="wallet-form-input-label">
         Moeda
         <select
           value={ currency }
           onChange={ handleChange }
           id="currency"
           data-testid="currency-input"
+          className="wallet-form-input"
         >
           {currenciesList.map((curr) => (
             <option

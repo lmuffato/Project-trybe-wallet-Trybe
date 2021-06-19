@@ -6,13 +6,14 @@ class MethodInput extends Component {
     const { handleChange, method } = this.props;
 
     return (
-      <label htmlFor="method">
+      <label htmlFor="method" className="wallet-form-input-label">
         Método de pagamento
         <select
           value={ method }
           id="method"
           onChange={ handleChange }
           data-testid="method-input"
+          className="wallet-form-input"
         >
           <option value="Dinheiro">Dinheiro</option>
           <option value="Cartão de crédito">Cartão de crédito</option>

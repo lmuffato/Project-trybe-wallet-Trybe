@@ -6,13 +6,14 @@ class TagInput extends Component {
     const { handleChange, tag } = this.props;
 
     return (
-      <label htmlFor="tag">
+      <label htmlFor="tag" className="wallet-form-input-label">
         Tag
         <select
           value={ tag }
           id="tag"
           onChange={ handleChange }
           data-testid="tag-input"
+          className="wallet-form-input"
         >
           <option value="Alimentação">Alimentação</option>
           <option value="Lazer">Lazer</option>

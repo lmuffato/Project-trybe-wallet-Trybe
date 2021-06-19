@@ -1,0 +1,55 @@
+:root {
+  --pink: #ff958d;
+  --yellow: #ffd070;
+  --brown: #33100d;
+  --gray: #7d7574;
+  --white: #e2e2e2;
+}
+
+.wallet-form-container {
+  display: flex;
+  align-items: center;
+}
+
+.wallet-form-inputs-container {
+  width: 30%;
+  min-width: 270px;
+  display: flex;
+  flex-direction: column;
+  margin: 10px
+}
+
+.wallet-form-input-label {
+  display: flex;
+  justify-content: space-between;
+  margin: 3px 0;
+  color: var(--brown);
+}
+
+.wallet-form-input {
+  width: 100px;
+}
+
+.wallet-form-button-edit, .wallet-form-button-add {
+  height: 70px;
+  width: 70px;
+  border: none;
+  border-radius: 10px;
+  opacity: 60%;
+  transition-duration: 0.4s;
+  font-weight: normal;
+  text-align: center;
+
+}
+
+.wallet-form-button-edit:hover, .wallet-form-button-add:hover {
+  opacity: 100%;
+}
+
+.wallet-form-button-add {
+  background-color: var(--pink);
+}
+
+.wallet-form-button-edit {
+  background-color: var(--yellow);
+}

@@ -6,13 +6,14 @@ class ValueInput extends Component {
     const { handleChange, value } = this.props;
 
     return (
-      <label htmlFor="value">
+      <label htmlFor="value" className="wallet-form-input-label">
         Valor
         <input
           id="value"
           value={ value }
           onChange={ handleChange }
           data-testid="value-input"
+          className="wallet-form-input"
         />
       </label>
     );

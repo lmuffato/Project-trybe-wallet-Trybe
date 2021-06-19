@@ -7,6 +7,7 @@ import CurrencyInput from './WalletForm/CurrencyInput';
 import MethodInput from './WalletForm/MethodInput';
 import TagInput from './WalletForm/TagInput';
 import { getCurrenciesDataThunk, editExpenseThunk } from '../actions';
+import '../style/WalletForm.css';
 
 class WalletForm extends Component {
   constructor() {
@@ -53,6 +54,7 @@ class WalletForm extends Component {
             getCurrenciesData(this.state);
             this.resetFormState();
           } }
+          className="wallet-form-button-add"
         >
           Adicionar despesa
         </button>
@@ -62,7 +64,11 @@ class WalletForm extends Component {
       return (
         <button
           type="button"
-          onClick={ () => editExpense(this.state, editableExpense, expenses) }
+          onClick={ () => {
+            editExpense(this.state, editableExpense, expenses);
+            this.resetFormState();
+          } }
+          className="wallet-form-button-edit"
         >
           Editar despesa
         </button>
@@ -74,27 +80,29 @@ class WalletForm extends Component {
     const { value, description, currency, method, tag } = this.state;
     const { formType } = this.props;
     return (
-      <form>
-        <ValueInput
-          handleChange={ this.handleChange }
-          value={ value }
-        />
-        <DescriptionInput
-          handleChange={ this.handleChange }
-          description={ description }
-        />
-        <CurrencyInput
-          handleChange={ this.handleChange }
-          currency={ currency }
-        />
-        <MethodInput
-          handleChange={ this.handleChange }
-          method={ method }
-        />
-        <TagInput
-          handleChange={ this.handleChange }
-          tag={ tag }
-        />
+      <form className="wallet-form-container">
+        <div className="wallet-form-inputs-container">
+          <ValueInput
+            handleChange={ this.handleChange }
+            value={ value }
+          />
+          <DescriptionInput
+            handleChange={ this.handleChange }
+            description={ description }
+          />
+          <CurrencyInput
+            handleChange={ this.handleChange }
+            currency={ currency }
+          />
+          <MethodInput
+            handleChange={ this.handleChange }
+            method={ method }
+          />
+          <TagInput
+            handleChange={ this.handleChange }
+            tag={ tag }
+          />
+        </div>
 
         {this.renderButton(formType)}
       </form>
