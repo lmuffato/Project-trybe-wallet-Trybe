@@ -2,10 +2,8 @@
 import { CREATE_EXPENSE } from '../actions/index';
 
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
 export default function wallet(state = INITIAL_STATE, action) {
