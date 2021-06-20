@@ -21,8 +21,8 @@
   color: rgb(240, 240, 240);
   display: flex;
   flex-direction: column;
-  padding: 0 5em 2em;
   margin-top: 5em;
+  padding: 0 5em 2em;
 }
 
 .card-header {
@@ -55,6 +55,6 @@
   padding: 0 2em;
 }
 
-.enter-bttn-text  {
+.enter-bttn-text {
   color: rgb(30, 30, 30);
 }
