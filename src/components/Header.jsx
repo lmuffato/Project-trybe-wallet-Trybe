@@ -4,17 +4,11 @@ import PropTypes from 'prop-types';
 import Heading4 from './Heading4';
 
 class Header extends Component {
-  // componentDidUpdate(prevProps, prevState) {
-  //   const { totalValue } = this.props;
-  //   if (prevProps.totalValue !== totalValue) return this.getNumber(totalValue);
-  // }
-
   getNumber(arr = [{ value: 0 }]) {
     const array = arr.map((item) => {
       const { currency } = item;
       return item.value * item.exchangeRates[currency].ask;
     });
-    console.log(array);
     if (array.length > 0) {
       return array.reduce((acc, curr) => Number(acc) + Number(curr));
     }
