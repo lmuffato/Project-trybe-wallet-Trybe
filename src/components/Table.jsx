@@ -24,7 +24,8 @@ class Table extends Component {
               {expenses.map((expense, index) => {
                 const { currency,
                   exchangeRates, description, tag, method, value } = expense;
-                const valueConvert = expense.value * expense.exchangeRates[currency].ask;
+                const valueCambi = Number(exchangeRates[currency].ask);
+                const valueConvert = expense.value * exchangeRates[currency].ask;
                 const curr = expense.exchangeRates[currency]
                   .name.replace('/Real Brasileiro', '');
                 return (
@@ -34,7 +35,7 @@ class Table extends Component {
                     <td>{method}</td>
                     <td>{value}</td>
                     <td>{curr}</td>
-                    <td>{exchangeRates[currency].ask}</td>
+                    <td>{valueCambi.toFixed(2)}</td>
                     <td>{valueConvert.toFixed(2)}</td>
                     <td>Real</td>
                     <td>Editar/Exluir</td>
