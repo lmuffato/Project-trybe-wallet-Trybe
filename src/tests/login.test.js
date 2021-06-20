@@ -85,7 +85,6 @@ describe('2 - Realize as seguintes verificações nos campos de email, senha e b
     const email = screen.getByTestId(EMAIL_INPUT_TEST_ID);
     const senha = screen.getByTestId(PASSWORD_INPUT_TEST_ID);
     const button = screen.getByText(/Entrar/i);
-
     userEvent.type(email, VALID_EMAIL);
     userEvent.type(senha, VALID_PASSWORD);
     expect(button).toBeEnabled();

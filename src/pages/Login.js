@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { func } from 'prop-types';
-import { withRouter } from 'react-router';
 import { createUser } from '../actions';
 
 class Login extends React.Component {
@@ -10,26 +9,46 @@ class Login extends React.Component {
 
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.validInput = this.validInput.bind(this);
 
     this.state = {
       email: '',
+      password: '',
       validation: false,
     };
   }
 
-  handleChange(event) {
-    this.setState({
-      email: event.target.value,
-    });
-    console.log(this.state);
-  }
-
-  handleClick() {
+  handleClick(event) {
+    event.preventDefault();
     const { createEmail, history } = this.props;
-    console.log(this.props);
     const { email } = this.state;
     createEmail(email);
     history.push('/carteira');
+  }
+
+  async validInput() {
+    const { email, password } = this.state;
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const lengthSix = 6;
+    console.log(re.test(email));
+    console.log(password.length >= lengthSix);
+    if (re.test(email) && password.length >= lengthSix) {
+      await this.setState({
+        validation: true,
+      });
+    } else {
+      await this.setState({
+        validation: false,
+      });
+    }
+    console.log(this.state);
+  }
+
+  async handleChange({ target: { id, value } }) {
+    await this.setState({
+      [id]: value,
+    });
+    await this.validInput();
   }
 
   render() {
@@ -54,12 +73,13 @@ class Login extends React.Component {
             placeholder="Insira uma senha"
             id="password"
             type="text"
+            onChange={ this.handleChange }
           />
         </label>
         <button
           type="submit"
-          onClick={ () => this.handleClick() }
-          disabled={ validation }
+          onClick={ this.handleClick }
+          disabled={ !validation }
         >
           Entrar
         </button>
@@ -75,8 +95,9 @@ Login.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   createEmail: (state) => dispatch(createUser(state)) });
 
-export default withRouter(connect(null, mapDispatchToProps)(Login));
+export default connect(null, mapDispatchToProps)(Login);
 
 // Referências:
 // Como atualizar a página quando clicar no botão: https://stackoverflow.com/questions/42701129/how-to-push-to-history-in-react-router-v4
-// consultas no projeto Trivia do meu grupo (turma 10 - grupo 8)
+// Consultas e aproveitamento de código e lógica do projeto Trivia do meu grupo (turma 10 - grupo 8)
+// Como validar um email: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
