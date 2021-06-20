@@ -11,7 +11,7 @@
 // how-to-get-rid-of-underline-for-link-component-of-react-router
 
 import React from 'react';
-import './login.css';
+import '../App.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
