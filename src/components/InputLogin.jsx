@@ -18,19 +18,16 @@ class InputLogin extends Component {
   }
 
   emailValidation(value) {
-    const { validEmail } = this.state;
     const validEmailTest = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i.test(value);
     this.setState({ validEmail: validEmailTest });
   }
 
   passwordValidation(value) {
-    const { validPassword } = this.state;
     const minimumPasswordLength = 6;
     this.setState({ validPassword: value.length >= minimumPasswordLength });
   }
 
   redirectToWalletPage() {
-    const { redirect } = this.state;
     this.setState({ redirect: true });
   }
 
