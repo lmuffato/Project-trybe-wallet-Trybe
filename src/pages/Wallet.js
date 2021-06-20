@@ -5,10 +5,11 @@ import Form from '../components/Form';
 import Header from '../components/Header';
 
 class Wallet extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    // const { values } = this.props;
     this.state = {
-      expenseMount: '0',
+      expenseMount: 0,
       coin: 'BRL',
     };
   }
@@ -27,6 +28,7 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  values: state.wallet.expenses,
 });
 
 Wallet.propTypes = {

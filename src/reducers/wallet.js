@@ -1,16 +1,24 @@
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
+import { WALLET_EXPENSES, WALLET_CURRENCIES, COUNT_ID } from '../actions';
+
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  count: 0,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'exemplo':
-    return state;
+  case WALLET_EXPENSES:
+    return { ...state, expenses: [...state.expenses, action.coins] };
+  case WALLET_CURRENCIES:
+    return { ...state, currencies: action.data };
+  case COUNT_ID:
+    return { ...state, count: state.count + 1 };
   default:
     return state;
   }
 };
 
 export default wallet;
+
+// referencias: https://www.ti-enxame.com/pt/react-native/como-adiciono-um-elemento-ao-array-no-redutor-do-redux-nativo-do-react/829227346/

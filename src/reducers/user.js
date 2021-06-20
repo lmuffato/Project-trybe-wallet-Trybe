@@ -1,5 +1,4 @@
-// Esse reducer será responsável por tratar as informações da pessoa usuária
-import { USER_WALLET } from '../actions/index';
+import { USER_WALLET } from '../actions';
 
 const INITIAL_STATE = {
   email: '',

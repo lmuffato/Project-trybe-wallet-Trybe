@@ -2,14 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class InputSelect extends Component {
-  constructor(props) {
-    super(props);
-    // const { name, arrayOption } = this.props;
-    this.state = {
-      // [name]: arrayOption[0],
-    };
-  }
-
   options() {
     const { arrayOption } = this.props;
     if (arrayOption) {
@@ -19,22 +11,16 @@ export default class InputSelect extends Component {
     }
   }
 
-  handleChange(field, value) {
-    this.setState({ [field]: value });
-  }
-
   render() {
-    // const {  } = this.state;
     const array = this.options();
-    const { htmlFor, textLabel, name, id } = this.props;
-    console.log(this.state);
+    const { htmlFor, textLabel, name, id, handleChange } = this.props;
     return (
       <label htmlFor={ htmlFor }>
         { textLabel }
         <select
           id={ id }
           name={ name }
-          onChange={ (event) => this.handleChange(name, event.target.value) }
+          onChange={ (event) => handleChange(event.target.value, event.target.name) }
         >
           { array || ''}
         </select>
@@ -49,4 +35,5 @@ InputSelect.propTypes = {
   name: PropTypes.string.isRequired,
   arrayOption: PropTypes.arrayOf(PropTypes.string).isRequired,
   id: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
