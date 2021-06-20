@@ -168,4 +168,6 @@ Wallet.propTypes = {
   remove: PropTypes.func.isRequired,
 };
 
+// Creditos ao Jodiel
+
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
