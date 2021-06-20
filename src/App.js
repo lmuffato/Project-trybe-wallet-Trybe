@@ -1,10 +1,20 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
+import Wallet from './pages/Wallet';
 import './App.css';
 
 function App() {
-  return <Route path="/" component={ Login } />;
+  return (
+    <Switch>
+      <Route exact path="/">
+        <Login />
+      </Route>
+      <Route path="/carteira">
+        <Wallet />
+      </Route>
+    </Switch>
+  );
 }
 
 export default App;
