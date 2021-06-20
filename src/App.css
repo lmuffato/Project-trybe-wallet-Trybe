@@ -1,10 +1,10 @@
 .loginContainer {
   border: solid rgb(233, 230, 230) 1px;
   border-radius: 15px;
-  margin: 20% auto;
   height: auto;
-  width: 300px;
+  margin: 20% auto;
   padding-bottom: 40px;
+  width: 300px;
 }
 
 .loginHeader {
@@ -12,16 +12,16 @@
 }
 
 .login {
-  margin: 10px auto;
   display: flex;
+  margin: 10px auto;
   flex-direction: column;
-  max-width: 800px;
   align-items: center;
+  max-width: 800px;
 }
 
 .button {
   background-color: blueviolet;
   color: aliceblue;
-  width: 153px;
   margin-top: 10px;
+  width: 153px;
 }
