@@ -7,7 +7,7 @@ import Description from '../components/Description';
 import Currency from '../components/Currency';
 import PaymentMethod from '../components/PaymentMethod';
 import Tags from '../components/Tags';
-import { addExpense, apiCurrency, sumTotal } from '../actions';
+import { addExpense, apiCurrency, buttonRemove, sumTotal } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -23,6 +23,7 @@ class Wallet extends React.Component {
     this.newExpenses = this.newExpenses.bind(this);
     this.renderOptions = this.renderOptions.bind(this);
     this.createExpense = this.createExpense.bind(this);
+    this.removeExpense = this.removeExpense.bind(this);
   }
 
   componentDidMount() {
@@ -53,12 +54,27 @@ class Wallet extends React.Component {
     });
   }
 
+  removeExpense(id) {
+    let total = 0;
+    const { listExpenses, remove, Total } = this.props;
+    const newArray = [];
+    listExpenses.forEach((expense) => {
+      if (expense.id !== id) {
+        const { exchangeRates, currency, value } = expense;
+        total += exchangeRates[currency].ask * value;
+        newArray.push(expense);
+      }
+    });
+    Total(total);
+    remove(newArray);
+  }
+
   createExpense() {
     const { listExpenses } = this.props;
     if (listExpenses[0]) {
       return (
         listExpenses.map((expense, index) => {
-          const { value, description, currency,
+          const { id, value, description, currency,
             method, tag, exchangeRates } = expense;
           const quote = Number(exchangeRates[currency].ask);
           const real = quote * value;
@@ -73,6 +89,15 @@ class Wallet extends React.Component {
               <td>{ quote.toFixed(2) }</td>
               <td>{ real.toFixed(2) }</td>
               <td>Real</td>
+              <td>
+                <button
+                  type="button"
+                  data-testid="delete-btn"
+                  onClick={ () => this.removeExpense(id) }
+                >
+                  Remover Despesa
+                </button>
+              </td>
             </tr>
           );
         }));
@@ -124,6 +149,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchApi: () => dispatch(apiCurrency()),
   expenses: (payload) => dispatch(addExpense(payload)),
   Total: (payload) => dispatch(sumTotal(payload)),
+  remove: (payload) => dispatch(buttonRemove(payload)),
 });
 
 const mapStateToProps = (state) => ({
@@ -139,6 +165,7 @@ Wallet.propTypes = {
   listExpenses: PropTypes.arrayOf(Object).isRequired,
   totalValue: PropTypes.number.isRequired,
   apiCoin: PropTypes.func.isRequired,
+  remove: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

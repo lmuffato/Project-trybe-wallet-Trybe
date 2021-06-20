@@ -4,6 +4,7 @@ export const RES_SUCCESS = 'RES_SUCCESS';
 export const RES_FAILED = 'RES_FAILED';
 export const ADD = 'ADD';
 export const TOTAL = 'TOTAL';
+export const REMOVE = 'REMOVE';
 
 export const request = () => ({
   type: REQUEST,
@@ -33,6 +34,11 @@ export const requestSucess = (payload) => ({
 
 export const requestError = (payload) => ({
   type: RES_FAILED,
+  payload,
+});
+
+export const buttonRemove = (payload) => ({
+  type: REMOVE,
   payload,
 });
 

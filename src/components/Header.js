@@ -7,7 +7,7 @@ function Header(props) {
   return (
     <header>
       <p data-testid="email-field">{ email }</p>
-      <p data-testid="total-field">{ totalValue }</p>
+      <p data-testid="total-field">{ totalValue.toFixed(2) }</p>
       <p data-testid="header-currency-field">BRL</p>
     </header>
   );

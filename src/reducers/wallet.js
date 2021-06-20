@@ -1,4 +1,4 @@
-import { RES_SUCCESS, REQUEST, RES_FAILED, ADD, TOTAL } from '../actions';
+import { RES_SUCCESS, REQUEST, RES_FAILED, ADD, TOTAL, REMOVE } from '../actions';
 
 const INITIAL_STATE = {
   expenses: [],
@@ -36,6 +36,11 @@ function walletReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       total: action.payload,
+    };
+  case REMOVE:
+    return {
+      ...state,
+      expenses: action.payload,
     };
   default: return state;
   }
