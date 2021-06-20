@@ -45,6 +45,10 @@
   padding: 1em;
 }
 
+button:disabled {
+  cursor: not-allowed;
+}
+
 .enter-bttn {
   background-color: rgb(3, 218, 197);
   border: none;
@@ -57,4 +61,8 @@
 
 .enter-bttn-text {
   color: rgb(30, 30, 30);
+}
+
+.disabledLink {
+  pointer-events: none;
 }

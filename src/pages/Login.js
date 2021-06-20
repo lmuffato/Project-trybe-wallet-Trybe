@@ -65,7 +65,7 @@ class Login extends React.Component {
             type="button"
             onClick={ () => emailDispatch(email) }
           >
-            <Link to="/carteira">
+            <Link className={ disabled ? 'disabledLink' : '' } to="/carteira">
               <h3 className="enter-bttn-text">Entrar</h3>
             </Link>
           </button>
