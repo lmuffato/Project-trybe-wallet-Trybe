@@ -9,8 +9,8 @@ class Login extends React.Component {
           <h1>Trybe Wallet</h1>
         </header>
         <form className="login">
-          <input type="text" placeholder="Email" testid="email-input" />
-          <input type="password" placeholder="Password" testid="password-input" />
+          <input type="text" placeholder="Email" data-testid="email-input" />
+          <input type="password" placeholder="Password" data-testid="password-input" />
           <input className="button" type="button" value="Entrar" />
         </form>
       </section>
