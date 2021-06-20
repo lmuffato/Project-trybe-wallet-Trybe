@@ -1,20 +1,42 @@
-// Coloque aqui suas actions
-// src/actions/index.js
+import getCurrencies from '../serveces/fetchApis';
+
+export const GET_CURRENCIES_API = 'GET_CURRENCIES_API';
+export const GET_CURRENCIES_API_SUCCESS = 'GET_CURRENCIES_API_SUCCESS';
+export const GET_CURRENCIES_API_ERROR = 'GET_CURRENCIES_API_ERROR';
+
+export const getCURRENCIESApi = (payload) => (
+  { type: GET_CURRENCIES_API, payload }
+);
+
+export const getCURRENCIESApiSuccess = (payload) => (
+  { type: GET_CURRENCIES_API_SUCCESS,
+    payload,
+  }
+);
+
+export const getCURRENCIESApiError = (payload) => (
+  { type: GET_CURRENCIES_API_ERROR,
+    payload,
+  }
+);
+
+export const getCURRENCIESApiThunk = () => (dispatch) => {
+  dispatch(getCURRENCIESApi());
+  getCurrencies()
+    .then((res) => {
+      // console.log(res);
+      const { USDT, ...currenciesApi } = res;
+      const currencies = Object.keys(currenciesApi);
+      // console.log(currencies);
+      dispatch(getCURRENCIESApiSuccess({ currencies }));
+    })
+    .catch(() => { getCURRENCIESApiError(); });
+};
+
 export const LOGIN = 'LOGIN';
 
 export const addRegister = (value) => ({ type: 'ADD_REGISTER', data: value });
-// export const login = (value) => (
-//   { type: LOGIN,
-//     value,
-//   }
-// );
-// export const login = (email, password) => ({
-//   type: LOGIN,
-//   payload: {
-//     email,
-//     password,
-//   },
-// });
+
 export const login = (value) => ({
   type: LOGIN,
   payload: {

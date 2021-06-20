@@ -52,6 +52,7 @@ class Login extends React.Component {
     const { email, password, buttonDisabled } = this.state;
     // const { emailError, passwordError } = this.state;
     const { login } = this.props;
+    // console.log(login);
 
     return (
       <form className="login">
