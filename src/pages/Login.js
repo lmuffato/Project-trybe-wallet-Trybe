@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { saveEmail } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -8,7 +10,7 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      xablau: true,
+      validLogin: true,
     };
     this.handlechenge = this.handlechenge.bind(this);
   }
@@ -23,13 +25,14 @@ class Login extends React.Component {
     const regexSenha = /(.{5,})/gi.test(password);
     if (regexEmail && regexSenha) {
       this.setState({
-        xablau: false,
+        validLogin: false,
       });
     }
   }
 
   render() {
-    const { xablau } = this.state;
+    const { validLogin, email } = this.state;
+    const { emailLogin } = this.props;
     return (
       <div>
         <form>
@@ -48,7 +51,11 @@ class Login extends React.Component {
             onChange={ this.handlechenge }
           />
           <Link to="/carteira">
-            <button type="button" disabled={ xablau }>
+            <button
+              type="button"
+              disabled={ validLogin }
+              onClick={ () => emailLogin(email) }
+            >
               Entrar
             </button>
           </Link>
@@ -58,4 +65,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  emailLogin: (email) => dispatch(saveEmail(email)),
+});
+
+Login.propTypes = {
+  emailLogin: PropTypes.func,
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(Login);
