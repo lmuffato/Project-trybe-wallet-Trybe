@@ -1,5 +1,5 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
-import { CREATE_USER } from '../actions/index';
+import { SAVE_EMAIL } from '../actions/index';
 
 const INITIAL_STATE = {
   email: '',
@@ -7,7 +7,7 @@ const INITIAL_STATE = {
 
 export default function user(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case CREATE_USER:
+  case SAVE_EMAIL:
     return {
       ...state,
       email: action.payload.email,

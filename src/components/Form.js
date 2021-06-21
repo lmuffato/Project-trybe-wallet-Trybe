@@ -1,6 +1,36 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { array, func } from 'prop-types';
+import getCoins from '../services/api';
+import { listCoins } from '../actions/index';
 
 class Form extends React.Component {
+  constructor() {
+    super();
+
+    this.fetchApi = this.fetchApi.bind(this);
+    this.renderCoins = this.renderCoins.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchApi();
+  }
+
+  async fetchApi() {
+    const { createListCoins } = this.props;
+    const data = await getCoins();
+    const coins = await Object.keys(data);
+    createListCoins(coins);
+  }
+
+  renderCoins() {
+    const { currencies } = this.props;
+    return currencies.filter((currencie) => (currencie !== 'USDT'))
+      .map((currencie) => (
+        <option key={ currencie } value={ currencie }>{ currencie }</option>
+      ));
+  }
+
   render() {
     return (
       <form>
@@ -19,7 +49,7 @@ class Form extends React.Component {
             // value={ a }
             // onChange={ (event) => this.updateMovie('genre', event.target.value) }
           >
-            <option value=""> </option>
+            {this.renderCoins()}
           </select>
         </label>
         <label htmlFor="payment">
@@ -53,4 +83,15 @@ class Form extends React.Component {
   }
 }
 
-export default Form;
+Form.propTypes = {
+  currencies: array,
+  createListCoins: func,
+}.isRequired;
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies });
+
+const mapDispatchToProps = (dispatch) => ({
+  createListCoins: (coin) => dispatch(listCoins(coin)) });
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
