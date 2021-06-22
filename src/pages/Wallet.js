@@ -17,13 +17,13 @@ class Wallet extends React.Component {
           <section data-testid="total-field"><h3>despesa total</h3></section>
           <section data-testid="header-currency-field"><h3>câmbio</h3></section>
           <form>
+            <SumExpenses />
             <ExpenseValue />
             <ExpenseDescription />
             <ExchangeCurrency />
             <PaymentMethod />
             <ExpenseTag />
             <AddExpenseButton />
-            <SumExpenses />
           </form>
         </header>
       </div>

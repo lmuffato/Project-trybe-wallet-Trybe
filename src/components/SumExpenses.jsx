@@ -7,7 +7,12 @@ class SumExpenses extends Component {
     const { wallet2 } = this.props;
     return (
       <div>
-        <h2 data-testid="total-field">{wallet2.totalExpenses}</h2>
+        <header data-testid="total-field">
+          <h2>
+            Valor total:
+            {wallet2.totalExpenses}
+          </h2>
+        </header>
       </div>
     );
   }
