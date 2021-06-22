@@ -1,6 +1,6 @@
 import {
   RECEIVED_CURRENCY,
-  // ADD_OUTLAY,
+  ADD_OUTLAY,
   // REMOVE_OUTLAY,
   // EDIT_OUTLAY,
 } from '../actions';
@@ -8,19 +8,18 @@ import {
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  totalExpended: '',
+  totalExpended: 0,
 };
 
-const wallet = (state = INITIAL_STATE, action) => {
+function getWallet (state = INITIAL_STATE, action) {
   switch (action.type) {
   case RECEIVED_CURRENCY:
     return { ...state, currencies: action.currencies };
-  // case ADD_OUTLAY:
-  //   return { ...state,
-  //     currencies: [...state.wallet.currencies, action.currencies],
-  //     expenses: [...state.wallet.expenses, action.expenses],
-  //     totalExpended: state.wallet.totalExpended + action.expended,
-  //   };
+  case ADD_OUTLAY:
+    return { ...state,
+      expenses: [...state.expenses, {...action.expenses}],
+      totalExpended: state.totalExpended + action.expended,
+    };
   // case REMOVE_OUTLAY:
   //   return state;
   // case EDIT_OUTLAY:
@@ -30,4 +29,4 @@ const wallet = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default wallet;
+export default getWallet;

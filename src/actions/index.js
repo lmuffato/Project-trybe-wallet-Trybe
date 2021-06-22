@@ -5,14 +5,14 @@ export const userName = (email) => ({
   payload: email,
 });
 
-// export const ADD_OUTLAY = 'ADD_OUTLAY';
+export const ADD_OUTLAY = 'ADD_OUTLAY';
 // export const REMOVE_OUTLAY = 'REMOVE_OUTLAY';
 // export const EDIT_OUTLAY = 'EDIT_OUTLAY';
 
-// export const addOutlay = (outLay) => ({
-//   type: ADD_OUTLAY,
-//   outLay,
-// });
+export const addOutlay = (data) => ({
+  type: ADD_OUTLAY,
+  expenses: data,
+});
 
 // export const removeOutlay = (outLay) => ({
 //   type: REMOVE_OUTLAY,
