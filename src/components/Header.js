@@ -16,11 +16,14 @@ class Header extends Component {
     const { totalExpenses } = this.state;
     return (
       <section>
-        <img
-          width="50px"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpvs4fUyOMdaFmPeLUKmHImikYC47QxiVcAg&usqp=CAU"
-          alt="logo_carteira"
-        />
+        <div htmlFor="img">
+          <img
+            name="img"
+            width="50px"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpvs4fUyOMdaFmPeLUKmHImikYC47QxiVcAg&usqp=CAU"
+            alt="logo_carteira"
+          />
+        </div>
         <p data-testid="email-field">{ user }</p>
         <p data-testid="total-field">Despesas totais:</p>
         <p>{ totalExpenses }</p>
