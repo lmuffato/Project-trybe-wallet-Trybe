@@ -1,4 +1,4 @@
-const URL = 'http://economia.awsomeapi.com.br/json/all';
+const URL = 'https://economia.awesomeapi.com.br/json/all';
 
 const getApi = async () => {
   const apiURL = await fetch(URL);

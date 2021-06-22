@@ -3,18 +3,16 @@ import {
 } from '../actions/index';
 
 const INITIAL_STATE = {
-  currencies: [],
+  currencies: '',
   expenses: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
-  const { currance, expenses } = action;
   switch (action.type) {
   case WALLET:
     return {
       ...state,
-      currencies: [...currance, currance],
-      expenses: [...expenses, expenses],
+      expenses: [...state.expenses, action.payload],
     };
   default:
     return state;
