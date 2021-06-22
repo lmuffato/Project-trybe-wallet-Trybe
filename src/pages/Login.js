@@ -13,7 +13,8 @@ class Login extends React.Component {
 
   render() {
     const { email, password } = this.state;
-    const seven = 7;
+    const emailRegex = /\b[\w.-]+@[\w.-]+\.\w{2,4}\b/gi; // Regex ==> https://regexr.comm/2ri2c
+    const six = 6;
     return (
       <div>
         <h2>Login</h2>
@@ -38,12 +39,11 @@ class Login extends React.Component {
           <button
             type="submit"
             disabled={
-              email.includes('@') !== true
-              || email.includes('.com') !== true
-              || password.length < seven
+              !(email.match(emailRegex))
+              ||password.length < six
             }
             onClick={
-              () => console.log(email, password)
+              () => console.log(email.match(emailRegex))
             }
           >
             Entrar
