@@ -1,0 +1,33 @@
+.wallet-container {
+  display: flex;
+  flex-direction: column;
+  height:100vh;
+  width:100vw;
+  background-color: rgb(37, 40, 42);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color:#bb86fc;
+  height: 3em;
+  padding: 0 2em;
+}
+
+.header-right {
+  display: flex;
+  margin-right: 2em;
+}
+
+.email {
+  margin-right: 2em;
+}
+
+.dispense {
+  margin-right: 2em;
+}
+
+
+
+
