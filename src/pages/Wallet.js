@@ -4,14 +4,30 @@ import { string } from 'prop-types';
 import Form from '../components/Form';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+
+    this.renderTotalExpenses = this.renderTotalExpenses.bind(this);
+  }
+
+  renderTotalExpenses() {
+    const { totalExpenses } = this.props;
+    // console.log(totalExpenses);
+    let total = 0;
+    if (totalExpenses !== 0) {
+      total = (Math.round(totalExpenses * 100) / 100);
+    }
+    return total;
+  }
+
   render() {
-    const { email, totalExpenses } = this.props;
+    const { email } = this.props;
     return (
       <section>
         <header>
           <div>TrybeWallet</div>
           <h3 data-testid="email-field">{ email }</h3>
-          <h3 data-testid="total-field">{ totalExpenses }</h3>
+          <h3 data-testid="total-field">{ this.renderTotalExpenses() }</h3>
           <h3 data-testid="header-currency-field">BRL</h3>
         </header>
         <Form />

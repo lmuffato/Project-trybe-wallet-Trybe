@@ -20,7 +20,6 @@ class Form extends React.Component {
 
     this.fetchApi = this.fetchApi.bind(this);
     this.renderCoins = this.renderCoins.bind(this);
-    this.sumExpenses = this.sumExpenses.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.createValue = this.createValue.bind(this);
@@ -34,23 +33,6 @@ class Form extends React.Component {
   componentDidMount() {
     this.fetchApi();
   }
-
-  // componentDidUpdate() {
-  //   this.sumExpenses();
-  // }
-  componentWillUnmount() {
-    this.sumExpenses();
-  }
-
-  // async fetchApi() {
-  //   const { createListCoins } = this.props;
-  //   const data = await getCoins();
-  //   const coins = await Object.keys(data);
-  //   await this.setState({
-  //     exchangeRates: data,
-  //   });
-  //   createListCoins(coins);
-  // }
 
   async fetchApi() {
     const { createListCoins } = this.props;
@@ -66,26 +48,6 @@ class Form extends React.Component {
     });
   }
 
-  async sumExpenses() {
-    const { sumAllExpenses, expenses } = await this.props;
-    // console.log(expenses);
-    // const { totalExpenses } = expenses;
-    // let totalExpenses = 0;
-    for (let i = 0; i < expenses.length; i += 1) {
-      sumAllExpenses(expenses[i]);
-      // this.setState({
-      //   totalExpenses: totalExpenses + expenses.value,
-      // });
-      // totalExpenses += expenses[i].value;
-      // expenses.exchangeRates.(expenses.currency)
-      // Object.keys(expenses[i].exchangeRates).find((expenses[i].currency) => {
-
-      //   })
-      // })
-      // expenses.value * expenses.
-    }
-  }
-
   async handleChange({ target: { id, value } }) {
     await this.setState({
       [id]: value,
@@ -94,13 +56,13 @@ class Form extends React.Component {
 
   async handleClick() {
     await this.fetchApiExpense();
-    const { createExpenses, expenses } = this.props;
+    const { createExpenses, expenses, sumAllExpenses } = this.props;
     await this.setState({
       id: expenses.length,
     });
-    // const { updateExpense } = this.state;
-    createExpenses(this.state);
-    this.sumExpenses();
+    await createExpenses(this.state);
+    const { expenses: updateExpenses } = this.props;
+    sumAllExpenses(updateExpenses[updateExpenses.length - 1]);
   }
 
   createValue() {
