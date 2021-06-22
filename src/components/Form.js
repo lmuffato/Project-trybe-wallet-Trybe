@@ -38,7 +38,7 @@ class Form extends React.Component {
     const { createListCoins } = this.props;
     const data = await getCoins();
     const coins = await Object.keys(data);
-    createListCoins(coins);
+    await createListCoins(coins);
   }
 
   async fetchApiExpense() {
@@ -62,7 +62,7 @@ class Form extends React.Component {
     });
     await createExpenses(this.state);
     const { expenses: updateExpenses } = this.props;
-    sumAllExpenses(updateExpenses[updateExpenses.length - 1]);
+    await sumAllExpenses(updateExpenses[updateExpenses.length - 1]);
   }
 
   createValue() {
@@ -175,7 +175,6 @@ Form.propTypes = {
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   expenses: state.wallet.expenses,
-  totalExpenses: state.wallet.expenses.totalExpenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({

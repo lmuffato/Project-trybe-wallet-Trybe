@@ -12,9 +12,8 @@ class Wallet extends React.Component {
 
   renderTotalExpenses() {
     const { totalExpenses } = this.props;
-    // console.log(totalExpenses);
     let total = 0;
-    if (totalExpenses !== 0) {
+    if (totalExpenses !== 0 && totalExpenses !== undefined) {
       total = (Math.round(totalExpenses * 100) / 100);
     }
     return total;
@@ -40,9 +39,11 @@ Wallet.propTypes = {
   email: string,
 }.isRequired;
 
-const mapStateToProps = (state) => ({
-  email: state.user.email,
-  totalExpenses: state.wallet.totalExpenses,
-});
+const mapStateToProps = (state) => {
+  return {
+    email: state.user.email,
+    totalExpenses: state.wallet.totalExpenses,
+  };
+};
 
 export default connect(mapStateToProps, null)(Wallet);
