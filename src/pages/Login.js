@@ -18,8 +18,8 @@ class Login extends React.Component {
     const { email, password } = this.state;
     const MIN_PASSWORD = 5;
     this.setState({ [type]: value });
-    //referência do regex: Postagem do Rafael Medeiros Gomes.
-    //link: https://trybecourse.slack.com/archives/C01L16B9XC7/p1623175696043700
+    // referência do regex: Postagem do Rafael Medeiros Gomes.
+    // link: https://trybecourse.slack.com/archives/C01L16B9XC7/p1623175696043700
     if (/^\w+@\w+.com$/.test(email) === true && password.length >= MIN_PASSWORD) {
       this.setState({ disabledButton: false });
       console.log('o botão é ativado');
