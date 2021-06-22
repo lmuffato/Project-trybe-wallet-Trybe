@@ -18,3 +18,5 @@ const fetchtest = async () => {
 };
 
 export default fetchtest;
+
+// API NÃO UTILIZADA NESTE COMPONENTE

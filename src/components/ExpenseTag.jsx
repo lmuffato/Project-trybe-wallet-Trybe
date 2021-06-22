@@ -9,10 +9,11 @@ class ExpenseTag extends Component {
     return (
       <div>
         <label htmlFor="tag">
-          Tipo de despesa
+          tag
           <select
             id="tag"
             name="tag"
+            value="tag"
             onChange={ (event) => {
               inputTag(event.target.value);
             } }

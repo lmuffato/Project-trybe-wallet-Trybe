@@ -14,6 +14,7 @@ class ExpenseDescription extends Component {
             id="description"
             type="text"
             name="description"
+            value="description"
             onChange={ (event) => { inputDescription(event.target.value); } }
           />
         </label>
