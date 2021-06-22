@@ -11,14 +11,14 @@ const INITIAL_STATE = {
   totalExpended: 0,
 };
 
-function getWallet (state = INITIAL_STATE, action) {
+function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
   case RECEIVED_CURRENCY:
     return { ...state, currencies: action.currencies };
   case ADD_OUTLAY:
     return { ...state,
-      expenses: [...state.expenses, {...action.expenses}],
-      totalExpended: state.totalExpended + action.expended,
+      expenses: [...state.expenses, { ...action.expenses }],
+      totalExpended: parseFloat(state.totalExpended) + parseFloat(action.expenses.value),
     };
   // case REMOVE_OUTLAY:
   //   return state;
@@ -27,6 +27,6 @@ function getWallet (state = INITIAL_STATE, action) {
   default:
     return state;
   }
-};
+}
 
-export default getWallet;
+export default wallet;
