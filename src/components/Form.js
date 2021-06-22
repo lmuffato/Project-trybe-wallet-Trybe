@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { array, func } from 'prop-types';
 import getCoins from '../services/api';
-import { createExpense, listCoins } from '../actions/index';
+import { createExpense, listCoins, sumExpenses } from '../actions/index';
 
 class Form extends React.Component {
   constructor() {
@@ -12,14 +12,15 @@ class Form extends React.Component {
       id: null,
       value: null,
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       exchangeRates: {},
     };
 
     this.fetchApi = this.fetchApi.bind(this);
     this.renderCoins = this.renderCoins.bind(this);
+    this.sumExpenses = this.sumExpenses.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.createValue = this.createValue.bind(this);
@@ -34,29 +35,72 @@ class Form extends React.Component {
     this.fetchApi();
   }
 
+  // componentDidUpdate() {
+  //   this.sumExpenses();
+  // }
+  componentWillUnmount() {
+    this.sumExpenses();
+  }
+
+  // async fetchApi() {
+  //   const { createListCoins } = this.props;
+  //   const data = await getCoins();
+  //   const coins = await Object.keys(data);
+  //   await this.setState({
+  //     exchangeRates: data,
+  //   });
+  //   createListCoins(coins);
+  // }
+
   async fetchApi() {
     const { createListCoins } = this.props;
     const data = await getCoins();
     const coins = await Object.keys(data);
-    await this.setState({
-      exchangeRates: data,
-    });
     createListCoins(coins);
   }
 
-  async handleChange(event) {
-    await console.log(event.target);
-    // await this.setState({
-    //   [id]: value,
-    // });
+  async fetchApiExpense() {
+    const data = await getCoins();
+    await this.setState({
+      exchangeRates: data,
+    });
+  }
+
+  async sumExpenses() {
+    const { sumAllExpenses, expenses } = await this.props;
+    // console.log(expenses);
+    // const { totalExpenses } = expenses;
+    // let totalExpenses = 0;
+    for (let i = 0; i < expenses.length; i += 1) {
+      sumAllExpenses(expenses[i]);
+      // this.setState({
+      //   totalExpenses: totalExpenses + expenses.value,
+      // });
+      // totalExpenses += expenses[i].value;
+      // expenses.exchangeRates.(expenses.currency)
+      // Object.keys(expenses[i].exchangeRates).find((expenses[i].currency) => {
+
+      //   })
+      // })
+      // expenses.value * expenses.
+    }
+  }
+
+  async handleChange({ target: { id, value } }) {
+    await this.setState({
+      [id]: value,
+    });
   }
 
   async handleClick() {
+    await this.fetchApiExpense();
     const { createExpenses, expenses } = this.props;
     await this.setState({
       id: expenses.length,
     });
+    // const { updateExpense } = this.state;
     createExpenses(this.state);
+    this.sumExpenses();
   }
 
   createValue() {
@@ -111,9 +155,9 @@ class Form extends React.Component {
           // value={ a }
           onChange={ this.handleChange }
         >
-          <option value="cash">Dinheiro</option>
-          <option value="credit-card">Cartão de crédito</option>
-          <option value="debit-card">Cartão de débito</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
     );
@@ -169,12 +213,13 @@ Form.propTypes = {
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   expenses: state.wallet.expenses,
-
+  totalExpenses: state.wallet.expenses.totalExpenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   createListCoins: (coin) => dispatch(listCoins(coin)),
   createExpenses: (expense) => dispatch(createExpense(expense)),
+  sumAllExpenses: (valueExpense) => dispatch(sumExpenses(valueExpense)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
