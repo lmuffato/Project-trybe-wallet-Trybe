@@ -36,6 +36,7 @@ export const addExpense = (payload) => ({
 });
 
 // pega novamente a API e faz um dispatch para usar no comp. Header e Forms
+// no requisito 9 usa para pegar os elementos e converter para montar a tabela. 
 export const expensesAdd = (state) => async (dispatch) => {
   const exchangeRates = await fetchCurrency();
   const expenses = {

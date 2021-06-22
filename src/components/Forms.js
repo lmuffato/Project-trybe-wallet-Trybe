@@ -3,6 +3,7 @@ import { func } from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchCurrency, addExpense } from '../actions';
 // ajuda IMENSA do colega Guiherme pra entender pq nunca passava no teste
+// Agradeço a amiga do <3 Nathi e o Rafa Medeiros pela paciência e ajuda
 
 class Forms extends React.Component {
   constructor() {
