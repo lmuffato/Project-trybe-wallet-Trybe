@@ -23,7 +23,7 @@ class Login extends React.Component {
     const regexEmail = /\S+@\S+\.\S+/;
     const validatePassword = 5;
     const { email, password } = this.state;
-    if (regexEmail.test(email) === true && password.length === validatePassword) {
+    if (regexEmail.test(email) === true && password.length >= validatePassword) {
       return this.setState({ disabled: false });
     } return (this.setState({ disabled: true }));
   }
