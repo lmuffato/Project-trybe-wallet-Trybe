@@ -13,6 +13,7 @@ class Login extends React.Component {
 
   render() {
     const { email, password } = this.state;
+    const seven = 7;
     return (
       <div>
         <h2>Login</h2>
@@ -36,6 +37,11 @@ class Login extends React.Component {
         <Link to="/">
           <button
             type="submit"
+            disabled={
+              email.includes('@') !== true
+              || email.includes('.com') !== true
+              || password.length < seven
+            }
             onClick={
               () => console.log(email, password)
             }
