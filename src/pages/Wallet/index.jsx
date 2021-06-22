@@ -20,12 +20,12 @@ class Wallet extends React.Component {
 
     // if (!isAuth) return <Redirect push to="/" />;
 
-    if (isLoading) return <Loading />;
-
     return (
       <>
         <Header />
-        <Forms />
+        {
+          isLoading ? <Loading /> : <Forms />
+        }
       </>
     );
   }
