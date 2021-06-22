@@ -40,7 +40,7 @@ class Login extends React.Component {
             type="submit"
             disabled={
               !(email.match(emailRegex))
-              ||password.length < six
+              || password.length < six
             }
             onClick={
               () => console.log(email.match(emailRegex))
