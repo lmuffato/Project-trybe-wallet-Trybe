@@ -57,7 +57,7 @@ class FormInitial extends Component {
         <input
           name="password"
           type="password"
-          data-testeid="password-input"
+          data-testid="password-input"
           placeholder="Insert password here"
           onChange={ this.handleChange }
           maxLength="6"
