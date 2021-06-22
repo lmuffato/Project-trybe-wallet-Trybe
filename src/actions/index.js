@@ -13,12 +13,11 @@ export function saveEmail(email) {
   });
 }
 
-export function createExpense() {
+export function createExpense(expense) {
   return ({
     type: CREATE_EXPENSE,
     payload: {
-      currencies: [],
-      expenses: [],
+      expense,
     },
   });
 }

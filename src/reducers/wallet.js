@@ -7,12 +7,11 @@ const INITIAL_STATE = {
 };
 
 export default function wallet(state = INITIAL_STATE, action) {
-  console.log(state);
   switch (action.type) {
   case CREATE_EXPENSE:
     return {
       ...state,
-      expenses: action.payload.expenses,
+      expenses: state.expenses.concat(action.payload.expense),
     };
   case LIST_COINS:
     return {

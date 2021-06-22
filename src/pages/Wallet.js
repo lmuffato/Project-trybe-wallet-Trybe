@@ -6,7 +6,6 @@ import Form from '../components/Form';
 class Wallet extends React.Component {
   render() {
     const { email } = this.props;
-    console.log(email);
     return (
       <section>
         <header>
