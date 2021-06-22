@@ -11,9 +11,9 @@ class Forms extends React.Component {
       formData: {
         value: 0,
         description: '',
-        currency: 'USD',
-        method: 'Dinheiro',
-        tag: 'Alimentação',
+        currency: '',
+        method: '',
+        tag: '',
       },
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -34,12 +34,14 @@ class Forms extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const {
-      props: { fetch, setExpenses },
+      props: { setExpenses },
       state: { formData },
     } = this;
-    fetch();
     const { exchangeRates, expenses } = this.props;
     const id = uuid();
+    if (expenses) {
+      fetch();
+    }
     setExpenses([
       ...expenses,
       {
