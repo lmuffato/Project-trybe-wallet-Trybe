@@ -34,7 +34,7 @@ class Login extends React.Component {
           }
         />
 
-        <Link to="/">
+        <Link to="/carteira">
           <button
             type="submit"
             disabled={
@@ -56,3 +56,5 @@ class Login extends React.Component {
 }
 
 export default Login;
+
+// codigo escrito com ajuda do Marcelo Mauricio t10 //
