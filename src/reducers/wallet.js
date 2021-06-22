@@ -12,18 +12,18 @@ import {
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  id: 1,
+  expensesCount: 0,
   value: 0,
   description: '',
-  currency: '',
-  method: '',
-  tag: '',
+  currency: 'USD',
+  method: 'Dinheiro',
+  tag: 'Alimentação',
 };
 
 export default function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
   case EXPENSES_ID:
-    return { ...state, id: state.expenses.length };
+    return { ...state, expensesCount: action.payload };
   case EXPENSES_VALUES:
     return { ...state, value: action.payload };
   case EXPENSES_DESCRIPTIONS:

@@ -15,7 +15,7 @@ class ExpenseValue extends Component {
             type="number"
             name="value"
             step="0.1"
-            onChange={ (event) => { inputExpensesValues(event.target.value); } }
+            onChange={ (event) => { inputExpensesValues(event.target.value * 1); } }
           />
         </label>
       </div>

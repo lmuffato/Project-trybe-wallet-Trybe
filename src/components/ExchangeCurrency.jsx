@@ -25,7 +25,7 @@ class ExchangeCurrency extends Component {
         });
         fetchReducer(exchangeFiltered);
         inputExchangeRates(exchangeFiltered);
-        console.log(exchangeFiltered);
+        // console.log(exchangeFiltered);
       } catch (error) {
         console.error(error);
       }

@@ -5,6 +5,7 @@ import ExchangeCurrency from '../components/ExchangeCurrency';
 import ExpenseValue from '../components/ExpenseValue';
 import ExpenseDescription from '../components/ExpenseDescription';
 import AddExpenseButton from '../components/AddExpenseButton';
+import SumExpenses from '../components/SumExpenses';
 
 class Wallet extends React.Component {
   render() {
@@ -22,6 +23,7 @@ class Wallet extends React.Component {
             <PaymentMethod />
             <ExpenseTag />
             <AddExpenseButton />
+            <SumExpenses />
           </form>
         </header>
       </div>

@@ -11,6 +11,8 @@ export const EXPENSES_DESCRIPTIONS = 'EXPENSES_DESCRIPTIONS';
 export const EXPENSES_TAG = 'EXPENSES_TAG';
 export const PAYMENT_METHOD = 'PAYMENT_METHOD';
 
+export const SUM_EXPENSES = 'SUM_EXPENSES';
+
 export const inputEmail = (payload) => (
   { type: USER_EMAIL, payload }
 );
@@ -53,4 +55,8 @@ export const expensesId = (payload) => (
 
 export const expensesTag = (payload) => (
   { type: EXPENSES_TAG, payload }
+);
+
+export const sumExpenses = (payload) => (
+  { type: SUM_EXPENSES, payload }
 );
