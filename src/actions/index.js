@@ -6,10 +6,7 @@ export const addNewUser = (payload) => ({
   payload,
 });
 
-export const wallet = (currencies, expenses) => ({
+export const wallet = (payload) => ({
   type: WALLET,
-  payload: {
-    currencies,
-    expenses,
-  },
+  payload,
 });
