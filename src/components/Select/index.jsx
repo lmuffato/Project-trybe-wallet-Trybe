@@ -17,7 +17,7 @@ class Select extends React.Component {
     } = this.props;
 
     return (
-      <SelectBox htmlFor={ name }>
+      <SelectBox>
         {labelName}
         <SelectField
           data-testid={ select }

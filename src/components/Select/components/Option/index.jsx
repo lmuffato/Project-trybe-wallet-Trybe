@@ -1,18 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { string } from 'prop-types';
 
 class Option extends React.Component {
   render() {
-    const { value, text } = this.props;
+    const { value, text, name } = this.props;
     return (
-      <option value={ value }>{text}</option>
+      <option name={ name } value={ value }>{text}</option>
     );
   }
 }
 
 Option.propTypes = {
-  value: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
+  name: string.isRequired,
+  value: string.isRequired,
+  text: string.isRequired,
 };
 
 export default Option;

@@ -15,14 +15,14 @@ export const inputs = [
 export const selects = [
   {
     select: '',
-    name: 'currencie',
+    name: 'money',
     labelName: 'Moeda:',
     options: [],
   },
   {
     select: '',
-    name: 'method',
-    labelName: 'Metódo de pagamento:',
+    name: 'payment',
+    labelName: 'Método de pagamento:',
     options: [
       {
         text: 'Dinheiro',
@@ -42,6 +42,27 @@ export const selects = [
     select: '',
     name: 'tag',
     labelName: 'Tag:',
-    options: [],
+    options: [
+      {
+        text: 'Alimentação',
+        value: 'food',
+      },
+      {
+        text: 'Lazer',
+        value: 'leisure',
+      },
+      {
+        text: 'Trabalho',
+        value: 'work',
+      },
+      {
+        text: 'Transporte',
+        value: 'transportation',
+      },
+      {
+        text: 'Saúde',
+        value: 'health',
+      },
+    ],
   },
 ];

@@ -17,7 +17,7 @@ class Forms extends React.Component {
       price: '',
       description: '',
       currencie: '',
-      method: '',
+      payment: '',
       tag: '',
     };
   }
@@ -27,7 +27,7 @@ class Forms extends React.Component {
       price,
       description,
       currencie,
-      method,
+      payment,
       tag,
     } = this.state;
 
@@ -35,7 +35,7 @@ class Forms extends React.Component {
       price,
       description,
       currencie,
-      method,
+      payment,
       tag,
     };
   }
