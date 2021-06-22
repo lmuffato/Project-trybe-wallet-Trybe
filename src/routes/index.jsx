@@ -1,14 +1,12 @@
 import React from 'react';
 import { bool, shape } from 'prop-types';
 import { connect } from 'react-redux';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { FiHome, FiUsers } from 'react-icons/fi';
+import { Route, Switch } from 'react-router-dom';
 
-import Loading from '../components/Loading';
 import Login from '../pages/Login';
 import Wallet from '../pages/Wallet';
 
-import { Container, NavBar, NavIcon } from './styles';
+import { Container } from './styles';
 
 const routes = [
   {

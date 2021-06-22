@@ -18,7 +18,7 @@ class Wallet extends React.Component {
   render() {
     const { isAuth, isLoading } = this.props;
 
-    // if (!isAuth) return <Redirect push to="/" />;
+    if (!isAuth) return <Redirect push to="/" />;
 
     return (
       <>
