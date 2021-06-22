@@ -17,7 +17,7 @@ export const selects = [
     select: '',
     name: 'money',
     labelName: 'Moeda:',
-    options: [],
+    options: undefined,
   },
   {
     select: '',

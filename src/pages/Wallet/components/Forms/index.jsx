@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes, { arrayOf } from 'prop-types';
+import { connect } from 'react-redux';
 
 import { FormField } from './styles';
 import { inputs, selects } from '../../../../helpers/inputData';
@@ -50,6 +52,8 @@ class Forms extends React.Component {
   }
 
   render() {
+    const { currencies } = this.props;
+
     return (
       <FormField>
         {
@@ -69,10 +73,20 @@ class Forms extends React.Component {
         {
           selects.map((select) => {
             const { [select.name]: value } = this.getState();
+            let { options } = select;
+
+            if (!options) {
+              options = currencies.map((currencie) => ({
+                text: currencie.code,
+                value: currencie.code,
+              }));
+            }
+
             return (
               <Select
                 key={ select.text }
                 { ...select }
+                options={ options }
                 value={ value }
                 onChange={ this.handleChange }
               />
@@ -84,4 +98,12 @@ class Forms extends React.Component {
   }
 }
 
-export default Forms;
+Forms.propTypes = {
+  currencies: arrayOf(PropTypes.object).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+export default connect(mapStateToProps)(Forms);

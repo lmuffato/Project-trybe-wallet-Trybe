@@ -10,8 +10,11 @@ export const getCurrenciesThunk = () => async (dispatch) => {
   dispatch(requestCurrencies());
   try {
     const data = await fetchAwesomeApi();
+    const currencies = Object.values(data).filter((currencie) => (
+      currencie.codein !== 'BRLT'
+    ));
 
-    dispatch(currenciesSuccess(data));
+    dispatch(currenciesSuccess(currencies));
   } catch (error) {
     console.log(error);
     dispatch(currenciesError('Erro ao buscar currencies'));

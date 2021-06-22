@@ -23,9 +23,7 @@ const routes = [
   },
 ];
 
-function Routes({ wallet: { isLoading } }) {
-  if (isLoading) return <Loading />;
-
+function Routes() {
   return (
     <Container>
       <Switch>

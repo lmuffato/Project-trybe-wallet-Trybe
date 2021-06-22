@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { string, func, arrayOf } from 'prop-types';
 
 import Option from './components/Option';
 
@@ -33,12 +33,12 @@ class Select extends React.Component {
 }
 
 Select.propTypes = {
-  select: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  labelName: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.object).isRequired,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  select: string.isRequired,
+  name: string.isRequired,
+  labelName: string.isRequired,
+  options: arrayOf(PropTypes.object).isRequired,
+  value: string.isRequired,
+  onChange: func.isRequired,
 };
 
 export default Select;
