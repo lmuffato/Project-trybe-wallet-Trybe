@@ -255,3 +255,22 @@ body {
   width: 100%;
 }
 
+.buttons-expense {
+  display: flex;
+}
+
+.buttons-expense button {
+  background-color: transparent;
+  border: none;
+  display: flex;
+  font-size: 1.8rem;
+  margin: 0 5px;
+}
+
+.buttons-expense button:nth-child( 1 ) {
+  color: #ff8d01;
+}
+
+.buttons-expense button:nth-child( 2 ) {
+  color: red;
+}

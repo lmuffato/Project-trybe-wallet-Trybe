@@ -12,10 +12,7 @@ export default class WalletHeader extends Component {
             {email || 'alguem@email.com'}
           </span>
           <span data-testid="total-field">
-            {`Total gasto: RS ${parseFloat(
-              total,
-            ).toFixed(2)}`}
-
+            {`Total gasto: RS ${total.toFixed(2)}`}
           </span>
           <span data-testid="header-currency-field">{currency}</span>
         </div>

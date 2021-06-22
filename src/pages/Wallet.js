@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import walletThunks from '../thunks/wallet';
-import { addExpense } from '../actions';
 
 import WalletHeader from '../components/WalletHeader';
 import WalletForm from '../components/WalletForm';
@@ -17,10 +16,11 @@ class Wallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      total: 0,
       currency: 'BRL',
+      total: 0,
       expense: {
-        value: '',
+        id: 0,
+        value: 0,
         currency: '',
         method: '',
         tag: '',
@@ -36,7 +36,11 @@ class Wallet extends React.Component {
     const { getExchangeRates } = this.props;
     // this.checkLogged();
     getExchangeRates();
+    this.reduceTotal();
   }
+
+  // componentDidUpdate() {
+  // }
 
   handleChange = ({ target }) => {
     const { name, value } = target;
@@ -48,39 +52,38 @@ class Wallet extends React.Component {
     }));
   };
 
-  handleClick = (e) => {
+  handleClick = async (e) => {
     e.preventDefault();
-    const { getExchangeRates, add, wallet } = this.props;
-    let id = 0;
-    if (wallet.expenses[wallet.expenses.length - 1]) {
-      id = wallet.expenses[wallet.expenses.length - 1].id + 1;
+    const { addNewExpenseThunk } = this.props;
+
+    await addNewExpenseThunk(this.newExpense, this.reduceTotal);
+    this.setState((prev) => ({
+      expense: { ...prev.expense, id: prev.expense.id + 1 },
+    }));
+  };
+
+  newExpense = () => {
+    const { wallet } = this.props;
+    const { expense } = this.state;
+    if (!this.checkEmptyInput(expense)) {
+      return {
+        ...expense,
+        exchangeRates: wallet.exchangeRates,
+      };
     }
-    getExchangeRates();
-    this.setState(
-      ({ expense }) => ({
-        expense: {
-          ...expense,
-          exchangeRates: wallet.exchangeRates,
-        },
-      }),
-      () => {
-        const {
-          expense,
-          expense: { value, currency },
-        } = this.state;
-        if (!this.checkEmptyInput(expense)) {
-          add({
-            id,
-            ...expense,
-          });
-          this.setState(({ total }) => ({
-            total: total + value * wallet.exchangeRates[currency].ask,
-          }));
-        } else {
-          alert('Preencha todos os campos.');
-        }
-      },
+    alert('Preencha todos os campos.');
+  };
+
+  reduceTotal = () => {
+    const { wallet } = this.props;
+    const {
+      expense: { currency },
+    } = this.state;
+    const total = wallet.expenses.reduce(
+      (a, b) => a + b.value * wallet.exchangeRates[currency].ask,
+      0,
     );
+    this.setState({ total });
   };
 
   checkEmptyInput = (inputs) => !!Object.values(inputs)
@@ -129,7 +132,10 @@ class Wallet extends React.Component {
             Adicionar despesa
           </button>
         </form>
-        <WalletTable expenses={ expenses } />
+        <WalletTable
+          expenses={ expenses }
+          reduceTotal={ this.reduceTotal }
+        />
       </section>
     );
   }
@@ -142,7 +148,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getExchangeRates: () => dispatch(walletThunks.getExchangeRates()),
-  add: (expense) => dispatch(addExpense(expense)),
+  addNewExpenseThunk: (getExpense, sumTotal) => dispatch(walletThunks.addNewExpense(getExpense, sumTotal)),
 });
 
 Wallet.propTypes = {

@@ -7,6 +7,7 @@ const INITIAL_STATE = {
     exchangeRates: {},
     currencies: [],
     expenses: [],
+    total: 0,
   },
 };
 

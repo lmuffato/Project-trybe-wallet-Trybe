@@ -4,7 +4,7 @@ import Expenses from './Expenses';
 
 export default class WalletTable extends Component {
   render() {
-    const { expenses } = this.props;
+    const { expenses, reduceTotal } = this.props;
     return (
       <table className="table">
         <thead className="thead-dark">
@@ -20,7 +20,7 @@ export default class WalletTable extends Component {
             <th>Editar/Excluir</th>
           </tr>
         </thead>
-        <Expenses expenses={ expenses } />
+        <Expenses expenses={ expenses } reduceTotal={ reduceTotal } />
       </table>
     );
   }
