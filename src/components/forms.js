@@ -24,10 +24,10 @@ class Form extends React.Component {
             id="description"
           />
         </label>
-        <label htmlFor="Moeda">
-          Moeda:
-          <select>
-            <option value="" name="moeda">moeda</option>
+        <label htmlFor="moeda">
+          moeda
+          <select value="" name="moeda" id="moeda">
+            <option>BRL</option>
           </select>
         </label>
         <Payment />
