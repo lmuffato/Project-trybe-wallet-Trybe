@@ -13,7 +13,6 @@ class ExpenseTag extends Component {
           <select
             id="tag"
             name="tag"
-            value="tag"
             onChange={ (event) => {
               inputTag(event.target.value);
             } }

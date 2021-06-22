@@ -13,7 +13,6 @@ class PaymentMethod extends Component {
           <select
             id="method"
             name="method"
-            value="method"
             onChange={ (event) => {
               inputPaymentMethod(event.target.value);
             } }

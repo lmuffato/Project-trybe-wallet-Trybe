@@ -14,6 +14,16 @@ class ExchangeCurrency extends Component {
 
   fetchApiExchange() {
     const { fetchReducer, inputExchangeRates } = this.props;
+    const apiExchangeFunction2 = async () => {
+      try {
+        const request = await fetch('https://economia.awesomeapi.com.br/json/all');
+        const datajson = await request.json();
+        return datajson;
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    apiExchangeFunction2();
     const apiExchangeFunction = async () => {
       try {
         const request = await fetch('https://economia.awesomeapi.com.br/json/all');
