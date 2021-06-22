@@ -3,7 +3,7 @@
   color: white;
   display: flex;
   flex-direction: column;
-  font-family: 'Roboto', sans-serif;
+  font-family: Roboto, sans-serif;
   padding: 1rem;
 }
 
@@ -17,6 +17,6 @@
   flex-direction: column;
 }
 
-.email, .expenses {
+.email , .expenses {
   font-size: 1.2rem;
 }

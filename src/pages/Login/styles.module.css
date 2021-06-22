@@ -1,17 +1,14 @@
 .container {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  font-family: 'Roboto', sans-serif;
-
+  font-family: Roboto, sans-serif;
   height: 100vh;
+  justify-content: center;
 }
 
 .logo {
   color: #2a9d8f;
-
   height: 98.12px;
   width: 96.78px;
 }
@@ -19,31 +16,22 @@
 .loginSection {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-
-  margin-top: 3rem;
-
   height: 15.5rem;
+  justify-content: space-between;
+  margin-top: 3rem;
   width: 339px;
 }
 
 .button {
-  display: flex;
-  justify-content: flex-end;
-
-  height: 3.2rem;
-  
   align-items: center;
-  justify-content: center;
-
-  margin-top: 1rem;
-
-  border-radius: 10px;
-
   background-color: #2a9d8f;
-  
+  border-radius: 10px;
+  display: flex;
   font-size: 1.3rem;
   font-weight: 700;
+  height: 3.2rem;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
 .button span {
