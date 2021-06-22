@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Expenses from './Expenses';
 
 export default class WalletTable extends Component {
   render() {
-    const { expenses, reduceTotal } = this.props;
     return (
       <table className="table">
         <thead className="thead-dark">
@@ -20,12 +18,8 @@ export default class WalletTable extends Component {
             <th>Editar/Excluir</th>
           </tr>
         </thead>
-        <Expenses expenses={ expenses } reduceTotal={ reduceTotal } />
+        <Expenses />
       </table>
     );
   }
 }
-
-WalletTable.propTypes = {
-  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
-};

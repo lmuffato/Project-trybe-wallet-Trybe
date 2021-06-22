@@ -276,7 +276,7 @@ describe('9 - Desenvolva uma tabela com os gastos contendo as seguintes caracter
   });
 });
 
-describe.only('10 - Crie um botão para deletar uma despesa da tabela contendo as seguintes características:', () => {
+describe('10 - Crie um botão para deletar uma despesa da tabela contendo as seguintes características:', () => {
   const initial = initialStateWithExpenses;
 
   test('O botão deve estar dentro do último item da linha da tabela e deve possuir `data-testid="delete-btn"`', () => {
@@ -317,7 +317,6 @@ describe.only('10 - Crie um botão para deletar uma despesa da tabela contendo a
     const deleteBtn = screen.getAllByTestId('delete-btn')[0];
 
     fireEvent.click(deleteBtn);
-    console.log(store.getState())
 
     const newExpenses = [
       {
@@ -332,8 +331,9 @@ describe.only('10 - Crie um botão para deletar uma despesa da tabela contendo a
     ];
 
     expect(store.getState().wallet.expenses).toStrictEqual(newExpenses);
-
+    
     const totalField = screen.getByTestId('total-field');
+    console.log(totalField)
     expect(totalField).toContainHTML('131.37');
   });
 });

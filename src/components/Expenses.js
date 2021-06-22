@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Expense from './Expense';
 
-export default class Expenses extends Component {
+class Expenses extends Component {
   render() {
-    const { expenses } = this.props;
+    const { wallet: { expenses } } = this.props;
     if (!expenses.length) {
       return (
         <tbody>
@@ -45,6 +46,14 @@ export default class Expenses extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  wallet: state.wallet,
+});
+
 Expenses.propTypes = {
-  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  wallet: PropTypes.shape({
+    expenses: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
 };
+
+export default connect(mapStateToProps, null)(Expenses);

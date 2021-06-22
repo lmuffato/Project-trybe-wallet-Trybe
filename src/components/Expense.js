@@ -60,7 +60,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removeExpense: (expenseId) => dispatch(walletThunks.removeExpense(expenseId)),
+  removeExpense: (expenseId, callback) => dispatch(walletThunks
+    .removeExpense(expenseId, callback)),
 });
 
 Expense.propTypes = {
@@ -77,6 +78,7 @@ Expense.propTypes = {
     convertedValue: PropTypes.number,
     conversionCurrency: PropTypes.string,
   }).isRequired,
+  reduceTotal: PropTypes.func.isRequired,
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Expense);

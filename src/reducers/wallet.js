@@ -18,9 +18,6 @@ const walletReducer = (state = INITIAL_STATE.wallet, action) => {
   case ACTIONS.REMOVE_EXPENSE:
     return {
       ...state,
-      // total:
-      // state.total
-      // - expense.value * expense.exchangeRates[expense.currency].ask,
       expenses: state.expenses.filter((exp) => exp.id !== Number(expenseId)),
     };
   case ACTIONS.UPDATE_TOTAL:
