@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const InputBox = styled.label`
+export const SelectBox = styled.label`
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
@@ -12,7 +12,7 @@ export const InputBox = styled.label`
   height: 3.2rem;
 `;
 
-export const InputField = styled.input`
+export const SelectField = styled.select`
   margin-top: 0.3rem;
   font-size: 1.3rem;
   padding: 1.5rem;

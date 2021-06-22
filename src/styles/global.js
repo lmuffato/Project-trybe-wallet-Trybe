@@ -19,7 +19,7 @@ export default createGlobalStyle`
 
   body {
     font-size: 14px;
-    background: #292929;
+    background: #264653;
     color: #333;
     font-family: sans-serif;
   }
@@ -29,7 +29,7 @@ export default createGlobalStyle`
     text-decoration: none;
   }
 
-  input {
+  input, textarea, select {
     border: none;
     outline: none;
   }

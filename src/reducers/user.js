@@ -1,19 +1,19 @@
+import { USER_LOGIN } from '../actions/user';
+
 const INITIAL_STATE = {
-  email: 'exemplo@example.com',
-  password: 'projetoredux',
-  isAuth: false,
-  isLoading: false,
+  email: '',
+  password: '',
+  isAuth: true,
 };
 
-function user(state = INITIAL_STATE, action) {
-  switch (action.type) {
-  case 'LOGIN_SUCCESS': {
-    const { payload: { isAuth } } = action;
-
-    return { ...state, isAuth };
-  }
-  case 'LOGOUT':
-    return false;
+function user(state = INITIAL_STATE, { type, payload }) {
+  switch (type) {
+  case USER_LOGIN:
+    return {
+      ...state,
+      ...payload,
+      isAuth: true,
+    };
   default:
     return state;
   }

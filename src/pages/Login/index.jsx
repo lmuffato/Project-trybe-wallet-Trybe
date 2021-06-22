@@ -1,61 +1,116 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { func, shape } from 'prop-types';
+import { connect } from 'react-redux';
 import { FiArrowRight } from 'react-icons/fi';
 
 // import { getUserThunk } from '../../store/actions';
+import { getUser } from '../../actions';
 
-import { Container, Logo, UserName, Required, Button, LoginSection } from './styles';
+import Input from '../../components/Input';
+
+import { Container, Logo, Button, LoginSection } from './styles';
 
 // Pensamento do momento: Alterar as actions, criar a action thunk, alterar os redcuers;
-function Login() {
-  const dispatch = useDispatch();
+class Login extends React.Component {
+  constructor() {
+    super();
 
-  const { error } = useSelector(({ user }) => user);
-  const history = useHistory();
-  const [userName, setUserName] = useState('');
-  const [isEmpty, setIsEmpty] = useState(error);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
-  const handleChange = ({ target: { value } }) => {
-    setUserName(value);
-    setIsEmpty(false);
-  };
+    this.state = {
+      email: '',
+      password: '',
+      isValidate: {
+        email: false,
+        password: false,
+      },
+    };
+  }
 
-  const handleSubmit = (event) => {
+  // https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/
+  validateUser(value, isEmail) {
+    const regex = /\S+@\S+\.\S+/;
+    const minimumLength = 6;
+
+    if (isEmail === 'email') return regex.test(value);
+    return value.length >= minimumLength;
+  }
+
+  handleChange({ target: { name, value } }) {
+    this.setState(({ isValidate }) => ({
+      [name]: value,
+      isValidate: {
+        ...isValidate,
+        [name]: this.validateUser(value, name),
+      },
+    }));
+  }
+
+  handleSubmit(event) {
     event.preventDefault();
+    const { email, password } = this.state;
+    const { dispatchUser, history } = this.props;
 
-    if (userName === '') {
-      dispatch({ type: 'RECEIVED_USER_ERROR', payload: 'Campo obrigatório' });
-      return setIsEmpty(true);
-    }
-    setUserName('');
-    // dispatch(getUserThunk(userName));
-    history.push('/');
-  };
+    dispatchUser({ email, password });
+    this.setState({ email: '', password: '' });
+    history.push('/carteira');
+  }
 
-  return (
-    <Container>
-      <Logo />
+  render() {
+    const {
+      email,
+      password,
+      isValidate: { email: isEmail, password: isPwd },
+    } = this.state;
 
-      <LoginSection>
-        <UserName isEmpty={ isEmpty }>
-          <input
-            value={ userName }
-            onChange={ (event) => handleChange(event) }
+    return (
+      <Container>
+        <Logo />
+
+        <LoginSection>
+          <Input
+            value={ email }
+            dataTestid="email-input"
+            name="email"
+            onChange={ (event) => this.handleChange(event) }
             type="text"
-            placeholder="Usuário"
+            placeholder="Email"
           />
-          {isEmpty ? <Required>{error}</Required> : ''}
-        </UserName>
 
-        <Button as="button" onClick={ handleSubmit }>
-          <span>ENTRAR</span>
-          {' '}
-          <FiArrowRight />
-        </Button>
-      </LoginSection>
-    </Container>
-  );
+          <Input
+            value={ password }
+            dataTestid="password-input"
+            name="password"
+            onChange={ (event) => this.handleChange(event) }
+            type="password"
+            placeholder="Password"
+          />
+
+          <Button
+            disabled={ !(isEmail && isPwd) }
+            as="button"
+            onClick={ (event) => this.handleSubmit(event) }
+          >
+            <span>ENTRAR</span>
+            {' '}
+            <FiArrowRight />
+          </Button>
+        </LoginSection>
+      </Container>
+    );
+  }
 }
 
-export default Login;
+Login.propTypes = {
+  dispatchUser: func.isRequired,
+  history: shape({
+    push: func.isRequired,
+  }).isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchUser: (payload) => dispatch(getUser(payload)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);

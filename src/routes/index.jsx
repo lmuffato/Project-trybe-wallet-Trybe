@@ -1,27 +1,29 @@
 import React from 'react';
 import { bool, shape } from 'prop-types';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { FiHome, FiUsers } from 'react-icons/fi';
 
 import Loading from '../components/Loading';
 import Login from '../pages/Login';
 import Wallet from '../pages/Wallet';
-// import NotFound from '../pages/NotFound';
 
 import { Container, NavBar, NavIcon } from './styles';
 
 const routes = [
   {
-    path: '/wallet',
+    path: '/',
+    exact: true,
+    component: Login,
+  },
+  {
+    path: '/carteira',
     exact: true,
     component: Wallet,
   },
 ];
 
-function Routes({ user: { isLoading, isAuth } }) {
-  if (!isAuth) return <Login />;
-
+function Routes({ wallet: { isLoading } }) {
   if (isLoading) return <Loading />;
 
   return (
@@ -32,7 +34,7 @@ function Routes({ user: { isLoading, isAuth } }) {
         ))}
       </Switch>
 
-      <NavBar>
+      {/* <NavBar>
         <NavIcon exact to="/">
           <FiHome size="2rem" />
           <span>Home</span>
@@ -47,15 +49,18 @@ function Routes({ user: { isLoading, isAuth } }) {
           <FiUsers size="2rem" />
           <span>Following</span>
         </NavIcon>
-      </NavBar>
+      </NavBar> */}
     </Container>
   );
 }
 
 Routes.propTypes = {
   user: shape({
-    isLoading: bool.isRequired,
     isAuth: bool.isRequired,
+  }).isRequired,
+
+  wallet: shape({
+    isLoading: bool.isRequired,
   }).isRequired,
 };
 

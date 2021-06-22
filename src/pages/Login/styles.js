@@ -26,11 +26,11 @@ export const LoginSection = styled.form`
 
   margin-top: 3rem;
 
-  height: 7.5rem;
+  height: 17.5rem;
   width: 339px;
 `;
 
-export const UserName = styled.label`
+export const InputBox = styled.label`
   display: flex;
   justify-content: flex-end;
 
@@ -44,8 +44,6 @@ export const UserName = styled.label`
     width: 100%;
     border-radius: 10px;
     font-family: ${fontFamily};
-
-    border: ${({ isEmpty }) => (isEmpty ? '1px solid #EB2D2D' : 'none')};
     
     ::placeholder {
       color: #535353;
@@ -54,20 +52,13 @@ export const UserName = styled.label`
   }
 `;
 
-export const Required = styled.span`
-  position: absolute;
-  margin-right: 1rem;
-
-  align-self: center;
-
-  color: #EB2D2D;
-`;
-
-export const Button = styled(UserName).attrs(() => ({
+export const Button = styled(InputBox).attrs(() => ({
   type: 'submit',
 }))`
   align-items: center;
   justify-content: center;
+
+  margin-top: 1rem;
 
   border-radius: 10px;
 
