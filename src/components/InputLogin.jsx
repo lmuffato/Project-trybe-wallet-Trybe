@@ -55,6 +55,7 @@ class InputLogin extends Component {
             Senha:
             <input
               id="password"
+              name="password"
               data-testid="password-input"
               type="password"
               placeholder="Sua senha"
@@ -73,7 +74,7 @@ class InputLogin extends Component {
             Entrar
           </button>
         </form>
-        {redirect === true ? <Redirect to="/carteira" /> : null}
+        { redirect === true ? <Redirect to="/carteira" /> : null }
         <h2>{!validEmail || !validPassword ? 'Login inválido' : 'Login Válido'}</h2>
         <h2>{email}</h2>
         <h2>{password}</h2>
