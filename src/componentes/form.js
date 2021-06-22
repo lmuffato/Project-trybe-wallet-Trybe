@@ -1,4 +1,3 @@
-/* eslint-disable no-trailing-spaces */
 import React from 'react';
 import { connect } from 'react-redux';
 import getApi from '../getApi';
@@ -20,22 +19,9 @@ class Form extends React.Component {
     getApi().then((data) => { this.setState({ currencies: data }); });
   }
 
-  addGasto() {
-
-  }
-
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  }
-
-  // eslint-disable-next-line max-lines-per-function
-  render() {
-    const { currencies, value, description, currency, method, tag } = this.state;
-    console.log(currencies, value, description, currency, method, tag);
-    const currenciesArray = Object.keys(currencies).filter((c) => c !== 'USDT');
+  input() {
     return (
-      <form>
+      <>
         <label htmlFor="id_valor">
           Valor
           <input
@@ -54,9 +40,31 @@ class Form extends React.Component {
             onChange={ (e) => this.handleChange(e) }
           />
         </label>
+      </>
+    );
+  }
+
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  }
+
+  render() {
+    const { currencies, value, description, currency, method, tag } = this.state;
+    console.log(currencies, value, description, currency, method, tag);
+    const currenciesArray = Object.keys(currencies).filter((c) => c !== 'USDT');
+    console.log(currenciesArray);
+    return (
+      <form>
+        { this.input() }
+
         <label htmlFor="id_moeda">
           Moeda
-          <select id="id_moeda" name="currency" onChange={ (e) => this.handleChange(e) }>
+          <select
+            id="id_moeda"
+            name="currency"
+            onChange={ (e) => this.handleChange(e) }
+          >
             { currenciesArray.map((currencie) => (
               <option key={ currencie }>
                 {currencie}
@@ -65,9 +73,9 @@ class Form extends React.Component {
         </label>
         <label htmlFor="id_metodo_pagamento" onChange={ (e) => this.handleChange(e) }>
           Método de pagamento
-          <select 
-            id="id_metodo_pagamento" 
-            name="method" 
+          <select
+            id="id_metodo_pagamento"
+            name="method"
             onChange={ (e) => this.handleChange(e) }
           >
             <option value="Dinheiro">Dinheiro</option>
@@ -93,7 +101,6 @@ class Form extends React.Component {
 
 const mapStateToProps = ({ wallet }) => ({
   currencies: wallet.currencies,
-  expenses: wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({

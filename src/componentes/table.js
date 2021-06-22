@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 function Table({ expenses }) {
-  console.log(expenses);
   return (
     <table>
       <thead>
