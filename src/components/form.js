@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrencyExchange } from '../actions';
+import { addOutlay, fetchCurrencyExchange } from '../actions';
+
+let giveValue;
 
 class Form extends React.Component {
   constructor(props){
@@ -17,7 +19,7 @@ class Form extends React.Component {
     getValue();
   }
 
-  async getData(){
+  async getData() {
     const { count } = this.state;
     const dataCurrency = await (await fetch('https://economia.awesomeapi.com.br/json/all')).json();
     delete dataCurrency.USDT;
@@ -36,7 +38,11 @@ class Form extends React.Component {
     });
     this.setState({
       count: count + 1,
-    })
+    });
+    const { data } = this.state;
+    giveValue = data;
+    const { getWallet } = this.props;
+    getWallet(giveValue);
   }
 
   render() {
@@ -84,10 +90,11 @@ class Form extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getValue: () => dispatch(fetchCurrencyExchange()),
+  getWallet: (giveValue) => dispatch(addOutlay(giveValue)),
 });
 
 const mapStateToProps = (state) => ({
-  currencies: state.wallet.currencies,
+  currencies: state.getWallet.currencies,
 });
 
 Form.propTypes = {
