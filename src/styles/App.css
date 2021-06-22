@@ -4,3 +4,11 @@
   font-family: 'M PLUS Rounded 1c', sans-serif;
   text-decoration: none;
 }
+
+.container {
+  align-items: flex-start;
+  background-color: rgb(37, 40, 42);
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+}

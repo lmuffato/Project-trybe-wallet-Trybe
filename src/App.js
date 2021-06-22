@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Wallet from './pages/Wallet';
 import './styles/App.css';
 import './styles/Login.css';
+import './styles/Header.css';
 import './styles/Wallet.css';
 
 function App() {

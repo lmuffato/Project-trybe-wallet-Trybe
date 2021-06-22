@@ -22,7 +22,7 @@ class Header extends React.Component {
             { ` ${email}` }
           </div>
           <div data-testid="total-field" className="dispense">
-            Despesa Total
+            Despesa Total:
             { ` ${totalDispense}` }
           </div>
           <div data-testid="header-currency-field" className="currency">
