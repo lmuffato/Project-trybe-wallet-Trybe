@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes, { arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 
-import FormField from './styles';
+import styles from './styles.module.css';
 import { inputs, selects } from '../../../../helpers/inputData';
 
 import Input from '../../../../components/Input';
@@ -55,7 +55,7 @@ class Forms extends React.Component {
     const { currencies } = this.props;
 
     return (
-      <FormField>
+      <form className={ styles.formField }>
         {
           inputs.map((input) => {
             const { [input.name]: value } = this.getState();
@@ -93,7 +93,7 @@ class Forms extends React.Component {
             );
           })
         }
-      </FormField>
+      </form>
     );
   }
 }

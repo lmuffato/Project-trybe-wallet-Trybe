@@ -2,24 +2,24 @@ import React from 'react';
 import { string, shape } from 'prop-types';
 import { connect } from 'react-redux';
 
-import { Container, Email, Expenses } from './styles';
+import styles from './styles.module.css';
 
 class Header extends React.Component {
   render() {
     const { user: { email } } = this.props;
 
     return (
-      <Container>
+      <header className={ styles.container }>
         <h1>TRYBEWALLET</h1>
 
         <div>
-          <Email data-testid="email-field">{email}</Email>
-          <Expenses data-testid="total-field">
+          <p className={ styles.email } data-testid="email-field">{email}</p>
+          <p className={ styles.expenses } data-testid="total-field">
             Despesa total: R$0
             <span data-testid="header-currency-field"> BRL</span>
-          </Expenses>
+          </p>
         </div>
-      </Container>
+      </header>
     );
   }
 }

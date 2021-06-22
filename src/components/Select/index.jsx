@@ -3,7 +3,7 @@ import PropTypes, { string, func, arrayOf } from 'prop-types';
 
 import Option from './components/Option';
 
-import { SelectBox, SelectField } from './styles';
+import styles from './styles.module.css';
 
 class Select extends React.Component {
   render() {
@@ -17,17 +17,19 @@ class Select extends React.Component {
     } = this.props;
 
     return (
-      <SelectBox>
+      <label htmlFor={ name } className={ styles.selectBox }>
         {labelName}
-        <SelectField
+        <select
+          className={ styles.selectField }
           data-testid={ select }
+          id={ name }
           name={ name }
           value={ value }
           onChange={ onChange }
         >
           {options.map((option) => <Option key={ option.value } { ...option } />)}
-        </SelectField>
-      </SelectBox>
+        </select>
+      </label>
     );
   }
 }

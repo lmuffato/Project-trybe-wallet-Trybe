@@ -2,12 +2,13 @@ import React from 'react';
 import { func, shape } from 'prop-types';
 import { connect } from 'react-redux';
 import { FiArrowRight } from 'react-icons/fi';
+import { GiWallet } from 'react-icons/gi';
 
 import { getUser } from '../../actions';
 
 import Input from '../../components/Input';
 
-import { Container, Logo, Button, LoginSection } from './styles';
+import styles from './styles.module.css';
 
 class Login extends React.Component {
   constructor() {
@@ -63,10 +64,10 @@ class Login extends React.Component {
     } = this.state;
 
     return (
-      <Container>
-        <Logo />
+      <main className={ styles.container }>
+        <GiWallet className={ styles.logo } />
 
-        <LoginSection>
+        <form className={ styles.loginSection }>
           <Input
             value={ email }
             dataTestid="email-input"
@@ -85,7 +86,9 @@ class Login extends React.Component {
             placeholder="Password"
           />
 
-          <Button
+          <button
+            className={ styles.button }
+            type="submit"
             disabled={ !(isEmail && isPwd) }
             as="button"
             onClick={ (event) => this.handleSubmit(event) }
@@ -93,9 +96,9 @@ class Login extends React.Component {
             <span>ENTRAR</span>
             {' '}
             <FiArrowRight />
-          </Button>
-        </LoginSection>
-      </Container>
+          </button>
+        </form>
+      </main>
     );
   }
 }

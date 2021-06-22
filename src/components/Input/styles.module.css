@@ -1,6 +1,4 @@
-import styled from 'styled-components';
-
-export const InputBox = styled.label`
+.inputBox {
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
@@ -10,17 +8,18 @@ export const InputBox = styled.label`
   color: white;
 
   height: 3.2rem;
-`;
+}
 
-export const InputField = styled.input`
+.inputField {
   margin-top: 0.3rem;
   font-size: 1.3rem;
   padding: 1.5rem;
   width: 100%;
   border-radius: 10px;
-  
-  ::placeholder {
-    color: #535353;
-    opacity: 1;
-  }
-`;
+  font-family: 'Roboto', sans-serif;
+}
+
+.inputField::placeholder {
+  color: #535353;
+  opacity: 1;
+}

@@ -1,6 +1,4 @@
-import styled from 'styled-components';
-
-const FormField = styled.form`
+.formField {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -9,6 +7,4 @@ const FormField = styled.form`
 
   height: 100vh;
   width: 339px;
-`;
-
-export default FormField;
+}

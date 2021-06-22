@@ -1,12 +1,11 @@
 import React from 'react';
 import { string, func, bool } from 'prop-types';
 
-import { InputBox, InputField } from './styles';
+import styles from './styles.module.css';
 
 class Input extends React.Component {
   render() {
     const {
-      customTag,
       labelName,
       placeholder,
       dataTestid,
@@ -18,10 +17,11 @@ class Input extends React.Component {
     } = this.props;
 
     return (
-      <InputBox>
+      <label htmlFor={ name } className={ styles.inputBox }>
         {labelName}
-        <InputField
-          as={ customTag }
+        <input
+          className={ styles.inputField }
+          id={ name }
           value={ value }
           data-testid={ dataTestid }
           name={ name }
@@ -30,7 +30,7 @@ class Input extends React.Component {
           placeholder={ placeholder }
           checked={ checked }
         />
-      </InputBox>
+      </label>
     );
   }
 }
@@ -41,7 +41,6 @@ Input.propTypes = {
   name: string.isRequired,
   dataTestid: string,
   placeholder: string,
-  customTag: string,
   type: string,
   labelName: string,
   checked: bool,
@@ -49,7 +48,6 @@ Input.propTypes = {
 
 Input.defaultProps = {
   dataTestid: '',
-  customTag: 'input',
   placeholder: '',
   type: 'text',
   labelName: '',
