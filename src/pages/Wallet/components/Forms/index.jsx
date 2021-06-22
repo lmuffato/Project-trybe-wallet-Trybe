@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes, { arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 
-import { FormField } from './styles';
+import FormField from './styles';
 import { inputs, selects } from '../../../../helpers/inputData';
 
 import Input from '../../../../components/Input';
