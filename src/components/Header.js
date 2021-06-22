@@ -7,7 +7,6 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currance: 'BRL',
       totalExpenses: 0,
     };
 
@@ -22,7 +21,8 @@ class Header extends Component {
 
   render() {
     const { user } = this.props;
-    const { totalExpenses, currance } = this.state;
+    console.log(user);
+    const { totalExpenses } = this.state;
     this.getInformation();
     return (
       <header>
@@ -30,14 +30,14 @@ class Header extends Component {
         <p data-testid="email-field">{ user }</p>
         <p data-testid="total-field">Despesas totais:</p>
         <p>{ totalExpenses }</p>
-        <p data-testid="header-currency-field">{ currance }</p>
+        <p data-testid="header-currency-field">BRL</p>
       </header>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  user: state.email,
+  user: state.user.email,
 });
 
 Header.propTypes = {
