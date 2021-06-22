@@ -59,16 +59,16 @@ class Login extends React.Component {
               />
             </label>
           </form>
-          <button
-            disabled={ disabled }
-            className="enter-bttn"
-            type="button"
-            onClick={ () => emailDispatch(email) }
-          >
-            <Link className={ disabled ? 'disabledLink' : '' } to="/carteira">
+          <Link className={ disabled ? 'disabledLink' : '' } to="/carteira">
+            <button
+              disabled={ disabled }
+              className={ disabled ? 'disabled-bttn' : 'enter-bttn' }
+              type="button"
+              onClick={ () => emailDispatch(email) }
+            >
               <h3 className="enter-bttn-text">Entrar</h3>
-            </Link>
-          </button>
+            </button>
+          </Link>
         </main>
       </section>
     );

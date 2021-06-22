@@ -59,8 +59,22 @@ button:disabled {
   padding: 0 2em;
 }
 
+.enter-bttn:hover {
+  background-color: rgb(3, 243, 219);
+}
+
 .enter-bttn-text {
   color: rgb(30, 30, 30);
+}
+
+.disabled-bttn {
+  background-color: rgb(75, 133, 126);
+  border: none;
+  border-radius: 1em;
+  box-shadow: 0 0 10px rgb(10, 10, 10);
+  cursor: pointer;
+  margin: 0.2em 0;
+  padding: 0 2em;
 }
 
 .disabledLink {
