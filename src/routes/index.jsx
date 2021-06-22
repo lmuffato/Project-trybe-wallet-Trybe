@@ -6,7 +6,7 @@ import { Route, Switch } from 'react-router-dom';
 import Login from '../pages/Login';
 import Wallet from '../pages/Wallet';
 
-import { Container } from './styles';
+import styles from './styles.module.css';
 
 const routes = [
   {
@@ -23,30 +23,13 @@ const routes = [
 
 function Routes() {
   return (
-    <Container>
+    <main className={ styles.container }>
       <Switch>
         {routes.map((route, index) => (
           <Route key={ index } { ...route } />
         ))}
       </Switch>
-
-      {/* <NavBar>
-        <NavIcon exact to="/">
-          <FiHome size="2rem" />
-          <span>Home</span>
-        </NavIcon>
-
-        <NavIcon to="/followers">
-          <FiUsers size="2rem" />
-          <span>Followers</span>
-        </NavIcon>
-
-        <NavIcon to="/following">
-          <FiUsers size="2rem" />
-          <span>Following</span>
-        </NavIcon>
-      </NavBar> */}
-    </Container>
+    </main>
   );
 }
 
