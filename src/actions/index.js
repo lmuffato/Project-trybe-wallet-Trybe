@@ -1,11 +1,9 @@
 export const LOGIN = 'LOGIN';
 export const WALLET = 'WALLET';
 
-export const addNewUser = (email) => ({
+export const addNewUser = (payload) => ({
   type: LOGIN,
-  payload: {
-    email,
-  },
+  payload,
 });
 
 export const wallet = (currencies, expenses) => ({
