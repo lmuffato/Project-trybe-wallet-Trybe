@@ -38,13 +38,9 @@ class Wallet extends React.Component {
     return (
       <label htmlFor="currency">
         Moeda
-        {/* <select id="currency">
-            {
-              methodPayment.map((payment) => (
-                <option key={ payment } value={ payment }>{payment}</option>
-              ))
-            }
-          </select> */}
+        <select id="currency">
+          <option>Moeda</option>
+        </select>
       </label>
     );
   }
@@ -65,6 +61,21 @@ class Wallet extends React.Component {
     );
   }
 
+  handleCategory() {
+    return (
+      <label htmlFor="category">
+        Tag:
+        <select id="category">
+          <option value="tag">Alimentação</option>
+          <option value="tag">Lazer</option>
+          <option value="tag">Trabalho</option>
+          <option value="tag">Transporte</option>
+          <option value="tag">Saúde</option>
+        </select>
+      </label>
+    );
+  }
+
   render() {
     return (
       <div>
@@ -74,6 +85,7 @@ class Wallet extends React.Component {
           { this.handleDescription() }
           { this.handleCurrency() }
           { this.handlePayment() }
+          { this.handleCategory() }
           <button type="button">Enviar</button>
         </form>
         TrybeWallet
