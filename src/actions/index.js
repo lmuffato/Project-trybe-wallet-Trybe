@@ -33,7 +33,7 @@ export const fetchExchangeApi = (payload) => (
   { type: EXCHANGEAPI, payload }
 );
 
-export const exchangeRatesOnBuy = (payload) => (
+export const exchangeRates = (payload) => (
   { type: EXCHANGE_RATES, payload }
 );
 

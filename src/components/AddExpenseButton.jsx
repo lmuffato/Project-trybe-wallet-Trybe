@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addExpenses, expensesId, sumExpenses } from '../actions/index';
+import fetchtApiExchange from '../services/ApiExchange';
+import { addExpenses, expensesId, sumExpenses, exchangeRates } from '../actions/index';
 
 class AddExpenseButton extends Component {
   constructor(props) {
@@ -16,7 +17,18 @@ class AddExpenseButton extends Component {
     funcForAddexpensesCount(actualexpenses.length);
   }
 
-  buttonForAddExpenses() {
+  async fetchApi() {
+    const { funcExchangeRates } = this.props;
+    const fet = await fetchtApiExchange();
+    console.log(fet);
+    const exchangeFiltered = {};
+    Object.entries(fet).forEach(([key, value]) => {
+      if (key !== 'USDT') { exchangeFiltered[key] = value; }
+    });
+    funcExchangeRates(exchangeFiltered);
+  }
+
+  async buttonForAddExpenses() {
     const {
       funcForSumExpenses,
       funcForAddExpenses,
@@ -29,7 +41,17 @@ class AddExpenseButton extends Component {
       actualRates,
     } = this.props;
 
-    funcForAddExpenses({
+    // const { funcExchangeRates } = this.props;
+    // const fet = await fetchtApiExchange();
+    // console.log(fet);
+    // const exchangeFiltered = {};
+    // Object.entries(fet).forEach(([key, value]) => {
+    //   if (key !== 'USDT') { exchangeFiltered[key] = value; }
+    // });
+    // funcExchangeRates(exchangeFiltered);
+
+    await this.fetchApi();
+    await funcForAddExpenses({
       id: actualexpenses.length,
       value: actualValue,
       description: actualDescription,
@@ -40,7 +62,7 @@ class AddExpenseButton extends Component {
     });
     const total = actualexpenses.reduce((acumulador, numero) => acumulador + numero.value,
       0);
-    funcForSumExpenses(total + actualValue);
+    await funcForSumExpenses(total + actualValue);
   }
 
   render() {
@@ -61,8 +83,6 @@ class AddExpenseButton extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  wallet: state.wallet,
-
   actualexpenses: state.wallet.expenses,
   actualExpensesCount: state.wallet.expensesCount,
   actualValue: state.wallet.value,
@@ -78,6 +98,7 @@ const mapDispatchToProps = (dispatch) => ({
   funcForAddExpenses: (expenses) => dispatch(addExpenses(expenses)),
   funcForAddexpensesCount: (id) => dispatch(expensesId(id)),
   funcForSumExpenses: (totalValues) => dispatch(sumExpenses(totalValues)),
+  funcExchangeRates: (rates) => dispatch(exchangeRates(rates)),
 });
 
 AddExpenseButton.propTypes = {
@@ -102,10 +123,10 @@ AddExpenseButton.propTypes = {
       varBid: PropTypes.string,
     })).isRequired,
   })).isRequired,
+  funcExchangeRates: PropTypes.func.isRequired,
   funcForAddExpenses: PropTypes.func.isRequired,
   funcForAddexpensesCount: PropTypes.func.isRequired,
   funcForSumExpenses: PropTypes.func.isRequired,
-  // actualExpensesCount: PropTypes.string.isRequired,
   actualValue: PropTypes.number.isRequired,
   actualDescription: PropTypes.string.isRequired,
   actualCurrency: PropTypes.string.isRequired,

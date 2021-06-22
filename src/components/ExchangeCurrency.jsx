@@ -1,46 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import fetchtApiExchange from '../services/ApiExchange';
 import {
   fetchExchangeApi,
   expensesCurriencies,
-  exchangeRatesOnBuy,
+  exchangeRates,
 } from '../actions/index';
 
 class ExchangeCurrency extends Component {
   componentDidMount() {
-    this.fetchApiExchange();
+    this.fetchApi();
   }
 
-  fetchApiExchange() {
-    const { fetchReducer, inputExchangeRates } = this.props;
-    const apiExchangeFunction2 = async () => {
-      try {
-        const request = await fetch('https://economia.awesomeapi.com.br/json/all');
-        const datajson = await request.json();
-        return datajson;
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    apiExchangeFunction2();
-    const apiExchangeFunction = async () => {
-      try {
-        const request = await fetch('https://economia.awesomeapi.com.br/json/all');
-        const datajson = await request.json();
-
-        const exchangeFiltered = {};
-        Object.entries(datajson).forEach(([key, value]) => {
-          if (key !== 'USDT') { exchangeFiltered[key] = value; }
-        });
-        fetchReducer(exchangeFiltered);
-        inputExchangeRates(exchangeFiltered);
-        // console.log(exchangeFiltered);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    apiExchangeFunction();
+  async fetchApi() {
+    const { fetchReducer, funcExchangeRates } = this.props;
+    const fet = await fetchtApiExchange();
+    console.log(fet);
+    const exchangeFiltered = {};
+    Object.entries(fet).forEach(([key, value]) => {
+      if (key !== 'USDT') { exchangeFiltered[key] = value; }
+    });
+    fetchReducer(exchangeFiltered);
+    funcExchangeRates(exchangeFiltered);
   }
 
   coinsOptions() {
@@ -72,14 +54,14 @@ class ExchangeCurrency extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  exchange: state.wallet2.exchangeApi,
+  exchange: state.wallet2.actualExchange,
   exchangeRatesState: state.wallet2.exchangeRates,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchReducer: (data) => dispatch(fetchExchangeApi(data)),
   inputcurriencies: (currency) => dispatch(expensesCurriencies(currency)),
-  inputExchangeRates: (rates) => dispatch(exchangeRatesOnBuy(rates)),
+  funcExchangeRates: (rates) => dispatch(exchangeRates(rates)),
 });
 
 ExchangeCurrency.propTypes = {
@@ -98,7 +80,39 @@ ExchangeCurrency.propTypes = {
   })).isRequired,
   fetchReducer: PropTypes.func.isRequired,
   inputcurriencies: PropTypes.func.isRequired,
-  inputExchangeRates: PropTypes.func.isRequired,
+  funcExchangeRates: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExchangeCurrency);
+
+// RETIRADO DA LINHA 29
+// fetchApiExchange() {
+//   const { fetchReducer, inputExchangeRates } = this.props;
+//   const apiExchangeFunction2 = async () => {
+//     try {
+//       const request = await fetch('https://economia.awesomeapi.com.br/json/all');
+//       const datajson = await request.json();
+//       return datajson;
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+//   apiExchangeFunction2();
+//   const apiExchangeFunction = async () => {
+//     try {
+//       const request = await fetch('https://economia.awesomeapi.com.br/json/all');
+//       const datajson = await request.json();
+//       this.fetchApi();
+//       const exchangeFiltered = {};
+//       Object.entries(datajson).forEach(([key, value]) => {
+//         if (key !== 'USDT') { exchangeFiltered[key] = value; }
+//       });
+//       fetchReducer(exchangeFiltered);
+//       inputExchangeRates(exchangeFiltered);
+//       // console.log(exchangeFiltered);
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+//   apiExchangeFunction();
+// }

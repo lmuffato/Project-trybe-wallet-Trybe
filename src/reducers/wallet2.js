@@ -6,7 +6,7 @@ import {
 } from '../actions/index';
 
 const INITIAL_STATE = {
-  exchangeApi: {},
+  actualExchange: {},
   exchangeRates: {},
   totalExpenses: 0,
 };
@@ -14,7 +14,7 @@ const INITIAL_STATE = {
 export default function wallet2(state = INITIAL_STATE, action) {
   switch (action.type) {
   case EXCHANGEAPI:
-    return { ...state, exchangeApi: action.payload };
+    return { ...state, actualExchange: action.payload };
   case EXCHANGE_RATES:
     return { ...state, exchangeRates: action.payload };
   case SUM_EXPENSES:
