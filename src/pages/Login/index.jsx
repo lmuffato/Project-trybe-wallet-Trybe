@@ -3,14 +3,12 @@ import { func, shape } from 'prop-types';
 import { connect } from 'react-redux';
 import { FiArrowRight } from 'react-icons/fi';
 
-// import { getUserThunk } from '../../store/actions';
 import { getUser } from '../../actions';
 
 import Input from '../../components/Input';
 
 import { Container, Logo, Button, LoginSection } from './styles';
 
-// Pensamento do momento: Alterar as actions, criar a action thunk, alterar os redcuers;
 class Login extends React.Component {
   constructor() {
     super();

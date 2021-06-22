@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import { func, bool } from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -16,9 +15,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { isAuth, isLoading } = this.props;
-
-    if (!isAuth) return <Redirect push to="/" />;
+    const { isLoading } = this.props;
 
     return (
       <>
@@ -34,7 +31,6 @@ class Wallet extends React.Component {
 Wallet.propTypes = {
   fetchData: func.isRequired,
   isLoading: bool.isRequired,
-  isAuth: bool.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -43,7 +39,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   isLoading: state.wallet.isLoading,
-  isAuth: state.user.isAuth,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

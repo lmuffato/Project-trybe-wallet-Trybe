@@ -3,7 +3,6 @@ import { USER_LOGIN } from '../actions/user';
 const INITIAL_STATE = {
   email: '',
   password: '',
-  isAuth: false,
 };
 
 function user(state = INITIAL_STATE, { type, payload }) {
@@ -12,7 +11,6 @@ function user(state = INITIAL_STATE, { type, payload }) {
     return {
       ...state,
       ...payload,
-      isAuth: true,
     };
   default:
     return state;
