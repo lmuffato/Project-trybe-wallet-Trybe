@@ -30,7 +30,7 @@ class ExpenseTag extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  expenseTag: state.wallet.tag,
+  expenseTag: state.wallet2.tag,
 });
 
 const mapDispatchToProps = (dispatch) => ({

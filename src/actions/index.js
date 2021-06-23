@@ -3,6 +3,7 @@ export const USER_PASSWORD = 'USER_PASSWORD';
 
 export const EXPENSES_ADD = 'EXPENSES_ADD';
 export const EXPENSES_DEL = 'EXPENSES_DEL';
+export const UPDATE_SUM_AFTER_DEL_EXP = 'UPDATE_SUM_AFTER_DEL_EXP';
 
 export const EXPENSES_ID = 'EXPENSES_ID';
 export const CURRENCY = 'CURRENCY';
@@ -60,4 +61,8 @@ export const sumExpenses = (payload) => (
 
 export const deleteExpenses = (payload) => (
   { type: EXPENSES_DEL, payload }
+);
+
+export const updateSumAfterDelExp = (payload) => (
+  { type: UPDATE_SUM_AFTER_DEL_EXP, payload }
 );

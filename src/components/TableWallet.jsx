@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { deleteExpenses } from '../actions/index';
+import { deleteExpenses, updateSumAfterDelExp, sumExpenses } from '../actions/index';
 import TableWalletHeader from './TableWalletHeader';
 
 class TableWallet extends Component {
@@ -9,7 +9,7 @@ class TableWallet extends Component {
     super(props);
     this.state = {
     };
-    // this.createTable = this.createTable.bind(this);
+    this.buttonDelete = this.buttonDelete.bind(this);
   }
 
   exchangeConverterValue(exp) {
@@ -18,14 +18,30 @@ class TableWallet extends Component {
   }
 
   buttonDelete(id) {
-    const { funcForDeleteExpenses } = this.props;
+    const {
+      actualExpenses,
+      actualTotalExpenses,
+      funcForDeleteExpenses,
+      funcForSumExpenses,
+    } = this.props;
+
+    const expenseCurrency = actualExpenses[id].currency;
+    const exchangeRates = actualExpenses[id].exchangeRates[expenseCurrency].ask;
+    const espenseExchangeValue = ((actualExpenses[id].value * 1) * (exchangeRates * 1));
+
+    const newActualTotalExpenses = (
+      actualTotalExpenses * 1 - espenseExchangeValue * 1);
+
+    console.log(actualTotalExpenses); // ok - Valor Atual;
+    console.log(espenseExchangeValue); // ok - Valor a ser removido;
+    console.log(newActualTotalExpenses);
+
+    funcForSumExpenses(newActualTotalExpenses);
     funcForDeleteExpenses(id);
-    console.log(id);
   }
 
   render() {
-    const { expenses } = this.props;
-    console.log(expenses);
+    const { actualExpenses } = this.props;
     return (
       <div>
         <h1>Tabela</h1>
@@ -33,7 +49,7 @@ class TableWallet extends Component {
           <TableWalletHeader />
           <tbody>
             {
-              expenses.map((exp) => (
+              actualExpenses.map((exp) => (
                 <tr key={ exp.id }>
                   <td>{exp.description}</td>
                   <td>{exp.tag}</td>
@@ -69,15 +85,19 @@ class TableWallet extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  expenses: state.wallet.expenses,
+  actualExpenses: state.wallet.expenses,
+  actualTotalExpenses: state.wallet2.totalExpenses,
+  updateSum: state.wallet2.updateSum,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   funcForDeleteExpenses: (expenses) => dispatch(deleteExpenses(expenses)),
+  funcForUpdateSumAfterDelExp: (expenses) => dispatch(updateSumAfterDelExp(expenses)),
+  funcForSumExpenses: (expenses) => dispatch(sumExpenses(expenses)),
 });
 
 TableWallet.propTypes = {
-  expenses: PropTypes.arrayOf(PropTypes.shape({
+  actualExpenses: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     value: PropTypes.string,
     description: PropTypes.string,
@@ -98,7 +118,9 @@ TableWallet.propTypes = {
       varBid: PropTypes.string,
     })).isRequired,
   })).isRequired,
-  funcForDeleteExpenses: PropTypes.func.isRequired.isRequired,
+  funcForDeleteExpenses: PropTypes.func.isRequired,
+  funcForSumExpenses: PropTypes.func.string.isRequired,
+  actualTotalExpenses: PropTypes.func.number.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableWallet);

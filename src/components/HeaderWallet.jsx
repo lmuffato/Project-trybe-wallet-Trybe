@@ -11,7 +11,11 @@ class HeaderWallet extends Component {
           <span>Email: </span>
           <span data-testid="email-field">{actualEmail}</span>
           <span>Total: </span>
-          <span data-testid="total-field">{actualTotalExpenses}</span>
+          <span data-testid="total-field">
+            { actualTotalExpenses === 0 || actualTotalExpenses === '0'
+              ? parseFloat(actualTotalExpenses).toFixed(0).toString()
+              : parseFloat(actualTotalExpenses).toFixed(2).toString()}
+          </span>
           <span>Câmbio: </span>
           <span data-testid="header-currency-field">BRL</span>
         </header>

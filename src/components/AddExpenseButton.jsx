@@ -70,7 +70,7 @@ class AddExpenseButton extends Component {
     actualexpenses.forEach((ele) => {
       total += (ele.value * 1) * (ele.exchangeRates[ele.currency].ask * 1);
     });
-    total = parseFloat(total).toFixed(2);
+    // total = parseFloat(total).toFixed(2);
     funcForSumExpenses(total);
   }
 
@@ -99,7 +99,7 @@ const mapStateToProps = (state) => ({
   actualDescription: state.wallet.description,
   actualCurrency: state.wallet.currency,
   actualmethod: state.wallet2.method,
-  actualtag: state.wallet.tag,
+  actualtag: state.wallet2.tag,
   actualTotalExpenses: state.wallet2.totalExpenses,
 });
 
