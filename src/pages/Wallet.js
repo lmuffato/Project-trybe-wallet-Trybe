@@ -17,6 +17,7 @@ class Wallet extends React.Component {
       <div>
         <Header />
         <Form currencies={ currencies } />
+        <button type="button">Adicionar despesa</button>
       </div>
 
     );
@@ -31,7 +32,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Wallet.propTypes = {
-  currencies: PropTypes.objectOf(propTypes.string),
+  currencies: PropTypes.array,
   fetchCurrencies: PropTypes.func,
 }.isRequired;
 
