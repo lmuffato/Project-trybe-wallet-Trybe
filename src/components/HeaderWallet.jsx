@@ -34,4 +34,4 @@ HeaderWallet.propTypes = {
   actualEmail: PropTypes.string.isRequired,
 };
 
-export default connect(mapStateToProps, null)(HeaderWallet);
+export default connect(mapStateToProps, null)(HeaderWallet); //
