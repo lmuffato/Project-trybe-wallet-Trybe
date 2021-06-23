@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import fetchtApiExchange from '../services/ApiExchange';
+import fetchtApiExchange from '../../services/ApiExchange';
 import {
   expensesCurriency,
   currencies,
-} from '../actions/index';
+} from '../../actions/index';
 
 class ExchangeCurrency extends Component {
   constructor(props) {

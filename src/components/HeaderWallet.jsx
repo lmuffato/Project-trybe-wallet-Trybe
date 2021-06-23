@@ -11,10 +11,11 @@ class HeaderWallet extends Component {
           <span>Email: </span>
           <span data-testid="email-field">{actualEmail}</span>
           <span>Total: </span>
-          <span data-testid="total-field">
-            { actualTotalExpenses === 0 || actualTotalExpenses === '0'
-              ? parseFloat(actualTotalExpenses).toFixed(0).toString()
-              : parseFloat(actualTotalExpenses).toFixed(2).toString()}
+          <span>
+            <h1 data-testid="total-field">
+              { actualTotalExpenses === 0 ? parseFloat(actualTotalExpenses).toFixed(0)
+                : parseFloat(actualTotalExpenses).toFixed(2)}
+            </h1>
           </span>
           <span>Câmbio: </span>
           <span data-testid="header-currency-field">BRL</span>
@@ -30,7 +31,7 @@ const mapStateToProps = (state) => ({
 });
 
 HeaderWallet.propTypes = {
-  actualTotalExpenses: PropTypes.string.isRequired,
+  actualTotalExpenses: PropTypes.number.isRequired,
   actualEmail: PropTypes.string.isRequired,
 };
 

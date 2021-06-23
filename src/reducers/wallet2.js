@@ -7,7 +7,7 @@ import {
 } from '../actions/index';
 
 const INITIAL_STATE = {
-  totalExpenses: '0',
+  totalExpenses: 0,
   method: 'Dinheiro',
   tag: 'Alimentação',
   updateSum: '',

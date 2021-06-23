@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import fetchtApiExchange from '../services/ApiExchange';
+import fetchtApiExchange from '../../services/ApiExchange';
 import {
   expensesValues,
   expensesDescription,
@@ -9,7 +9,7 @@ import {
   expensesId,
   sumExpenses,
   currencies,
-} from '../actions/index';
+} from '../../actions/index';
 
 class AddExpenseButton extends Component {
   constructor(props) {
@@ -35,6 +35,12 @@ class AddExpenseButton extends Component {
     const { funcExpensesValues, funcDescription } = this.props;
     funcExpensesValues(0);
     funcDescription('');
+  }
+
+  roundNumber(number, precision) {
+    const baseDez = 10;
+    const decimalDot = baseDez ** precision;
+    return Math.round(number * decimalDot) / decimalDot;
   }
 
   async buttonForAddExpenses() {
@@ -67,11 +73,15 @@ class AddExpenseButton extends Component {
   conversionAndSum() {
     const { actualexpenses, funcForSumExpenses } = this.props;
     let total = 0;
+    // actualexpenses.forEach((ele) => {
+    //   total += (ele.value * 1) * (ele.exchangeRates[ele.currency].ask * 1);
+    // });
+    const decimalRounds = 4;
     actualexpenses.forEach((ele) => {
-      total += (ele.value * 1) * (ele.exchangeRates[ele.currency].ask * 1);
+      total += (this.roundNumber(ele.value, decimalRounds)
+      * this.roundNumber(ele.exchangeRates[ele.currency].ask, decimalRounds));
     });
-    // total = parseFloat(total).toFixed(2);
-    funcForSumExpenses(total);
+    funcForSumExpenses(this.roundNumber(total, decimalRounds));
   }
 
   render() {

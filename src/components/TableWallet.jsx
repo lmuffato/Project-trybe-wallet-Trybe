@@ -12,6 +12,12 @@ class TableWallet extends Component {
     this.buttonDelete = this.buttonDelete.bind(this);
   }
 
+  roundNumber(number, precision) {
+    const baseDez = 10;
+    const decimalDot = baseDez ** precision;
+    return Math.round(number * decimalDot) / decimalDot;
+  }
+
   exchangeConverterValue(exp) {
     return (parseFloat(exp.exchangeRates[exp.currency].ask)
     * parseFloat(exp.value)).toFixed(2);
@@ -25,18 +31,36 @@ class TableWallet extends Component {
       funcForSumExpenses,
     } = this.props;
 
-    const expenseCurrency = actualExpenses[id].currency;
-    const exchangeRates = actualExpenses[id].exchangeRates[expenseCurrency].ask;
-    const espenseExchangeValue = ((actualExpenses[id].value * 1) * (exchangeRates * 1));
+    // Seleciona apenas a tarefa pelo numero de id, não pelo index
+    const selectedExpense = actualExpenses.filter((exp) => exp.id === Number([id]))[0];
 
+    // Desconstrõe o objeto, pegando o valor, a moeda utilizada a chave "exchangeRates";
+    const { value, currency, exchangeRates } = selectedExpense;
+
+    // Constate de arredondamento
+    const decimimalRounds = 4;
+
+    // Taxa de câmbio da moeda";
+    const selectedExpenseEnxchangeRate = (
+      this.roundNumber(exchangeRates[currency].ask, decimimalRounds)
+    );
+
+    // Multiplica o valor da compra pela taxa de cambio";
+    const valueToSubtract = (
+      this.roundNumber(value, decimimalRounds)
+      * this.roundNumber(selectedExpenseEnxchangeRate, decimimalRounds)
+    );
+
+    // O novo valor atual é o valor antigo menos o valor da compra convertida no câmbio;
     const newActualTotalExpenses = (
-      actualTotalExpenses * 1 - espenseExchangeValue * 1);
+      this.roundNumber(actualTotalExpenses, decimimalRounds)
+      - this.roundNumber(valueToSubtract, decimimalRounds)
+    );
 
-    console.log(actualTotalExpenses); // ok - Valor Atual;
-    console.log(espenseExchangeValue); // ok - Valor a ser removido;
-    console.log(newActualTotalExpenses);
+    // Atualiza no estado global, o novo valor da taxa de câmbio
+    funcForSumExpenses(this.roundNumber(newActualTotalExpenses, decimimalRounds));
 
-    funcForSumExpenses(newActualTotalExpenses);
+    // Atualiza a lista de desespas (espenses) global, removendo o item que possui o id passado
     funcForDeleteExpenses(id);
   }
 
@@ -119,7 +143,7 @@ TableWallet.propTypes = {
     })).isRequired,
   })).isRequired,
   funcForDeleteExpenses: PropTypes.func.isRequired,
-  funcForSumExpenses: PropTypes.string.isRequired,
+  funcForSumExpenses: PropTypes.func.isRequired,
   actualTotalExpenses: PropTypes.number.isRequired,
 };
 

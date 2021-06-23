@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { expensesTag } from '../actions/index';
+import { expensesTag } from '../../actions/index';
 
 class ExpenseTag extends Component {
   render() {

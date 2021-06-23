@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { paymentMethod } from '../actions/index';
+import { paymentMethod } from '../../actions/index';
 
 class PaymentMethod extends Component {
   render() {
