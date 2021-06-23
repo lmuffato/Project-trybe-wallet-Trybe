@@ -11,10 +11,10 @@ class FormularioDespesa extends React.Component {
     super();
     this.state = {
       id: 0,
-      valor: '',
-      moeda: 'USD',
-      pagamento: 'Dinheiro',
-      categoria: 'Alimentação',
+      value: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
     this.novaDespesa = this.novaDespesa.bind(this);
     // O nome da função "mud" foi devidso a falta de espaço no render:
@@ -54,28 +54,28 @@ class FormularioDespesa extends React.Component {
     return (
       <div className="App-header">
         <form>
-          <label className="label" htmlFor="valor">
+          <label className="label" htmlFor="value">
             Valor:
-            <input className="valor campo" type="text" id="valor" onChange={ this.mud } />
+            <input className="valor cp" type="text" id="value" onChange={ this.mud } />
           </label>
-          <label className="label" htmlFor="moeda">
+          <label className="label" htmlFor="currency">
             Moeda:
-            <select className="campo" id="moeda" onChange={ this.mud }>
+            <select className="cp" id="currency" onChange={ this.mud }>
               {listaMoedas.map((sigla) => (
                 <option key={ sigla }>{ sigla }</option>))}
             </select>
           </label>
-          <label className="label" htmlFor="pagamento">
+          <label className="label" htmlFor="method">
             Método de pagamento:
-            <select className="campo" id="pagamento" onChange={ this.mud }>
+            <select className="cp" id="method" onChange={ this.mud }>
               <option value="dinheiro" selected>Dinheiro</option>
               <option value="crédito">Cartão de crédito</option>
               <option value="débito">Cartão de débito</option>
             </select>
           </label>
-          <label className="label" htmlFor="categoria">
+          <label className="label" htmlFor="tag">
             Tag:
-            <select className="campo" id="categoria" onChange={ this.mud }>
+            <select className="cp" id="tag" onChange={ this.mud }>
               <option value="alimentação" selected>Alimentação</option>
               <option value="lazer">Lazer</option>
               <option value="trabalho">Trabalho</option>
@@ -83,9 +83,9 @@ class FormularioDespesa extends React.Component {
               <option value="saúde">Saúde</option>
             </select>
           </label>
-          <label className="label" htmlFor="desc">
+          <label className="label" htmlFor="description">
             Descrição:
-            <input className="desc campo" type="text" id="desc" onChange={ this.mud } />
+            <input className="de cp" type="text" id="description" onChange={ this.mud } />
           </label>
           <button className="btn-add-despesa" type="button" onClick={ this.novaDespesa }>
             Adicionar despesa

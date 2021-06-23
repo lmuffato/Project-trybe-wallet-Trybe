@@ -8,11 +8,11 @@ class Wallet extends React.Component {
     const { subtotal } = this.props;
     let total = 0;
     subtotal.forEach((expense) => {
-      // expense.valor = state.wallet.expenses(cada item tem um id).valor
-      // expense.exchangeRates = state.wallet.expenses(cada item tem um id).exchangeRate
-      // [expense.moeda] = continuação acima => sigla da moeda -- Ex: USD
+      // expense.value = state.wallet.expenses(id).value
+      // expense.exchangeRates = state.wallet.expenses(id).exchangeRate
+      // [expense.currency] = continuação acima => sigla da moeda -- Ex: USD
       // .ask =  Chave usada na cotação atual informada pela API
-      total += expense.valor * expense.exchangeRates[expense.moeda].ask;
+      total += expense.value * expense.exchangeRates[expense.currency].ask;
     });
     return total;
   }
