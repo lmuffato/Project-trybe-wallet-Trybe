@@ -1,9 +1,7 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { dispatchCurrencies } from '../actions';
-
-// const listaTest = ['USD', 'CAD', 'EUR', 'GBP', 'ARS', 'BTC', 'LTC', 'JPY', 'CHF', 'AUD', 'CNY', 'ILS', 'ETH', 'XRP'];
 
 class Form extends React.Component {
   componentDidMount() {
@@ -13,10 +11,11 @@ class Form extends React.Component {
 
   render() {
     const { currencies } = this.props;
+    const validCurrencies = currencies.filter((currency) => (
+      currency !== 'USDT' && currency !== 'DOGE'));
     console.log(`AS moedas são: ${currencies}`);
     return (
       <form>
-
         <label htmlFor="value">
           Valor:
           <input type="number" id="value" name="value" />
@@ -30,12 +29,13 @@ class Form extends React.Component {
         <label htmlFor="currency">
           Moeda:
           <select id="currency" name="currency">
-            {/* { listaTest.map((lista) => <option key={ lista }>{lista} </option> )} */}
-            {/* As opções do select serão preenchidas através da consulta à API.
-             Isso será feito em um requisito mais a frente. */}
+            {validCurrencies.map((currency) => (
+              <option key={ currency }>
+                {currency}
+              </option>
+            ))}
           </select>
         </label>
-
         <label htmlFor="paymentMethod">
           Método de pagamento
           <select id="paymentMethod" name="paymentMethod">
@@ -44,7 +44,6 @@ class Form extends React.Component {
             <option>Cartão de débito</option>
           </select>
         </label>
-
         <label htmlFor="expenseType">
           Tag:
           <select id="expenseType" name="expenseType">
@@ -55,7 +54,6 @@ class Form extends React.Component {
             <option>Saúde</option>
           </select>
         </label>
-
       </form>
     );
   }
@@ -68,5 +66,10 @@ const mapStateToProps = (state) => ({
 const mapDispathToProps = (dispatch) => ({
   getCurrency: () => dispatch(dispatchCurrencies()),
 });
+
+Form.propTypes = {
+  getCurrency: PropTypes.func,
+  currencies: PropTypes.arrayOf(PropTypes.object),
+}.isRequired;
 
 export default connect(mapStateToProps, mapDispathToProps)(Form);
