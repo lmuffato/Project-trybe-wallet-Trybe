@@ -5,7 +5,7 @@ import { expensesDescription } from '../actions/index';
 
 class ExpenseDescription extends Component {
   render() {
-    const { inputDescription } = this.props;
+    const { inputDescription, actualDescription } = this.props;
     return (
       <div>
         <label htmlFor="description">
@@ -14,6 +14,7 @@ class ExpenseDescription extends Component {
             id="description"
             type="text"
             name="description"
+            value={ actualDescription }
             onChange={ (event) => { inputDescription(event.target.value); } }
           />
         </label>
@@ -24,6 +25,7 @@ class ExpenseDescription extends Component {
 
 const mapStateToProps = (state) => ({
   expenseValue: state.wallet.value,
+  actualDescription: state.wallet.description,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -32,6 +34,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 ExpenseDescription.propTypes = {
   inputDescription: PropTypes.func.isRequired,
+  actualDescription: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseDescription);

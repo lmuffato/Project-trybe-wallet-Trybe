@@ -3,36 +3,41 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import fetchtApiExchange from '../services/ApiExchange';
 import {
-  fetchExchangeApi,
-  expensesCurriencies,
-  exchangeRates,
+  expensesCurriency,
+  currencies,
 } from '../actions/index';
 
 class ExchangeCurrency extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      disponibleCurrencies: [],
+    };
+    this.disponibleCurrencies = this.disponibleCurrencies.bind(this);
+  }
+
   componentDidMount() {
     this.fetchApi();
   }
 
   async fetchApi() {
-    const { fetchReducer, funcExchangeRates } = this.props;
-    const fet = await fetchtApiExchange();
-    console.log(fet);
-    const exchangeFiltered = {};
-    Object.entries(fet).forEach(([key, value]) => {
-      if (key !== 'USDT') { exchangeFiltered[key] = value; }
-    });
-    fetchReducer(exchangeFiltered);
-    funcExchangeRates(exchangeFiltered);
+    const { funcCurrencies } = this.props;
+    const responseApiJson = await fetchtApiExchange();
+    funcCurrencies(responseApiJson);
+    this.disponibleCurrencies(responseApiJson);
   }
 
-  coinsOptions() {
-    const { exchange } = this.props;
-    Object.keys(exchange).map((coin, index) => (coin !== 'USDT'
-      ? <option key={ index }>{coin}</option> : null));
+  disponibleCurrencies(fechtCurrencies) {
+    const filtredCurrencies = {};
+    Object.entries(fechtCurrencies).forEach(([key, value]) => {
+      if (key !== 'USDT') { filtredCurrencies[key] = value; }
+    });
+    this.setState({ disponibleCurrencies: filtredCurrencies });
   }
 
   render() {
-    const { exchange, inputcurriencies } = this.props;
+    const { funcCurriency, actualCurrency } = this.props;
+    const { disponibleCurrencies } = this.state;
     return (
       <div>
         <label htmlFor="moeda">
@@ -40,11 +45,12 @@ class ExchangeCurrency extends Component {
           <select
             id="moeda"
             name="moeda"
+            value={ actualCurrency }
             onChange={ (event) => {
-              inputcurriencies(event.target.value);
+              funcCurriency(event.target.value);
             } }
           >
-            {Object.keys(exchange).map((coin, index) => (
+            {Object.keys(disponibleCurrencies).map((coin, index) => (
               <option key={ index }>{coin}</option>))}
           </select>
         </label>
@@ -54,33 +60,32 @@ class ExchangeCurrency extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  exchange: state.wallet2.actualExchange,
-  exchangeRatesState: state.wallet2.exchangeRates,
+  actualCurrency: state.wallet.currency,
+  actualCurrencies: state.wallet.currencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchReducer: (data) => dispatch(fetchExchangeApi(data)),
-  inputcurriencies: (currency) => dispatch(expensesCurriencies(currency)),
-  funcExchangeRates: (rates) => dispatch(exchangeRates(rates)),
+  funcCurrencies: (data) => dispatch(currencies(data)), // wallet sate: currencies
+  funcCurriency: (currency) => dispatch(expensesCurriency(currency)), // state: currency
 });
 
 ExchangeCurrency.propTypes = {
-  exchange: PropTypes.objectOf(PropTypes.shape({
-    ask: PropTypes.string.isRequired,
-    bid: PropTypes.string.isRequired,
-    code: PropTypes.string.isRequired,
-    codein: PropTypes.string.isRequired,
-    create_date: PropTypes.string.isRequired,
-    high: PropTypes.string.isRequired,
-    low: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    pctChange: PropTypes.string.isRequired,
-    timestamp: PropTypes.string.isRequired,
-    varBid: PropTypes.string.isRequired,
-  })).isRequired,
-  fetchReducer: PropTypes.func.isRequired,
-  inputcurriencies: PropTypes.func.isRequired,
-  funcExchangeRates: PropTypes.func.isRequired,
+  // exchange: PropTypes.objectOf(PropTypes.shape({
+  //   ask: PropTypes.string.isRequired,
+  //   bid: PropTypes.string.isRequired,
+  //   code: PropTypes.string.isRequired,
+  //   codein: PropTypes.string.isRequired,
+  //   create_date: PropTypes.string.isRequired,
+  //   high: PropTypes.string.isRequired,
+  //   low: PropTypes.string.isRequired,
+  //   name: PropTypes.string.isRequired,
+  //   pctChange: PropTypes.string.isRequired,
+  //   timestamp: PropTypes.string.isRequired,
+  //   varBid: PropTypes.string.isRequired,
+  // })).isRequired,
+  actualCurrency: PropTypes.string.isRequired,
+  funcCurrencies: PropTypes.func.isRequired,
+  funcCurriency: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExchangeCurrency);

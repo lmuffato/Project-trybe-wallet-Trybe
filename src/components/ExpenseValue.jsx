@@ -5,7 +5,7 @@ import { expensesValues } from '../actions/index';
 
 class ExpenseValue extends Component {
   render() {
-    const { inputExpensesValues } = this.props;
+    const { inputExpensesValues, expenseValue } = this.props;
     return (
       <div>
         <label htmlFor="value">
@@ -15,6 +15,7 @@ class ExpenseValue extends Component {
             type="number"
             name="value"
             step="0.1"
+            value={ expenseValue === 0 ? '' : expenseValue }
             onChange={ (event) => { inputExpensesValues(event.target.value * 1); } }
           />
         </label>
@@ -33,6 +34,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 ExpenseValue.propTypes = {
   inputExpensesValues: PropTypes.func.isRequired,
+  expenseValue: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseValue);

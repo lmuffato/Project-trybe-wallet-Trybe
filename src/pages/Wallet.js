@@ -14,7 +14,6 @@ class Wallet extends React.Component {
         <h1>TrybeWallet</h1>
         <header>
           <section data-testid="email-field"><h3>Email</h3></section>
-          <section data-testid="total-field"><h3>despesa total</h3></section>
           <section data-testid="header-currency-field"><h3>câmbio</h3></section>
           <form>
             <SumExpenses />

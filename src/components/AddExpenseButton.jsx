@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import fetchtApiExchange from '../services/ApiExchange';
-import { addExpenses, expensesId, sumExpenses, exchangeRates } from '../actions/index';
+import {
+  expensesValues,
+  expensesDescription,
+  addExpenses,
+  expensesId,
+  sumExpenses,
+  currencies,
+} from '../actions/index';
 
 class AddExpenseButton extends Component {
   constructor(props) {
@@ -10,6 +17,7 @@ class AddExpenseButton extends Component {
     this.state = {
     };
     this.buttonForAddExpenses = this.buttonForAddExpenses.bind(this);
+    this.conversionAndSum = this.conversionAndSum.bind(this);
   }
 
   componentDidMount() {
@@ -18,51 +26,54 @@ class AddExpenseButton extends Component {
   }
 
   async fetchApi() {
-    const { funcExchangeRates } = this.props;
+    const { funcCurrencies } = this.props;
     const fet = await fetchtApiExchange();
-    console.log(fet);
-    const exchangeFiltered = {};
-    Object.entries(fet).forEach(([key, value]) => {
-      if (key !== 'USDT') { exchangeFiltered[key] = value; }
-    });
-    funcExchangeRates(exchangeFiltered);
+    funcCurrencies(fet);
+  }
+
+  clearAllInputs() {
+    const { funcExpensesValues, funcDescription } = this.props;
+    funcExpensesValues(0);
+    funcDescription('');
   }
 
   async buttonForAddExpenses() {
     const {
-      funcForSumExpenses,
+      // funcForSumExpenses,
       funcForAddExpenses,
+      actualCurrencies,
       actualexpenses,
       actualValue,
       actualDescription,
       actualCurrency,
       actualmethod,
       actualtag,
-      actualRates,
     } = this.props;
 
-    // const { funcExchangeRates } = this.props;
-    // const fet = await fetchtApiExchange();
-    // console.log(fet);
-    // const exchangeFiltered = {};
-    // Object.entries(fet).forEach(([key, value]) => {
-    //   if (key !== 'USDT') { exchangeFiltered[key] = value; }
-    // });
-    // funcExchangeRates(exchangeFiltered);
-
     await this.fetchApi();
+
     await funcForAddExpenses({
       id: actualexpenses.length,
-      value: actualValue,
+      value: actualValue.toString(),
       description: actualDescription,
       currency: actualCurrency,
       method: actualmethod,
       tag: actualtag,
-      exchangeRates: actualRates,
+      exchangeRates: actualCurrencies,
     });
-    const total = actualexpenses.reduce((acumulador, numero) => acumulador + numero.value,
-      0);
-    await funcForSumExpenses(total + actualValue);
+    this.conversionAndSum();
+    this.clearAllInputs();
+  }
+
+  conversionAndSum() {
+    const { actualexpenses, funcForSumExpenses } = this.props;
+    let total = 0;
+    actualexpenses.forEach((ele) => {
+      total += (ele.value * 1) * (ele.exchangeRates[ele.currency].ask * 1);
+    });
+    total = parseFloat(total).toFixed(2);
+    // console.log(total);
+    funcForSumExpenses(total);
   }
 
   render() {
@@ -84,13 +95,13 @@ class AddExpenseButton extends Component {
 
 const mapStateToProps = (state) => ({
   actualexpenses: state.wallet.expenses,
+  actualCurrencies: state.wallet.currencies,
   actualExpensesCount: state.wallet.expensesCount,
   actualValue: state.wallet.value,
   actualDescription: state.wallet.description,
   actualCurrency: state.wallet.currency,
   actualmethod: state.wallet.method,
   actualtag: state.wallet.tag,
-  actualRates: state.wallet2.exchangeRates,
   actualTotalExpenses: state.wallet2.totalExpenses,
 });
 
@@ -98,13 +109,16 @@ const mapDispatchToProps = (dispatch) => ({
   funcForAddExpenses: (expenses) => dispatch(addExpenses(expenses)),
   funcForAddexpensesCount: (id) => dispatch(expensesId(id)),
   funcForSumExpenses: (totalValues) => dispatch(sumExpenses(totalValues)),
-  funcExchangeRates: (rates) => dispatch(exchangeRates(rates)),
+  funcCurrencies: (data) => dispatch(currencies(data)), // wallet sate: currencies
+
+  funcExpensesValues: (value) => dispatch(expensesValues(value)),
+  funcDescription: (description) => dispatch(expensesDescription(description)),
 });
 
 AddExpenseButton.propTypes = {
   actualexpenses: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
-    value: PropTypes.number,
+    value: PropTypes.string,
     description: PropTypes.string,
     currency: PropTypes.string,
     method: PropTypes.string,
@@ -123,7 +137,9 @@ AddExpenseButton.propTypes = {
       varBid: PropTypes.string,
     })).isRequired,
   })).isRequired,
-  funcExchangeRates: PropTypes.func.isRequired,
+  funcCurrencies: PropTypes.func.isRequired,
+  funcDescription: PropTypes.func.isRequired,
+  funcExpensesValues: PropTypes.func.isRequired,
   funcForAddExpenses: PropTypes.func.isRequired,
   funcForAddexpensesCount: PropTypes.func.isRequired,
   funcForSumExpenses: PropTypes.func.isRequired,
@@ -132,7 +148,7 @@ AddExpenseButton.propTypes = {
   actualCurrency: PropTypes.string.isRequired,
   actualmethod: PropTypes.string.isRequired,
   actualtag: PropTypes.string.isRequired,
-  actualRates: PropTypes.objectOf(PropTypes.shape({
+  actualCurrencies: PropTypes.objectOf(PropTypes.shape({
     ask: PropTypes.string,
     bid: PropTypes.string,
     code: PropTypes.string,
