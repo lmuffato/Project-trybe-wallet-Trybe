@@ -26,22 +26,21 @@ class Login extends React.Component {
     history.push('/carteira');
   }
 
-  async validInput() {
+  validInput() {
     const { email, password } = this.state;
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const lengthSix = 6;
-    console.log(re.test(email));
-    console.log(password.length >= lengthSix);
-    if (re.test(email) && password.length >= lengthSix) {
-      await this.setState({
-        validation: true,
-      });
-    } else {
-      await this.setState({
-        validation: false,
-      });
-    }
-    console.log(this.state);
+    // console.log(email);
+    // console.log(password);
+    // console.log((re.test(email) && password.length >= lengthSix));
+    // if ((re.test(email) && password.length >= lengthSix)) {
+    this.setState({
+      validation: (!(re.test(email) && password.length >= lengthSix)),
+    });
+    //   console.log(this.state);
+    // }
+    // console.log(this.state);
+    // return (re.test(email) && password.length >= lengthSix);
   }
 
   async handleChange({ target: { id, value } }) {
@@ -72,14 +71,14 @@ class Login extends React.Component {
             data-testid="password-input"
             placeholder="Insira uma senha"
             id="password"
-            type="text"
+            type="password"
             onChange={ this.handleChange }
           />
         </label>
         <button
           type="submit"
           onClick={ this.handleClick }
-          disabled={ !validation }
+          disabled={ validation }
         >
           Entrar
         </button>
