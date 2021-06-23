@@ -8,7 +8,7 @@ class Header extends React.Component {
     const valueCot = [];
 
     expenses.map((expense) => {
-      const exchange = expense.exchangeRates[expense.currency].ask;
+      const exchange = expense.exchangeRates[expense.currency].ask; // filtagem por cada currency
       const real = expense.value * exchange;
       valueCot.push(real);
       return valueCot;

@@ -25,15 +25,9 @@ class Expenses extends React.Component {
     getCurrency();
   }
 
-  handleChange({ target }) {
-    const { name, value } = target;
-    this.setState({
-      [name]: value,
-    });
-  }
+  handleChange({ target: { name, value } }) { this.setState({ [name]: value }); }
 
   handleValue() {
-    // const { value } = this.state;
     return (
       <div>
         <label htmlFor="id-valor">
@@ -43,7 +37,6 @@ class Expenses extends React.Component {
             type="text"
             id="id-valor"
             name="value"
-            // value={ value }
             onChange={ this.handleChange }
           />
         </label>
@@ -53,9 +46,7 @@ class Expenses extends React.Component {
 
   handleCurrency() {
     const { currencies } = this.props;
-    // console.log(currencies);
     const currencys = Object.keys(currencies);
-    // console.log(currencie);
     return (
       <label htmlFor="id-moeda">
         Moeda
@@ -63,43 +54,16 @@ class Expenses extends React.Component {
         <select
           id="id-moeda"
           name="currency"
-          // value={ currency }
           onChange={ this.handleChange }
         >
-          {
-            currencys.map((currency) => (
-              <option key={ currency } value={ currency }>{currency}</option>
-            ))
-          }
+          {currencys.map((currency) => (
+            <option key={ currency } value={ currency }>{currency}</option>))}
         </select>
       </label>
     );
   }
 
-  // handleMethod() {
-  //   // const { method } = this.state;
-  //   return (
-  //     <div>
-  //       <label htmlFor="id-metodoDePagamento">
-  //         Método de pagamento
-  //         <br />
-  //         <select
-  //           id="id-metodoDePagamento"
-  //           name="method"
-  //           // value={ method }
-  //           onChange={ this.handleChange }
-  //         >
-  //           <option value="dinheiro">Dinheiro</option>
-  //           <option value="cartaoDecredito">Cartão de crédito</option>
-  //           <option value="cartaoDeDebito">Cartão de débito</option>
-  //         </select>
-  //       </label>
-  //     </div>
-  //   );
-  // }
-
   handleMethod() {
-    // const { method } = this.state;
     const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     return (
       <div>
@@ -109,14 +73,10 @@ class Expenses extends React.Component {
           <select
             id="id-metodoDePagamento"
             name="method"
-            // value={ method }
             onChange={ this.handleChange }
           >
-            {
-              methods.map((method) => (
-                <option key={ method } value={ method }>{method}</option>
-              ))
-            }
+            {methods.map((method) => (
+              <option key={ method } value={ method }>{method}</option>))}
           </select>
         </label>
       </div>
@@ -124,7 +84,6 @@ class Expenses extends React.Component {
   }
 
   handleTag() {
-    // const { tag } = this.props;
     return (
       <div>
         <label htmlFor="id-tag">
@@ -133,7 +92,6 @@ class Expenses extends React.Component {
           <select
             id="id-tag"
             name="tag"
-            // value={ tag }
             onChange={ this.handleChange }
           >
             <option value="Alimentação">Alimentação</option>
@@ -148,7 +106,6 @@ class Expenses extends React.Component {
   }
 
   handleDescription() {
-    // const { description } = this.state;
     return (
       <div>
         <label htmlFor="id-descricao">
@@ -157,7 +114,6 @@ class Expenses extends React.Component {
           <textarea
             id="id-descricao"
             name="description"
-            // value={ description }
             onChange={ this.handleChange }
           />
         </label>
@@ -168,22 +124,51 @@ class Expenses extends React.Component {
   handleState() {
     const { id } = this.state;
     const { wallet } = this.props;
-
     getCurrencies()
       .then((res) => {
         const { ...moeda } = res;
-        // console.log(moeda);
-
-        // this.setState((prevId) => ({ id: prevId.id + 1, exchangeRates: moeda }));
         this.setState({ id: id + 1, exchangeRates: moeda });
         wallet({ ...this.state, id });
       })
       .catch((error) => error);
   }
 
+  handTable() {
+    const cabeçalhoHeader = ['Descrição', 'Tag', 'Método de pagamento', 'Valor',
+      'Moeda', 'Câmbio utilizado', 'Valor convertido',
+      'Moeda de conversão', 'Editar/Excluir'];
+    const { expenses } = this.props;
+    return (
+      <table>
+        <thead>
+          <tr>
+            {cabeçalhoHeader.map((descricao) => (
+              <th key={ descricao } value={ descricao }>{descricao}</th>))}
+          </tr>
+        </thead>
+        <tbody>
+          { expenses.map((expense) => (
+            <tr key={ expense.id }>
+              <td>{expense.description}</td>
+              <td>{expense.tag}</td>
+              <td>{expense.method}</td>
+              <td>{expense.value}</td>
+              <td>{expense.exchangeRates[expense.currency].name.split('/', 1)}</td>
+              <td>{Number(expense.exchangeRates[expense.currency].ask).toFixed(2)}</td>
+              <td>
+                {(Number(expense.exchangeRates[expense.currency].ask)
+                 * Number(expense.value)).toFixed(2)}
+              </td>
+              <td>Real</td>
+              <td>button</td>
+            </tr>
+          )) }
+        </tbody>
+      </table>
+    );
+  }
+
   render() {
-    // const { wallet } = this.props;
-    // console.log(wallet);
     return (
       <>
         <h1>Despesa</h1>
@@ -210,14 +195,15 @@ class Expenses extends React.Component {
             Adicionar despesa
           </button>
         </form>
+        {this.handTable()}
       </>
     );
   }
 }
 
-const mapStateToProps = ({ wallet: { currencies } }) => ({
-  currencies,
-  // currencies: state.wallet.currencies,
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+  currencies: state.wallet.currencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
