@@ -1,14 +1,20 @@
+import { CURRENCIES, ERROR, REQUEST } from '../actions';
+
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
+  request: false,
+  error: '',
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'xablau':
-    return state;
+  case REQUEST:
+    return { ...state, request: !state.request };
+  case ERROR:
+    return { ...state, error: action.payload };
+  case CURRENCIES:
+    return { ...state, currencies: action.payload };
   default:
     return state;
   }

@@ -1,9 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Payment from './payment';
 import Tag from './tag';
 
 class Form extends React.Component {
   render() {
+    const { currencies } = this.props;
+    const keysCurrencies = currencies ? Object.keys(currencies)
+      .filter((currencie) => currencie !== 'USDT') : [];
+
     return (
       <form>
         <label htmlFor="value">
@@ -27,7 +32,9 @@ class Form extends React.Component {
         <label htmlFor="moeda">
           moeda
           <select value="" name="moeda" id="moeda">
-            <option>BRL</option>
+            {keysCurrencies.length && keysCurrencies.map((curr, index) => (
+              <option key={ index }>{curr}</option>
+            ))}
           </select>
         </label>
         <Payment />
@@ -36,5 +43,9 @@ class Form extends React.Component {
     );
   }
 }
+
+Form.propTypes = {
+  currencies: PropTypes.string,
+}.isRequired;
 
 export default Form;
