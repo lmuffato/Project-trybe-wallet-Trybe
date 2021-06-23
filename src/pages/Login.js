@@ -55,39 +55,42 @@ class Login extends React.Component {
     // console.log(login);
 
     return (
-      <form className="login">
-        <input
-          type="email"
-          name="email"
-          value={ email }
-          placeholder="E-mail"
-          data-testid="email-input"
-          onChange={ this.handleChange }
-        />
-        <div style={ { fontSize: 12, color: 'red' } }>
-          {/* { emailError } */}
-        </div>
-        <input
-          type="password"
-          name="password"
-          value={ password }
-          placeholder="Password"
-          data-testid="password-input"
-          onChange={ this.handleChange }
-        />
-        <div style={ { fontSize: 12, color: 'red' } }>
-          {/* { passwordError } */}
-        </div>
-        <Link to="/carteira" onClick={ () => login({ email, password }) }>
-          <button
-            type="button"
-            className="logout_butto"
-            disabled={ buttonDisabled }
-          >
-            Entrar
-          </button>
-        </Link>
-      </form>
+      <div className="login">
+        <h1>Login - TrybeWallet</h1>
+        <form className="login">
+          <input
+            type="email"
+            name="email"
+            value={ email }
+            placeholder="E-mail"
+            data-testid="email-input"
+            onChange={ this.handleChange }
+          />
+          <div style={ { fontSize: 12, color: 'red' } }>
+            {/* { emailError } */}
+          </div>
+          <input
+            type="password"
+            name="password"
+            value={ password }
+            placeholder="Password"
+            data-testid="password-input"
+            onChange={ this.handleChange }
+          />
+          <div style={ { fontSize: 12, color: 'red' } }>
+            {/* { passwordError } */}
+          </div>
+          <Link to="/carteira" onClick={ () => login({ email, password }) }>
+            <button
+              type="button"
+              className="logout_butto"
+              disabled={ buttonDisabled }
+            >
+              Entrar
+            </button>
+          </Link>
+        </form>
+      </div>
     );
   }
 }

@@ -9,15 +9,11 @@ export const getCURRENCIESApi = (payload) => (
 );
 
 export const getCURRENCIESApiSuccess = (payload) => (
-  { type: GET_CURRENCIES_API_SUCCESS,
-    payload,
-  }
+  { type: GET_CURRENCIES_API_SUCCESS, payload }
 );
 
 export const getCURRENCIESApiError = (payload) => (
-  { type: GET_CURRENCIES_API_ERROR,
-    payload,
-  }
+  { type: GET_CURRENCIES_API_ERROR, payload }
 );
 
 export const getCURRENCIESApiThunk = () => (dispatch) => {
@@ -25,8 +21,8 @@ export const getCURRENCIESApiThunk = () => (dispatch) => {
   getCurrencies()
     .then((res) => {
       // console.log(res);
-      const { USDT, ...currenciesApi } = res;
-      const currencies = Object.keys(currenciesApi);
+      const { USDT, ...currencies } = res;
+      // const currencies = Object.keys(currenciesApi);
       // console.log(currencies);
       dispatch(getCURRENCIESApiSuccess({ currencies }));
     })
@@ -35,11 +31,12 @@ export const getCURRENCIESApiThunk = () => (dispatch) => {
 
 export const LOGIN = 'LOGIN';
 
-export const addRegister = (value) => ({ type: 'ADD_REGISTER', data: value });
+export const login = (payload) => (
+  { type: LOGIN, payload }
+);
 
-export const login = (value) => ({
-  type: LOGIN,
-  payload: {
-    value,
-  },
-});
+export const WALLET = 'WALLET';
+
+export const wallet = (payload) => (
+  { type: WALLET, payload }
+);
