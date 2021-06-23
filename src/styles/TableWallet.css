@@ -1,8 +1,15 @@
 table {
   width: 100%;
-  
+  border: 1px solid black;
+  border-collapse: collapse;
 }
-table , th , td {
+
+th {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+td {
   border: 1px solid black;
   border-collapse: collapse;
 }
