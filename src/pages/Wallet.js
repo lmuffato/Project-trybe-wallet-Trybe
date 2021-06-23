@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import fetchCurrency from '../services/api';
-import Table from '../components/Table';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -69,7 +68,6 @@ class Wallet extends React.Component {
             </select>
           </label>
         </form>
-        <Table />
       </>
     );
   }
