@@ -1,10 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import api from '../api';
 
 class Wallet extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currencies: [],
+    };
+  }
+
+  componentDidMount() {
+    this.callCurrency();
+  }
+
+  async callCurrency() {
+    const itemsReceived = await api();
+    const objectKey = Object.keys(itemsReceived);
+    objectKey.splice(1, 1);
+    this.setState({ currencies: objectKey });
+  }
+
   render() {
     const { user } = this.props;
+    const { currencies } = this.state;
     return (
       <>
         <header>
@@ -21,10 +41,12 @@ class Wallet extends React.Component {
             Descrição:
             <input type="text" id="description" />
           </label>
-          <label htmlFor="currency">
+          <label htmlFor="moneyCurrency">
             Moeda:
-            <select name="currency">
-              <option value="BRL">BRL</option>
+            <select id="moneyCurrency">
+              {currencies.map((cur) => (
+                <option value={ cur } key={ cur }>{cur}</option>
+              ))}
             </select>
           </label>
           <label htmlFor="payment">
