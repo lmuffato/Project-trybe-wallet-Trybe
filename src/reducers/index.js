@@ -1,16 +1,10 @@
-import { LOGIN } from '../actions/index';
+import { combineReducers } from 'redux';
+// import user from './user';
+import user from './user';
+// import wallet from './wallet';
+import wallet from './wallet';
 
-const INITIAL_STATE = {
-  email: '',
-};
+const rootReducer = combineReducers({ user, wallet });
+// ATENÇÃO: você obrigatoriamente tem que utilizar as chaves "user" e "wallet" no seu estado global;
 
-const user = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-  case LOGIN:
-    return { ...state, email: action.email };
-  default:
-    return state;
-  }
-};
-
-export default user;
+export default rootReducer;
