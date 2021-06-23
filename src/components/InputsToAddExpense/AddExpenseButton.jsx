@@ -73,9 +73,6 @@ class AddExpenseButton extends Component {
   conversionAndSum() {
     const { actualexpenses, funcForSumExpenses } = this.props;
     let total = 0;
-    // actualexpenses.forEach((ele) => {
-    //   total += (ele.value * 1) * (ele.exchangeRates[ele.currency].ask * 1);
-    // });
     const decimalRounds = 4;
     actualexpenses.forEach((ele) => {
       total += (this.roundNumber(ele.value, decimalRounds)
