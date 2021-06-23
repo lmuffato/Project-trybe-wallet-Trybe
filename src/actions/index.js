@@ -12,7 +12,6 @@ export const getUser = (user) => (dispatch) => {
 };
 
 export const getCurrenciesThunk = () => async (dispatch) => {
-  dispatch(requestCurrencies());
   try {
     const data = await fetchAwesomeApi();
     const currencies = Object.values(data).filter((currencie) => (
@@ -34,7 +33,6 @@ export const addExpensesThunk = (state) => async (dispatch) => {
       ...state,
       exchangeRates: data,
     };
-
     dispatch(addCurrencies(payload));
   } catch (error) {
     console.log(error);

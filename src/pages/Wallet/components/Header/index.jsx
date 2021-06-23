@@ -1,12 +1,12 @@
 import React from 'react';
-import { string, shape } from 'prop-types';
+import { string, number, shape, bool } from 'prop-types';
 import { connect } from 'react-redux';
 
 import styles from './styles.module.css';
 
 class Header extends React.Component {
   render() {
-    const { user: { email } } = this.props;
+    const { user: { email }, totalExpense, isLoading } = this.props;
 
     return (
       <header className={ styles.container }>
@@ -15,7 +15,7 @@ class Header extends React.Component {
         <div>
           <p className={ styles.email } data-testid="email-field">{email}</p>
           <p className={ styles.expenses } data-testid="total-field">
-            Despesa total: R$0
+            {isLoading ? 'Loading...' : `Despesa total: R$${totalExpense || '0'}`}
             <span data-testid="header-currency-field"> BRL</span>
           </p>
         </div>
@@ -25,6 +25,8 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
+  isLoading: bool.isRequired,
+  totalExpense: number.isRequired,
   user: shape({
     email: string.isRequired,
   }).isRequired,
@@ -32,6 +34,8 @@ Header.propTypes = {
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  totalExpense: state.wallet.totalExpense,
+  isLoading: state.wallet.isLoading,
 });
 
 export default connect(mapStateToProps)(Header);
