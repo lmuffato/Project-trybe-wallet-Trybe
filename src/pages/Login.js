@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import handleEmail from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -27,7 +30,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { disabledButton } = this.state;
+    const { disabledButton, email } = this.state;
+    const { loginEmail } = this.props;
     return (
       <div>
         <p>Olá, essa é a tela de login</p>
@@ -46,7 +50,11 @@ class Login extends React.Component {
           onChange={ this.handleChange }
         />
         <Link to="/carteira">
-          <button disabled={ disabledButton } type="button">
+          <button
+            disabled={ disabledButton }
+            type="button"
+            onClick={ () => loginEmail(email) }
+          >
             Entrar
           </button>
         </Link>
@@ -55,4 +63,13 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  loginEmail: (email) => dispatch(handleEmail(email)),
+});
+// Referência: https://blog.rocketseat.com.br/redux-o-passo-a-passo/
+
+Login.propTypes = {
+  loginEmail: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
