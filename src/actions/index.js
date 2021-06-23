@@ -11,9 +11,13 @@ export function addEmail(payload) {
 
 export const ADD_GASTO = 'ADD_GASTO';
 
-export function addGasto(payload) {
-  return {
+const addGasto = (payload) => (
+  {
     type: ADD_GASTO,
     payload,
-  };
+  }
+);
+
+export function dispatchAddGasto(payload) {
+  return async (dispatch) => dispatch(addGasto(payload));
 }

@@ -9,9 +9,9 @@ const INITIAL_STATE = {
 const walletReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case ADD_GASTO:
-    return { ...state, expenses: [...state.payload, action.payload] };
+    return { ...state, expenses: [...state.expenses, action.payload] };
   default:
-    return state;
+    return { ...state };
   }
 };
 

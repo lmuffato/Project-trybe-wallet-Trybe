@@ -1,29 +1,30 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import getApi from '../getApi';
+import { dispatchAddGasto } from '../actions';
 
 class Form extends React.Component {
   constructor() {
     super();
     this.state = {
-      currencies: { },
       value: '',
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      id: 0,
+      exchangeRates: { },
     };
   }
 
   componentDidMount() {
-    getApi().then((data) => { this.setState({ currencies: data }); });
+    getApi().then((data) => { this.setState({ exchangeRates: data }); });
   }
 
   input() {
-    const { currencies, value, description, currency, method, tag, id } = this.state;
-    console.log(currencies, value, description, currency, method, tag, id);
-    const currenciesArray = Object.keys(currencies).filter((c) => c !== 'USDT');
+    const { exchangeRates, value, description, currency, method, tag, id } = this.state;
+    console.log(exchangeRates, value, description, currency, method, tag, id);
+    const currenciesArray = Object.keys(exchangeRates).filter((c) => c !== 'USDT');
     console.log(currenciesArray);
     return (
       <>
@@ -67,23 +68,17 @@ class Form extends React.Component {
     this.setState({ [name]: value });
   }
 
-  handleButton(addExpences, expence) {
-    addExpences(expence);
-    const { id } = this.state;
+  async handleClick() {
+    const { addExpences, expenses } = this.props;
+    const id = expenses.length;
+    const getFetch = await getApi();
+    this.setState({ exchangeRates: getFetch });
 
-    this.setState({ id: id + 1 });
+    await addExpences({
+      id,
+      ...this.state,
+    });
   }
-
-  // async handleClick() {
-  //   const { expensesDispach, expensesState, currenciesDispatch } = this.props;
-  //   const id = expensesState.length;
-  //   const getApi = await getApi();
-  //   await expensesDispach({
-  //     id,
-  //     ...this.state,
-  //     exchangeRates: getApi,
-  //   });
-  // }
 
   render() {
     return (
@@ -104,16 +99,16 @@ class Form extends React.Component {
         <label htmlFor="id_Tag">
           Tag
           <select id="id_Tag" name="tag" onChange={ (e) => this.handleChange(e) }>
-            <option value="valor1">Alimentação</option>
-            <option value="valor2">Lazer</option>
-            <option value="valor3">Trabalho</option>
-            <option value="valor3">Transporte</option>
-            <option value="valor3">Saúde</option>
+            <option>Alimentação</option>
+            <option>Lazer</option>
+            <option>Trabalho</option>
+            <option>Transporte</option>
+            <option>Saúde</option>
           </select>
         </label>
         <button
           type="button"
-          onClick=""
+          onClick={ () => this.handleClick() }
         >
           Adicionar despesa
         </button>
@@ -124,10 +119,17 @@ class Form extends React.Component {
 
 const mapStateToProps = ({ wallet }) => ({
   currencies: wallet.currencies,
+  expenses: wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   get: () => dispatch(getApi()),
+  addExpences: (payload) => dispatch(dispatchAddGasto(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
+
+Form.propTypes = {
+  user: PropTypes.string,
+  email: PropTypes.string,
+}.isRiquered;
