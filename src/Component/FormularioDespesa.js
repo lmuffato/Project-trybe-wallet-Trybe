@@ -39,9 +39,9 @@ class FormularioDespesa extends React.Component {
   }
 
   mud(event) {
-    const { id, value } = event.target;
+    const { name, value } = event.target;
     this.setState({
-      [id]: value,
+      [name]: value,
     });
   }
 
@@ -56,36 +56,36 @@ class FormularioDespesa extends React.Component {
         <form>
           <label className="label" htmlFor="value">
             Valor
-            <input className="valor cp" type="text" id="value" onChange={ this.mud } />
+            <input className="valor cp" id="value" name="value" onChange={ this.mud } />
           </label>
           <label className="label" htmlFor="currency">
             moeda
-            <select className="cp" id="currency" onChange={ this.mud }>
+            <select className="cp" id="currency" name="currency" onChange={ this.mud }>
               {listaMoedas.map((sigla) => (
                 <option key={ sigla }>{ sigla }</option>))}
             </select>
           </label>
           <label className="label" htmlFor="method">
             Método de pagamento
-            <select className="cp" id="method" onChange={ this.mud }>
-              <option value="dinheiro">Dinheiro</option>
-              <option value="crédito">Cartão de crédito</option>
-              <option value="débito">Cartão de débito</option>
+            <select className="cp" id="method" name="method" onChange={ this.mud }>
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
             </select>
           </label>
           <label className="label" htmlFor="tag">
             Tag
-            <select className="cp" id="tag" onChange={ this.mud }>
-              <option value="alimentação">Alimentação</option>
-              <option value="lazer">Lazer</option>
-              <option value="trabalho">Trabalho</option>
-              <option value="transporte">Transporte</option>
-              <option value="saúde">Saúde</option>
+            <select className="cp" id="tag" name="tag" onChange={ this.mud }>
+              <option value="Alimentação">Alimentação</option>
+              <option value="Lazer">Lazer</option>
+              <option value="Trabalho">Trabalho</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Saúde">Saúde</option>
             </select>
           </label>
-          <label className="label" htmlFor="description">
+          <label className="label" htmlFor="des">
             Descrição
-            <input className="de cp" type="text" id="description" onChange={ this.mud } />
+            <input className="de cp" id="des" name="description" onChange={ this.mud } />
           </label>
           <button className="btn-add-despesa" type="button" onClick={ this.novaDespesa }>
             Adicionar despesa
