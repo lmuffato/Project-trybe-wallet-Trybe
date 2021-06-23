@@ -6,13 +6,13 @@ class Header extends React.Component {
   constructor() {
     super();
     this.state = {
-      totalDispense: 0,
+      totalExpense: 0,
     };
   }
 
   render() {
     const { email } = this.props;
-    const { totalDispense } = this.state;
+    const { totalExpense } = this.state;
     return (
       <header className="header-container">
         <h1 className="header-logo">TrybeWallet</h1>
@@ -21,9 +21,9 @@ class Header extends React.Component {
             Email:
             { ` ${email}` }
           </div>
-          <div data-testid="total-field" className="dispense">
+          <div data-testid="total-field" className="expense">
             Despesa Total:
-            { ` ${totalDispense}` }
+            { ` ${totalExpense}` }
           </div>
           <div data-testid="header-currency-field" className="currency">
             BRL

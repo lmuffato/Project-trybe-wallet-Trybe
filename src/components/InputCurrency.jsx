@@ -1,7 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { apiThunk } from '../actions/wallet';
 
 class InputCurrency extends React.Component {
+  componentDidMount() {
+    const { getCurrency } = this.props;
+    getCurrency();
+  }
+
   render() {
+    const { currencyList } = this.props;
+    currencyList.splice(1, 1);
     return (
       <form>
         <label htmlFor="moedas">
@@ -10,12 +20,33 @@ class InputCurrency extends React.Component {
             name="moedas"
             id="moedas"
           >
-            Moeda
+            {currencyList.map((currency) => (
+              <option key={ currency.code } value={ currency.code }>
+                { currency.code }
+              </option>
+            ))}
           </select>
         </label>
       </form>
     );
   }
 }
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+  test: state.wallet,
+});
 
-export default InputCurrency;
+const mapDispatchToProps = (dispatch) => ({
+  getCurrency: () => dispatch(apiThunk()),
+});
+
+InputCurrency.propTypes = {
+  currencyList: PropTypes.arrayOf(PropTypes.object),
+  getCurrency: PropTypes.func,
+}.isRequired;
+
+export default connect(mapStateToProps, mapDispatchToProps)(InputCurrency);
+
+// refs:
+// tive ajuda do colega Andy https://github.com/tryber/sd-010-a-project-trybewallet/pull/75/
+// doc splice https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
