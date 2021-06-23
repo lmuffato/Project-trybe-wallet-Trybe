@@ -39,7 +39,6 @@ class AddExpenseButton extends Component {
 
   async buttonForAddExpenses() {
     const {
-      // funcForSumExpenses,
       funcForAddExpenses,
       actualCurrencies,
       actualexpenses,
@@ -72,7 +71,6 @@ class AddExpenseButton extends Component {
       total += (ele.value * 1) * (ele.exchangeRates[ele.currency].ask * 1);
     });
     total = parseFloat(total).toFixed(2);
-    // console.log(total);
     funcForSumExpenses(total);
   }
 

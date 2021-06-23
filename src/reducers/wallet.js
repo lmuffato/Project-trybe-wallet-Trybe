@@ -1,7 +1,6 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 import {
   EXPENSES_ADD,
-  // EXPENSES_ID,
   EXPENSES_VALUES,
   EXPENSES_DESCRIPTIONS,
   CURRENCIES,

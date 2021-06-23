@@ -5,8 +5,8 @@ import ExchangeCurrency from '../components/ExchangeCurrency';
 import ExpenseValue from '../components/ExpenseValue';
 import ExpenseDescription from '../components/ExpenseDescription';
 import AddExpenseButton from '../components/AddExpenseButton';
-// import SumExpenses from '../components/SumExpenses';
 import HeaderWallet from '../components/HeaderWallet';
+import TableWallet from '../components/TableWallet';
 
 class Wallet extends React.Component {
   render() {
@@ -15,13 +15,13 @@ class Wallet extends React.Component {
         <h1>TrybeWallet</h1>
         <header>
           <HeaderWallet />
-          {/* <SumExpenses /> */}
           <ExpenseValue />
           <ExpenseDescription />
           <ExchangeCurrency />
           <PaymentMethod />
           <ExpenseTag />
           <AddExpenseButton />
+          <TableWallet />
         </header>
       </div>
     );
