@@ -28,6 +28,7 @@ class Form extends React.Component {
     this.createPaymentMethod = this.createPaymentMethod.bind(this);
     this.createDescription = this.createDescription.bind(this);
     this.createButton = this.createButton.bind(this);
+    this.createTable = this.createTable.bind(this);
   }
 
   componentDidMount() {
@@ -145,6 +146,52 @@ class Form extends React.Component {
     );
   }
 
+  createTable() {
+    const { expenses } = this.props;
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Moeda de conversão</th>
+            <th>Valor convertido</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          {expenses.map((expense) => {
+            const key = expense.currency;
+            const { exchangeRates } = expense;
+            const currencyName = (exchangeRates[key].name).split('/');
+            const exchangeValue = exchangeRates[key].ask;
+            const convertedValue = expense.value * exchangeValue;
+            return (
+              <tr key={ expense.id }>
+                <td>{expense.description}</td>
+                <td>{expense.tag}</td>
+                <td>{expense.method}</td>
+                <td>{currencyName[0]}</td>
+                <td>{Math.round(exchangeValue * 100) / 100}</td>
+                <td>{expense.value}</td>
+                <td>Real</td>
+                <td>{Math.round(convertedValue * 100) / 100}</td>
+                <td>
+                  <button type="button">Editar</button>
+                  <button type="button">Excluir</button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    );
+  }
+
   renderCoins() {
     const { currencies } = this.props;
     return currencies.filter((currency) => (currency !== 'USDT'))
@@ -162,6 +209,7 @@ class Form extends React.Component {
         {this.createPaymentMethod()}
         {this.createDescription()}
         {this.createButton()}
+        {this.createTable()}
       </form>
     );
   }
@@ -184,3 +232,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
+
+// Referências:
+// Como separar o nome das moedas do /Real Brasileiro: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/String/split
