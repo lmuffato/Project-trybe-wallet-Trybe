@@ -32,7 +32,6 @@ export const addCurrencies = () => async (dispatch) => { // thunk
     //   .filter((currencie) => currencie !== 'USDT');
     // dispatch(getCurrencies(keysCurrencies));
     dispatch(getCurrencies(response));
-
   } catch (error) {
     dispatch(errorCurrencies(error));
   }
