@@ -6,6 +6,7 @@ import './styles/App.css';
 import './styles/Header.css';
 import './styles/Login.css';
 import './styles/Wallet.css';
+import './styles/Form.css';
 
 function App() {
   return (

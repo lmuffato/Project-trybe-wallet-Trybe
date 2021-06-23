@@ -8,7 +8,7 @@ import InputValue from './InputValue';
 class Form extends React.Component {
   render() {
     return (
-      <section>
+      <section className="form-container">
         <InputValue />
         <InputDescription />
         <InputCurrency />
