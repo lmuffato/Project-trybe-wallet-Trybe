@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import fetchAPI from './services/index';
+import fetchAPI from './services/fetchAPI';
 import { addExpense, requestApi } from './actions';
 
 class Expenses extends Component {
