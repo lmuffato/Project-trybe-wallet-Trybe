@@ -12,9 +12,9 @@ class FormularioDespesa extends React.Component {
     this.state = {
       id: 0,
       value: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
     this.novaDespesa = this.novaDespesa.bind(this);
     // O nome da função "mud" foi devidso a falta de espaço no render:
@@ -68,7 +68,7 @@ class FormularioDespesa extends React.Component {
           <label className="label" htmlFor="method">
             Método de pagamento:
             <select className="cp" id="method" onChange={ this.mud }>
-              <option value="dinheiro" selected>Dinheiro</option>
+              <option value="dinheiro">Dinheiro</option>
               <option value="crédito">Cartão de crédito</option>
               <option value="débito">Cartão de débito</option>
             </select>
@@ -76,7 +76,7 @@ class FormularioDespesa extends React.Component {
           <label className="label" htmlFor="tag">
             Tag:
             <select className="cp" id="tag" onChange={ this.mud }>
-              <option value="alimentação" selected>Alimentação</option>
+              <option value="alimentação">Alimentação</option>
               <option value="lazer">Lazer</option>
               <option value="trabalho">Trabalho</option>
               <option value="transporte">Transporte</option>
