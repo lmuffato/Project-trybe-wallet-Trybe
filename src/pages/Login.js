@@ -1,81 +1,98 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { userLogin } from '../actions';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { salvarLogin } from '../actions';
 
 class Login extends React.Component {
-  constructor() {
-    super();
-
+  constructor(props) {
+    super(props);
     this.state = {
       email: '',
-      senha: '',
+      validarEmail: false,
+      password: '',
+      validarPassword: false,
     };
-
     this.handleChange = this.handleChange.bind(this);
+    this.validateLogin = this.validateLogin.bind(this);
+    this.salvarLogin = this.salvarLogin.bind(this);
   }
 
-  handleChange({ target: { name, value } }) {
+  handleChange({ target }) {
+    const { name, value } = target;
     this.setState({
       [name]: value,
     });
+    this.validateLogin(name, value);
+  }
+
+  validateLogin(name, value) {
+    const email = new RegExp(/^[\w-.]+@([\w-]+.)+[\w-]{2,3}$/g);
+    const password = new RegExp(/[\w\D]{6}/g);
+
+    if (name === 'email') {
+      this.setState({
+        validarEmail: email.test(value),
+      });
+    }
+    if (name === 'password') {
+      this.setState({
+        validarPassword: password.test(value),
+      });
+    } // regex https://regexr.com/
+  }
+
+  salvarLogin() {
+    const { sendLogin } = this.props;
+    const { email } = this.state;
+    sendLogin(email);
   }
 
   render() {
-    const { history, updateUser } = this.props;
-    const { email, senha } = this.state;
-    // Crédito Alessandra Rezende
-    const validaEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-    const min = 6;
-    const habilitaBotao = email.match(validaEmail) && senha.length >= min ? null : true;
-    const checkLogin = () => {
-      updateUser(email);
-      history.push('/carteira');
-    };
-
+    const { email, password, validarEmail, validarPassword } = this.state;
+    const validarLogin = (validarEmail && validarPassword);
     return (
-      <div className="login">
-        <label htmlFor="email">
+      <div>
+        <h1>Login</h1>
+        <label htmlFor="email-input">
+          Email:
           <input
-            type="email"
-            placeholder="E-mail"
             data-testid="email-input"
+            type="email"
             name="email"
             onChange={ this.handleChange }
+            value={ email }
           />
         </label>
-        <br />
-        <label htmlFor="senha">
+        <label htmlFor="password-input">
+          Senha:
           <input
-            type="password"
-            placeholder="Senha"
             data-testid="password-input"
-            name="senha"
+            type="password"
+            name="password"
             onChange={ this.handleChange }
+            value={ password }
           />
         </label>
-        <br />
-        <button
-          type="button"
-          className="btnLogin"
-          onClick={ checkLogin }
-          disabled={ habilitaBotao }
-        >
-          {' '}
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button
+            type="button"
+            disabled={ !validarLogin }
+            onClick={ this.salvarLogin }
+          >
+            Entrar
+          </button>
+        </Link>
       </div>
     );
   }
 }
-
 const mapDispatchToProps = (dispatch) => ({
-  updateUser: (email) => dispatch(userLogin(email)),
+  sendLogin: (email) => dispatch(salvarLogin(email)),
 });
 
 Login.propTypes = {
-  updateUser: PropTypes.func.isRequired,
-  history: PropTypes.string.isRequired,
+  sendLogin: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Login);
