@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import Proptypes from 'prop-types';
+import loginAction from './actions';
 
 class App extends React.Component {
   constructor() {
@@ -38,6 +41,7 @@ class App extends React.Component {
 
   render() {
     const { disabledButton, fieldEmail } = this.state;
+    const { fazerLogin } = this.props;
     return (
       <main>
         <section>
@@ -61,7 +65,7 @@ class App extends React.Component {
             type="button"
             value="Entrar"
             disabled={ disabledButton }
-            // onClick={ }
+            onClick={ () => fazerLogin(fieldEmail) }
           />
         </section>
       </main>
@@ -69,4 +73,12 @@ class App extends React.Component {
   }
 }
 
-export default App;
+App.propTypes = {
+  fazerLogin: Proptypes.objectOf(),
+}.isRequired;
+
+const mapDispatchToProps = (dispatch) => ({
+  fazerLogin: (state) => dispatch(loginAction(state)),
+});
+
+export default connect(null, mapDispatchToProps)(App);
