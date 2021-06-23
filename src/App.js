@@ -4,14 +4,15 @@ import {
   Route,
 } from 'react-router-dom';
 import Login from './pages/Login';
+import Wallet from './pages/Wallet';
 
 function App() {
   return (
     <Switch>
-      {/* <Route path="/about">
-        <About />
+      <Route path="/carteira">
+        <Wallet />
       </Route>
-      <Route path="/users">
+      {/* <Route path="/users">
         <Users />
       </Route> */}
       <Route path="/">
