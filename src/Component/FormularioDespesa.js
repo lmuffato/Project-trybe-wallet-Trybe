@@ -12,10 +12,9 @@ class FormularioDespesa extends React.Component {
     this.state = {
       id: 0,
       value: '',
-      currency: '',
-      method: '',
-      tag: '',
-      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
     this.novaDespesa = this.novaDespesa.bind(this);
     // O nome da função "mud" foi devnameso a falta de espaço no render:
