@@ -11,6 +11,8 @@ const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case 'INFO_CAMBIO':
     return { ...state, currencies: action.cambio };
+  case 'ADICIONAR_DESPESA':
+    return { ...state, expenses: [...state.expenses, action.despesa] };
   default:
     return state;
   }

@@ -3,6 +3,7 @@ export const transportarEmail = (email) => ({ type: 'TRANSPORTAR_EMAIL', email }
 // Obtive ajuda da aluna Nathalia para entender como fazer o requisito 7
 export const obterCambio = () => ({ type: 'OBTER_CAMBIO' });
 export const infoCambio = (cambio) => ({ type: 'INFO_CAMBIO', cambio });
+export const adicionarDespesa = (despesa) => ({ type: 'ADICIONAR_DESPESA', despesa });
 
 export function dataApi() {
   return async (dispatch) => {

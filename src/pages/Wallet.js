@@ -4,16 +4,21 @@ import { PropTypes } from 'prop-types';
 import FormularioDespesa from '../Component/FormularioDespesa';
 
 class Wallet extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      despesa: 0,
-    };
+  totalDespesas() {
+    const { subtotal } = this.props;
+    let total = 0;
+    subtotal.forEach((expense) => {
+      // expense.valor = state.wallet.expenses(cada item tem um id).valor
+      // expense.exchangeRates = state.wallet.expenses(cada item tem um id).exchangeRate
+      // [expense.moeda] = continuação acima => sigla da moeda -- Ex: USD
+      // .ask =  Chave usada na cotação atual informada pela API
+      total += expense.valor * expense.exchangeRates[expense.moeda].ask;
+    });
+    return total;
   }
 
   render() {
     const { emailCliente } = this.props;
-    const { despesa } = this.state;
     return (
       <>
         <header className="header">
@@ -24,7 +29,7 @@ class Wallet extends React.Component {
             </p>
             <p className="p-header" data-testid="total-field">
               Despesa Total:
-              <span className="alinhamentoCampo">{ despesa }</span>
+              <span className="alinhamentoCampo">{this.totalDespesas()}</span>
             </p>
             <p className="coin-header" data-testid="header-currency-field">BRL</p>
           </div>
@@ -40,6 +45,7 @@ class Wallet extends React.Component {
 // Para entender melhor os códigos abaixo, consultar a aula do dia 16.2
 const mapStateToProps = (state) => ({
   emailCliente: state.user.email,
+  subtotal: state.wallet.expenses,
 });
 
 Wallet.propTypes = { emailCliente: PropTypes.string }.isRequired;
