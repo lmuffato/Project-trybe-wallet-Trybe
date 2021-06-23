@@ -20,16 +20,16 @@ class Wallet extends React.Component {
           <div className="div-header">
             <p className="p-header" data-testid="email-field">
               E-mail:
-              { emailCliente }
+              <span className="alinhamentoCampo">{ emailCliente }</span>
             </p>
             <p className="p-header" data-testid="total-field">
               Despesa Total:
-              { despesa }
+              <span className="alinhamentoCampo">{ despesa }</span>
             </p>
             <p className="coin-header" data-testid="header-currency-field">BRL</p>
           </div>
         </header>
-        <div className="App-header">
+        <div>
           <FormularioDespesa />
         </div>
       </>

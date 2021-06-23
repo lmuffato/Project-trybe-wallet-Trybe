@@ -1,32 +1,48 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+import { dataApi } from '../actions';
 
 // Referência para a TAG select:
 // https://developer.mozilla.org/pt-BR/docs/Web/HTML/Element/select
 
 class FormularioDespesa extends React.Component {
+  componentDidMount() {
+    const { siglaMoedas } = this.props;
+    siglaMoedas();
+  }
+
   render() {
+    const { currencies } = this.props;
+    const listaMoedas = Object.keys(currencies)
+      .filter((moeda) => moeda !== 'USDT');
+    console.log(currencies); // LEMBRAR DE APAGAR
+
     return (
-      <div>
+      <div className="App-header">
         <form>
-          <label htmlFor="valor">
+          <label className="alinhamentoLabel" htmlFor="valor">
             Valor:
-            <input type="text" id="valor" />
+            <input className="valor alinhamentoCampo" type="text" id="valor" />
           </label>
-          <label htmlFor="moeda">
+          <label className="alinhamentoLabel" htmlFor="moeda">
             Moeda:
-            <select id="moeda">a</select>
+            <select className="alinhamentoCampo" id="moeda">
+              {listaMoedas.map((sigla) => (
+                <option key={ sigla }>{ sigla }</option>))}
+            </select>
           </label>
-          <label htmlFor="pagamento">
+          <label className="alinhamentoLabel" htmlFor="pagamento">
             Método de pagamento:
-            <select id="pagamento">
+            <select className="alinhamentoCampo" id="pagamento">
               <option value="dinheiro" selected>Dinheiro</option>
               <option value="crédito">Cartão de crédito</option>
               <option value="débito">Cartão de débito</option>
             </select>
           </label>
-          <label htmlFor="categoria">
+          <label className="alinhamentoLabel" htmlFor="categoria">
             Tag:
-            <select id="categoria">
+            <select className="alinhamentoCampo" id="categoria">
               <option value="alimentação" selected>Alimentação</option>
               <option value="lazer">Lazer</option>
               <option value="trabalho">Trabalho</option>
@@ -34,9 +50,9 @@ class FormularioDespesa extends React.Component {
               <option value="saúde">Saúde</option>
             </select>
           </label>
-          <label htmlFor="descrição">
+          <label className="alinhamentoLabel" htmlFor="descrição">
             Descrição:
-            <input type="text" id="descrição" />
+            <input className="descricao alinhamentoCampo" type="text" id="descrição" />
           </label>
         </form>
       </div>
@@ -44,4 +60,18 @@ class FormularioDespesa extends React.Component {
   }
 }
 
-export default FormularioDespesa;
+const mapDispatchToProps = (dispatch) => ({
+  siglaMoedas: () => dispatch(dataApi()),
+});
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
+});
+
+FormularioDespesa.propTypes = {
+  siglaMoedas: PropTypes.func.isRequired,
+  currencies: PropTypes.objectOf(PropTypes.string).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormularioDespesa);

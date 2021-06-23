@@ -9,11 +9,10 @@ const INITIAL_STATE = {
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'xablau':
-    return state;
+  case 'INFO_CAMBIO':
+    return { ...state, currencies: action.cambio };
   default:
     return state;
   }
 };
-
 export default wallet;
