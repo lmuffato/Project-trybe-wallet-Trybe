@@ -10,11 +10,12 @@ class FormularioDespesa extends React.Component {
   constructor() {
     super();
     this.state = {
-      name: 0,
+      id: 0,
       value: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
+      currency: '',
+      method: '',
+      tag: '',
+      description: '',
     };
     this.novaDespesa = this.novaDespesa.bind(this);
     // O nome da função "mud" foi devnameso a falta de espaço no render:
@@ -22,7 +23,7 @@ class FormularioDespesa extends React.Component {
     this.mud = this.mud.bind(this);
   }
 
-  componentDnameMount() {
+  componentDidMount() {
     const { siglaMoedas } = this.props;
     siglaMoedas();
   }
@@ -35,13 +36,13 @@ class FormularioDespesa extends React.Component {
       exchangeRates: currencies,
     };
     cadastraDespesa(novo);
-    this.setState((previousState) => ({ name: previousState.name + 1 }));
+    this.setState((previousState) => ({ id: previousState.id + 1 }));
   }
 
   mud(event) {
-    const { name, value } = event.target;
+    const { id, value } = event.target;
     this.setState({
-      [name]: value,
+      [id]: value,
     });
   }
 
@@ -56,18 +57,18 @@ class FormularioDespesa extends React.Component {
         <form>
           <label className="label" htmlFor="value">
             Valor
-            <input className="valor cp" type="text" name="value" onChange={ this.mud } />
+            <input className="valor cp" type="text" id="value" onChange={ this.mud } />
           </label>
           <label className="label" htmlFor="currency">
-            Moeda
-            <select className="cp" name="currency" onChange={ this.mud }>
+            moeda
+            <select className="cp" id="currency" onChange={ this.mud }>
               {listaMoedas.map((sigla) => (
                 <option key={ sigla }>{ sigla }</option>))}
             </select>
           </label>
           <label className="label" htmlFor="method">
             Método de pagamento
-            <select className="cp" name="method" onChange={ this.mud }>
+            <select className="cp" id="method" onChange={ this.mud }>
               <option value="dinheiro">Dinheiro</option>
               <option value="crédito">Cartão de crédito</option>
               <option value="débito">Cartão de débito</option>
@@ -75,7 +76,7 @@ class FormularioDespesa extends React.Component {
           </label>
           <label className="label" htmlFor="tag">
             Tag
-            <select className="cp" name="tag" onChange={ this.mud }>
+            <select className="cp" id="tag" onChange={ this.mud }>
               <option value="alimentação">Alimentação</option>
               <option value="lazer">Lazer</option>
               <option value="trabalho">Trabalho</option>
@@ -85,7 +86,7 @@ class FormularioDespesa extends React.Component {
           </label>
           <label className="label" htmlFor="description">
             Descrição
-            <input className="de cp" name="description" onChange={ this.mud } />
+            <input className="de cp" type="text" id="description" onChange={ this.mud } />
           </label>
           <button className="btn-add-despesa" type="button" onClick={ this.novaDespesa }>
             Adicionar despesa
