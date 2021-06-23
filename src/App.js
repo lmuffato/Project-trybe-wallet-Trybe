@@ -1,6 +1,7 @@
+import Proptypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import Proptypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import loginAction from './actions';
 
 class App extends React.Component {
@@ -61,12 +62,14 @@ class App extends React.Component {
             required
             onChange={ (e) => this.handleChange(e) }
           />
-          <input
-            type="button"
-            value="Entrar"
-            disabled={ disabledButton }
-            onClick={ () => fazerLogin(fieldEmail) }
-          />
+          <Link to="/carteira">
+            <input
+              type="button"
+              value="Entrar"
+              disabled={ disabledButton }
+              onClick={ () => fazerLogin(fieldEmail) }
+            />
+          </Link>
         </section>
       </main>
     );
