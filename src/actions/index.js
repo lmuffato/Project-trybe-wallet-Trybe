@@ -1,5 +1,15 @@
 // Coloque aqui suas actions
-const HANDLE_EMAIL = 'HANDLE_EMAIL';
-const handleEmail = (email) => ({ type: HANDLE_EMAIL, email });
+import reqAPI from '../services/reqAPI';
 
-export default handleEmail;
+export const HANDLE_EMAIL = 'HANDLE_EMAIL';
+export const handleEmail = (email) => ({ type: HANDLE_EMAIL, email });
+
+export const GET_CURRENCIES = 'GET_CURRENCIES';
+export const getCurrencies = (currency) => ({
+  type: GET_CURRENCIES, currency });
+
+export const dispatchCurrencies = () => async (dispatch) => {
+  dispatch(getCurrencies());
+  const resp = await reqAPI();
+  dispatch(getCurrencies(Object.keys(resp)));
+};

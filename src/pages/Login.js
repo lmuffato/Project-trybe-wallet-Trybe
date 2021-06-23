@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import handleEmail from '../actions/index';
+import { handleEmail } from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -25,7 +25,6 @@ class Login extends React.Component {
     // link: https://trybecourse.slack.com/archives/C01L16B9XC7/p1623175696043700
     if (/^\w+@\w+.com$/.test(email) === true && password.length >= MIN_PASSWORD) {
       this.setState({ disabledButton: false });
-      console.log('o botão é ativado');
     }
   }
 

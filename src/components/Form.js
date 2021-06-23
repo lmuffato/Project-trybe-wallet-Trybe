@@ -1,9 +1,19 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import { dispatchCurrencies } from '../actions';
+
+// const listaTest = ['USD', 'CAD', 'EUR', 'GBP', 'ARS', 'BTC', 'LTC', 'JPY', 'CHF', 'AUD', 'CNY', 'ILS', 'ETH', 'XRP'];
 
 class Form extends React.Component {
+  componentDidMount() {
+    const { getCurrency } = this.props;
+    getCurrency();
+  }
+
   render() {
+    const { currencies } = this.props;
+    console.log(`AS moedas são: ${currencies}`);
     return (
       <form>
 
@@ -20,8 +30,7 @@ class Form extends React.Component {
         <label htmlFor="currency">
           Moeda:
           <select id="currency" name="currency">
-            <option>A</option>
-            <option>B</option>
+            {/* { listaTest.map((lista) => <option key={ lista }>{lista} </option> )} */}
             {/* As opções do select serão preenchidas através da consulta à API.
              Isso será feito em um requisito mais a frente. */}
           </select>
@@ -36,9 +45,9 @@ class Form extends React.Component {
           </select>
         </label>
 
-        <label htmlFor="spendType">
+        <label htmlFor="expenseType">
           Tag:
-          <select id="spendType" name="spendType">
+          <select id="expenseType" name="expenseType">
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
@@ -52,4 +61,12 @@ class Form extends React.Component {
   }
 }
 
-export default Form;
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+const mapDispathToProps = (dispatch) => ({
+  getCurrency: () => dispatch(dispatchCurrencies()),
+});
+
+export default connect(mapStateToProps, mapDispathToProps)(Form);
