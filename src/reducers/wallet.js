@@ -5,7 +5,7 @@ import {
   EXPENSES_DESCRIPTIONS,
   CURRENCIES,
   CURRENCY,
-  PAYMENT_METHOD,
+  EXPENSES_DEL,
   EXPENSES_TAG,
 } from '../actions/index';
 
@@ -15,7 +15,6 @@ const INITIAL_STATE = {
   value: 0,
   description: '',
   currency: 'USD',
-  method: 'Dinheiro',
   tag: 'Alimentação',
 };
 
@@ -29,8 +28,10 @@ export default function wallet(state = INITIAL_STATE, action) {
     return { ...state, description: action.payload };
   case CURRENCY:
     return { ...state, currency: action.payload };
-  case PAYMENT_METHOD:
-    return { ...state, method: action.payload };
+  case EXPENSES_DEL:
+    return { ...state,
+      expenses: state.expenses
+        .filter((exp) => exp.id !== Number(action.payload)) };
   case EXPENSES_TAG:
     return { ...state, tag: action.payload };
   case EXPENSES_ADD:

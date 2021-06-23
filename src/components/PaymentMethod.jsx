@@ -28,7 +28,7 @@ class PaymentMethod extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  expensesMethod: state.wallet.method,
+  expensesMethod: state.wallet2.method,
 });
 
 const mapDispatchToProps = (dispatch) => ({

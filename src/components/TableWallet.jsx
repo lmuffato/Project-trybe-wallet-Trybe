@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addExpenses } from '../actions/index';
+import { deleteExpenses } from '../actions/index';
 import TableWalletHeader from './TableWalletHeader';
 
 class TableWallet extends Component {
@@ -18,12 +18,14 @@ class TableWallet extends Component {
   }
 
   buttonDelete(id) {
+    const { funcForDeleteExpenses } = this.props;
+    funcForDeleteExpenses(id);
     console.log(id);
   }
 
   render() {
     const { expenses } = this.props;
-    // console.log(expenses);
+    console.log(expenses);
     return (
       <div>
         <h1>Tabela</h1>
@@ -71,7 +73,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  funcForDeleteExpenses: (expenses) => dispatch(addExpenses(expenses)),
+  funcForDeleteExpenses: (expenses) => dispatch(deleteExpenses(expenses)),
 });
 
 TableWallet.propTypes = {
@@ -96,7 +98,7 @@ TableWallet.propTypes = {
       varBid: PropTypes.string,
     })).isRequired,
   })).isRequired,
-  // funcForDeleteExpenses: PropTypes.func.isRequired.isRequired,
+  funcForDeleteExpenses: PropTypes.func.isRequired.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableWallet);

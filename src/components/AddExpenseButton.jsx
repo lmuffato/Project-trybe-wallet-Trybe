@@ -98,7 +98,7 @@ const mapStateToProps = (state) => ({
   actualValue: state.wallet.value,
   actualDescription: state.wallet.description,
   actualCurrency: state.wallet.currency,
-  actualmethod: state.wallet.method,
+  actualmethod: state.wallet2.method,
   actualtag: state.wallet.tag,
   actualTotalExpenses: state.wallet2.totalExpenses,
 });
