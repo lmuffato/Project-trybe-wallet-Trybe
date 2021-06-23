@@ -1,4 +1,9 @@
-import { CURRENCIES, CURRENCIES_SUCCESS, CURRENCIES_ERROR } from '../actions/wallet';
+import {
+  CURRENCIES,
+  CURRENCIES_SUCCESS,
+  ADD_EXPENSES_SUCCESS,
+  CURRENCIES_ERROR,
+} from '../actions/wallet';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -22,6 +27,16 @@ function wallet(state = INITIAL_STATE, { type, payload }) {
       error: null,
       currencies: payload,
     };
+  case ADD_EXPENSES_SUCCESS: {
+    payload.id = state.expenses.length;
+    const newExpenses = state.expenses.concat(payload);
+    return {
+      ...state,
+      isLoading: false,
+      error: null,
+      expenses: newExpenses,
+    };
+  }
   case CURRENCIES_ERROR:
     return {
       ...state,

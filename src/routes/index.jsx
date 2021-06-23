@@ -34,10 +34,6 @@ function Routes() {
 }
 
 Routes.propTypes = {
-  user: shape({
-    isAuth: bool.isRequired,
-  }).isRequired,
-
   wallet: shape({
     isLoading: bool.isRequired,
   }).isRequired,

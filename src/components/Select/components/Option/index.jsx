@@ -3,15 +3,14 @@ import { string } from 'prop-types';
 
 class Option extends React.Component {
   render() {
-    const { value, text, name } = this.props;
+    const { value, text } = this.props;
     return (
-      <option name={ name } value={ value }>{text}</option>
+      <option value={ value }>{text}</option>
     );
   }
 }
 
 Option.propTypes = {
-  name: string.isRequired,
   value: string.isRequired,
   text: string.isRequired,
 };

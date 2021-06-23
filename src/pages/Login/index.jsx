@@ -7,6 +7,7 @@ import { GiWallet } from 'react-icons/gi';
 import { getUser } from '../../actions';
 
 import Input from '../../components/Input';
+import Button from '../../components/Button';
 
 import styles from './styles.module.css';
 
@@ -86,17 +87,14 @@ class Login extends React.Component {
             placeholder="Password"
           />
 
-          <button
-            className={ styles.button }
-            type="submit"
+          <Button
             disabled={ !(isEmail && isPwd) }
-            as="button"
-            onClick={ (event) => this.handleSubmit(event) }
+            onClick={ this.handleSubmit }
           >
             <span>ENTRAR</span>
             {' '}
             <FiArrowRight />
-          </button>
+          </Button>
         </form>
       </main>
     );

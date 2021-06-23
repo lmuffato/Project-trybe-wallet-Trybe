@@ -1,7 +1,7 @@
 export const inputs = [
   {
     dataTestid: '',
-    name: 'price',
+    name: 'value',
     type: 'number',
     labelName: 'Valor:',
   },
@@ -15,26 +15,26 @@ export const inputs = [
 export const selects = [
   {
     select: '',
-    name: 'money',
+    name: 'currency',
     labelName: 'Moeda:',
     options: undefined,
   },
   {
     select: '',
-    name: 'payment',
+    name: 'method',
     labelName: 'Método de pagamento:',
     options: [
       {
         text: 'Dinheiro',
-        value: 'money',
+        value: 'Dinheiro',
       },
       {
         text: 'Cartão de crédito',
-        value: 'credit card',
+        value: 'Cartão de crédito',
       },
       {
         text: 'Cartão de débito',
-        value: 'debit card',
+        value: 'Cartão de débito',
       },
     ],
   },
@@ -45,23 +45,23 @@ export const selects = [
     options: [
       {
         text: 'Alimentação',
-        value: 'food',
+        value: 'Alimentação',
       },
       {
         text: 'Lazer',
-        value: 'leisure',
+        value: 'Lazer',
       },
       {
         text: 'Trabalho',
-        value: 'work',
+        value: 'Trabalho',
       },
       {
         text: 'Transporte',
-        value: 'transportation',
+        value: 'Transporte',
       },
       {
         text: 'Saúde',
-        value: 'health',
+        value: 'Saúde',
       },
     ],
   },

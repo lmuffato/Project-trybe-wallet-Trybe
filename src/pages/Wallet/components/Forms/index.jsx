@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes, { arrayOf } from 'prop-types';
+import PropTypes, { arrayOf, func } from 'prop-types';
 import { connect } from 'react-redux';
 
 import styles from './styles.module.css';
@@ -7,37 +7,50 @@ import { inputs, selects } from '../../../../helpers/inputData';
 
 import Input from '../../../../components/Input';
 import Select from '../../../../components/Select';
+import Button from '../../../../components/Button';
+import { addExpensesThunk } from '../../../../actions';
 
 class Forms extends React.Component {
   constructor() {
     super();
 
-    this.handleChange = this.handleChange.bind(this);
+    this.getCurrenciesOptions = this.getCurrenciesOptions.bind(this);
     this.getState = this.getState.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
-      price: '',
+      value: '',
       description: '',
-      currencie: '',
-      payment: '',
+      currency: '',
+      method: '',
       tag: '',
     };
   }
 
+  getCurrenciesOptions() {
+    const { currencies } = this.props;
+
+    return currencies.map((currencie) => ({
+      text: currencie.code,
+      value: currencie.code,
+    }));
+  }
+
   getState() {
     const {
-      price,
+      value,
       description,
-      currencie,
-      payment,
+      currency,
+      method,
       tag,
     } = this.state;
 
     return {
-      price,
+      value,
       description,
-      currencie,
-      payment,
+      currency,
+      method,
       tag,
     };
   }
@@ -51,9 +64,13 @@ class Forms extends React.Component {
     });
   }
 
-  render() {
-    const { currencies } = this.props;
+  handleSubmit(event) {
+    event.preventDefault();
+    const { addExpense } = this.props;
+    addExpense(this.state);
+  }
 
+  render() {
     return (
       <form className={ styles.formField }>
         {
@@ -76,10 +93,7 @@ class Forms extends React.Component {
             let { options } = select;
 
             if (!options) {
-              options = currencies.map((currencie) => ({
-                text: currencie.code,
-                value: currencie.code,
-              }));
+              options = this.getCurrenciesOptions();
             }
 
             return (
@@ -93,6 +107,11 @@ class Forms extends React.Component {
             );
           })
         }
+        <Button
+          onClick={ this.handleSubmit }
+        >
+          Adicionar despesa
+        </Button>
       </form>
     );
   }
@@ -100,10 +119,15 @@ class Forms extends React.Component {
 
 Forms.propTypes = {
   currencies: arrayOf(PropTypes.object).isRequired,
+  addExpense: func.isRequired,
 };
+
+const mapDisptachToProps = (dispatch) => ({
+  addExpense: (state) => dispatch(addExpensesThunk(state)),
+});
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps)(Forms);
+export default connect(mapStateToProps, mapDisptachToProps)(Forms);
