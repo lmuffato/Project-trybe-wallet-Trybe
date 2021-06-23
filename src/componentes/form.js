@@ -7,11 +7,12 @@ class Form extends React.Component {
     super();
     this.state = {
       currencies: { },
-      value: 0,
+      value: '',
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
+      id: 0,
     };
   }
 
@@ -20,6 +21,10 @@ class Form extends React.Component {
   }
 
   input() {
+    const { currencies, value, description, currency, method, tag, id } = this.state;
+    console.log(currencies, value, description, currency, method, tag, id);
+    const currenciesArray = Object.keys(currencies).filter((c) => c !== 'USDT');
+    console.log(currenciesArray);
     return (
       <>
         <label htmlFor="id_valor">
@@ -40,24 +45,6 @@ class Form extends React.Component {
             onChange={ (e) => this.handleChange(e) }
           />
         </label>
-      </>
-    );
-  }
-
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  }
-
-  render() {
-    const { currencies, value, description, currency, method, tag } = this.state;
-    console.log(currencies, value, description, currency, method, tag);
-    const currenciesArray = Object.keys(currencies).filter((c) => c !== 'USDT');
-    console.log(currenciesArray);
-    return (
-      <form>
-        { this.input() }
-
         <label htmlFor="id_moeda">
           Moeda
           <select
@@ -71,6 +58,37 @@ class Form extends React.Component {
               </option>))}
           </select>
         </label>
+      </>
+    );
+  }
+
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  }
+
+  handleButton(addExpences, expence) {
+    addExpences(expence);
+    const { id } = this.state;
+
+    this.setState({ id: id + 1 });
+  }
+
+  // async handleClick() {
+  //   const { expensesDispach, expensesState, currenciesDispatch } = this.props;
+  //   const id = expensesState.length;
+  //   const getApi = await getApi();
+  //   await expensesDispach({
+  //     id,
+  //     ...this.state,
+  //     exchangeRates: getApi,
+  //   });
+  // }
+
+  render() {
+    return (
+      <form>
+        { this.input() }
         <label htmlFor="id_metodo_pagamento" onChange={ (e) => this.handleChange(e) }>
           Método de pagamento
           <select
@@ -79,7 +97,7 @@ class Form extends React.Component {
             onChange={ (e) => this.handleChange(e) }
           >
             <option value="Dinheiro">Dinheiro</option>
-            <option value="Cartão de crédito" selected>Cartão de crédito</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
@@ -87,13 +105,18 @@ class Form extends React.Component {
           Tag
           <select id="id_Tag" name="tag" onChange={ (e) => this.handleChange(e) }>
             <option value="valor1">Alimentação</option>
-            <option value="valor2" selected>Lazer</option>
+            <option value="valor2">Lazer</option>
             <option value="valor3">Trabalho</option>
             <option value="valor3">Transporte</option>
             <option value="valor3">Saúde</option>
           </select>
         </label>
-        <button type="button">Adicionar Despesa</button>
+        <button
+          type="button"
+          onClick=""
+        >
+          Adicionar despesa
+        </button>
       </form>
     );
   }

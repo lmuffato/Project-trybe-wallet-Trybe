@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 function Table({ expenses }) {
+  console.log(expenses, 'oiiiii');
   return (
     <table>
       <thead>
@@ -37,7 +38,7 @@ function Table({ expenses }) {
                 <td>{valueC}</td>
                 <td>Real</td>
                 <td>
-                  <button type="submit">Editar</button>
+                  <button type="submit" data-testid="edit-btn">Editar</button>
                   <button type="submit" data-testid="delete-btn">Remover</button>
                   <button type="submit">Adicionar Despesas</button>
                   <button type="submit">Excluir</button>

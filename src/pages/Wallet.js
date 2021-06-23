@@ -7,6 +7,7 @@ import { addGasto } from '../actions';
 
 class Wallet extends React.Component {
   render() {
+    // const { email, expences, currencies, addExpences } = this.props;
     return (
       <>
         <Header />
