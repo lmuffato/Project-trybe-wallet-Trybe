@@ -1,7 +1,13 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import store from './store';
 
 function App() {
-  return <div>Hello, TrybeWallet!</div>;
+  return (
+    <Provider>
+      <div>Hello, TrybeWallet!</div>
+    </Provider>
+  );
 }
 
 export default App;
