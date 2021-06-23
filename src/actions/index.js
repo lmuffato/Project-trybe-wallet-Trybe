@@ -1,4 +1,4 @@
 // Coloque aqui suas actions
-const saveEmail = (state) => ({ type: 'SAVE_EMAIL', state });
+const saveEmail = (email) => ({ type: 'SAVE_EMAIL', payload: { email } });
 
 export default saveEmail;
