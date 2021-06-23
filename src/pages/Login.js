@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { login } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -39,6 +43,7 @@ class Login extends React.Component {
 
   render() {
     const { email, password, buttonDisable } = this.state;
+    const { getEmail } = this.props;
     return (
       <div>
         <form>
@@ -56,18 +61,31 @@ class Login extends React.Component {
             value={ password }
             onChange={ this.handleChange }
           />
-          <button
-            type="button"
-            disabled={ buttonDisable }
+          <Link
+            to="/carteira"
           >
-            Entrar
-          </button>
+            <button
+              type="button"
+              disabled={ buttonDisable }
+              onClick={ () => getEmail(email) }
+            >
+              Entrar
+            </button>
+          </Link>
         </form>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  getEmail: (payload) => dispatch(login(payload)),
+});
+
+Login.propTypes = {
+  getEmail: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
 
 // https://www.horadecodar.com.br/2020/09/07/expressao-regular-para-validar-e-mail-javascript-regex/
