@@ -5,7 +5,7 @@ import {
 } from '../actions/index';
 
 const INITIAL_STATE = {
-  totalExpenses: '',
+  totalExpenses: '0',
   clearInputs: false,
 };
 
