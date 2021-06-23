@@ -30,9 +30,8 @@ export default function wallet(state = INITIAL_STATE, action) {
     return { ...state, currency: action.payload };
   case EXPENSES_DEL:
     return { ...state,
-      // expenses: action.payload,
       expenses: state.expenses
-        .filter((exp) => exp.id !== Number(action.payload))
+        .filter((exp) => exp.id !== Number(action.payload)),
     };
   case EXPENSES_TAG:
     return { ...state, tag: action.payload };
