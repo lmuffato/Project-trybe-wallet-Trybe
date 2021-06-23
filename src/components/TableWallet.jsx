@@ -119,8 +119,8 @@ TableWallet.propTypes = {
     })).isRequired,
   })).isRequired,
   funcForDeleteExpenses: PropTypes.func.isRequired,
-  funcForSumExpenses: PropTypes.func.string.isRequired,
-  actualTotalExpenses: PropTypes.func.number.isRequired,
+  funcForSumExpenses: PropTypes.string.isRequired,
+  actualTotalExpenses: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableWallet);
