@@ -1,4 +1,4 @@
-import { WALLET_EXPENSES, WALLET_CURRENCIES, COUNT_ID } from '../actions';
+import { WALLET_EXPENSES, WALLET_CURRENCIES, COUNT_ID, DELETE_ROW } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -14,6 +14,8 @@ const wallet = (state = INITIAL_STATE, action) => {
     return { ...state, currencies: action.data };
   case COUNT_ID:
     return { ...state, count: state.count + 1 };
+  case DELETE_ROW:
+    return { ...state, expenses: state.expenses.filter((item) => item !== action.obj) };
   default:
     return state;
   }

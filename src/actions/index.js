@@ -5,6 +5,7 @@ export const USER_WALLET = 'USER_WALLET';
 export const WALLET_CURRENCIES = 'WALLET_CURRENCIES';
 export const WALLET_EXPENSES = 'WALLET_EXPENSES';
 export const COUNT_ID = 'COUNT_ID';
+export const DELETE_ROW = 'DELETE_ROW';
 
 export const startFetch = () => ({
   type: START_FETCH,
@@ -27,6 +28,11 @@ export const saveWalletExpencies = (coins) => ({
 
 export const incrementCount = () => ({
   type: COUNT_ID,
+});
+
+export const deleteElementTable = (obj) => ({
+  type: DELETE_ROW,
+  obj,
 });
 
 export function fetchAPI() {
