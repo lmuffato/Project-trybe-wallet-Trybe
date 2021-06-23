@@ -10,8 +10,8 @@ class InputCurrency extends React.Component {
   }
 
   render() {
-    const { currencyList } = this.props;
-    currencyList.splice(1, 1);
+    const { currencies } = this.props;
+    currencies.splice(1, 1);
     return (
       <form>
         <label htmlFor="moedas">
@@ -20,7 +20,7 @@ class InputCurrency extends React.Component {
             name="moedas"
             id="moedas"
           >
-            {currencyList.map((currency) => (
+            {currencies.map((currency) => (
               <option key={ currency.code } value={ currency.code }>
                 { currency.code }
               </option>
@@ -41,9 +41,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 InputCurrency.propTypes = {
-  currencyList: PropTypes.arrayOf(PropTypes.object),
-  getCurrency: PropTypes.func,
-}.isRequired;
+  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  getCurrency: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputCurrency);
 
