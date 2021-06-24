@@ -1,10 +1,8 @@
 // Coloque aqui suas actions
 
-function userAction() {
-  return ({
-    type: '',
-    payload: {},
-  });
-}
+export const USER_EMAIL = 'USER_EMAIL';
 
-export default userAction;
+export const saveEmail = (email) => ({
+  type: USER_EMAIL,
+  email,
+});

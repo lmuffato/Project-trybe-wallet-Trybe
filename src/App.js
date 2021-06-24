@@ -1,12 +1,14 @@
 import React from 'react';
-import { Route } from 'react-router';
+import { Route, Switch } from 'react-router';
 import Login from './pages/Login';
+import Wallet from './pages/Wallet';
 
 function App() {
   return (
-    <div>
-      <Route exact to="/" component={ Login } />
-    </div>
+    <Switch>
+      <Route exact path="/" component={ Login } />
+      <Route path="/carteira" componente={ Wallet } />
+    </Switch>
   );
 }
 

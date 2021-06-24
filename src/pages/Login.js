@@ -1,9 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { saveEmail } from '../actions';
 
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
 
     this.state = {
       email: '',
@@ -12,6 +17,7 @@ class Login extends React.Component {
     };
   }
 
+  // regex utilizado do projeto em grupo com amigos.
   validateFields() {
     const CARACTER_MIN = 6;
     const { password, email } = this.state;
@@ -27,44 +33,63 @@ class Login extends React.Component {
     }, () => this.validateFields());
   }
 
+  handleClick() {
+    const { email } = this.state;
+    const { save } = this.props;
+    save(email);
+  }
+
   render() {
     const { email, password, buttonOk } = this.state;
 
     return (
       <div>
-        <label htmlFor="email">
-          E-mail
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={ email }
-            placeholder="Digite seu e-mail"
-            data-testid="email-input"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="password">
-          Senha
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={ password }
-            placeholder="Digite sua senha"
-            data-testid="password-input"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <button
-          type="button"
-          disabled={ !buttonOk }
-        >
-          Entrar
-        </button>
+        <form>
+          <label htmlFor="email">
+            E-mail
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={ email }
+              placeholder="Digite seu e-mail"
+              data-testid="email-input"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <label htmlFor="password">
+            Senha
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value={ password }
+              placeholder="Digite sua senha"
+              data-testid="password-input"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <Link to="/carteira">
+            <button
+              type="button"
+              disabled={ !buttonOk }
+              onClick={ () => this.handleClick }
+            >
+              Entrar
+            </button>
+          </Link>
+        </form>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  save: (email) => dispatch(saveEmail(email)),
+});
+
+Login.propTypes = {
+  save: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
