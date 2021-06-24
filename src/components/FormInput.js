@@ -11,15 +11,8 @@ class FormInput extends Component {
       arraApi: [],
       metPag: [],
       tag: [],
-      expenses: [{
-        id: 0,
-        value: 0,
-        description: '',
-        currency: '',
-        method: '',
-        tag: '',
-        exchangeRates: {},
-      }],
+      count: 0,
+      expenses: [{}],
     };
 
     this.getInformation = this.getInformation.bind(this);
@@ -40,10 +33,11 @@ class FormInput extends Component {
 
   handleChange(event) {
     const { name, value } = event.target;
-    const { arraApi, expenses } = this.state;
+    const { arraApi, expenses, count } = this.state;
     this.setState({
       expenses: {
         ...expenses,
+        id: count,
         [name]: value,
         exchangeRates: arraApi
           .map((e) => ({ code: e[1].code, name: e[1].name, ask: e[1].ask })),
@@ -51,9 +45,16 @@ class FormInput extends Component {
     });
   }
 
+  updateId(i) {
+    this.setState({
+      count: i += 1,
+    });
+  }
+
   submit(event) {
     event.preventDefault();
-    const { expenses } = this.state;
+    const { expenses, count } = this.state;
+    this.updateId(count);
     const { toExpenses } = this.props;
     toExpenses(expenses);
   }
@@ -109,24 +110,21 @@ class FormInput extends Component {
             { tag.map((e, i) => <option key={ i } name={ e }>{ e }</option>) }
           </select>
         </label>
-        <button type="submit">
-          Adicionar despesa
-        </button>
+        <button type="submit">Adicionar despesa</button>
       </form>
     );
   }
 }
-
-const mapStateToProps = (state) => ({
-  wallet: state.wallet,
-});
 
 const mapDispatchToProps = (dispatch) => ({
   toExpenses: (payload) => dispatch(wallet(payload)),
 });
 
 FormInput.propTypes = {
-  toExpenses: PropTypes.arrayOf(PropTypes.object, PropTypes.array).isRequired,
+  toExpenses: PropTypes.oneOf(
+    PropTypes.object,
+    PropTypes.array,
+  ).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FormInput);
+export default connect(null, mapDispatchToProps)(FormInput);

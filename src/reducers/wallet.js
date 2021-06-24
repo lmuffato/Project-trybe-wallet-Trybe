@@ -1,9 +1,10 @@
 import {
+  CURRENCIES,
   WALLET,
 } from '../actions/index';
 
 const INITIAL_STATE = {
-  currencies: '',
+  currencies: 0,
   expenses: [],
 };
 
@@ -13,6 +14,11 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: [...state.expenses, action.payload],
+    };
+  case CURRENCIES:
+    return {
+      ...state,
+      currencies: [...state.currencies, action.payload],
     };
   default:
     return state;
