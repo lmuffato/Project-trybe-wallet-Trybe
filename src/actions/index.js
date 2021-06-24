@@ -3,7 +3,6 @@
 export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const CREATE_EXPENSE = 'CREATE_EXPENSE';
 export const LIST_COINS = 'LIST_COINS';
-export const SUM_EXPENSES = 'SUM_EXPENSES';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export function saveEmail(email) {
@@ -20,15 +19,6 @@ export function createExpense(expense) {
     type: CREATE_EXPENSE,
     payload: {
       expense,
-    },
-  });
-}
-
-export function sumExpenses(expenses) {
-  return ({
-    type: SUM_EXPENSES,
-    payload: {
-      expenses,
     },
   });
 }

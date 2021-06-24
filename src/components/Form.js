@@ -58,13 +58,11 @@ class Form extends React.Component {
 
   async handleClick() {
     await this.fetchApiExpense();
-    const { createExpenses, expenses, sumAllExpenses } = this.props;
+    const { createExpenses, expenses } = this.props;
     await this.setState({
       id: expenses.length,
     });
     await createExpenses(this.state);
-    const { expenses: updateExpenses } = this.props;
-    await sumAllExpenses(updateExpenses[updateExpenses.length - 1]);
   }
 
   createValue() {
@@ -147,8 +145,13 @@ class Form extends React.Component {
     );
   }
 
+  async handleClickDelete(expense) {
+    const { deleteOneExpense } = this.props;
+    await deleteOneExpense(expense);
+  }
+
   listExpenses() {
-    const { expenses, deleteOneExpense } = this.props;
+    const { expenses } = this.props;
     return expenses.map((expense) => {
       const expenseNumber = expense.id;
       const key = expense.currency;
@@ -161,9 +164,9 @@ class Form extends React.Component {
           <td>{expense.description}</td>
           <td>{expense.tag}</td>
           <td>{expense.method}</td>
+          <td>{expense.value}</td>
           <td>{currencyName[0]}</td>
           <td>{Math.round(exchangeValue * 100) / 100}</td>
-          <td>{expense.value}</td>
           <td>Real</td>
           <td>{Math.round(convertedValue * 100) / 100}</td>
           <td>
@@ -171,7 +174,7 @@ class Form extends React.Component {
             <button
               type="button"
               data-testid="delete-btn"
-              onClick={ () => deleteOneExpense(expense) }
+              onClick={ () => this.handleClickDelete(expense) }
             >
               Excluir
             </button>
@@ -240,7 +243,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   createListCoins: (coin) => dispatch(listCoins(coin)),
   createExpenses: (expense) => dispatch(createExpense(expense)),
-  sumAllExpenses: (valueExpense) => dispatch(sumExpenses(valueExpense)),
   deleteOneExpense: (expense) => dispatch(deleteExpense(expense)),
 });
 

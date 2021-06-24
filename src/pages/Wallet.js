@@ -11,12 +11,14 @@ class Wallet extends React.Component {
   }
 
   renderTotalExpenses() {
-    const { totalExpenses } = this.props;
-    let total = 0;
-    if (totalExpenses !== 0 && totalExpenses !== undefined) {
-      total = (Math.round(totalExpenses * 100) / 100);
-    }
-    return total;
+    const { expenses } = this.props;
+    let sumExpenses = 0;
+    expenses.forEach((expense) => {
+      const { value, exchangeRates, currency: key } = expense;
+      sumExpenses += (value * exchangeRates[key].ask);
+    });
+
+    return (Math.round(sumExpenses * 100) / 100);
   }
 
   render() {
@@ -41,7 +43,12 @@ Wallet.propTypes = {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
-  totalExpenses: state.wallet.totalExpenses,
+  expenses: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps, null)(Wallet);
+
+// Referências:
+// Alteração da lógica de somar o total das despesas com uma action para um método na página de renderização
+//    para atender os testes do avaliador. Solução sugerida pelo Flávio Franco na thread aberta no slack,
+//    da turma 10-triboA, pelo Lucas Muffato
