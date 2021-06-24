@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addExpense, fetchCoins } from '../actions';
 
-// Requisito feito com auxílio do repositório de Lucas Lara:
-// https://github.com/tryber/sd-010-a-project-trybewallet/pull/2
+// Requisito feito com auxílio do repositório de Lucas Lara e Vinicius Rodrigues
 
 class Forms extends Component {
   constructor() {

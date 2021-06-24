@@ -8,7 +8,6 @@ class Header extends Component {
     let total = 0;
 
     if (expenses.length > 0) {
-      console.log(expenses);
       expenses.map(({ value, exchangeRates, currency }) => {
         total += value * exchangeRates[currency].ask;
         return total;
