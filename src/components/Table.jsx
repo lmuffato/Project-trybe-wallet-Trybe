@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 
 function Table() {
   const reduxStates = useSelector((state) => state.wallet.expenses);
-  console.table(reduxStates);
 
   return (
     <table>
@@ -29,10 +28,10 @@ function Table() {
             <td>{reduxState.method}</td>
             <td>{reduxState.value}</td>
             <td>{reduxState.exchangeRates[reduxState.currency].name}</td>
-            <td>{reduxState.exchangeRates[reduxState.currency].ask}</td>
+            <td>{Math.round(reduxState.exchangeRates[reduxState.currency].ask * 100) / 100}</td>
             <td>
-              {reduxState.value
-            * reduxState.exchangeRates[reduxState.currency].ask}
+              {(reduxState.value
+            * reduxState.exchangeRates[reduxState.currency].ask).toFixed(2)}
             </td>
             <td>Real</td>
           </tr>
