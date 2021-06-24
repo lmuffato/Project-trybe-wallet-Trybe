@@ -20,3 +20,10 @@ export const addExpensesWithCurrency = (formValues) => async (dispatch) => {
   const newExpense = { ...formValues, exchangeRates: data };
   return dispatch(addExpenses(newExpense));
 };
+
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+
+export const deleteExpense = (payload) => ({
+  type: DELETE_EXPENSE,
+  payload,
+});
