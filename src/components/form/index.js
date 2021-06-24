@@ -7,14 +7,18 @@ class Form extends React.Component {
 
     this.generateSelect = this.generateSelect.bind(this);
     this.generateInput = this.generateInput.bind(this);
-    this.fetchByCurrency = this.fetchApi.bind(this);
+    this.fetchByCurrency = this.getByCurrency.bind(this);
 
     this.state = {
       coin: [],
     };
   }
 
-  async fetchApi() {
+  componentDidMount() {
+    this.getByCurrency();
+  }
+
+  async getByCurrency() {
     const data = await fetchByCurrency();
     this.setState({ coin: data });
   }
@@ -48,7 +52,6 @@ class Form extends React.Component {
     const optionTag = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     const optionPayment = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const { coin } = this.state;
-    this.fetchApi();
 
     return (
       <form>
