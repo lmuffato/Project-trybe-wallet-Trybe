@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { array, func } from 'prop-types';
 import getCoins from '../services/api';
-import { createExpense, listCoins, sumExpenses } from '../actions/index';
+import { createExpense, listCoins, sumExpenses, deleteExpense } from '../actions/index';
 
 class Form extends React.Component {
   constructor() {
@@ -29,6 +29,7 @@ class Form extends React.Component {
     this.createDescription = this.createDescription.bind(this);
     this.createButton = this.createButton.bind(this);
     this.createTable = this.createTable.bind(this);
+    this.listExpenses = this.listExpenses.bind(this);
   }
 
   componentDidMount() {
@@ -146,8 +147,41 @@ class Form extends React.Component {
     );
   }
 
+  listExpenses() {
+    const { expenses, deleteOneExpense } = this.props;
+    return expenses.map((expense) => {
+      const expenseNumber = expense.id;
+      const key = expense.currency;
+      const { exchangeRates } = expense;
+      const currencyName = (exchangeRates[key].name).split('/');
+      const exchangeValue = exchangeRates[key].ask;
+      const convertedValue = expense.value * exchangeValue;
+      return (
+        <tr key={ expenseNumber }>
+          <td>{expense.description}</td>
+          <td>{expense.tag}</td>
+          <td>{expense.method}</td>
+          <td>{currencyName[0]}</td>
+          <td>{Math.round(exchangeValue * 100) / 100}</td>
+          <td>{expense.value}</td>
+          <td>Real</td>
+          <td>{Math.round(convertedValue * 100) / 100}</td>
+          <td>
+            <button type="button">Editar</button>
+            <button
+              type="button"
+              data-testid="delete-btn"
+              onClick={ () => deleteOneExpense(expense) }
+            >
+              Excluir
+            </button>
+          </td>
+        </tr>
+      );
+    });
+  }
+
   createTable() {
-    const { expenses } = this.props;
     return (
       <table>
         <thead>
@@ -164,29 +198,7 @@ class Form extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {expenses.map((expense) => {
-            const key = expense.currency;
-            const { exchangeRates } = expense;
-            const currencyName = (exchangeRates[key].name).split('/');
-            const exchangeValue = exchangeRates[key].ask;
-            const convertedValue = expense.value * exchangeValue;
-            return (
-              <tr key={ expense.id }>
-                <td>{expense.description}</td>
-                <td>{expense.tag}</td>
-                <td>{expense.method}</td>
-                <td>{currencyName[0]}</td>
-                <td>{Math.round(exchangeValue * 100) / 100}</td>
-                <td>{expense.value}</td>
-                <td>Real</td>
-                <td>{Math.round(convertedValue * 100) / 100}</td>
-                <td>
-                  <button type="button">Editar</button>
-                  <button type="button">Excluir</button>
-                </td>
-              </tr>
-            );
-          })}
+          {this.listExpenses()}
         </tbody>
       </table>
     );
@@ -229,6 +241,7 @@ const mapDispatchToProps = (dispatch) => ({
   createListCoins: (coin) => dispatch(listCoins(coin)),
   createExpenses: (expense) => dispatch(createExpense(expense)),
   sumAllExpenses: (valueExpense) => dispatch(sumExpenses(valueExpense)),
+  deleteOneExpense: (expense) => dispatch(deleteExpense(expense)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
