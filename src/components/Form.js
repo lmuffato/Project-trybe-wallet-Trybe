@@ -45,6 +45,7 @@ class Form extends React.Component {
           name="value"
           value={ value }
           type="number"
+          step=".01"
           onChange={ (event) => this.handleChange(event) }
         />
       </label>
@@ -97,7 +98,7 @@ class Form extends React.Component {
           name="method"
           onChange={ (event) => this.handleChange(event) }
         >
-          <option value="">Selecionar</option>
+          <option value="">Selecione</option>
           <option value="Dinheiro">Dinheiro</option>
           <option value="Cartão de crédito">Cartão de crédito</option>
           <option value="Cartão de débito">Cartão de débito</option>
@@ -118,6 +119,7 @@ class Form extends React.Component {
           name="tag"
           onChange={ (event) => this.handleChange(event) }
         >
+          <option value="">Selecione</option>
           <option value="Alimentação">Alimentação</option>
           <option value="Lazer">Lazer</option>
           <option value="Trabalho">Trabalho</option>
