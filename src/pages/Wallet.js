@@ -6,7 +6,18 @@ class Wallet extends React.Component {
   constructor() {
     super();
 
-    this.state = { coins: [] };
+    this.state = {
+      coins: [],
+      expenses: {
+        id: 0,
+        currency: 'USD',
+        tag: 'Alimentação',
+        method: 'Dinheiro',
+        value: 0,
+        description: '',
+        exchangeRates: {},
+      },
+    };
   }
 
   async componentDidMount() {
@@ -18,6 +29,15 @@ class Wallet extends React.Component {
 
   getCurrency(data) {
     this.setState({ coins: data });
+  }
+
+  hundleChange({ target }) {
+    const expenses = this.state;
+    const { id, value } = target;
+    expenses[id] = value;
+    this.setState(() => ({
+      expenses,
+    }));
   }
 
   render() {
@@ -33,21 +53,21 @@ class Wallet extends React.Component {
         <form>
           <label htmlFor="value">
             Valor
-            <input type="number" id="value" />
+            <input type="number" id="value" onChange={ this.hundleChange } />
           </label>
           <label htmlFor="description">
             Descrição
-            <input type="text" id="description" />
+            <input type="text" id="description" onChange={ this.hundleChange } />
           </label>
           <label htmlFor="currency">
             Moeda
-            <select id="currency">
+            <select id="currency" onChange={ this.hundleChange }>
               { coins.map((coin, index) => <option key={ index }>{ coin }</option>) }
             </select>
           </label>
           <label htmlFor="payment-method">
             Método de pagamento
-            <select id="payment-method">
+            <select id="method" onChange={ this.hundleChange }>
               <option value="cash">Dinheiro</option>
               <option value="credit-card">Cartão de crédito</option>
               <option value="debit-card">Cartão de débito</option>
@@ -55,7 +75,7 @@ class Wallet extends React.Component {
           </label>
           <label htmlFor="tag">
             Tag
-            <select id="tag">
+            <select id="tag" onChange={ this.hundleChange }>
               <option value="food">Alimentação</option>
               <option value="leisure">Lazer</option>
               <option value="work">Trabalho</option>
