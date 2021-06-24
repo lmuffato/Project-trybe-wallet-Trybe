@@ -17,7 +17,6 @@ class Header extends React.Component {
     valor.forEach((element) => {
       let number = parseFloat(element.value);
       const values = Object.values(element.exchangeRates);
-      // console.log(values);
       const moeda = values.find((coin) => coin.code === element.currency);
       number *= moeda.ask;
       total += number;
