@@ -22,8 +22,6 @@ export const getCURRENCIESApiThunk = () => (dispatch) => {
     .then((res) => {
       // console.log(res);
       const { USDT, ...currencies } = res;
-      // const currencies = Object.keys(currenciesApi);
-      // console.log(currencies);
       dispatch(getCURRENCIESApiSuccess({ currencies }));
     })
     .catch(() => { getCURRENCIESApiError(); });
@@ -39,4 +37,10 @@ export const WALLET = 'WALLET';
 
 export const wallet = (payload) => (
   { type: WALLET, payload }
+);
+
+export const DELETE_ID = 'DELETE_ID';
+
+export const deleteID = (id) => (
+  { type: DELETE_ID, payload: id }
 );

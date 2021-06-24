@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { wallet as walletAction, getCURRENCIESApiThunk } from '../actions';
+import { wallet as walletAction, getCURRENCIESApiThunk, deleteID } from '../actions';
 import getCurrencies from '../serveces/fetchApis';
 
 class Expenses extends React.Component {
@@ -134,10 +134,10 @@ class Expenses extends React.Component {
   }
 
   handTable() {
-    const cabeçalhoHeader = ['Descrição', 'Tag', 'Método de pagamento', 'Valor',
-      'Moeda', 'Câmbio utilizado', 'Valor convertido',
-      'Moeda de conversão', 'Editar/Excluir'];
-    const { expenses } = this.props;
+    const cabeçalhoHeader = ['Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda',
+      'Câmbio utilizado', 'Valor convertido', 'Moeda de conversão', 'Editar/Excluir'];
+    const { expenses, deleteIDAction } = this.props;
+
     return (
       <table>
         <thead>
@@ -160,7 +160,15 @@ class Expenses extends React.Component {
                  * Number(expense.value)).toFixed(2)}
               </td>
               <td>Real</td>
-              <td>button</td>
+              <td>
+                <button
+                  type="button"
+                  data-testid="delete-btn"
+                  onClick={ () => deleteIDAction(expense.id) }
+                >
+                  Excluir
+                </button>
+              </td>
             </tr>
           )) }
         </tbody>
@@ -209,6 +217,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   wallet: (state) => dispatch(walletAction(state)),
   getCurrency: () => dispatch(getCURRENCIESApiThunk()),
+  deleteIDAction: (id) => dispatch(deleteID(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Expenses);
