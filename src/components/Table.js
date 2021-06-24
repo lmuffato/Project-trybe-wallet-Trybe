@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import DeleteExpense from './DeleteExpense';
 
 const tHeads = [
   'Descrição',
@@ -51,6 +52,7 @@ class Table extends Component {
                   ].ask).toFixed(2) }
                 </td>
                 <td>Real</td>
+                <td><DeleteExpense expense={ expense } /></td>
               </tr>
             )) }
           </tbody>

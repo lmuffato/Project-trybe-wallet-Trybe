@@ -7,6 +7,13 @@ function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
   case 'SAVE_EXPENSE':
     return { expenses: [...state.expenses, action.payload.expense] };
+  case 'DEL_EXPENSE':
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses.filter((expense) => expense.id !== action.payload.expense.id),
+      ],
+    };
   default:
     return state;
   }
