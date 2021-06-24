@@ -17,6 +17,7 @@ class InputCurrency extends React.Component {
         <label htmlFor="moedas">
           Moeda
           <select
+            className="input"
             name="moedas"
             id="moedas"
           >

@@ -1,4 +1,5 @@
 import React from 'react';
+import ExpenseButton from './ExpenseButton';
 import InputCategory from './InputCategory';
 import InputCurrency from './InputCurrency';
 import InputDescription from './inputDescription';
@@ -14,6 +15,7 @@ class Form extends React.Component {
         <InputCurrency />
         <InputPayment />
         <InputCategory />
+        <ExpenseButton />
       </section>
     );
   }

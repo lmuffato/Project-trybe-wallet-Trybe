@@ -2,9 +2,33 @@
   align-items: center;
   background-color: rgba(240, 240, 240, 0.3);
   box-shadow: 0 0 5px rgb(20, 20, 20);
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.986);
   display: flex;
   font-weight: 700;
   justify-content: space-around;
   padding: 0.5em 0;
+}
+
+.input {
+  border-radius: 1em;
+  margin: 1em;
+  border: none;
+  height: 3em;
+}
+
+.add-expense-bttn {
+  border-radius: 1em;
+  border: none;
+  height: 3em;
+  background-color: rgb(3, 218, 197);
+  box-shadow: 0 0 5px rgb(10, 10, 10);
+  cursor: pointer;
+  margin: 0.2em 0;
+  padding: 0 2em;
+  font-weight: 700;
+  font-size: 1em;
+}
+
+.add-expense-bttn:hover {
+  background-color: rgb(3, 243, 219);
 }

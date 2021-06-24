@@ -7,6 +7,7 @@ class InputPayment extends React.Component {
         <label htmlFor="pagamento">
           Método de pagamento
           <select
+            className="input"
             name="pagamento"
             id="pagamento"
           >

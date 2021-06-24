@@ -7,6 +7,7 @@ class InputDescription extends React.Component {
         <label htmlFor="descrição">
           Descrição
           <input
+            className="input"
             type="text"
             name="descrição"
             id="descrição"

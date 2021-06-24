@@ -7,6 +7,7 @@ class InputValue extends React.Component {
         <label htmlFor="valor">
           Valor
           <input
+            className="input"
             type="text"
             name="valor"
             id="valor"

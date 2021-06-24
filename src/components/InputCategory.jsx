@@ -7,6 +7,7 @@ class InputCategory extends React.Component {
         <label htmlFor="tag">
           Tag
           <select
+            className="input"
             name="tag"
             id="tag"
           >
