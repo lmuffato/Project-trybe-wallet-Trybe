@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
+import PropTypes from 'prop-types';
+import { userLogin } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -6,10 +10,12 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.checkEntries = this.checkEntries.bind(this);
+    this.redirectToWallet = this.redirectToWallet.bind(this);
 
     this.state = {
       email: '',
       password: '',
+      shouldRedirect: false,
     };
   }
 
@@ -27,13 +33,22 @@ class Login extends React.Component {
     return !(checkEmail && checkPassword);
   }
 
+  redirectToWallet() {
+    const { email } = this.state;
+    const { toLogin } = this.props;
+    toLogin(email);
+    this.setState({ shouldRedirect: true });
+  }
+
   render() {
+    const { shouldRedirect } = this.state;
+    if (shouldRedirect) return <Redirect to="/carteira" />;
     return (
       <div>
         <h2>Trybe Wallet</h2>
         <p>Login</p>
 
-        <form action="/carteira">
+        <form>
           <input
             placeholder="Email"
             name="email"
@@ -48,11 +63,25 @@ class Login extends React.Component {
             onChange={ this.handleChange }
             data-testid="password-input"
           />
-          <button disabled={ this.checkEntries() } type="submit">Entrar</button>
+          <button
+            disabled={ this.checkEntries() }
+            type="button"
+            onClick={ this.redirectToWallet }
+          >
+            Entrar
+          </button>
         </form>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  toLogin: (email) => dispatch(userLogin(email)),
+});
+
+Login.propTypes = {
+  toLogin: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
