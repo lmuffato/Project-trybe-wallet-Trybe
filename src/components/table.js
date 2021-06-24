@@ -7,14 +7,26 @@ import TableHead from './tableHead';
 // resolução para o problema do map dos dados vista no repositório de Wanderson
 // https://github.com/tryber/sd-010-a-project-trybewallet/pull/20
 class Table extends Component {
+  constructor(props) {
+    super(props);
+    this.deletingRow = this.deletingRow.bind(this);
+  }
+
+  deletingRow(id) {
+    const value = parseFloat(id.children[6].innerText);
+    const { wallet } = this.props;
+    wallet(value);
+    id.parentNode.removeChild(id);
+  }
+
   render() {
-    const { database } = this.props;
+    const { database, wallet } = this.props;
     return (
       <table>
         <TableHead />
         <tbody>
-          { database.map((expense, i) => (
-            <tr key={ i }>
+          { database.map((expense) => (
+            <tr key={ expense.id }>
               <td>{ expense.description }</td>
               <td>{ expense.tag }</td>
               <td>{ expense.method }</td>
@@ -39,7 +51,16 @@ class Table extends Component {
               </td>
               <td>Real</td>
               <td>
-                <button type="button" data-testid="delete-btn">Excluir</button>
+                <button
+                  type="button"
+                  data-testid="delete-btn"
+                  onClick={ (e) => {
+                    e.preventDefault();
+                    wallet(expense);
+                  } }
+                >
+                  Excluir
+                </button>
                 <button type="button" data-testid="edit-btn">Editar despesa</button>
               </td>
             </tr>
@@ -55,11 +76,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  deleteOutlay: (id) => dispatch(removeOutlay(id)),
+  wallet: (expense) => dispatch(removeOutlay(expense)),
 });
 
 Table.propTypes = {
   database: PropTypes.objectOf(PropTypes.string).isRequired,
+  wallet: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

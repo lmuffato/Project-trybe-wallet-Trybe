@@ -46,19 +46,24 @@ class Form extends React.Component {
       <form>
         <label htmlFor="valor">
           Valor:
-          <input type="text" name="valor" id="valor" />
+          <input type="text" name="valor" id="valor" data-testid="value-input" />
         </label>
         <label htmlFor="descricao">
           Descrição:
-          <input type="text" name="descricao" id="descricao" />
+          <input
+            type="text"
+            name="descricao"
+            id="descricao"
+            data-testid="description-input"
+          />
         </label>
         <label htmlFor="moeda">
           Moeda:
-          <select name="moeda" id="moeda">
+          <select name="moeda" id="moeda" data-testid="currency-input">
             {paperMoney.map((money) => <option key={ money }>{ money }</option>)}
           </select>
         </label>
-        <label htmlFor="metodo">
+        <label htmlFor="metodo" data-testid="method-input">
           Método de pagamento:
           <select name="metodo" id="metodo">
             <option>Dinheiro</option>
@@ -68,7 +73,7 @@ class Form extends React.Component {
         </label>
         <label htmlFor="tag">
           Tag:
-          <select name="tag" id="tag">
+          <select name="tag" id="tag" data-testid="tag-input">
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>

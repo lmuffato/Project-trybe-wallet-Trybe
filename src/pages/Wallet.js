@@ -1,8 +1,4 @@
-// Forma de implementar a tabela e o botão de deletar vista no repositório do Victor Canto
-// https://github.com/tryber/sd-010-a-project-trybewallet/pull/76
-
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/header';
 import Form from '../components/form';

@@ -21,9 +21,11 @@ export const addOutlay = (data) => ({
   expenses: data,
 });
 
-export const removeOutlay = (outLay) => ({
+export const removeOutlay = (expense) => ({
   type: REMOVE_OUTLAY,
-  outLay,
+  payload: {
+    expense,
+  },
 });
 
 // export const editOutlay = (outLay) => ({
