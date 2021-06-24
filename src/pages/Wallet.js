@@ -17,7 +17,6 @@ class Wallet extends React.Component {
       <div>
         <Header />
         <Form currencies={ currencies } />
-        <button type="button">Adicionar despesa</button>
       </div>
 
     );

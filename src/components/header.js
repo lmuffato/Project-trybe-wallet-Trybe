@@ -4,7 +4,15 @@ import PropTypes from 'prop-types';
 
 class Header extends Component {
   render() {
-    const { saveEmail } = this.props;
+    const { saveEmail, expenses } = this.props;
+    const totalSum = expenses.reduce((acc, curr) => {
+      const { value, exchangeRates, currency } = curr;
+      const { ask } = Object.values(exchangeRates)
+        .find(({ code }) => code === currency);
+        console.log(ask);
+      const result = value * ask;
+      return acc + result;
+    }, 0);
     return (
       <div>
         <header>
@@ -13,9 +21,9 @@ class Header extends Component {
           </h3>
         </header>
 
-        <spam data-testid="total-field">
-          Total = 0
-        </spam>
+        <span data-testid="total-field">
+          { totalSum }
+        </span>
         <span data-testid="header-currency-field">
           BRL
         </span>
@@ -26,6 +34,7 @@ class Header extends Component {
 
 const mapStateToProps = (state) => ({
   saveEmail: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 Header.propTypes = {

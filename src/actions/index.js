@@ -4,6 +4,7 @@ export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const REQUEST = 'REQUEST';
 export const ERROR = 'ERROR';
 export const CURRENCIES = 'CURRENCIES';
+export const SAVE_EXPENSES = 'SAVE_EXPENSES';
 
 export const saveEmail = (email) => ({
   type: SAVE_EMAIL,
@@ -24,6 +25,11 @@ export const getCurrencies = (payload) => ({
   payload,
 });
 
+const saveExpenses = (payload) => ({
+  type: SAVE_EXPENSES,
+  payload,
+});
+
 export const addCurrencies = () => async (dispatch) => { // thunk
   dispatch(requestCurrencies());
   try {
@@ -36,4 +42,13 @@ export const addCurrencies = () => async (dispatch) => { // thunk
     dispatch(errorCurrencies(error));
   }
   dispatch(requestCurrencies());
+};
+
+// -----------------------------------------------------------------------------
+
+export const fetchExpenses = (expense) => async (dispatch) => {
+  const exchangeRates = await fetchApi();
+  const expenseToRedux = { ...expense, exchangeRates };
+
+  dispatch(saveExpenses(expenseToRedux));
 };
