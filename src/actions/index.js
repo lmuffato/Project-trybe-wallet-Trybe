@@ -1,6 +1,9 @@
+import walletAPI from '../services/api';
+
 // Coloque aqui suas actions
 export const USER = 'USER';
 export const WALLET = 'WALLET';
+export const ADD_CURRENCY = 'ADD_CURRENCY';
 
 export const user = (payload) => ({
   type: 'USER',
@@ -11,3 +14,17 @@ export const wallet = (payload) => ({
   type: 'WALLET',
   payload,
 });
+
+export const addWalletCurrency = (payload) => ({
+  type: 'ADD_CURRENCY',
+  payload,
+});
+
+export const apiWalletThunk = () => (dispatch) => {
+  walletAPI()
+    .then((response) => {
+      dispatch(addWalletCurrency({
+        currencies: response,
+      }));
+    });
+};
