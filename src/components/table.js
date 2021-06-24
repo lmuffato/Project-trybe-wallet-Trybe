@@ -3,30 +3,24 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { removeOutlay } from '../actions';
 import TableHead from './tableHead';
-import Button from './button';
 
 // resolução para o problema do map dos dados vista no repositório de Wanderson
 // https://github.com/tryber/sd-010-a-project-trybewallet/pull/20
 class Table extends Component {
-constructor(props) {
-  super(props);
-  this.state = {
-    count: 0,
+  constructor(props) {
+    super(props);
+    this.deletingRow = this.deletingRow.bind(this);
   }
-  this.deletingRow = this.deletingRow.bind(this);
-}
 
   deletingRow(id) {
-    const { count } = this.state;
-    this.setState({ count: count - 1 });
-    console.log(id);
+    const value = parseFloat(id.children[6].innerText);
     const { wallet } = this.props;
-    const rows = document.querySelectorAll('tr');
-    wallet(id);
+    wallet(value);
+    id.parentNode.removeChild(id);
   }
+
   render() {
-    const { database, wallet, giveValue } = this.props;
-    const { count } = this.state;
+    const { database } = this.props;
     return (
       <table>
         <TableHead />
@@ -57,17 +51,16 @@ constructor(props) {
               </td>
               <td>Real</td>
               <td>
-                <Button />
-                {/* <button
+                <button
                   type="button"
                   data-testid="delete-btn"
                   onClick={ (event) => {
                     event.preventDefault();
-                    this.deletingRow(event.target, giveValue);
+                    this.deletingRow(event.target.parentNode.parentNode);
                   } }
                 >
                   Excluir
-                </button> */}
+                </button>
                 <button type="button" data-testid="edit-btn">Editar despesa</button>
               </td>
             </tr>
@@ -83,7 +76,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  wallet: (id) => dispatch(removeOutlay(id)),
+  wallet: (value) => dispatch(removeOutlay(value)),
 });
 
 Table.propTypes = {
