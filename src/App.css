@@ -26,10 +26,8 @@ html {
 }
 
 body {
-  align-items: center;
   background-color: #d5eafc;
   color: #515a6e;
-  display: flex;
   font-family: Roboto, sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -40,12 +38,21 @@ body {
 }
 
 header {
-  background-color: white;
+  align-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.746);
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  margin: 0;
-  opacity: 0.5;
+  display: flex;
+  height: 100px;
+  margin-right: 150px;
   width: 100%;
+}
+
+.p-header {
+  align-self: flex-end;
+  color: #515a6e;
+  margin-left: 50px;
 }
 
 a {
@@ -61,6 +68,7 @@ a:hover {
 
 table {
   background-color: #fafafe;
+  border-bottom: 1px solid #ff5050;
   border-collapse: collapse;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -68,6 +76,7 @@ table {
   margin-top: 20px;
   padding: 25px 20px 10px;
   position: relative;
+  top: 80px;
   width: 100%;
 }
 
@@ -77,8 +86,28 @@ td {
 }
 
 .expense-form {
-  position: relative;
+  align-content: space-between;
+  color: #515a6e;
+  font-family: Roboto, sans-serif;
+  justify-content: center;
+  position: absolute;
+  text-align: center;
   width: 100%;
+}
+
+label {
+  align-content: space-between;
+  color: #515a6e;
+  font-family: Roboto, sans-serif;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+select {
+  color: #515a6e;
+  font-family: Roboto, sans-serif;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 button {
@@ -97,13 +126,20 @@ button {
 }
 
 .container {
+  align-items: center;
   background-color: #fafafe;
   border-radius: 10px;
+  bottom: 0;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
-  margin: 40px;
+  display: flex;
+  height: 320px;
+  left: 0;
+  margin: auto;
   padding: 25px 20px 10px;
-  position: relative;
+  position: absolute;
+  right: 0;
+  top: 0;
   width: 320px;
   z-index: 1;
 }
@@ -159,30 +195,30 @@ button {
 
 ::placeholder {
   color: #8597a3;
-  padding-top: 10px;
-  position: absolute;
-  top: 20px;
+  font: Roboto, sans-serif;
+}
+
+input {
+  color: #515a6e;
+  font: Roboto, sans-serif;
 }
 
 .input_field {
   background-color: transparent;
   border: 5px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #8597a3;
+  color: #515a6e;
   font: Roboto, sans-serif;
   font-size: 14px;
   line-height: 10px;
+  outline: 0;
   padding: 5px;
+  transform: translateY(-25px);
   z-index: 1;
 }
 
-.input_field:valid {
-  border-bottom-color: #665856;
-  color: #665856;
-  outline: 0;
-  transform: translateY(-25px);
-}
-
 .koi-fish {
+  animation: koi 6s infinite linear;
   bottom: 0;
   height: 630px;
   left: 0;
@@ -193,3 +229,15 @@ button {
   width: 630px;
   z-index: 0;
 }
+
+@keyframes koi {
+
+  0% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(0);
+  }
+}
+

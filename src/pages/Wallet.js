@@ -11,7 +11,7 @@ class Wallet extends React.Component {
     totalExpenses.forEach((expense) => {
       sum += expense.value * expense.exchangeRates[expense.currency].ask;
     });
-    return sum;
+    return sum.toFixed(2);
   }
 
   render() {
@@ -19,16 +19,18 @@ class Wallet extends React.Component {
     return (
       <div>
         <header data-testid="email-field">
-          E-mail:
-          {takeEmail}
-          <div data-testid="header-currency-field">
+          <p className="p-header">
+            E-mail:
+            {takeEmail}
+          </p>
+          <p data-testid="header-currency-field" className="p-header">
             BRL
-          </div>
-          <div data-testid="total-field">
+          </p>
+          <p data-testid="total-field" className="p-header">
             {this.sumExpenses()}
-          </div>
+          </p>
         </header>
-        <ExpenseForm />
+        <ExpenseForm className="div-form" />
       </div>
     );
   }
