@@ -7,6 +7,8 @@ function user(state = INITIAL_STATE, action) {
   switch (action.type) {
   case 'LOGIN':
     return { ...state, email: action.value };
+  case 'USER_EMAIL':
+    return { state };
   default:
     return state;
   }

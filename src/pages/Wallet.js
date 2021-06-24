@@ -1,4 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import Proptypes from 'prop-types';
+import store from '../store';
+import requestApi from '../API';
+// import userEmail from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -8,6 +13,7 @@ class Wallet extends React.Component {
   }
 
   headerCurrency() {
+    // const { userEmailField } = this.props;
     return (
       <header>
         <aside>
@@ -16,7 +22,11 @@ class Wallet extends React.Component {
             <strong
               data-testid="email-field"
             >
-              email da pessoa aqui via estado global
+              {
+                (store.getState().user.email === '')
+                  ? 'Email inválido'
+                  : store.getState().user.email
+              }
             </strong>
           </p>
           <p>
@@ -38,6 +48,19 @@ class Wallet extends React.Component {
     );
   }
 
+  listCoins() {
+    requestApi().then((data) => {
+      Object.keys(data)
+        .filter((ele) => (ele !== 'USDT' && ele !== 'DOGE'))
+        .map((unit) => {
+          const node = document.createElement('option');
+          const textnode = document.createTextNode(`${unit}`);
+          node.appendChild(textnode);
+          return document.getElementById('moeda').appendChild(node);
+        });
+    });
+  }
+
   formCurrency() {
     return (
       <form>
@@ -52,7 +75,7 @@ class Wallet extends React.Component {
         <label htmlFor="moeda">
           Moeda:&nbsp;
           <select id="moeda">
-            {/* fazer um map recebendo via estado global as opções */}
+            { this.listCoins() }
           </select>
         </label>
         <label htmlFor="metodoPagamento">
@@ -85,31 +108,53 @@ class Wallet extends React.Component {
     return (
       <>
         { this.headerCurrency() }
-        <section>
-          { this.formCurrency() }
-          <table>
-            <tr>
-              <th>Descrição</th>
-              <th>Tag</th>
-              <th>Método de pagamento</th>
-              <th>Valor</th>
-              <th>Moeda</th>
-              <th>Câmbio utilizado</th>
-              <th>Valor convertido</th>
-              <th>Moeda de conversão</th>
-              <th>Editar/Excluir</th>
-            </tr>
-          </table>
-          <button
-            type="button"
-            data-testid="delete-btn"
-          >
-            Deletar
-          </button>
-        </section>
+        { this.formCurrency() }
+        <table>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+          <tr>
+            <td>test</td>
+            <td>Tag</td>
+            <td>test</td>
+            <td>Tag</td>
+            <td>test</td>
+            <td>Tag</td>
+            <td>test</td>
+            <td>Tag</td>
+            <button
+              type="button"
+              data-testid="edit-btn"
+            >
+              Editar
+            </button>
+            <button
+              type="button"
+              data-testid="delete-btn"
+            >
+              Excluir
+            </button>
+          </tr>
+        </table>
       </>
     );
   }
 }
 
-export default Wallet;
+Wallet.propTypes = {
+  fazerLogin: Proptypes.objectOf(),
+}.isRequired;
+
+// const mapDispatchToProps = (dispatch) => ({
+//   userEmailField: (state) => dispatch(userEmail(state)),
+// });
+
+export default connect(null, null)(Wallet);

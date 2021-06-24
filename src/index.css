@@ -12,15 +12,21 @@ code {
     monospace;
 }
 
-main {
-  display: flex;
-  justify-content: center;
-  height: 500px;
-  align-items: center;
+table {
+  border: none;
+  border-spacing: 0px;
+  margin-top: 10px;
 }
 
-main section {
-  display: flex;
-  align-content: center;
-  flex-direction: column;
+
+table > tr {
+  background-color: lightgrey;
+  border: 1px solid black;
+  padding: 3px;
+}
+
+table > tr > th {
+  background-color: grey;
+  border-spacing: 3px;
+  padding-right: 25px;
 }
