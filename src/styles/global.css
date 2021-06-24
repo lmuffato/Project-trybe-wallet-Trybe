@@ -1,3 +1,16 @@
+:root {
+
+  --green-dark: rgb(38, 70, 83);
+
+  --green: rgb(42, 157, 143);
+
+  --yellow: rgb(233, 196, 106);
+
+  --orange: rgb(244, 162, 97);
+
+  --red: rgb(231, 111, 81);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,8 +18,7 @@
 }
 
 body {
-  background: #264653;
-  color: #333;
+  background: var(--green-dark);
   font-family: sans-serif;
   font-size: 14px;
 }
@@ -27,9 +39,9 @@ button {
 }
 
 /*
-#264653
-#2A9D8F
-#E9C46A
-#F4A261
-#E76F51
+#264653 38, 70, 83
+#2A9D8F 42, 157, 143
+#E9C46A 233, 196, 106
+#F4A261 244, 162, 97
+#E76F51 231, 111, 81
 */

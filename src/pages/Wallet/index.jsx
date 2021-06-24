@@ -6,6 +6,7 @@ import { getCurrenciesThunk } from '../../actions';
 
 import Header from './components/Header';
 import Forms from './components/Forms';
+import Table from './components/Table';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -18,6 +19,7 @@ class Wallet extends React.Component {
       <>
         <Header />
         <Forms />
+        <Table />
       </>
     );
   }

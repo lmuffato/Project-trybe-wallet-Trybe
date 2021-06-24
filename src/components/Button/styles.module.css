@@ -1,6 +1,6 @@
 .button {
   align-items: center;
-  background-color: #2a9d8f;
+  background-color: var(--yellow);
   border-radius: 10px;
   display: flex;
   font-size: 1.3rem;
@@ -8,6 +8,7 @@
   height: 3.2rem;
   justify-content: center;
   margin-top: 1rem;
+  padding: 1rem;
 }
 
 

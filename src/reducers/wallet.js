@@ -35,9 +35,6 @@ function wallet(state = INITIAL_STATE, { type, payload }) {
     const ask = parseFloat(payload.exchangeRates[currency].ask);
     const expense = value * ask;
     const totalExpense = parseFloat((state.totalExpense + expense).toFixed(2));
-    console.log(ask);
-    console.log(expense);
-    console.log(totalExpense);
 
     return {
       ...state,
