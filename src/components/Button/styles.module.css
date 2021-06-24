@@ -7,11 +7,10 @@
   font-weight: 700;
   height: 3.2rem;
   justify-content: center;
-  margin-top: 1rem;
   padding: 1rem;
 }
 
 
-.button span {
+.button > span {
   margin-right: 10px;
 }

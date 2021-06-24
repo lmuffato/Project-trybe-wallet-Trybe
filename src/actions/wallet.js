@@ -2,6 +2,7 @@ export const CURRENCIES = 'REQUEST_CURRENCIES';
 export const CURRENCIES_ERROR = 'RECEIVED_CURRENCIES_ERROR';
 export const CURRENCIES_SUCCESS = 'RECEIVED_CURRENCIES';
 export const ADD_EXPENSES_SUCCESS = 'ADD_EXPENSES';
+export const DELETE_EXPENSES_SUCCESS = 'DELETE_EXPENSES';
 
 export const requestCurrencies = () => ({
   type: CURRENCIES,

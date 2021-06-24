@@ -19,3 +19,12 @@
 .table tr:nth-child( even ) {
   background-color: var(--green);
 }
+
+.buttons button {
+  display: inline;
+  margin: 10px;
+}
+
+.buttons button:nth-last-child( 1 ) {
+  background-color: var(--red);
+}

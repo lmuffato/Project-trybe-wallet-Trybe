@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, func, arrayOf, oneOfType, string, object } from 'prop-types';
+import { number, bool, func, string, node } from 'prop-types';
 
 import styles from './styles.module.css';
 
@@ -8,14 +8,17 @@ function Button(props) {
     children,
     disabled,
     onClick,
+    dataTestId,
+    id,
   } = props;
 
   return (
     <button
+      data-testid={ dataTestId }
       className={ styles.button }
       type="submit"
       disabled={ disabled }
-      onClick={ (event) => onClick(event) }
+      onClick={ (event) => (id >= 0 ? onClick(id) : onClick(event)) }
     >
       {children}
     </button>
@@ -23,9 +26,18 @@ function Button(props) {
 }
 
 Button.propTypes = {
-  children: arrayOf(oneOfType([object, string])).isRequired,
-  disabled: bool.isRequired,
+  children: node.isRequired,
+  // children: arrayOf(oneOfType([string, object])).isRequired,
   onClick: func.isRequired,
+  disabled: bool,
+  dataTestId: string,
+  id: number,
+};
+
+Button.defaultProps = {
+  dataTestId: '',
+  disabled: false,
+  id: undefined,
 };
 
 export default Button;
