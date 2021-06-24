@@ -39,6 +39,15 @@ body {
   overflow: hidden;
 }
 
+header {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  margin: 0;
+  opacity: 0.5;
+  width: 100%;
+}
+
 a {
   color: black;
   cursor: pointer;
@@ -48,6 +57,43 @@ a {
 
 a:hover {
   color: #ff5050;
+}
+
+table {
+  background-color: #fafafe;
+  border-collapse: collapse;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  margin-top: 20px;
+  padding: 25px 20px 10px;
+  position: relative;
+  width: 100%;
+}
+
+td {
+  border-bottom: 1px solid #ff5050;
+  border-collapse: collapse;
+}
+
+.expense-form {
+  position: relative;
+  width: 100%;
+}
+
+button {
+  background: linear-gradient(#ff6100, #ff5050);
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px -3px #ff5050;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 36px;
+  margin: 25px 0 10px;
+  opacity: 0.9;
+  outline: none;
+  padding: 0 15px;
 }
 
 .container {
@@ -116,8 +162,6 @@ a:hover {
   padding-top: 10px;
   position: absolute;
   top: 20px;
-  transform: translateY(-25px);
-  transition: all 0.3s;
 }
 
 .input_field {
@@ -148,15 +192,4 @@ a:hover {
   top: 0;
   width: 630px;
   z-index: 0;
-}
-
-@keyframes koi-fish {
-
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
 }

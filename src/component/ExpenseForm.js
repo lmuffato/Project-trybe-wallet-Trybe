@@ -47,7 +47,7 @@ class ExpenseForm extends React.Component {
       .filter((currency) => currency !== 'USDT');
 
     return (
-      <div>
+      <div className="expense-form">
         <form>
           <label htmlFor="valor">
             Valor

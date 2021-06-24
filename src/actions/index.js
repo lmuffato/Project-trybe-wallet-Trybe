@@ -30,3 +30,9 @@ export const addExpenses = (expense) => ({
   type: ADD_EXPENSES,
   expense,
 });
+
+export const DELETE_EXPENSES = 'DELETE_EXPENSES';
+export const deleteExpenses = (expense) => ({
+  type: DELETE_EXPENSES,
+  expense,
+});

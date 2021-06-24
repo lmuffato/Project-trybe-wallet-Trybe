@@ -19,14 +19,15 @@ class Wallet extends React.Component {
     return (
       <div>
         <header data-testid="email-field">
-          { takeEmail }
+          E-mail:
+          {takeEmail}
+          <div data-testid="header-currency-field">
+            BRL
+          </div>
+          <div data-testid="total-field">
+            {this.sumExpenses()}
+          </div>
         </header>
-        <div data-testid="header-currency-field">
-          BRL
-        </div>
-        <div data-testid="total-field">
-          {this.sumExpenses()}
-        </div>
         <ExpenseForm />
       </div>
     );
