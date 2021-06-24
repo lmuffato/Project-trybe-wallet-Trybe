@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { string, shape } from 'prop-types';
 
 class Header extends React.Component {
-
   totalValue() {
     const { expenses } = this.props;
     let sum = 0;
