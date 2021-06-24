@@ -1,0 +1,16 @@
+.table-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-header {
+  background-color: rgba(240, 240, 240, 0.2);
+  box-shadow: 0 0 5px rgb(20, 20, 20);
+  color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  font-weight: 700;
+  padding: 0.5em 0;
+  justify-content: space-around;
+}
+
+
