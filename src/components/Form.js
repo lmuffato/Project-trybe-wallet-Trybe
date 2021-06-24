@@ -1,8 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Textinput from './Textinput';
+import { getCurrenciesThunk } from '../actions';
 
 class Form extends React.Component {
+  componentDidMount() {
+    const { getCurrencies } = this.props;
+    getCurrencies();
+  }
+
   render() {
+    const { currencies } = this.props;
+    const currenciesAcronyms = Object.keys(currencies)
+      .filter((currency) => currency !== 'USDT');
     return (
       <form>
         <Textinput />
@@ -12,7 +23,14 @@ class Form extends React.Component {
             name="currency"
             id="currency"
           >
-            <option value="BRL">BRL</option>
+            { currenciesAcronyms.map((currencyAcronym) => (
+              <option
+                key={ currencyAcronym }
+                value={ currencyAcronym }
+              >
+                { currencyAcronym }
+              </option>
+            )) }
           </select>
         </label>
         <label htmlFor="payment">
@@ -44,4 +62,17 @@ class Form extends React.Component {
   }
 }
 
-export default Form;
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(getCurrenciesThunk()),
+});
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+Form.propTypes = {
+  getCurrencies: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
