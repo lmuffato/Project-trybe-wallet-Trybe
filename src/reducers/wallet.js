@@ -13,6 +13,9 @@ const wallet = (state = INITIAL_STATE, action) => {
     return { ...state, currencies: action.cambio };
   case 'ADICIONAR_DESPESA':
     return { ...state, expenses: [...state.expenses, action.despesa] };
+  case 'DETELAR_DESPESA':
+    console.log(action); // Apagar depois
+    return { ...state, expenses: action.despesa };
   default:
     return state;
   }
