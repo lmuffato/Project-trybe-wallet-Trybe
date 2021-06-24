@@ -1,26 +1,22 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { delExpense } from '../actions/index';
 
 function Table() {
-  const reduxStates = useSelector((state) => state.wallet.expenses);
+  const ths = [
+    'Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda',
+    'Câmbio utilizado', 'Valor convertido', 'Moeda de conversão', 'Editar/Excluir'];
 
+  const reduxStates = useSelector((state) => state.wallet.expenses);
+  const dispatch = useDispatch();
   return (
     <table>
       <thead>
         <tr>
-          <th>Descrição</th>
-          <th>Tag</th>
-          <th>Método de pagamento</th>
-          <th>Valor</th>
-          <th>Moeda</th>
-          <th>Câmbio utilizado</th>
-          <th>Valor convertido</th>
-          <th>Moeda de conversão</th>
-          <th>Editar/Excluir</th>
+          {ths.map((th) => <th key={ th }>{th}</th>)}
         </tr>
       </thead>
       <tbody>
-
         {reduxStates.map((reduxState) => (
           <tr key={ reduxState.id }>
             <td>{reduxState.description}</td>
@@ -38,6 +34,15 @@ function Table() {
             * reduxState.exchangeRates[reduxState.currency].ask).toFixed(2)}
             </td>
             <td>Real</td>
+            <td>
+              <button
+                type="button"
+                data-testid="delete-btn"
+                onClick={ () => dispatch(delExpense(reduxState.id)) }
+              >
+                Deletar
+              </button>
+            </td>
           </tr>
         ))}
       </tbody>
