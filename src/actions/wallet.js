@@ -39,3 +39,10 @@ export const getExpensesThunk = (expenses) => (dispatch) => {
       dispatch(getExpensesSuccess(expenseData));
     });
 };
+
+export const DELETE = 'DELETE';
+
+export const deleteAction = (payload) => ({
+  type: DELETE,
+  payload,
+});

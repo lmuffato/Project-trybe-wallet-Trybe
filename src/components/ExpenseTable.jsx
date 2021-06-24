@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { deleteAction } from '../actions/wallet';
 
 class ExpenseTable extends React.Component {
   constructor() {
@@ -32,7 +33,7 @@ class ExpenseTable extends React.Component {
   }
 
   render() {
-    const { expenses } = this.props;
+    const { expenses, dispatchDelete } = this.props;
     return (
       <table className="table-container">
         <tr className="table-header">
@@ -67,6 +68,7 @@ class ExpenseTable extends React.Component {
                 data-testid="delete-btn"
                 className="table-delete-bttn"
                 type="button"
+                onClick={ () => dispatchDelete(expense) }
               >
                 Excluir
               </button>
@@ -86,4 +88,13 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps, null)(ExpenseTable);
+const mapDispatchToProps = (dispatch) => ({
+  dispatchDelete: (payload) => dispatch(deleteAction(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);
+
+// agradecimento infinito a Heloisa Hackenhaar pelo auxilio com os reqs 8 - 10
+// refs
+// Andy https://github.com/tryber/sd-010-a-project-trybewallet/pull/75/
+// Helo https://github.com/tryber/sd-010-a-project-trybewallet/pull/58
