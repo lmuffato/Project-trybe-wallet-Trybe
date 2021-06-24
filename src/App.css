@@ -164,3 +164,16 @@ em {
 .cp {
   margin-left: 4px;
 }
+
+.table-th {
+  background-color: lavender;
+  position: absolute;
+  top: 120px;
+  width: 100%;
+}
+
+.table-td {
+  background-color: lawngreen;
+  position: absolute;
+  width: 100%;
+}

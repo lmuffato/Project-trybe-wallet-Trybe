@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import FormularioDespesa from '../Component/FormularioDespesa';
+import Tabela from '../Component/Tabela';
 
 class Wallet extends React.Component {
   totalDespesas() {
@@ -25,17 +26,18 @@ class Wallet extends React.Component {
           <div className="div-header">
             <p className="p-header" data-testid="email-field">
               E-mail:
-              <span className="alinhamentoCampo">{ emailCliente }</span>
+              <span className="cp">{ emailCliente }</span>
             </p>
             <p className="p-header" data-testid="total-field">
               Despesa Total:
-              <span className="alinhamentoCampo">{this.totalDespesas()}</span>
+              <span className="cp">{this.totalDespesas().toFixed(2)}</span>
             </p>
             <p className="coin-header" data-testid="header-currency-field">BRL</p>
           </div>
         </header>
         <div>
           <FormularioDespesa />
+          <Tabela />
         </div>
       </>
     );
