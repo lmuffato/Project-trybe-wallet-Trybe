@@ -1,20 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { getApiThunk } from '../actions/index';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
 
     // this.state = {
-    //   valor: '',
+    //   current: 'USD',
     // };
 
     this.renderInputValue = this.renderInputValue.bind(this);
     this.renderInputDescription = this.renderInputDescription.bind(this);
-    this.renderExchangeSelect = this.renderExchangeSelect.bind(this);
+    this.renderExchangeSelect = this.renderCoinSelect.bind(this);
     this.renderPaymentSelect = this.renderPaymentSelect.bind(this);
     this.renderTag = this.renderTag.bind(this);
+  }
+
+  componentDidMount() {
+    const { getApi } = this.props;
+    getApi();
   }
 
   renderInputValue() {
@@ -35,11 +41,19 @@ class Wallet extends React.Component {
     );
   }
 
-  renderExchangeSelect() {
+  renderCoinSelect() {
+    const { currencies } = this.props;
+
     return (
-      <label htmlFor="moeda">
+      <label htmlFor="coins">
         Moeda
-        <select id="moeda">Opções de moeda</select>
+        <select id="coins" name="coins">
+          {currencies.map((eachCoin) => (
+            <option key={ eachCoin }>
+              { eachCoin }
+            </option>
+          ))}
+        </select>
       </label>
     );
   }
@@ -47,7 +61,7 @@ class Wallet extends React.Component {
   renderPaymentSelect() {
     return (
       <label htmlFor="method">
-        Método de Pagamento
+        Método de Pagamento:
         <select id="method">
           <option>Dinheiro</option>
           <option>Cartão de crédito</option>
@@ -78,14 +92,14 @@ class Wallet extends React.Component {
     return (
       <div>
         <header>
-          <p data-testid="email-field">{ email }</p>
-          <p data-testid="total-field">0</p>
-          <p data-testid="header-currency-field">BRL</p>
+          <span data-testid="email-field">{ email }</span>
+          <span data-testid="total-field">0</span>
+          <span data-testid="header-currency-field">BRL</span>
         </header>
         <form>
           { this.renderInputValue() }
           { this.renderInputDescription() }
-          { this.renderExchangeSelect() }
+          { this.renderCoinSelect() }
           { this.renderPaymentSelect() }
           { this.renderTag() }
         </form>
@@ -96,10 +110,17 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  getApi: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  currencies: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps, null)(Wallet);
+const mapDispachToProps = (dispatch) => ({
+  getApi: () => dispatch(getApiThunk()),
+});
+
+export default connect(mapStateToProps, mapDispachToProps)(Wallet);

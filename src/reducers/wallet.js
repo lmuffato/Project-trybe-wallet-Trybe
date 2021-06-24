@@ -1,13 +1,14 @@
-import { WALLET_MONEY } from '../actions';
+import { WALLET_RATES } from '../actions/index';
+import filteringData from '../services/filteringData';
 
 const INITIAL_STATE = {
-  money: '',
+  currencies: [],
 };
 
 const wallet = (state = INITIAL_STATE, { type, payload }) => {
   switch (type) {
-  case WALLET_MONEY:
-    return { ...state, money: payload };
+  case WALLET_RATES:
+    return { ...state, currencies: filteringData(payload) };
   default:
     return state;
   }
