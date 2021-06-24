@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import store from '../store/index';
+// import store from '../store/index';
+import { connect } from 'react-redux';
+import propTypes from 'prop-types';
 
 class Header extends Component {
   render() {
-    const { user: { email } } = store.getState();
+    // const { user: { email } } = store.getState();
     // console.log(email);
+    const { email } = this.props;
 
     return (
       <div>
@@ -18,4 +21,10 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = (state) => ({ email: state.user.email });
+
+Header.propTypes = {
+  email: propTypes.string.isRequired,
+};
+
+export default connect(mapStateToProps, null)(Header);
