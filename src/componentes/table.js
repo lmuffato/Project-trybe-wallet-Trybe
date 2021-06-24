@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Tr from './tr';
 
 function Table({ expenses }) {
-  console.log(expenses, 'oiiiii');
   return (
     <table>
       <thead>
@@ -28,22 +28,13 @@ function Table({ expenses }) {
             const valueC = (expense.value * expense.exchangeRates[expense.currency].ask)
               .toFixed(2);
             return (
-              <tr key={ expense.id }>
-                <td>{expense.description}</td>
-                <td>{expense.tag}</td>
-                <td>{expense.method}</td>
-                <td>{expense.value}</td>
-                <td>{currency}</td>
-                <td>{exchange}</td>
-                <td>{valueC}</td>
-                <td>Real</td>
-                <td>
-                  <button type="submit" data-testid="edit-btn">Editar</button>
-                  <button type="submit" data-testid="delete-btn">Remover</button>
-                  <button type="submit">Adicionar Despesas</button>
-                  <button type="submit">Excluir</button>
-                </td>
-              </tr>
+              <Tr
+                key={ expense.id }
+                expense={ expense }
+                valueC={ valueC }
+                currency={ currency }
+                exchange={ exchange }
+              />
             );
           })
         }

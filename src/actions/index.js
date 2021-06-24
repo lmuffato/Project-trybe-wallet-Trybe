@@ -18,6 +18,15 @@ const addGasto = (payload) => (
   }
 );
 
+export const DELETE_GASTO = 'DELETE_GASTO';
+
+export const deleteGasto = (payload) => (
+  {
+    type: DELETE_GASTO,
+    payload,
+  }
+);
+
 export function dispatchAddGasto(payload) {
   return async (dispatch) => dispatch(addGasto(payload));
 }
