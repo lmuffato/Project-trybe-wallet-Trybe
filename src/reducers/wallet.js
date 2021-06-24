@@ -25,6 +25,7 @@ const addingToTotal = ({ totalExpended }, action) => {
     * action.expenses.value)).toFixed(2));
 };
 
+// lógica para excluir linha da tabela vista no repositório do Wanderson
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
   case RECEIVED_CURRENCY:
