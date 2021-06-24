@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login as loginAction } from '../actions';
 
@@ -9,50 +9,43 @@ class Login extends React.Component {
     super();
     this.state = {
       email: '',
+      validarEmail: false,
       password: '',
+      validarPassword: false,
     };
 
     this.hundleChange = this.hundleChange.bind(this);
+    this.validateLogin = this.validateLogin.bind(this);
   }
 
   hundleChange({ target }) {
-    if (target.type === 'email') {
-      this.setState({ email: target.value });
-    } else if (target.type === 'password') {
-      this.setState({ password: target.value });
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
+    this.validateLogin(name, value);
+  }
+
+  validateLogin(name, value) {
+    const email = new RegExp(/^[\w-.]+@([\w-]+.)+[\w-]{2,3}$/g);
+    const password = new RegExp(/[\w\D]{6}/g);
+
+    if (name === 'email') {
+      this.setState({
+        validarEmail: email.test(value),
+      });
     }
-  }
-
-  renderButtonDesabled() {
-    return (
-      <button
-        type="button"
-        disabled
-      >
-        Entrar
-      </button>
-    );
-  }
-
-  renderButtonEnabled() {
-    const { login } = this.props;
-    const { email, password } = this.state;
-    return (
-      <Link to="/carteira">
-        <button
-          type="button"
-          onClick={ () => login({ email, password }) }
-        >
-          Entrar
-        </button>
-      </Link>
-    );
+    if (name === 'password') {
+      this.setState({
+        validarPassword: password.test(value),
+      });
+    } // regex https://regexr.com/
   }
 
   render() {
-    const { email, password } = this.state;
-    const emailModel = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    const passwordMinLength = 6;
+    const { email, password, validarEmail, validarPassword } = this.state;
+    const { login } = this.props;
+    const validarLogin = (validarEmail && validarPassword);
 
     return (
       <div>
@@ -60,21 +53,27 @@ class Login extends React.Component {
           <input
             type="email"
             data-testid="email-input"
+            name="email"
             value={ email }
             onChange={ this.hundleChange }
           />
           <input
             type="password"
             data-testid="password-input"
+            name="password"
             value={ password }
             onChange={ this.hundleChange }
           />
         </form>
-        {
-          password.length >= passwordMinLength && email.match(emailModel)
-            ? this.renderButtonEnabled()
-            : this.renderButtonDesabled()
-        }
+        <Link to="/carteira">
+          <button
+            type="button"
+            disabled={ !validarLogin }
+            onClick={ () => login({ email, password }) }
+          >
+            Entrar
+          </button>
+        </Link>
       </div>
     );
   }
