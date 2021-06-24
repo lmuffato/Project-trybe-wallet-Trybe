@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { func } from 'prop-types';
+import { deleteExpense } from '../actions';
 
 class Table extends React.Component {
   constructor() {
@@ -16,7 +17,7 @@ class Table extends React.Component {
   }
 
   createTable() {
-    const { date } = this.props;
+    const { date, deleteTable } = this.props;
     console.log(date);
     return (
       date.map((expense) => (
@@ -31,7 +32,13 @@ class Table extends React.Component {
           <td>Real</td>
           <td>
             <button type="submit" data-testid="delete-btn">Editar</button>
-            <button type="submit" data-testid="delete-btn">Excluir</button>
+            <button
+              type="button"
+              onClick={ () => deleteTable(expense) }
+              data-testid="delete-btn"
+            >
+              Excluir
+            </button>
           </td>
         </tr>
       ))
@@ -62,6 +69,10 @@ class Table extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteTable: (payload) => dispatch(deleteExpense(payload)),
+});
+
 const mapStateToProps = (state) => ({ // recebe o estado como props
   date: state.wallet.expenses,
 });
@@ -70,4 +81,4 @@ Table.propTypes = {
   createTable: func,
 }.isRequired;
 
-export default connect(mapStateToProps, null)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
