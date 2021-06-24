@@ -151,7 +151,7 @@ class Form extends Component {
         type="button"
         onClick={ this.sendState }
       >
-        Adicionar despesa
+        adicionar despesa
       </button>
     );
   }
