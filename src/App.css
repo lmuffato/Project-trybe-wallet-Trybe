@@ -1,35 +1,156 @@
-.App {
-  text-align: center;
-}
+/* implementação do css com Ajuda do Carlos Sá */
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+@import url('https://fonts.googleapis.com/css?family=Oswald|Roboto') ;
 
-@media ( prefers-reduced-motion : no-preference ) {
+@keyframes btn {
 
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  0% , 100% {
+    transform: scale(1);
+  }
+
+  70% {
+    transform: scale(1);
+  }
+
+  80% {
+    transform: scale(1.04);
+  }
+
+  90% {
+    transform: scale(0.96);
   }
 }
 
-.App-header {
+html {
+  height: 100%;
+}
+
+body {
   align-items: center;
-  background-color: #282c34;
-  color: white;
+  background-color: #d5eafc;
+  color: #515a6e;
   display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin);
+  font-family: Roboto, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  height: 100%;
   justify-content: center;
-  min-height: 100vh;
+  margin: 0;
+  overflow: hidden;
 }
 
-.App-link {
-  color: #61dafb;
+a {
+  color: black;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s;
 }
 
-@keyframes App-logo-spin {
+a:hover {
+  color: #ff5050;
+}
+
+.container {
+  background-color: #fafafe;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  margin: 40px;
+  padding: 25px 20px 10px;
+  position: relative;
+  width: 320px;
+  z-index: 1;
+}
+
+.container:before {
+  background-color: #fafafe;
+  border-radius: 10px;
+  bottom: 0;
+  height: 60%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  z-index: 2;
+}
+
+.card {
+  position: relative;
+  z-index: 2;
+}
+
+.card_title {
+  font-size: 24px;
+  margin: 0;
+}
+
+.card_title-info {
+  font-size: 14px;
+  margin: 7px 0 30px;
+}
+
+.card_button {
+  animation: btn 6s 3s infinite ease-in-out;
+  background: linear-gradient(#ff6100, #ff5050);
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px -3px #ff5050;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 36px;
+  margin: 25px 0 10px;
+  opacity: 0.9;
+  outline: none;
+  padding: 0 15px;
+  transition: all 0.3s;
+  width: 100%;
+}
+
+.card_button:hover {
+  box-shadow: 0 2px 2px -3px #ff5050;
+  opacity: 1;
+}
+
+::placeholder {
+  color: #8597a3;
+  padding-top: 10px;
+  position: absolute;
+  top: 20px;
+  transform: translateY(-25px);
+  transition: all 0.3s;
+}
+
+.input_field {
+  background-color: transparent;
+  border: 5px;
+  border-bottom: 1px solid #eee;
+  font: Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 10px;
+  padding: 5px;
+  z-index: 1;
+}
+
+.input_field:valid {
+  border-bottom-color: #665856;
+  color: #665856;
+  outline: 0;
+  transform: translateY(-25px);
+}
+
+.koi-fish {
+  bottom: 0;
+  height: 630px;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 630px;
+  z-index: 0;
+}
+
+@keyframes koi-fish {
 
   from {
     transform: rotate(0deg);

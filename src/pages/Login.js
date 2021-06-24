@@ -1,10 +1,11 @@
 // Requisitos 2 e 3 feitos com ajuda dos colegas Nilson Ribeiro, Perycles Reis, Lucas Lara, Andy, Anderson Nascimento;
 import React from 'react';
-import './Login.css';
+import '../App.css';
 import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getEmail } from '../actions';
+import koi from '../koi.png';
 
 class Login extends React.Component {
   constructor() {
@@ -51,31 +52,30 @@ class Login extends React.Component {
     const { getEmailReducer } = this.props;
     return (
       <div>
-        <div className="bold-line" />
-        <div className="container window overlay">
-          <div className="content">
-            <div className="welcome">Personal Wallet</div>
-            <div className="subtitle">Access your expenses</div>
-            <div className="input-fields">
-
+        <img className="koi-fish" src={ koi } alt="koi fish" />
+        <div className="container">
+          <div className="card">
+            <div className="card_title">Personal Wallet</div>
+            <div className="card_title-info">Access your expenses</div>
+            <form className="card_form">
               <input
-                className="input-line full-width"
+                className="input_field"
                 data-testid="email-input"
                 placeholder="E-mail"
                 type="email"
                 onChange={ this.changeValidEmail }
               />
               <input
-                className="input-line full-width"
+                className="input_field"
                 data-testid="password-input"
                 placeholder="Password"
                 type="password"
                 onChange={ this.changeValidPassword }
               />
-            </div>
+            </form>
             <Link to="/carteira">
               <button
-                className="ghost-round full-width"
+                className="card_button"
                 disabled={ disabled }
                 type="button"
                 onClick={ () => getEmailReducer(email) }

@@ -2,6 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchCurrency, addExpenses } from '../actions';
+import TableExpenses from './TableExpenses';
 
 class ExpenseForm extends React.Component {
   constructor() {
@@ -46,44 +47,47 @@ class ExpenseForm extends React.Component {
       .filter((currency) => currency !== 'USDT');
 
     return (
-      <form>
-        <label htmlFor="valor">
-          Valor
-          <input id="valor" name="value" onChange={ this.savingChanges } />
-        </label>
-        <label htmlFor="moeda">
-          Moeda
-          <select id="moeda" name="currency" onChange={ this.savingChanges }>
-            {currenciesKey.map((currencyKey) => (
-              <option key={ currencyKey }>{ currencyKey }</option>))}
-          </select>
-        </label>
-        <label htmlFor="payment">
-          Método de pagamento
-          <select id="payment" name="method" onChange={ this.savingChanges }>
-            <option value="Dinheiro">Dinheiro</option>
-            <option value="Cartão de crédito">Cartão de crédito</option>
-            <option value="Cartão de débito">Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="typeOfExpense">
-          Tag
-          <select id="typeOfExpense" name="tag" onChange={ this.savingChanges }>
-            <option value="Alimentação">Alimentação</option>
-            <option value="Lazer">Lazer</option>
-            <option value="Trabalho">Trabalho</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Saúde">Saúde</option>
-          </select>
-        </label>
-        <label htmlFor="descricao">
-          Descrição
-          <input id="descricao" name="description" onChange={ this.savingChanges } />
-        </label>
-        <button type="button" onClick={ this.addNewExpenses }>
-          Adicionar despesa
-        </button>
-      </form>
+      <div>
+        <form>
+          <label htmlFor="valor">
+            Valor
+            <input id="valor" name="value" onChange={ this.savingChanges } />
+          </label>
+          <label htmlFor="moeda">
+            Moeda
+            <select id="moeda" name="currency" onChange={ this.savingChanges }>
+              {currenciesKey.map((currencyKey) => (
+                <option key={ currencyKey }>{currencyKey}</option>))}
+            </select>
+          </label>
+          <label htmlFor="payment">
+            Método de pagamento
+            <select id="payment" name="method" onChange={ this.savingChanges }>
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
+            </select>
+          </label>
+          <label htmlFor="typeOfExpense">
+            Tag
+            <select id="typeOfExpense" name="tag" onChange={ this.savingChanges }>
+              <option value="Alimentação">Alimentação</option>
+              <option value="Lazer">Lazer</option>
+              <option value="Trabalho">Trabalho</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Saúde">Saúde</option>
+            </select>
+          </label>
+          <label htmlFor="descricao">
+            Descrição
+            <input id="descricao" name="description" onChange={ this.savingChanges } />
+          </label>
+          <button type="button" name="addButton" onClick={ this.addNewExpenses }>
+            Adicionar despesa
+          </button>
+        </form>
+        <TableExpenses />
+      </div>
     );
   }
 }
