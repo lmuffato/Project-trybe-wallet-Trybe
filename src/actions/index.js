@@ -35,12 +35,6 @@ export const addExpense = (payload) => ({
   payload,
 });
 
-export const DELETE_EXPENSE = 'DELETE_EXPENSE';
-export const deleteExpense = (payload) => ({
-  type: DELETE_EXPENSE,
-  payload,
-});
-
 // pega novamente a API e faz um dispatch para usar no comp. Header e Forms
 // no requisito 9 usa para pegar os elementos e converter para montar a tabela.
 export const expensesAdd = (state) => async (dispatch) => {
@@ -51,3 +45,9 @@ export const expensesAdd = (state) => async (dispatch) => {
   };
   dispatch(addExpense(expenses));
 }; // exchangeRates é a chave q vai guardar o valor retornado pela API
+
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const deleteExpense = (payload) => ({
+  type: DELETE_EXPENSE,
+  payload,
+});

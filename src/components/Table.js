@@ -18,7 +18,7 @@ class Table extends React.Component {
 
   createTable() {
     const { date, deleteTable } = this.props;
-    console.log(date);
+    // console.log(date);
     return (
       date.map((expense) => (
         <tr key={ expense.id }>
@@ -31,11 +31,11 @@ class Table extends React.Component {
           <td>{this.getValue(expense)}</td>
           <td>Real</td>
           <td>
-            <button type="submit" data-testid="delete-btn">Editar</button>
+            <button type="submit" data-testid="edit-btn">Editar</button>
             <button
               type="button"
-              onClick={ () => deleteTable(expense) }
               data-testid="delete-btn"
+              onClick={ () => deleteTable(expense) }
             >
               Excluir
             </button>
