@@ -8,7 +8,7 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    // this.handleClick = this.handleClick.bind(this);
 
     this.state = {
       email: '',
@@ -33,14 +33,15 @@ class Login extends React.Component {
     }, () => this.validateFields());
   }
 
-  handleClick() {
-    const { email } = this.state;
-    const { save } = this.props;
-    save(email);
-  }
+  // handleClick() {
+  //   const { email } = this.state;
+  //   const { save } = this.props;
+  //   save(email);
+  // }
 
   render() {
     const { email, password, buttonOk } = this.state;
+    const { save } = this.props;
 
     return (
       <div>
@@ -73,7 +74,7 @@ class Login extends React.Component {
             <button
               type="button"
               disabled={ !buttonOk }
-              onClick={ () => this.handleClick }
+              onClick={ () => save(email) }
             >
               Entrar
             </button>
