@@ -1,3 +1,5 @@
+const selectString = 'Selecione...';
+
 const INITIAL_STATE = {
   user: {
     email: '',
@@ -7,7 +9,17 @@ const INITIAL_STATE = {
     exchangeRates: {},
     currencies: [],
     expenses: [],
-    total: 0,
+    editing: false,
+    expense: {
+      id: 0,
+      value: '',
+      currency: selectString,
+      method: selectString,
+      tag: selectString,
+      description: '',
+      exchangeRates: {},
+    },
+    inputs: [],
   },
 };
 

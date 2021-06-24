@@ -178,7 +178,7 @@ body {
   font-weight: 500;
 }
 
-.wallet-inputs {
+.wallet-form {
   align-items: center;
   background-color: #ff8d01;
   display: flex;
@@ -189,7 +189,11 @@ body {
   /* border-radius: 10px; */
 }
 
-.wallet-inputs label {
+.wallet-form.editing {
+  background-color: #46aa0c;
+}
+
+.wallet-form label {
   align-items: center;
   display: flex;
   font-size: 1.6rem;
@@ -200,7 +204,7 @@ body {
   position: relative;
 }
 
-.wallet-inputs input , .wallet-inputs select {
+.wallet-form input , .wallet-form select {
   background-color: #f8f9fb;
   border: none;
   border-radius: 3px;
@@ -209,11 +213,11 @@ body {
   margin: 0 5px;
 }
 
-.wallet-inputs label:nth-child( 1 ) input {
+.wallet-form label:nth-child( 1 ) input {
   width: 100px;
 }
 
-.wallet-inputs button {
+.wallet-form button {
   background-color: #200440;
   border: none;
 

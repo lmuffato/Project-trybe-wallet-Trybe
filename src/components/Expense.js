@@ -3,17 +3,22 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import walletThunks from '../thunks/wallet';
+import {
+  defineEditing as defineEditingAction,
+  setExpenseToEdit,
+} from '../actions';
 
 class Expense extends Component {
-  handleCLick = ({ target: { id } }) => {
-    const { removeExpense } = this.props;
-    removeExpense(id);
+  editExpense = async () => {
+    const { expense, defineEditing, setExpense } = this.props;
+    await setExpense(expense);
+    defineEditing(true);
   };
 
   render() {
     const {
-      id,
       expense: {
+        id,
         description,
         tag,
         method,
@@ -22,9 +27,10 @@ class Expense extends Component {
         exchange,
         convertedValue,
       },
+      removeExpense,
     } = this.props;
     return (
-      <tr id={ id }>
+      <tr>
         <td>{description}</td>
         <td>{tag}</td>
         <td>{method}</td>
@@ -37,17 +43,18 @@ class Expense extends Component {
           <button
             type="button"
             className="bi bi-pencil-square"
-            // data-testid="delete-btn"
+            data-testid="edit-btn"
             aria-label="Editar despesa"
             id={ id }
+            onClick={ this.editExpense }
           />
           <button
             type="button"
             className="bi bi-trash-fill"
             data-testid="delete-btn"
-            aria-label="Editar despesa"
+            aria-label="Remover despesa"
             id={ id }
-            onClick={ this.handleCLick }
+            onClick={ ({ target }) => removeExpense(target.id) }
           />
         </td>
       </tr>
@@ -57,11 +64,13 @@ class Expense extends Component {
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
+  inputs: state.wallet.inputs,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removeExpense: (expenseId, callback) => dispatch(walletThunks
-    .removeExpense(expenseId, callback)),
+  removeExpense: (expenseId) => dispatch(walletThunks.removeExpense(expenseId)),
+  defineEditing: (bool) => dispatch(defineEditingAction(bool)),
+  setExpense: (expense) => dispatch(setExpenseToEdit(expense)),
 });
 
 Expense.propTypes = {

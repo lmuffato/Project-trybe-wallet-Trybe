@@ -7,20 +7,27 @@ export const getExchangeRates = (data) => {
   }
   return { type: ACTIONS.GET_EXCHANGE_RATES, data };
 };
-export const updateTotal = () => ({ type: ACTIONS.UPDATE_TOTAL });
 export const dispatchNewExpense = (expense) => ({
   type: ACTIONS.ADD_EXPENSE,
   expense,
 });
-// export const addExpense = (expense) => async (dispatch) => {
-//   await dispatch(dispatchNewExpense(expense));
-//   updateTotal();
-// };
 export const dispatchRemoveExpense = (expenseId) => ({
   type: ACTIONS.REMOVE_EXPENSE,
   expenseId,
 });
-// export const removeExpense = (expense) => async (dispatch) => {
-//   await dispatch(dispatchRemoveExpense(expense));
-//   updateTotal();
-// };
+export const defineEditing = (editing) => ({
+  type: ACTIONS.DEFINE_EDITING,
+  editing,
+});
+export const setExpenseToEdit = (expense) => ({
+  type: ACTIONS.SET_EXPENSE_TO_EDIT,
+  expense,
+});
+export const editExpense = (expenseKey) => ({
+  type: ACTIONS.EDIT_EXPENSE,
+  expenseKey,
+});
+export const updateExpenses = (expenses) => ({
+  type: ACTIONS.UPDATE_EXPENSES,
+  expenses,
+});
