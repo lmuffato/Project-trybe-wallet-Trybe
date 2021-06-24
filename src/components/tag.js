@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Tag extends Component {
   render() {
@@ -17,5 +18,9 @@ class Tag extends Component {
     );
   }
 }
+
+Tag.propTypes = {
+  handleChange: PropTypes.func,
+}.isRequired;
 
 export default Tag;

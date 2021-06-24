@@ -9,7 +9,6 @@ class Header extends Component {
       const { value, exchangeRates, currency } = curr;
       const { ask } = Object.values(exchangeRates)
         .find(({ code }) => code === currency);
-        console.log(ask);
       const result = value * ask;
       return acc + result;
     }, 0);
