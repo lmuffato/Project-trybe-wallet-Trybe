@@ -13,4 +13,47 @@
   justify-content: space-around;
 }
 
+.table-body {
+  align-items: center;
+  background-color: rgba(240, 240, 240, 0.3);
+  box-shadow: 0 0 5px rgb(20, 20, 20);
+  color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  font-weight: 700;
+  padding: 0.5em 1em;
+  justify-content: space-between;
+}
 
+.table-edit-bttn {
+  background-color: rgb(210, 224, 81);
+  border: none;
+  border-radius: 1em;
+  box-shadow: 0 0 5px rgb(10, 10, 10);
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 700;
+  height: 3em;
+  margin: 0.2em 0.5em;
+  padding: 0 0.5em;
+}
+
+.table-edit-bttn:hover {
+  background-color: rgb(229, 248, 54);
+}
+
+.table-delete-bttn {
+  background-color: rgb(224, 98, 81);
+  border: none;
+  border-radius: 1em;
+  box-shadow: 0 0 5px rgb(10, 10, 10);
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 700;
+  height: 3em;
+  margin: 0.2em 0.5em;
+  padding: 0 0.5em;
+}
+
+.table-delete-bttn:hover {
+  background-color: rgb(243, 78, 56);
+}

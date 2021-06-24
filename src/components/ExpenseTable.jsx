@@ -1,7 +1,38 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class ExpenseTable extends React.Component {
+  constructor() {
+    super();
+    this.handleName = this.handleName.bind(this);
+    this.handleConverted = this.handleConverted.bind(this);
+    this.handleAsk = this.handleAsk.bind(this);
+  }
+
+  handleName(expense) {
+    const { exchangeRates } = expense;
+    const currentCurrency = exchangeRates[expense.currency];
+    const currencyName = currentCurrency.name.split('/Real Brasileiro');
+    return currencyName;
+  }
+
+  handleAsk(expense) {
+    const { exchangeRates } = expense;
+    const currentCurrency = exchangeRates[expense.currency];
+    const currencyAsk = currentCurrency.ask;
+    return parseFloat(currencyAsk).toFixed(2);
+  }
+
+  handleConverted(expense) {
+    const { value, exchangeRates } = expense;
+    const currentCurrency = exchangeRates[expense.currency];
+    const converted = parseFloat(currentCurrency.ask) * value;
+    return converted.toFixed(2);
+  }
+
   render() {
+    const { expenses } = this.props;
     return (
       <table className="table-container">
         <tr className="table-header">
@@ -15,15 +46,43 @@ class ExpenseTable extends React.Component {
           <th>Moeda de conversão</th>
           <th>Editar/Excluir</th>
         </tr>
-        <tr className="table-body">
-          <td>sdsdas</td>
-          <td>sdsdas</td>
-          <td>sdsdas</td>
-          <td>sdsdas</td>
-        </tr>
+        {expenses.map((expense) => (
+          <tr key={ expense.id } className="table-body">
+            <td>{ expense.description }</td>
+            <td>{ expense.tag }</td>
+            <td>{ expense.method }</td>
+            <td>{ expense.value }</td>
+            <td>{ this.handleName(expense) }</td>
+            <td>{ this.handleAsk(expense) }</td>
+            <td>{ this.handleConverted(expense) }</td>
+            <td>Real</td>
+            <td>
+              <button
+                className="table-edit-bttn"
+                type="button"
+              >
+                Editar
+              </button>
+              <button
+                className="table-delete-bttn"
+                type="button"
+              >
+                Excluir
+              </button>
+            </td>
+          </tr>
+        ))}
       </table>
     );
   }
 }
 
-export default ExpenseTable;
+ExpenseTable.propTypes = {
+  expenses: PropTypes.arrayOf(PropTypes.object),
+}.isRequired;
+
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
+
+export default connect(mapStateToProps, null)(ExpenseTable);
