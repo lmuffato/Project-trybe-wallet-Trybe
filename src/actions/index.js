@@ -5,8 +5,15 @@ export const userName = (email) => ({
   payload: email,
 });
 
+export const SHOW = 'SHOW';
+
+export const shouldShowTable = (payload) => ({
+  type: SHOW,
+  payload,
+});
+
 export const ADD_OUTLAY = 'ADD_OUTLAY';
-// export const REMOVE_OUTLAY = 'REMOVE_OUTLAY';
+export const REMOVE_OUTLAY = 'REMOVE_OUTLAY';
 // export const EDIT_OUTLAY = 'EDIT_OUTLAY';
 
 export const addOutlay = (data) => ({
@@ -14,10 +21,10 @@ export const addOutlay = (data) => ({
   expenses: data,
 });
 
-// export const removeOutlay = (outLay) => ({
-//   type: REMOVE_OUTLAY,
-//   outLay,
-// });
+export const removeOutlay = (outLay) => ({
+  type: REMOVE_OUTLAY,
+  outLay,
+});
 
 // export const editOutlay = (outLay) => ({
 //   type: EDIT_OUTLAY,

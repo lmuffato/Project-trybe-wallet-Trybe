@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addOutlay, fetchCurrencyExchange } from '../actions';
+import { fetchCurrencyExchange, addOutlay, shouldShowTable } from '../actions';
 
 let giveValue;
-
 class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -21,6 +20,7 @@ class Form extends React.Component {
   }
 
   async getData() {
+    const { wallet } = this.props;
     const { count } = this.state;
     const exchangeRates = await (await fetch('https://economia.awesomeapi.com.br/json/all')).json();
     delete exchangeRates.USDT;
@@ -33,12 +33,9 @@ class Form extends React.Component {
       data: {
         id: count, value, description, currency: money, method, tag, exchangeRates },
     });
-    this.setState({
-      count: count + 1,
-    });
+    this.setState({ count: count + 1 });
     const { data } = this.state;
     giveValue = data;
-    const { wallet } = this.props;
     wallet(giveValue);
   }
 
@@ -79,7 +76,9 @@ class Form extends React.Component {
             <option>Saúde</option>
           </select>
         </label>
-        <button type="button" onClick={ this.getData }>Adicionar despesa</button>
+        <button type="button" onClick={ this.getData }>
+          Adicionar despesa
+        </button>
       </form>
     );
   }
@@ -88,6 +87,7 @@ class Form extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   getValue: () => dispatch(fetchCurrencyExchange()),
   wallet: () => dispatch(addOutlay(giveValue)),
+  getTable: () => dispatch(shouldShowTable(true)),
 });
 
 const mapStateToProps = (state) => ({

@@ -20,9 +20,14 @@ class Header extends React.Component {
   }
 }
 
+// forma de somar os valores no mapStateToProps vista no repositório de Wanderson
+// https://github.com/tryber/sd-010-a-project-trybewallet/pull/20
 const mapStateToProps = (state) => ({
   theEmail: state.user.email,
-  totalExpended: state.wallet.totalExpended,
+  expenses: state.wallet.expenses,
+  totalExpended: state.wallet.expenses.reduce(
+    (acc, cur) => parseFloat(cur.value * cur.exchangeRates[cur.currency].ask) + acc, 0,
+  ),
 });
 
 Header.propTypes = {

@@ -1,7 +1,7 @@
 import {
   RECEIVED_CURRENCY,
   ADD_OUTLAY,
-  // REMOVE_OUTLAY,
+  REMOVE_OUTLAY,
   // EDIT_OUTLAY,
 } from '../actions';
 
@@ -18,10 +18,15 @@ function wallet(state = INITIAL_STATE, action) {
   case ADD_OUTLAY:
     return { ...state,
       expenses: [...state.expenses, { ...action.expenses }],
-      totalExpended: parseFloat(state.totalExpended) + parseFloat(action.expenses.value),
+      totalExpended: parseFloat(state.totalExpended) + parseFloat(
+        action.expenses.value * action.expenses.exchangeRates.USD.ask,
+      ),
     };
-  // case REMOVE_OUTLAY:
-  //   return state;
+  case REMOVE_OUTLAY:
+    return {
+      ...state,
+      expenses: [...state.expenses.filter(({ id }) => id !== action.payload)],
+    };
   // case EDIT_OUTLAY:
   //   return state;
   default:
