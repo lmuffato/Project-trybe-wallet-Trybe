@@ -20,13 +20,13 @@ class Table extends Component {
   }
 
   render() {
-    const { database } = this.props;
+    const { database, wallet } = this.props;
     return (
       <table>
         <TableHead />
         <tbody>
-          { database.map((expense, i) => (
-            <tr key={ i }>
+          { database.map((expense) => (
+            <tr key={ expense.id }>
               <td>{ expense.description }</td>
               <td>{ expense.tag }</td>
               <td>{ expense.method }</td>
@@ -54,9 +54,9 @@ class Table extends Component {
                 <button
                   type="button"
                   data-testid="delete-btn"
-                  onClick={ (event) => {
-                    event.preventDefault();
-                    this.deletingRow(event.target.parentNode.parentNode);
+                  onClick={ (e) => {
+                    e.preventDefault();
+                    wallet(expense);
                   } }
                 >
                   Excluir
@@ -76,7 +76,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  wallet: (value) => dispatch(removeOutlay(value)),
+  wallet: (expense) => dispatch(removeOutlay(expense)),
 });
 
 Table.propTypes = {

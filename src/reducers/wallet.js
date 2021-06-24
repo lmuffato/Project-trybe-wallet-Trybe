@@ -25,18 +25,6 @@ const addingToTotal = ({ totalExpended }, action) => {
     * action.expenses.value)).toFixed(2));
 };
 
-const subtractingFromTotal = ({ totalExpended }, action) => {
-  // const code = action.payload.attributes.length - 1;
-  // const { moeda } = expenses;
-  // const moeda = currency;
-  // console.log(moeda[code]);value
-  const value = action.payload;
-  const total = totalExpended;
-  return (
-    (parseFloat(total)
-    - parseFloat(value)).toFixed(2));
-};
-
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
   case RECEIVED_CURRENCY:
@@ -50,11 +38,10 @@ function wallet(state = INITIAL_STATE, action) {
   case REMOVE_OUTLAY:
     return {
       ...state,
-      expenses: [],
-      totalExpended: subtractingFromTotal(state, action),
+      expenses: [
+        ...state.expenses.filter((expense) => expense.id !== action.payload.expense.id),
+      ],
     };
-  // case EDIT_OUTLAY:
-  //   return state;
   default:
     return state;
   }
