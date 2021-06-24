@@ -10,23 +10,23 @@
 }
 
 .input {
-  border-radius: 1em;
-  margin: 1em;
   border: none;
+  border-radius: 1em;
   height: 3em;
+  margin: 1em;
 }
 
 .add-expense-bttn {
-  border-radius: 1em;
-  border: none;
-  height: 3em;
   background-color: rgb(3, 218, 197);
+  border: none;
+  border-radius: 1em;
   box-shadow: 0 0 5px rgb(10, 10, 10);
   cursor: pointer;
+  font-size: 1em;
+  font-weight: 700;
+  height: 3em;
   margin: 0.2em 0;
   padding: 0 2em;
-  font-weight: 700;
-  font-size: 1em;
 }
 
 .add-expense-bttn:hover {
