@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { array, func } from 'prop-types';
 import getCoins from '../services/api';
-import { createExpense, listCoins, sumExpenses, deleteExpense } from '../actions/index';
+import { createExpense, listCoins, deleteExpense } from '../actions/index';
 
 class Form extends React.Component {
   constructor() {
@@ -145,13 +145,8 @@ class Form extends React.Component {
     );
   }
 
-  async handleClickDelete(expense) {
-    const { deleteOneExpense } = this.props;
-    await deleteOneExpense(expense);
-  }
-
   listExpenses() {
-    const { expenses } = this.props;
+    const { expenses, deleteOneExpense } = this.props;
     return expenses.map((expense) => {
       const expenseNumber = expense.id;
       const key = expense.currency;
@@ -174,7 +169,7 @@ class Form extends React.Component {
             <button
               type="button"
               data-testid="delete-btn"
-              onClick={ () => this.handleClickDelete(expense) }
+              onClick={ () => deleteOneExpense(expense) }
             >
               Excluir
             </button>
