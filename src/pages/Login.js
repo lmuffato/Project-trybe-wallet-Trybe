@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { func } from 'prop-types';
 import { setUserEmail } from '../actions';
 
 class Login extends React.Component {
@@ -9,6 +11,8 @@ class Login extends React.Component {
       email: '',
       loginIsValid: false,
     };
+
+    this.formValidation = this.formValidation.bind(this);
   }
 
   emailValidation() {
@@ -23,11 +27,40 @@ class Login extends React.Component {
     return password.value >= minPasswordLenght;
   }
 
-  render() {
+  formValidation() {
+    const loginValid = this.emailValidation && this.passwordValidation;
+    this.buttonAlternation(loginValid);
+    return loginValid;
+  }
+
+  buttonAlternation(bool) {
+    const btn = document.querySelector('.btn-submit');
+    if (!bool) {
+      btn.setAttribute('disabled', bool);
+    } else {
+      btn.removeAttribute('disabled', bool);
+    }
+  }
+
+  redirectToPage(bool) {
+    this.setState({
+      loginIsValid: bool,
+    });
+  }
+
+  formToRender() {
+    const { email, loginIsValid } = this.state;
     const { setEmail } = this.props;
     return (
-      <div>
-        <form>
+      <div className="login-container">
+        {loginIsValid ? <Redirect to="/carteira" /> : ''}
+        <form
+          onSubmit={ (event) => {
+            event.preventDefault();
+            setEmail(email);
+            this.redirectToPage(this.formValidation());
+          } }
+        >
           <label htmlFor="name">
             E-mail:
             <input
@@ -46,22 +79,36 @@ class Login extends React.Component {
               type="password"
               name="password"
               data-testid="password-input"
+              onChange={ this.formValidation }
             />
 
           </label>
-          <button type="button">Entrar</button>
+          <button className="btn-submit" type="submit" disabled>Entrar</button>
         </form>
-        {/* {xablau} */}
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        <header>
+          <h1>Trybe Wallet</h1>
+        </header>
+        <body>
+          {this.formToRender()}
+        </body>
       </div>
     );
   }
 }
-/* const mapStateToProps = (state) => ({
-  xablau: state.user.email,
-}); */
 
 const mapDispatchToProps = (dispatch) => ({
   setEmail: (email) => dispatch(setUserEmail(email)),
 });
+
+Login.propTypes = {
+  setEmail: func,
+}.isRequired;
 
 export default connect(null, mapDispatchToProps)(Login);
