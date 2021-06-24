@@ -12,14 +12,14 @@ class Wallet extends React.Component {
   }
 
   componentDidMount() {
-    this.callCurrency();
+    this.handleCurr();
   }
 
-  async callCurrency() {
-    const itemsReceived = await api();
-    const objectKey = Object.keys(itemsReceived);
-    objectKey.splice(1, 1);
-    this.setState({ currencies: objectKey });
+  async handleCurr() {
+    const items = await api();
+    const arrayObj = Object.keys(items);
+    arrayObj.splice(1, 1);
+    this.setState({ currencies: arrayObj });
   }
 
   render() {
