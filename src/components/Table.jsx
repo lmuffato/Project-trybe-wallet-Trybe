@@ -28,7 +28,11 @@ function Table() {
             <td>{reduxState.method}</td>
             <td>{reduxState.value}</td>
             <td>{reduxState.exchangeRates[reduxState.currency].name}</td>
-            <td>{Math.round(reduxState.exchangeRates[reduxState.currency].ask * 100) / 100}</td>
+            <td>
+              {Math.round(
+                reduxState.exchangeRates[reduxState.currency].ask * 100,
+              ) / 100}
+            </td>
             <td>
               {(reduxState.value
             * reduxState.exchangeRates[reduxState.currency].ask).toFixed(2)}
