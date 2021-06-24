@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 class Header extends React.Component {
   render() {
-    // const {  } = this.state;
     const { theEmail, totalExpended } = this.props;
     return (
       <>
@@ -12,7 +11,7 @@ class Header extends React.Component {
           { theEmail }
         </h5>
         <h5 data-testid="total-field">
-          { totalExpended }
+          { totalExpended.toFixed(2) }
         </h5>
         <h5 data-testid="header-currency-field"> BRL </h5>
       </>
