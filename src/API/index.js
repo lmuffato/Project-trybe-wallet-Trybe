@@ -6,11 +6,3 @@ export default async function requestApi() {
   const result = response.json();
   return result;
 }
-
-/** Unidade Monetária
- * Requisito 7 OK
-*/
-requestApi().then((data) => {
-  const unitCoin = Object.keys(data).filter((ele) => (ele !== 'USDT' && ele !== 'DOGE'));
-  console.log(unitCoin);
-});

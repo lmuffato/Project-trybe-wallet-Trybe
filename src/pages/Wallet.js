@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Proptypes from 'prop-types';
-import store from '../store';
+// import store from '../store';
 import requestApi from '../API';
 // import userEmail from '../actions';
 
@@ -13,7 +13,7 @@ class Wallet extends React.Component {
   }
 
   headerCurrency() {
-    // const { userEmailField } = this.props;
+    const { myFirstState } = this.props;
     return (
       <header>
         <aside>
@@ -22,11 +22,7 @@ class Wallet extends React.Component {
             <strong
               data-testid="email-field"
             >
-              {
-                (store.getState().user.email === '')
-                  ? 'Email inválido'
-                  : store.getState().user.email
-              }
+              { myFirstState }
             </strong>
           </p>
           <p>
@@ -157,4 +153,10 @@ Wallet.propTypes = {
 //   userEmailField: (state) => dispatch(userEmail(state)),
 // });
 
-export default connect(null, null)(Wallet);
+const mapStateToProps = (state) => (
+  {
+    myFirstState: state.user.email,
+  }
+);
+
+export default connect(mapStateToProps, null)(Wallet);
