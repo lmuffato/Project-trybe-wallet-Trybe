@@ -10,25 +10,30 @@ class InputCurrency extends React.Component {
   }
 
   render() {
-    const { currencies } = this.props;
-    currencies.splice(1, 1);
-    return (
-      <form>
-        <label htmlFor="moedas">
-          Moeda
-          <select
-            className="input"
-            name="moedas"
-            id="moedas"
-          >
-            {currencies.map((currency) => (
-              <option key={ currency.code } value={ currency.code }>
-                { currency.code }
-              </option>
-            ))}
-          </select>
-        </label>
-      </form>
+    const { currencies, value, onChange } = this.props;
+    if (currencies !== undefined) {
+      return (
+        <form>
+          <label htmlFor="currency">
+            Moeda
+            <select
+              value={ value }
+              onChange={ onChange }
+              className="input"
+              name="currency"
+              id="currency"
+            >
+              {currencies.map((currency) => (
+                <option key={ currency } value={ currency }>
+                  { currency }
+                </option>
+              ))}
+            </select>
+          </label>
+        </form>
+      );
+    } return (
+      <div>loading...</div>
     );
   }
 }
@@ -42,9 +47,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 InputCurrency.propTypes = {
-  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
-  getCurrency: PropTypes.func.isRequired,
-};
+  currencies: PropTypes.arrayOf(PropTypes.object),
+  getCurrency: PropTypes.func,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+}.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputCurrency);
 
