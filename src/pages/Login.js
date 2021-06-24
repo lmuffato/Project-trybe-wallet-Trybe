@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { login as loginAction } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -32,10 +35,13 @@ class Login extends React.Component {
   }
 
   renderButtonEnabled() {
+    const { login } = this.props;
+    const { email, password } = this.state;
     return (
       <Link to="/carteira">
         <button
           type="button"
+          onClick={ () => login({ email, password }) }
         >
           Entrar
         </button>
@@ -74,4 +80,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  login: (e) => dispatch(loginAction(e)),
+});
+
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
