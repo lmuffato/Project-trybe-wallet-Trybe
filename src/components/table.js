@@ -4,46 +4,9 @@ import { connect } from 'react-redux';
 import { removeOutlay } from '../actions';
 import TableHead from './tableHead';
 
+// resolução para o problema do map dos dados vista no repositório de Wanderson
+// https://github.com/tryber/sd-010-a-project-trybewallet/pull/20
 class Table extends Component {
-  constructor(props) {
-    super(props);
-
-    this.expenseData = this.expenseData.bind(this);
-  }
-
-  expenseData({ id, value, description, currency, method, tag, exchangeRates }) {
-    const { deleteOutlay } = this.props;
-    console.log(exchangeRates[currency].name);
-    return (
-      <tr key={ id }>
-        <td>{description}</td>
-        <td>{tag}</td>
-        <td>{method}</td>
-        <td>{value}</td>
-        <td>{(exchangeRates[currency].name).split('/')[0]}</td>
-        <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
-        <td>{(value * exchangeRates[currency].ask).toFixed(2)}</td>
-        <td>Real</td>
-        <td>
-          <button
-            type="button"
-            data-testid="delete-btn"
-            onClick={ () => deleteOutlay(id) }
-          >
-            Excluir
-          </button>
-          <button
-            type="button"
-            data-testid="edit-btn"
-            // onClick={ () => edit(id) }
-          >
-            Editar despesa
-          </button>
-        </td>
-      </tr>
-    );
-  }
-
   render() {
     const { database } = this.props;
     return (
@@ -77,8 +40,6 @@ class Table extends Component {
               <td>Real</td>
               <td>
                 <button type="button" data-testid="delete-btn">Excluir</button>
-              </td>
-              <td>
                 <button type="button" data-testid="edit-btn">Editar despesa</button>
               </td>
             </tr>
@@ -98,7 +59,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Table.propTypes = {
-  deleteOutlay: PropTypes.func.isRequired,
   database: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
