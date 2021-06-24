@@ -1,4 +1,4 @@
-import { WALLET, ADD_CURRENCIES } from '../actions/index';
+import { WALLET, ADD_CURRENCIES, ADD_EXPENSE } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -8,9 +8,11 @@ const INITIAL_STATE = {
 const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case WALLET:
-    return { ...state, currencies: action, expenses: action };
+    return { ...state, action };
   case ADD_CURRENCIES:
     return { ...state, currencies: action.payload.currencies };
+  case ADD_EXPENSE:
+    return { ...state, expenses: [...state.expenses, action.payload] };
   default:
     return state;
   }
