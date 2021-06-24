@@ -1,4 +1,5 @@
 import React from 'react';
+import fetchByCurrency from '../../services/api/servicesApi';
 
 class Form extends React.Component {
   constructor(props) {
@@ -6,6 +7,16 @@ class Form extends React.Component {
 
     this.generateSelect = this.generateSelect.bind(this);
     this.generateInput = this.generateInput.bind(this);
+    this.fetchByCurrency = this.fetchApi.bind(this);
+
+    this.state = {
+      coin: [],
+    };
+  }
+
+  async fetchApi() {
+    const data = await fetchByCurrency();
+    this.setState({ coin: data });
   }
 
   generateSelect(name, label, optionArray) {
@@ -36,7 +47,8 @@ class Form extends React.Component {
   render() {
     const optionTag = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     const optionPayment = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
-    const optionMoeda = [];
+    const { coin } = this.state;
+    this.fetchApi();
 
     return (
       <form>
@@ -45,7 +57,7 @@ class Form extends React.Component {
         {this.generateInput('description',
           'Descrição', 'text')}
         {this.generateSelect('moeda',
-          'Moeda', optionMoeda)}
+          'Moeda', coin)}
         {this.generateSelect('payment',
           'Método de pagamento', optionPayment)}
         {this.generateSelect('tag', 'Tag', optionTag)}
