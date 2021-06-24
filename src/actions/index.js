@@ -1,4 +1,9 @@
 // Coloque aqui suas actions
-const saveEmail = (email) => ({ type: 'SAVE_EMAIL', payload: { email } });
+export const saveEmail = (email) => ({ type: 'SAVE_EMAIL', payload: { email } });
 
-export default saveEmail;
+export const saveExpense = (expense) => ({
+  type: 'SAVE_EXPENSE',
+  payload: {
+    expense,
+  },
+});
