@@ -42,7 +42,9 @@ class TableExpendes extends Component {
           <td>{this.convertValue(value, exchangeRates[currency].ask)}</td>
           <td>{this.getNameCoinFormatted(exchangeRates[currency].name)[1]}</td>
           <td>
-            <button id="0" type="button">Deletar</button>
+            <button type="button" data-testid="delete-btn" className="btn-delet">
+              Apagar
+            </button>
           </td>
         </tr>))
     );
