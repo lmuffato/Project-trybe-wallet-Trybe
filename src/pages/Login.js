@@ -47,6 +47,7 @@ class Login extends React.Component {
       });
     }
   }
+
   render() {
     const { email, password, shouldRedirect } = this.state;
 

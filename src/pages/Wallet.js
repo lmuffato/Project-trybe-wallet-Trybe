@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { addExpensesThunk as addExpenseAction,
   deleteExpense as deleteExpenseAction } from '../actions';
 
-import WalletForm from '../components/Form';
-import WalletTable from '../components/Table';
+import WalletForm from '../components/WalletForm';
+import WalletTable from '../components/WalletTable';
 
 class Wallet extends Component {
   constructor() {
