@@ -1,7 +1,6 @@
-// Coloque aqui suas actions
-
 export const EMAIL_USER = 'EMAIL_USER';
 export const WALLET_SPEND = 'WALLET_SPEND';
+export const DELET_EXPENSE = 'DELET_EXPENSE';
 
 export const actionEmail = (email) => ({
   type: EMAIL_USER,
@@ -24,10 +23,12 @@ export const actionWalletSpend = (spend, objCoins) => ({
 export const fetchWalletSpend = (spend) => async (dispatch) => {
   const data = await fetch('https://economia.awesomeapi.com.br/json/all');
   const objCoins = await data.json();
-
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete-btn
-
   delete objCoins.USDT;
 
   dispatch(actionWalletSpend(spend, objCoins));
 };
+
+export const actionDeleteExpense = (id) => ({
+  type: DELET_EXPENSE,
+  id,
+});
