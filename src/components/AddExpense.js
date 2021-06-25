@@ -72,8 +72,8 @@ class AddExpense extends React.Component {
         >
           <option value="" disabled hidden>{' '}</option>
           <option value="Dinheiro">Dinheiro</option>
-          <option value="Cartão de crédito">Crédito</option>
-          <option value="Cartão de débito">Débito</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
     );
