@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { addExpensesThunk as addExpenseAction,
   deleteExpense as deleteExpenseAction } from '../actions';
 
-import Form from '../components/Form';
-import Table from '../components/Table';
+import WalletForm from '../components/Form';
+import WalletTable from '../components/Table';
 
 class Wallet extends Component {
   constructor() {
@@ -86,10 +86,10 @@ class Wallet extends Component {
             BRL
           </legend>
         </header>
-        <Form
+        <WalletForm
           { ...walletFormProps }
         />
-        <Table
+        <WalletTable
           expenses={ expenses }
           onDelete={ this.handleDelete }
         />
