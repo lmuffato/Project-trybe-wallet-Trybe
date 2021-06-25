@@ -4,6 +4,7 @@ export const USER_LOGIN = 'USER_LOGIN';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const GET_CURRENCY = 'GET_CURRENCY';
 export const TOTAL_UPDATE = 'TOTAL_UPDATE';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 
 export const userLogin = (email) => ({
   type: USER_LOGIN,
@@ -16,6 +17,13 @@ export const addExpense = (expense) => ({
   type: ADD_EXPENSE,
   payload: {
     expense,
+  },
+});
+
+export const removeExpense = (expenses) => ({
+  type: REMOVE_EXPENSE,
+  payload: {
+    expenses,
   },
 });
 

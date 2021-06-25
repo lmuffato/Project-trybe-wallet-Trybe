@@ -52,8 +52,8 @@ class Form extends React.Component {
     const findCurrency = Object.entries(currentExpense.exchangeRates).find(
       (element) => element[0] === currency,
     );
-    const newTotal = globalTotal + (parseFloat(findCurrency[1].ask) * parseFloat(value));
-    total(newTotal);
+    const newTotal = Number(globalTotal) + (Number(findCurrency[1].ask) * Number(value));
+    total(newTotal.toFixed(2));
 
     this.setState({
       value: '',
