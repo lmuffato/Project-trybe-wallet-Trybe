@@ -17,6 +17,7 @@ class WalletTable extends React.Component {
 
   tableMaker() {
     const { expenses } = this.props;
+    console.log(expenses)
     return (
       <>
         {
@@ -24,7 +25,7 @@ class WalletTable extends React.Component {
             <tr key={ index }>
               <td>{item.description}</td>
               <td>{item.tag}</td>
-              <td>{item.paymentMethod}</td>
+              <td>{item.method}</td>
               <td>{item.value}</td>
               <td>{item.exchangeRates[item.currency].name.split('/')[0]}</td>
               <td>{parseFloat(item.exchangeRates[item.currency].ask).toFixed(2)}</td>

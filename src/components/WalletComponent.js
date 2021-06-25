@@ -12,11 +12,10 @@ class WalletComponent extends React.Component {
     this.state = {
       currencyAPI: {},
       id: 0,
-      totalValue: 0,
       value: 0,
       description: '',
       currency: '',
-      paymentMethod: '',
+      method: '',
       tag: '',
     };
     this.getAPI = this.getAPI.bind(this);
@@ -92,13 +91,12 @@ class WalletComponent extends React.Component {
   handleClick() {
     // const {exchangeRates} = this.props
     const { data } = this.props;
-    const { totalValue, value,
-      description, currency, paymentMethod, tag, id } = this.state;
-    const object = { totalValue,
-      value,
+    const { value,
+      description, currency, method, tag, id } = this.state;
+    const object = { value,
       description,
       currency,
-      paymentMethod,
+      method,
       tag,
       id };
     this.setState({
@@ -116,24 +114,20 @@ class WalletComponent extends React.Component {
     const { expenses, total } = this.props;
     return (
       <section>
+        <span
+          type="number"
+          data-testid="total-field"
+          name="totalValue"
+        >
+          { total }
+        </span>
         <form>
-          <label htmlFor="total">
-            Total Value:
-            <input
-              type="number"
-              data-testid="total-field"
-              id="total"
-              value={ total }
-              onChange={ this.handle }
-              name="totalValue"
-            />
-          </label>
           {this.text(this.handle, value, description, currencyKeys)}
           <label htmlFor="payments">
             Método de pagamento
             <select
               type="text"
-              name="paymentMethod"
+              name="method"
               id="payments"
               onChange={ this.handle }
             >
