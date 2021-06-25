@@ -1,10 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { currencies } from '../actions';
 
 class Header extends Component {
+  constructor() {
+    super();
+    this.state = {
+      accuValue: 0,
+    };
+
+    this.firstValuation = this.firstValuation.bind(this);
+  }
+
+  componentDidMount() {
+    this.firstValuation();
+  }
+
+  firstValuation() {
+    const { currencies1, toCurrency } = this.props;
+    const { accuValue } = this.state;
+    if (currencies1.length === 0) {
+      toCurrency(accuValue);
+      return accuValue;
+    }
+    return currencies1;
+  }
+
   render() {
-    const { user, currencies1 } = this.props;
+    const { user } = this.props;
     return (
       <section className="headerMain">
         <img
@@ -13,10 +37,10 @@ class Header extends Component {
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpvs4fUyOMdaFmPeLUKmHImikYC47QxiVcAg&usqp=CAU"
           alt="logo_carteira"
         />
-        <div className="headerMain">
+        <div className="headerSec">
           <p data-testid="email-field">{ user }</p>
           <p data-testid="total-field">Despesas totais:</p>
-          <p>{ currencies1 }</p>
+          <p>{ this.firstValuation() }</p>
           <p data-testid="header-currency-field">BRL</p>
         </div>
       </section>
@@ -29,9 +53,14 @@ const mapStateToProps = (state) => ({
   currencies1: state.wallet.currencies,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  toCurrency: (payload) => dispatch(currencies(payload)),
+});
+
 Header.propTypes = {
   user: PropTypes.string.isRequired,
-  currencies1: PropTypes.number.isRequired,
+  currencies1: PropTypes.func.isRequired,
+  toCurrency: PropTypes.oneOf(PropTypes.func, PropTypes.array).isRequired,
 };
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

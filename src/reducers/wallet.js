@@ -5,11 +5,12 @@ import {
 } from '../actions/index';
 
 const INITIAL_STATE = {
-  currencies: 0,
+  currencies: [],
   expenses: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
+  const n = -2;
   switch (action.type) {
   case WALLET:
     return {
@@ -19,12 +20,15 @@ const wallet = (state = INITIAL_STATE, action) => {
   case CURRENCIES:
     return {
       ...state,
-      currencies: action.payload.toLocaleString('pt-br'),
+      currencies: Math.round((action.payload * 100), n) / 100,
     };
   case DELETING:
     return {
       ...state,
-      expenses: [state.expenses.filter((expense) => expense.id !== action.payload)],
+      currencies: (
+        Math.round(((parseFloat(state.currencies) - action.payload[1]) * 100), n) / 100
+      ),
+      expenses: state.expenses.filter((expense) => expense.id !== action.payload[0]),
     };
   default:
     return state;

@@ -2,35 +2,52 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { currencies, deleting } from '../actions';
+import '../index.css';
 
 class Table extends Component {
   constructor(props) {
     super(props);
 
     this.updateTable = this.updateTable.bind(this);
+    this.deleteButton = this.deleteButton.bind(this);
   }
 
   componentDidMount() {
     this.updateTable();
   }
 
-  updateTable() {
-    const { fromWallet, toDelete } = this.props;
+  deleteButton(e) {
+    const { toDelete } = this.props;
     return (
-      <table>
-        <tr>
-          <th>Descrição</th>
-          <th>Tag</th>
-          <th>Método de pagamento</th>
-          <th>Valor</th>
-          <th>Moeda</th>
-          <th>Câmbio utilizado</th>
-          <th>Valor convertido</th>
-          <th>Moeda de conversão</th>
-        </tr>
+      <button
+        data-testid="delete-btn"
+        type="button"
+        onClick={ () => toDelete(e) }
+      >
+        Excluir
+      </button>
+    );
+  }
+
+  updateTable() {
+    const { fromWallet } = this.props;
+    return (
+      <table className="tableHead">
+        <thead>
+          <tr>
+            <th className="description">Descrição</th>
+            <th className="value">Tag</th>
+            <th className="description">Método de pagamento</th>
+            <th className="value">Valor</th>
+            <th className="description">Moeda</th>
+            <th className="value">Câmbio utilizado</th>
+            <th className="value">Valor convertido</th>
+            <th className="description">Moeda de conversão</th>
+          </tr>
+        </thead>
         { fromWallet.map((e, i) => {
           const na = e.exchangeRates
-            .find((ev) => ev[e.currency])[e.currency].name.toUpperCase().split('/', 1)[0];
+            .find((ev) => ev[e.currency])[e.currency].name;
           const ca = e.exchangeRates
             .find((ev) => ev[e.currency])[e.currency].ask;
           const caConv = parseFloat(ca).toLocaleString('de');
@@ -38,25 +55,23 @@ class Table extends Component {
           const val = (Math.round((e.value * 100), magicN) / 100).toLocaleString('de');
           const co = (parseFloat(val) * parseFloat(ca));
           return (
-            <tr key={ i }>
-              <td>{e.description}</td>
-              <td>{e.tag}</td>
-              <td>{e.method}</td>
-              <td>
-                {e.currency}
-                &nbsp;
-                {val}
-              </td>
-              <td>{na}</td>
-              <td>{caConv}</td>
-              <td>{(Math.round((co * 100), magicN) / 100).toLocaleString('de')}</td>
-              <td>Real Brasileiro</td>
-              <td>
-                <button type="button" onClick={ () => toDelete() }>
-                  Excluir
-                </button>
-              </td>
-            </tr>
+            <tbody key={ i }>
+              <tr>
+                <td>{e.description}</td>
+                <td>{e.tag}</td>
+                <td>{e.method}</td>
+                <td>
+                  {e.currency}
+                  &nbsp;
+                  {val}
+                </td>
+                <td>{na.split('/', 1)[0]}</td>
+                <td>{caConv}</td>
+                <td>{(Math.round((co * 100), magicN) / 100).toLocaleString('de')}</td>
+                <td>Real Brasileiro</td>
+                <td>{this.deleteButton([e.id, e.value])}</td>
+              </tr>
+            </tbody>
           );
         }) }
       </table>
@@ -84,7 +99,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 Table.propTypes = {
   fromWallet: PropTypes.arrayOf(PropTypes.object).isRequired,
-  toDelete: PropTypes.arrayOf(PropTypes.object).isRequired,
+  toDelete: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
