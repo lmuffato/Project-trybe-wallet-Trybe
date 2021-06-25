@@ -3,6 +3,7 @@ const walletAPI = async () => {
   try {
     const response = await fetch(CURRENCY_URL);
     const result = await response.json();
+    console.log(result);
     return result;
   } catch (error) {
     console.log(error);
