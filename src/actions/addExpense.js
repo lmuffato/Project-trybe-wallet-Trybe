@@ -1,6 +1,5 @@
 import getAPI from '../services/API';
-import { ADD_EXPENSE } from '.';
-import { DELETE_EXPENSE } from '.';
+import { ADD_EXPENSE, DELETE_EXPENSE } from '.';
 
 const success = (payload) => ({
   type: ADD_EXPENSE,
