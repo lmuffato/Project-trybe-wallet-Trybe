@@ -1,83 +1,94 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { func, shape } from 'prop-types';
 
-class Login extends React.Component {
+import loginAction from '../actions';
+
+class Login extends Component {
   constructor() {
     super();
-    this.passwordIsValid = this.passwordIsValid.bind(this);
-    this.emailIsValid = this.emailIsValid.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-
     this.state = {
       email: '',
       password: '',
-      enabledButton: true,
+      isDisabled: true,
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.hasValidEmail = this.hasValidEmail.bind(this);
+    this.hasValidPassword = this.hasValidPassword.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
-  emailIsValid() {
+  hasValidEmail() {
     const { email } = this.state;
-
+    // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+    // REGEX 101
     return email.match(/\S+@\S+\.\S+/);
   }
 
-  passwordIsValid() {
+  hasValidPassword() {
     const { password } = this.state;
-    const SIX = 6;
-    return password.length >= SIX;
+    const MINIMUM_LENGTH = 6;
+    return password.length >= MINIMUM_LENGTH;
   }
 
   handleChange({ target: { type, value } }) {
-    this.setState({
-      [type]: value }, () => {
-      if (this.emailIsValid() && this.passwordIsValid()) {
-        this.setState({ enabledButton: false });
-      } else {
-        this.setState({ enabledButton: true });
-      }
-    });
+    this.setState({ [type]: value },
+      () => {
+        if (this.hasValidEmail() && this.hasValidPassword()) {
+          this.setState({ isDisabled: false });
+        } else {
+          this.setState({ isDisabled: true });
+        }
+      });
+  }
+
+  handleLogin() {
+    const { email } = this.state;
+    const { login, history } = this.props;
+    login(email);
+    history.push('/carteira');
   }
 
   render() {
-    const { email, password, enabledButton } = this.state;
-
+    const { email, password, isDisabled } = this.state;
     return (
-      <section className="loginContainer">
-        <header className="loginHeader">
-          <h1>Trybe Wallet</h1>
-        </header>
-        <section className="login">
+      <section>
+        <label htmlFor="email">
+          Email
           <input
             type="email"
-            placeholder="Email"
-            value={ email }
             data-testid="email-input"
+            placeholder="Insira seu email"
             onChange={ this.handleChange }
+            value={ email }
           />
+        </label>
+        <label htmlFor="password-input">
+          Senha
           <input
             type="password"
-            placeholder="Password"
             data-testid="password-input"
-            value={ password }
+            placeholder="Senha"
             onChange={ this.handleChange }
+            value={ password }
           />
-          <Link to="/carteira">
-            <input
-              className="button"
-              type="button"
-              value="Entrar"
-              disabled={ enabledButton }
-            />
-          </Link>
-        </section>
+        </label>
+        <button
+          type="button"
+          disabled={ isDisabled }
+          onClick={ this.handleLogin }
+        >
+          Entrar
+        </button>
       </section>
     );
   }
 }
-
-const mapStateToProps = (state) => ({
-  email: state.user.email,
+const mapDispatchToProps = (dispatch) => ({
+  login: (email) => dispatch(loginAction(email)),
 });
-
-export default connect(mapStateToProps, null)(Login);
+Login.propTypes = {
+  login: func,
+  history: shape({ push: func }),
+}.isRequired;
+export default connect(null, mapDispatchToProps)(Login);

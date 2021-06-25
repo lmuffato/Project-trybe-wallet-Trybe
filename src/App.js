@@ -15,7 +15,7 @@ function App() {
         <Route exact path="/">
           <Login />
         </Route>
-        <Route path="/wallet">
+        <Route exact path="/carteira">
           <Wallet />
         </Route>
       </Switch>
