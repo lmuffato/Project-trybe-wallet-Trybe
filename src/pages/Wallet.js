@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { string } from 'prop-types';
-import Forms from '../components/wallet/AddNewExpenses/Forms';
+import Forms from '../components/Wallet/AddNewExpenses/Forms';
 import Board from '../components/Wallet/Board';
 
 class Wallet extends React.Component {
