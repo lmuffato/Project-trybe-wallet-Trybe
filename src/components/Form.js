@@ -5,30 +5,30 @@ class Form extends Component {
     return (
       <div>
         <form>
-          <label htmlFor="valor">
-            Valor:
-            <input type="number" name="valor" />
+          <label htmlFor="value">
+            Valor
+            <input type="number" name="value" />
           </label>
-          <label htmlFor="descrição">
-            Descrição:
-            <input type="text" name="descrição" />
+          <label htmlFor="description">
+            Descrição
+            <input type="text" name="description" />
           </label>
-          <label htmlFor="Moeda">
-            Moeda:
+          <label htmlFor="currency">
+            Moeda
             <select>
-              <option value="0">0</option>
+              <option value=""></option>
             </select>
           </label>
-          <label htmlFor="MetodoDePagamento">
-            Método de pagamento:
+          <label htmlFor="Payment method">
+            Método de pagamento
             <select>
               <option value="Dinheiro">Dinheiro</option>
               <option value="Cartão de débito">Cartão de débito</option>
               <option value="Cartão de crédito">Cartão de crédito</option>
             </select>
           </label>
-          <label htmlFor="Tag">
-            Tag:
+          <label htmlFor="tag">
+            Tag
             <select>
               <option value="Alimentação">Alimentação</option>
               <option value="Lazer">Lazer</option>
