@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Proptypes from 'prop-types';
 import Header from '../components/Header';
 import { addCurrencyApiThunk,
-  addRecordWallet } from '../actions/index';
+  addRecordWallet, delRecord } from '../actions/index';
 import getCurrency from '../services/FetchApi';
 
 class Wallet extends React.Component {
@@ -138,7 +138,7 @@ class Wallet extends React.Component {
   }
 
   handleTableWallet() {
-    const { expenses } = this.props;
+    const { expenses, delRecords } = this.props;
     // console.log(expenses);
     return (
       <table>
@@ -162,7 +162,6 @@ class Wallet extends React.Component {
               <td>{ expense.tag }</td>
               <td>{ expense.method }</td>
               <td>{ expense.value }</td>
-
               <td>{ expense.exchangeRates[expense.currency].name.split('/', 1) }</td>
               <td>{ Number(expense.exchangeRates[expense.currency].ask).toFixed(2) }</td>
               <td>
@@ -171,10 +170,17 @@ class Wallet extends React.Component {
                * Number(expense.value)).toFixed(2)
                 }
               </td>
-
               <td>Real</td>
               <td><button type="button">Editar</button></td>
-              <td><button type="button">Exlcuir</button></td>
+              <td>
+                <button
+                  type="button"
+                  data-testid="delete-btn"
+                  onClick={ () => delRecords(expense.id) }
+                >
+                  Exlcuir
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -209,6 +215,7 @@ class Wallet extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   getCurrencys: () => dispatch(addCurrencyApiThunk()),
   wallets: (state) => dispatch(addRecordWallet(state)),
+  delRecords: (id) => dispatch(delRecord(id)),
 });
 
 const mapStateToProps = (state) => ({

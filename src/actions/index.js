@@ -19,7 +19,7 @@ export const addRecordWallet = (payload) => ({ type: ADD_RECORD_WALLET, payload 
 
 export const addRecordSuccess = (payload) => ({ type: ADD_RECORD_SUCCESS, payload });
 
-export const delRecord = (payload) => ({ type: DEL_RECORD, payload });
+export const delRecord = (id) => ({ type: DEL_RECORD, payload: id });
 
 export const editRecord = (payload) => ({ type: EDIT_RECORD, payload });
 
