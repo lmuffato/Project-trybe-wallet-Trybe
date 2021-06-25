@@ -1,10 +1,16 @@
 import React from 'react';
 import Header from '../components/Header';
+import getCurrency from '../services/FetchApi';
 
 class Wallet extends React.Component {
   // constructor() {
   //   super();
   // }
+
+  componentDidMount() {
+    getCurrency();
+    console.log(getCurrency());
+  }
 
   handleValue() {
     return (
@@ -35,11 +41,17 @@ class Wallet extends React.Component {
   }
 
   handleCurrency() {
+    const typeCurrency = getCurrency();
+    console.log(typeCurrency);
     return (
       <label htmlFor="currency">
-        Moeda
+        Moeda:
         <select id="currency">
-          <option>Moeda</option>
+          {/* {
+            getCurrency().map((currency) => (
+              <option key={ currency } value={ currency }>{currency}</option>
+            ))
+          } */}
         </select>
       </label>
     );
@@ -49,7 +61,7 @@ class Wallet extends React.Component {
     const methodPayment = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     return (
       <label htmlFor="payment">
-        Método de pagamento
+        Método de pagamento:
         <select id="payment">
           {
             methodPayment.map((payment) => (
