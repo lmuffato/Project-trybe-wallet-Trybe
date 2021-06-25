@@ -4,6 +4,7 @@ export const LOADING = 'LOADING';
 export const SUCCESS = 'SUCCESS';
 export const FAIL = 'FAIL';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export function setEmail(payload) {
   return {

@@ -1,5 +1,6 @@
 import getAPI from '../services/API';
 import { ADD_EXPENSE } from '.';
+import { DELETE_EXPENSE } from '.';
 
 const success = (payload) => ({
   type: ADD_EXPENSE,
@@ -11,5 +12,10 @@ const fetchPrices = (expense) => async (dispatch) => {
   const setExpense = { ...expense, exchangeRates };
   dispatch(success(setExpense));
 };
+
+export const deleteExpense = (payload) => ({
+  type: DELETE_EXPENSE,
+  payload,
+});
 
 export default fetchPrices;
