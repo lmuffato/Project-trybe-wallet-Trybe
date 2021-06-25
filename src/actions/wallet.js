@@ -8,6 +8,8 @@ export const GET_CURRENCY_SUCCESS = 'GET_CURRENCY_SUCCESS';
 
 export const ADD_EXPENSES = 'ADD_EXPENSES';
 
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
+
 export const loadingCurrency = () => ({
   type: LOADING_CURRENCY,
 });
@@ -23,6 +25,11 @@ export const getCurrencySuccess = (payload) => ({
 
 export const addExpenses = (payload) => ({
   type: ADD_EXPENSES,
+  payload,
+});
+
+export const removeExpense = (payload) => ({
+  type: REMOVE_EXPENSE,
   payload,
 });
 
