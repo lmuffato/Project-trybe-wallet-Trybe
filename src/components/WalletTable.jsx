@@ -5,18 +5,18 @@ import { removeExpense } from '../actions/index';
 
 class WalletTable extends React.Component {
   constructor() {
-    super()
+    super();
     this.tableMaker = this.tableMaker.bind(this);
     this.removeExpense = this.removeExpense.bind(this);
   }
 
-  removeExpense( { target: {name} } ) {
+  removeExpense({ target: { name } }) {
     const { data } = this.props;
-    data(name)
+    data(name);
   }
 
   tableMaker() {
-    const { expenses: {expenses} } = this.props
+    const { expenses: { expenses } } = this.props;
     return (
       <>
         {
@@ -41,7 +41,7 @@ class WalletTable extends React.Component {
               >
                 Remover
               </button>
-              </tr>
+            </tr>
           ))
         }
       </>
@@ -49,7 +49,7 @@ class WalletTable extends React.Component {
   }
 
   render() {
-    const { expenses: {expenses} } = this.props;
+    const { expenses: { expenses } } = this.props;
     return (
       <section>
         <table>
