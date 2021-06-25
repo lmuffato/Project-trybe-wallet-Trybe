@@ -2,7 +2,7 @@ import { fetchByCurrency } from '../services/api/servicesApi';
 
 const LOGIN_ACTION = 'LOGIN_ACTION';
 const ADD_EXPENSE = 'ADD_EXPENSE';
-// const ADD_AMOUNT = 'ADD_AMOUNT';
+const DELETE_EXPENSES = 'DELETE_EXPENSES';
 const GET_CURRENCIES = 'GET_CURRENCIES';
 const GET_CURRENCIES_SUCCESS = 'GET_CURRENCIES_SUCCESS';
 const GET_CURRENCIES_FAILURE = 'GET_CURRENCIES_FAILURE';
@@ -11,6 +11,11 @@ const loginAction = (payload) => ({ type: LOGIN_ACTION, payload });
 export default loginAction;
 
 export const addExpense = (payload) => ({ type: ADD_EXPENSE, payload });
+
+export const deleteExpense = (payload) => ({
+  type: DELETE_EXPENSES,
+  payload,
+});
 
 export const getCurrenciesTry = () => ({
   type: GET_CURRENCIES,
