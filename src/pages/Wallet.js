@@ -2,17 +2,38 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Proptypes from 'prop-types';
 import Header from '../components/Header';
-import { addCurrencyApiThunk } from '../actions/index';
+import { addCurrencyApiThunk,
+  addRecordWallet } from '../actions/index';
+import getCurrency from '../services/FetchApi';
 
 class Wallet extends React.Component {
-  // constructor() {
-  //   super();
-  // }
+  constructor() {
+    super();
+    this.state = {
+      id: 0,
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      exchangeRates: {},
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleState = this.handleState(this);
+  }
 
   componentDidMount() {
-    const { getCurrency } = this.props;
-    getCurrency();
+    const { getCurrencys } = this.props;
+    getCurrencys();
     // console.log(getCurrency);
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
   }
 
   handleValue() {
@@ -24,6 +45,7 @@ class Wallet extends React.Component {
           type="text"
           placeholder="valor"
           name="value"
+          onChange={ this.handleChange }
         />
       </label>
     );
@@ -37,7 +59,8 @@ class Wallet extends React.Component {
           id="description"
           type="text"
           placeholder="descrição"
-          name="descrition"
+          name="description"
+          onChange={ this.handleChange }
         />
       </label>
     );
@@ -49,7 +72,11 @@ class Wallet extends React.Component {
     return (
       <label htmlFor="currency">
         Moeda:
-        <select id="currency">
+        <select
+          id="currency"
+          onChange={ this.handleChange }
+          name="currency"
+        >
           {
             Object.keys(currencies).map((currency) => (
               <option key={ currency } value={ currency }>{currency}</option>
@@ -65,7 +92,11 @@ class Wallet extends React.Component {
     return (
       <label htmlFor="payment">
         Método de pagamento:
-        <select id="payment">
+        <select
+          id="payment"
+          onChange={ this.handleChange }
+          name="method"
+        >
           {
             methodPayment.map((payment) => (
               <option key={ payment } value={ payment }>{payment}</option>
@@ -76,16 +107,32 @@ class Wallet extends React.Component {
     );
   }
 
+  handleState() {
+    const { id } = this.state;
+    getCurrency()
+      .then((res) => {
+        const { wallets } = this.props;
+        const { ...moeda } = res;
+        this.setState({ id: id + 1, exchangeRates: moeda });
+        wallets({ ...this.state, id });
+      })
+      .catch((error) => error);
+  }
+
   handleCategory() {
     return (
       <label htmlFor="category">
         Tag:
-        <select id="category">
-          <option value="tag">Alimentação</option>
-          <option value="tag">Lazer</option>
-          <option value="tag">Trabalho</option>
-          <option value="tag">Transporte</option>
-          <option value="tag">Saúde</option>
+        <select
+          id="category"
+          onChange={ this.handleChange }
+          name="tag"
+        >
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
     );
@@ -101,7 +148,12 @@ class Wallet extends React.Component {
           { this.handleCurrency() }
           { this.handlePayment() }
           { this.handleCategory() }
-          <button type="button">Enviar</button>
+          <button
+            type="button"
+            onClick={ this.handleState }
+          >
+            Adicionar despesa
+          </button>
         </form>
         TrybeWallet
       </div>
@@ -110,7 +162,8 @@ class Wallet extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  getCurrency: () => dispatch(addCurrencyApiThunk()),
+  getCurrencys: () => dispatch(addCurrencyApiThunk()),
+  wallets: (state) => dispatch(addRecordWallet(state)),
 });
 
 const mapStateToProps = (state) => ({
@@ -118,7 +171,7 @@ const mapStateToProps = (state) => ({
 });
 
 Wallet.propTypes = {
-  getCurrency: Proptypes.func,
+  getCurrencys: Proptypes.func,
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
