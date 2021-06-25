@@ -1,90 +1,80 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { login as loginAction } from '../actions';
+import PropTypes from 'prop-types';
+import { loginAction } from '../actions/index';
 
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: '',
-      validarEmail: false,
       password: '',
-      validarPassword: false,
+      disabled: true,
     };
-
-    this.hundleChange = this.hundleChange.bind(this);
-    this.validateLogin = this.validateLogin.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  hundleChange({ target }) {
-    const { name, value } = target;
+  handleChange(e) {
+    const { name, value } = e.target;
     this.setState({
       [name]: value,
     });
-    this.validateLogin(name, value);
-  }
-
-  validateLogin(name, value) {
-    const email = new RegExp(/^[\w-.]+@([\w-]+.)+[\w-]{2,3}$/g);
-    const password = new RegExp(/[\w\D]{6}/g);
-
-    if (name === 'email') {
-      this.setState({
-        validarEmail: email.test(value),
-      });
-    }
-    if (name === 'password') {
-      this.setState({
-        validarPassword: password.test(value),
-      });
-    } // regex https://regexr.com/
+    const regexEmail = /\S+@\S+\.\S+/;
+    const validatePassword = 5;
+    const { email, password } = this.state;
+    if (regexEmail.test(email) === true && password.length >= validatePassword) {
+      return this.setState({ disabled: false });
+    } return (this.setState({ disabled: true }));
   }
 
   render() {
-    const { email, password, validarEmail, validarPassword } = this.state;
-    const { login } = this.props;
-    const validarLogin = (validarEmail && validarPassword);
-
+    const { email, password, disabled } = this.state;
+    const { emailDispatch } = this.props;
     return (
-      <div>
+      <section>
         <form>
-          <input
-            type="email"
-            data-testid="email-input"
-            name="email"
-            value={ email }
-            onChange={ this.hundleChange }
-          />
-          <input
-            type="password"
-            data-testid="password-input"
-            name="password"
-            value={ password }
-            onChange={ this.hundleChange }
-          />
+          <label htmlFor="email">
+            <input
+              data-testid="email-input"
+              type="email"
+              name="email"
+              value={ email }
+              placeholder="email"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <label htmlFor="password">
+            <input
+              data-testid="password-input"
+              type="password"
+              name="password"
+              value={ password }
+              placeholder="senha"
+              onChange={ this.handleChange }
+            />
+          </label>
         </form>
-        <Link to="/carteira">
+        <Link className={ disabled ? 'disabledLink' : '' } to="/carteira">
           <button
+            disabled={ disabled }
+            className={ disabled ? 'disabled-bttn' : 'enter-bttn' }
             type="button"
-            disabled={ !validarLogin }
-            onClick={ () => login({ email, password }) }
+            onClick={ () => emailDispatch(email) }
           >
             Entrar
           </button>
         </Link>
-      </div>
+      </section>
     );
   }
 }
-
 const mapDispatchToProps = (dispatch) => ({
-  login: (e) => dispatch(loginAction(e)),
+  emailDispatch: (email) => dispatch(loginAction(email)),
 });
 
 Login.propTypes = {
-  login: PropTypes.func.isRequired,
-};
+  loginAction: PropTypes.func,
+}.isRequired;
 
 export default connect(null, mapDispatchToProps)(Login);

@@ -1,20 +1,30 @@
-const initialState = {
+import { GET_CURRENCY_SUCCESS, GET_EXPENSES_SUCCESS, DELETE } from '../actions/wallet';
+
+const INITIAL_STATE = {
   currencies: [],
   expenses: [],
 };
 
-function wallet(state = initialState, action) {
+const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'ADD_DESPESA':
+  case GET_CURRENCY_SUCCESS:
     return {
-      expenses: [...state.expenses, action.value],
-      currencies: action.value.exchangeRates,
+      ...state,
+      currencies: action.payload,
     };
-  case 'DELETE_DESPESA':
-    return state.filter((register) => register !== action.value);
+  case GET_EXPENSES_SUCCESS:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload],
+    };
+  case DELETE:
+    return {
+      ...state,
+      expenses: [...state.expenses.filter((expense) => expense !== action.payload)],
+    };
   default:
     return state;
   }
-}
+};
 
 export default wallet;
