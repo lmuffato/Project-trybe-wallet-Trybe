@@ -16,7 +16,7 @@ class WalletTable extends React.Component {
   }
 
   tableMaker() {
-    const { expenses: { expenses } } = this.props;
+    const { expenses } = this.props;
     return (
       <>
         {
@@ -49,7 +49,7 @@ class WalletTable extends React.Component {
   }
 
   render() {
-    const { expenses: { expenses } } = this.props;
+    const { expenses } = this.props;
     return (
       <section>
         <table>
