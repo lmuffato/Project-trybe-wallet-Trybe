@@ -7,34 +7,36 @@ import { setUserEmail } from '../actions';
 class Login extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       email: '',
-      loginIsValid: false,
+      isValidLogin: false,
     };
 
-    this.formValidation = this.formValidation.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.validateForm = this.validateForm.bind(this);
   }
 
-  emailValidation() {
-    const email = document.querySelector('.email');
-    const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i.test(email.value);
-    return emailRegex;
+  validateEmail() {
+    const email = document.querySelector('#email');
+    const regexEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i.test(email.value);
+    return regexEmail;
   }
 
-  passwordValidation() {
-    const password = document.querySelector('.password');
-    const minPasswordLenght = 6;
-    return password.value >= minPasswordLenght;
+  validatePassword() {
+    const password = document.querySelector('#password');
+    const MIN_LENGTH = 6;
+    return password.value.length >= MIN_LENGTH;
   }
 
-  formValidation() {
-    const loginValid = this.emailValidation && this.passwordValidation;
-    this.buttonAlternation(loginValid);
-    return loginValid;
+  validateForm() {
+    const isValidLogin = this.validateEmail() && this.validatePassword();
+    this.toggleButton(isValidLogin);
+    return isValidLogin;
   }
 
-  buttonAlternation(bool) {
-    const btn = document.querySelector('.btn-submit');
+  toggleButton(bool) {
+    const btn = document.querySelector('#btn-submit');
     if (!bool) {
       btn.setAttribute('disabled', bool);
     } else {
@@ -42,48 +44,56 @@ class Login extends React.Component {
     }
   }
 
-  redirectToPage(bool) {
+  handleChange({ target: { name, value } }) {
     this.setState({
-      loginIsValid: bool,
+      [name]: value,
+    }, this.validateForm);
+  }
+
+  redirect(bool) {
+    this.setState({
+      isValidLogin: bool,
     });
   }
 
-  formToRender() {
-    const { email, loginIsValid } = this.state;
+  loginForm() {
+    const { email, isValidLogin } = this.state;
     const { setEmail } = this.props;
     return (
       <div className="login-container">
-        {loginIsValid ? <Redirect to="/carteira" /> : ''}
         <form
-          onSubmit={ (event) => {
-            event.preventDefault();
+          onSubmit={ (ev) => {
+            ev.preventDefault();
             setEmail(email);
-            this.redirectToPage(this.formValidation());
+            this.redirect(this.validateForm());
           } }
         >
-          <label htmlFor="name">
-            E-mail:
+          <label htmlFor="email">
+            Email:
             <input
-              className="email"
-              type="email"
-              name="name"
+              id="email"
+              type="text"
+              name="email"
+              value={ email }
+              onChange={ this.handleChange }
+              placeholder="Digite seu email"
               data-testid="email-input"
-              onChange={ (ev) => { setEmail(ev.target.value); } }
             />
-
           </label>
+
           <label htmlFor="password">
             Senha:
             <input
-              className="password"
+              id="password"
               type="password"
               name="password"
+              onChange={ this.validateForm }
+              placeholder="No mínimo 6 caracteres"
               data-testid="password-input"
-              onChange={ this.formValidation }
             />
-
           </label>
-          <button className="btn-submit" type="submit" disabled>Entrar</button>
+          <button id="btn-submit" type="submit" disabled>Entrar</button>
+          {isValidLogin ? <Redirect to="/carteira" /> : ''}
         </form>
       </div>
     );
@@ -93,10 +103,10 @@ class Login extends React.Component {
     return (
       <div>
         <header>
-          <h1>Trybe Wallet</h1>
+          <h1>TrybeWallet</h1>
         </header>
         <body>
-          {this.formToRender()}
+          {this.loginForm()}
         </body>
       </div>
     );
