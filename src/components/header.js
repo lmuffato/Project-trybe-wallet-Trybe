@@ -21,7 +21,7 @@ class Header extends Component {
         </header>
 
         <span data-testid="total-field">
-          { totalSum }
+          { totalSum.toFixed(2) }
         </span>
         <span data-testid="header-currency-field">
           BRL

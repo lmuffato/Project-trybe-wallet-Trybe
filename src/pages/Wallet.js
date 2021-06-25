@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { addCurrencies } from '../actions';
 import Form from '../components/forms';
 import Header from '../components/header';
+import Table from '../components/table';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -17,6 +18,7 @@ class Wallet extends React.Component {
       <div>
         <Header />
         <Form currencies={ currencies } />
+        <Table />
       </div>
 
     );
