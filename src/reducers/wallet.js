@@ -17,7 +17,9 @@ const wallet = (state = INITIAL_STATE, action) => {
   case ADD_RECORD_WALLET:
     return { ...state, isLoading: false, expenses: [...state.expenses, action.payload] };
   case DEL_RECORD:
-    return { ...state, expenses: state.expenses.filter((expense) => expense.id !== action.payload) };
+    return {
+      ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== action.payload) };
   default:
     return state;
   }
