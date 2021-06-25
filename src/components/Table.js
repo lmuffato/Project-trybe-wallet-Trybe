@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { removeExpense } from '../actions/wallet';
+import { removeExpense as delExpense } from '../actions/wallet';
 
 class Table extends React.Component {
   render() {
@@ -39,7 +39,7 @@ class Table extends React.Component {
                   <button
                     type="button"
                     data-testid="delete-btn"
-                    onClick={() => {removeExpense(item.id)}}
+                    onClick={ () => { removeExpense(item.id); } }
                   >
                     Excluir
                   </button>
@@ -58,7 +58,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removeExpense: (id) => dispatch(removeExpense(id)),
+  removeExpense: (id) => dispatch(delExpense(id)),
 });
 
 Table.propTypes = {
