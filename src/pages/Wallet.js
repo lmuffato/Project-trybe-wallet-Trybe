@@ -9,32 +9,35 @@ class Wallet extends React.Component {
       total: 0,
       availableExchange: [],
     };
-    this.fetchAPI = this.fetchAPI.bind(this);
+    this.currencyList = this.currencyList.bind(this);
+    this.setExchangeList = this.setExchangeList.bind(this);
+    this.header = this.header.bind(this);
+    this.addCurrency = this.addCurrency.bind(this);
   }
 
-  async fetchAPI() {
+  async setExchangeList() {
     const listExchange = await (await fetch('https://economia.awesomeapi.com.br/json/all')).json();
-    const filteredListExchange = [...listExchange]
-      .filter((foreingExchange) => foreingExchange !== 'USDT');
+    const arrFullExchangeList = Object.values(listExchange);
+    console.log(arrFullExchangeList);
+    const arrFilteredExchange = arrFullExchangeList
+      .filter((currency) => currency !== 'USDT');
     this.setState({
-      availableExchange: [...filteredListExchange],
+      availableExchange: arrFilteredExchange,
     });
   }
 
-  render() {
+  header() {
     const { total, availableExchange } = this.state;
     const { email } = this.props;
     return (
-      <div>
-        <header>
-          <h3 data-testid="email-field">{ email }</h3>
-          <h3 data-testid="total-field">{ total }</h3>
-          <h3 data-testid="header-currency-field">BRL</h3>
-        </header>
+      <header>
+        <p data-testid="email-field">{ email }</p>
+        <p data-testid="total-field">{ total }</p>
+        <p data-testid="header-currency-field">BRL</p>
         <form>
           <label htmlFor="value">
             Valor
-            <input type="number" name="value" onChange={ this.hundleChange } />
+            <input type="number" id="value" onChange={ this.hundleChange } />
           </label>
           <label htmlFor="description">
             Descrição
@@ -44,7 +47,7 @@ class Wallet extends React.Component {
             Moeda
             <select name="currency" onChange={ this.hundleChange }>
               { availableExchange
-                .map((drakmas, index) => <option key={ index }>{ drakmas }</option>) }
+                .map((pix, id) => <option key={ id } value={ pix }>{ pix }</option>) }
             </select>
           </label>
           <label htmlFor="method">
@@ -66,6 +69,80 @@ class Wallet extends React.Component {
             </select>
           </label>
         </form>
+      </header>
+    );
+  }
+
+  addCurrency() {
+    return (
+      <button
+        type="button"
+        onClick={ this.currencyList }
+      >
+        Adicionar despesa
+      </button>
+    );
+  }
+
+  tableHead() {
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Valor</th>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Moeda de conversão</th>
+            <th>Valor convertido</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.tableBody()}
+        </tbody>
+      </table>
+    );
+  }
+
+  tableBody() {
+    const {
+      valor,
+      descri,
+      tag,
+      metodo,
+    } = this.props;
+    return (
+      <tr>
+        <th>{ expenses.valor }</th>
+        <th>{ expenses.descri }</th>
+        <th>{ expenses.tag }</th>
+        <th>{ expenses.metodo }</th>
+        <td>{currencyName[0]}</td>
+        <td>{Math.round(exchangeValue * 100) / 100}</td>
+        <td>Real</td>
+        <td>{Math.round(convertedValue * 100) / 100}</td>
+        <td>
+          <button type="button">Editar</button>
+          <button
+            type="button"
+            data-testid="delete-btn"
+            onClick={ () => deleteOneExpense(expense) }
+          >
+            Excluir
+          </button>
+        </td>
+      </tr>
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        { this.header() }
+        { this.addCurrency() }
       </div>
     );
   }
