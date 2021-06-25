@@ -11,7 +11,7 @@ export const WALLET_EXPENSES = 'WALLET_EXPENSES';
 export const expensesAction = (payload) => ({ type: WALLET_EXPENSES, payload });
 
 export function requestAPI() {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(requestCurrency());
     const endpoit = 'https://economia.awesomeapi.com.br/json/all';
     return fetch(endpoit)

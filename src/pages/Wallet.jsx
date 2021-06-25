@@ -2,15 +2,34 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Form from '../components/Form';
+import { requestAPI } from '../actions';
 
 class Wallet extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.sumTotalExpenses = this.sumTotalExpenses.bind(this);
+  }
+
+  sumTotalExpenses() {
+    const { totalExpenses } = this.props;
+    console.log(totalExpenses);
+    let sum = 0;
+    totalExpenses.forEach((expense) => {
+      sum += (expense.value * expense.exchangeRates[expense.currency].ask);
+    });
+    return sum.toFixed(2);
+  }
+
   render() {
-    const { email } = this.props;
+    const { userEmail } = this.props;
     return (
       <div>
         <header>
-          <p data-testid="email-field">{ email }</p>
-          <p data-testid="total-field">0</p>
+          <p data-testid="email-field">{ userEmail }</p>
+          <p data-testid="total-field">
+            {this.sumTotalExpenses()}
+          </p>
           <p data-testid="header-currency-field">BRL</p>
           <Form />
         </header>
@@ -20,12 +39,17 @@ class Wallet extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  email: state.user.email,
+  userEmail: state.user.email,
   totalExpenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  getApi: () => dispatch(requestAPI()),
+});
+
 Wallet.propTypes = {
-  email: PropTypes.string.isRequired,
+  userEmail: PropTypes.string.isRequired,
+  totalExpenses: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
