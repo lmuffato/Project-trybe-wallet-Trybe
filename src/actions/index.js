@@ -5,6 +5,7 @@ export const USER = 'USER';
 export const WALLET = 'WALLET';
 export const ADD_CURRENCY = 'ADD_CURRENCY';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const user = (payload) => ({
   type: 'USER',
@@ -25,6 +26,11 @@ export const addWalletExpense = (response, stateExpense) => ({
   type: 'ADD_EXPENSE',
   response,
   stateExpense,
+});
+
+export const deleteWallet = (id) => ({
+  type: 'DELETE_EXPENSE',
+  id,
 });
 
 export const apiWalletThunk = () => (dispatch) => {

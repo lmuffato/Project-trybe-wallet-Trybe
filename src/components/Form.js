@@ -44,9 +44,9 @@ class Form extends React.Component {
   }
 
   handleClick() {
-    const { addExpense, getExpenses } = this.props;
+    const { addExpense } = this.props;
     // if (getExpenses.length > 0) {
-    this.setState({ id: getExpenses.length + 1 });
+    this.setState((prevState) => ({ id: prevState.id + 1 }));
     // }
     addExpense(this.state);
   }
