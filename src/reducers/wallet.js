@@ -4,6 +4,7 @@ import {
   GET_CURRENCIES,
   GET_CURRENCIES_SUCCESS,
   GET_CURRENCIES_ERROR,
+  DELETE_EXPENSE,
 } from '../actions/index';
 
 const INITIAL_STATE = {
@@ -36,6 +37,11 @@ function wallet(state = INITIAL_STATE, action) {
       ...state,
       isLoading: false,
       error: action.payload,
+    };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: [...state.expenses.filter((expense) => expense !== action.payload)],
     };
   default:
     return state;

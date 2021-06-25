@@ -17,6 +17,11 @@ export const addExpense = (payload) => ({
 
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
+export const deleteExpense = (payload) => ({
+  type: DELETE_EXPENSE,
+  payload,
+});
+
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const GET_CURRENCIES_SUCCESS = 'GET_CURRENCIES_SUCCESS';
 export const GET_CURRENCIES_ERROR = 'GET_CURRENCIES_ERROR';

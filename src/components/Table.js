@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteExpense } from '../actions';
 
 class Table extends React.Component {
   render() {
-    const { expenses } = this.props;
+    const { expenses, deleteExpenses } = this.props;
     return (
       <table>
         <thead>
@@ -34,7 +35,15 @@ class Table extends React.Component {
                 * Number(expense.exchangeRates[expense.currency].ask)).toFixed(2) }
               </td>
               <td>Real</td>
-              <td />
+              <td>
+                <button
+                  type="button"
+                  data-testid="delete-btn"
+                  onClick={ () => deleteExpenses(expense) }
+                >
+                  Deletar
+                </button>
+              </td>
             </tr>
           )) }
         </tbody>
@@ -47,8 +56,13 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteExpenses: (payload) => dispatch(deleteExpense(payload)),
+});
+
 Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  deleteExpenses: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, null)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
