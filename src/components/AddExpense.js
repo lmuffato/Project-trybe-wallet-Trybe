@@ -9,7 +9,7 @@ class AddExpense extends React.Component {
     this.state = {
       arrayObjCoin: [],
       spent: 0,
-      coin: 'USD',
+      coin: '',
       paymentMethod: '',
       tag: '',
       description: '',
@@ -40,7 +40,7 @@ class AddExpense extends React.Component {
   spend(handleClick, valueState) {
     return (
       <label htmlFor="spent">
-        valor:
+        Valor:
         <input type="number" id="spent" value={ valueState } onChange={ handleClick } />
       </label>
     );
@@ -49,8 +49,9 @@ class AddExpense extends React.Component {
   coin(handleClick, valueState, arrayObjCoin) {
     return (
       <label htmlFor="coin">
-        moeda:
+        Moeda:
         <select type="text" id="coin" onChange={ handleClick } value={ valueState }>
+          <option value="" disabled hidden>{' '}</option>
           {arrayObjCoin.map(({ code }, i) => (
             <option key={ i } value={ code }>{code}</option>
           ))}
@@ -62,13 +63,14 @@ class AddExpense extends React.Component {
   paymentMethod(handleClick, valueState) {
     return (
       <label htmlFor="paymentMethod">
-        método de pagamento:
+        Método de pagamento:
         <select
           type="text"
           id="paymentMethod"
           onChange={ handleClick }
           value={ valueState }
         >
+          <option value="" disabled hidden>{' '}</option>
           <option value="Dinheiro">Dinheiro</option>
           <option value="Cartão de crédito">Crédito</option>
           <option value="Cartão de débito">Débito</option>
@@ -80,8 +82,9 @@ class AddExpense extends React.Component {
   tag(handleClick, valueState) {
     return (
       <label htmlFor="tag">
-        tag:
+        Tag:
         <select type="text" id="tag" onChange={ handleClick } value={ valueState }>
+          <option value="" disabled hidden>{' '}</option>
           <option value="Alimentação">Alimentação</option>
           <option value="Lazer">Lazer</option>
           <option value="Trabalho">Trabalho</option>
@@ -95,7 +98,7 @@ class AddExpense extends React.Component {
   description(handleClick, valueState) {
     return (
       <label htmlFor="description">
-        descrição:
+        Descrição:
         <input type="" id="description" onChange={ handleClick } value={ valueState } />
       </label>
     );
@@ -108,14 +111,30 @@ class AddExpense extends React.Component {
     return (
       <button
         type="button"
-        onClick={ () => addSpend({
-          id: qtdSpended,
-          value: spent,
-          method: paymentMethod,
-          currency: coin,
-          description,
-          tag,
-        }) }
+        onClick={ () => {
+          if (
+            coin !== ''
+            && spent > 0
+            && paymentMethod !== ''
+            && tag !== ''
+            && description !== ''
+          ) {
+            addSpend({
+              id: qtdSpended,
+              value: spent,
+              method: paymentMethod,
+              currency: coin,
+              description,
+              tag,
+            });
+
+            this.setState({
+              coin: '', spent: 0, paymentMethod: '', tag: '', description: '',
+            });
+          } else {
+            console.log('preencha todos os campos');
+          }
+        } }
       >
         Adicionar despesa
       </button>
@@ -125,7 +144,7 @@ class AddExpense extends React.Component {
   render() {
     const { arrayObjCoin, coin, spent, paymentMethod, tag, description } = this.state;
     return (
-      <div className="add-spend">
+      <menu className="add-spend">
         <form>
           {this.spend(this.handleClick, spent)}
           {this.coin(this.handleClick, coin, arrayObjCoin)}
@@ -135,7 +154,7 @@ class AddExpense extends React.Component {
 
           {this.buttonAddSpend()}
         </form>
-      </div>
+      </menu>
     );
   }
 }
