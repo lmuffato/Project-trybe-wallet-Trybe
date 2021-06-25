@@ -1,4 +1,4 @@
-import { USER_EMAIL } from '../actions'; // aqui acontece o import dos names das actions ('catalogadas' - prevenção erro)
+import { USER_EMAIL } from '../actions/index'; // aqui acontece o import dos names das actions ('catalogadas' - prevenção erro)
 
 const INITIAL_STATE = { // definição do estado inicial para aquele reducer especifico
   email: '',

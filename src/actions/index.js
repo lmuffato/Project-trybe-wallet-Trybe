@@ -1,22 +1,29 @@
-import getExchangeRates from '../services/exchangeAPI';
+import exchangeAPI from '../services/exchangeAPI';
 
 export const USER_EMAIL = 'USER_EMAIL';
 
+export const WALLET_COINS = 'WALLET_COINS';
 export const WALLET_RATES = 'WALLET_RATES';
 
-export const GET_EXCHANGE_SUCESS = 'GET_EXCHANGE_SUCESS';
-export const GET_EXCHANGE_ERROR = 'GET_EXCHANGE_ERROR';
+export const emailAction = (payload) => ({ type: USER_EMAIL, payload });
 
-export const emailAction = (payload) => ({ type: USER_EMAIL, payload }); // "action creator". recebe e informação a salvar, retorna obj formatado
-export const ratesyAction = (payload) => ({ type: WALLET_RATES, payload });
+export const coinsAction = (payload) => ({ type: WALLET_COINS, payload });
+export const ratesAction = (payload) => ({ type: WALLET_RATES, payload });
 
-export const getApiActionSucess = (payload) => ({ type: GET_EXCHANGE_SUCESS, payload });
-export const getApiActionError = (payload) => ({ type: GET_EXCHANGE_ERROR, payload });
-
-export const getApiThunk = () => (dispacth) => {
-  getExchangeRates()
+export const thunkActionCoins = () => (dispacth) => {
+  exchangeAPI()
     .then(((res) => {
-      dispacth(ratesyAction(res));
+      dispacth(coinsAction(res));
+    }))
+    .catch(() => {
+      console.log('ErroApi');
+    });
+};
+
+export const thunkActionRates = () => (dispacth) => {
+  exchangeAPI()
+    .then(((res) => {
+      dispacth(ratesAction(res));
     }))
     .catch(() => {
       console.log('ErroApi');
