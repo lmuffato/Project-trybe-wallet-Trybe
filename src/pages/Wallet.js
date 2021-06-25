@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import WalletComponent from '../components/WalletComponent';
 
 class Wallet extends React.Component {
@@ -12,6 +13,7 @@ class Wallet extends React.Component {
           <h4 data-testid="email-field">
             { email }
           </h4>
+          <Link to="/">Voltar</Link>
           <WalletComponent />
         </header>
       </section>
