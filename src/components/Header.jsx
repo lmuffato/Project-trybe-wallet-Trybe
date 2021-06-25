@@ -9,7 +9,7 @@ class Header extends React.Component {
     this.calculateTotal = this.calculateTotal.bind(this);
   }
 
-  // Função abaixo criada usando o código do colega de turma Derik Andrade. [https://github.com/tryber/sd-010-a-project-trybewallet/pull/120/commits/1f2adf61e88310b88b06ce67b25e654c7e793ea8]
+  // Função abaixo criada usando por referência o código do colega de turma Derik Andrade. [https://github.com/tryber/sd-010-a-project-trybewallet/pull/120/commits/1f2adf61e88310b88b06ce67b25e654c7e793ea8]
 
   calculateTotal() {
     const { expenses } = this.props;
