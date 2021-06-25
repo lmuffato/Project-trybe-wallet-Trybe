@@ -24,7 +24,7 @@ class Login extends React.Component {
   validateLogin() {
     const { email, password } = this.state;
     let validate = false;
-    const validateEmail = /^[\w.]+@[a-z]+.\w{2,3}$/g;
+    const validateEmail = /^[\w.]+@[a-z]+\.\w{2,3}$/g;
     const validatePass = /[\S]{6,}/;
     if (!validateEmail.test(email)) validate = true;
     if (!validatePass.test(password)) validate = true;
