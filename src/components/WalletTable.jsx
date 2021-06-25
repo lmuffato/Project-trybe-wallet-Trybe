@@ -65,9 +65,9 @@ class WalletTable extends React.Component {
               <th>Moeda de conversão</th>
               <th>Editar/Excluir</th>
             </tr>
-          {
-            expenses.length > 0 && this.tableMaker()
-          }
+            {
+              expenses.length > 0 && this.tableMaker()
+            }
           </tbody>
         </table>
       </section>
