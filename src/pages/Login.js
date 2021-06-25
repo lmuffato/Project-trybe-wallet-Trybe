@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { actionEmail } from '../actions';
 
-const checkRegexEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
-const checkRegexPassword = /[\w]{6}/;
+const regexEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+const regexPassword = /[\w]{6}/;
 
 class Login extends React.Component {
   constructor(props) {
@@ -38,12 +38,12 @@ class Login extends React.Component {
 
   updateStateAndValidateInput({ target: { name, value } }) {
     if (name === 'email') {
-      const isValid = checkRegexEmail.test(value);
+      const isValid = regexEmail.test(value);
       this.setState({ emailIsValid: isValid });
     }
 
     if (name === 'password') {
-      const isValid = checkRegexPassword.test(value);
+      const isValid = regexPassword.test(value);
       this.setState({ passwordIsValid: isValid });
     }
 
