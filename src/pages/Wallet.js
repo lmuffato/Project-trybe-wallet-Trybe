@@ -1,14 +1,16 @@
 import React from 'react';
 import Header from '../components/Header';
 import Form from '../components/Form';
+import Expenses from '../components/Expenses';
 
 class Wallet extends React.Component {
   render() {
     return (
       <div>
         <Header />
-        <p>Aqui é o corpo da carteira</p>
         <Form />
+        <h3> TrybeWallet! </h3>
+        <Expenses />
       </div>
     );
   }

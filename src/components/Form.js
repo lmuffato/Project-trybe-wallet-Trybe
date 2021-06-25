@@ -37,9 +37,7 @@ class Form extends React.Component {
       exchangeRates: currencies,
     };
     expenseDispatch(addedExpense);
-    this.setState((previousState) => ({ id: previousState.id + 1 }));
-    console.log('Olá');
-    console.log(this.state);
+    this.setState((state) => ({ id: state.id + 1 }));
   }
 
   render() {
