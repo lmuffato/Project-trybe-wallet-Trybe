@@ -1,5 +1,6 @@
 import {
   CURRENCIES,
+  DEL_EXPENSES,
   ERROR,
   REQUEST,
   SAVE_EXPENSES,
@@ -22,6 +23,9 @@ const wallet = (state = INITIAL_STATE, action) => {
     return { ...state, currencies: action.payload };
   case SAVE_EXPENSES:
     return { ...state, expenses: [...state.expenses, action.payload] };
+  case DEL_EXPENSES:
+    return { ...state, expenses: state.expenses.filter(({ id }) => id !== action.payload),
+    };
   default:
     return state;
   }

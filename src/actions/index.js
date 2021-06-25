@@ -5,6 +5,7 @@ export const REQUEST = 'REQUEST';
 export const ERROR = 'ERROR';
 export const CURRENCIES = 'CURRENCIES';
 export const SAVE_EXPENSES = 'SAVE_EXPENSES';
+export const DEL_EXPENSES = 'DEL_EXPENSES';
 
 export const saveEmail = (email) => ({
   type: SAVE_EMAIL,
@@ -27,6 +28,11 @@ export const getCurrencies = (payload) => ({
 
 const saveExpenses = (payload) => ({
   type: SAVE_EXPENSES,
+  payload,
+});
+
+export const delExpenses = (payload) => ({
+  type: DEL_EXPENSES,
   payload,
 });
 
