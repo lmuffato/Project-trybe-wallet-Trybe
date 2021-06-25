@@ -1,7 +1,8 @@
 import React from 'react';
-
-// https://codinginflow.com/tutorials/android/validate-email-password-regular-expressions
-// https://regex101.com/ - dica do Lugh Wally
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { actionEmail } from '../actions';
 
 const checkRegexEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
 const checkRegexPassword = /[\w]{6}/;
@@ -51,6 +52,8 @@ class Login extends React.Component {
 
   render() {
     const { email, password, isDisabled } = this.state;
+    const { userLogged } = this.props;
+
     return (
       <div className="form-login">
         <form>
@@ -70,11 +73,27 @@ class Login extends React.Component {
             placeholder="Senha"
             data-testid="password-input"
           />
-          <button type="button" disabled={ isDisabled }>Entrar</button>
+          <Link to="/carteira">
+            <button
+              type="button"
+              disabled={ isDisabled }
+              onClick={ () => userLogged(email) }
+            >
+              Entrar
+            </button>
+          </Link>
         </form>
       </div>
     );
   }
 }
 
-export default Login;
+const mapStateToProps = (dispatch) => ({
+  userLogged: (email) => dispatch(actionEmail(email)),
+});
+
+Login.propTypes = {
+  userLogged: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapStateToProps)(Login);
