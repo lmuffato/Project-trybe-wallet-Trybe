@@ -1,4 +1,4 @@
-import { WALLET_CURRENCIES, WALLET_EXPENSES } from '../actions/index';
+import { WALLET_CURRENCIES, WALLET_EXPENSES, WALLET_DELETE } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -11,6 +11,8 @@ const wallet = (state = INITIAL_STATE, { type, payload }) => {
     return { ...state, currencies: payload };
   case WALLET_EXPENSES:
     return { ...state, expenses: [...state.expenses, payload] };
+  case WALLET_DELETE:
+    return { ...state, expenses: payload };
   default:
     return state;
   }

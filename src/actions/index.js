@@ -10,6 +10,9 @@ export const currenciesAction = (payload) => ({ type: WALLET_CURRENCIES, payload
 export const WALLET_EXPENSES = 'WALLET_EXPENSES';
 export const expensesAction = (payload) => ({ type: WALLET_EXPENSES, payload });
 
+export const WALLET_DELETE = 'WALLET_DELET';
+export const deleteAction = (payload) => ({ type: WALLET_DELETE, payload });
+
 export function requestAPI() {
   return async (dispatch) => {
     dispatch(requestCurrency());

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
+import { deleteAction } from '../actions';
 
 class Table extends React.Component {
   render() {
@@ -35,6 +36,14 @@ class Table extends React.Component {
                       * Number(expense.value)).toFixed(2)}
               </td>
               <td>Real</td>
+              <td data-label="Editar/Excluir">
+                <button
+                  type="button"
+                  data-testid="delete-btn"
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -48,8 +57,12 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispachToProps = (dispatch) => ({
+  buttonDelete: (payload) => dispatch(deleteAction(payload)),
+});
+
 Table.propTypes = {
   expenses: PropTypes.shape().isRequired,
 };
 
-export default connect(mapStateToProps)(Table);
+export default connect(mapStateToProps, mapDispachToProps)(Table);
