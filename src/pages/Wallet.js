@@ -137,6 +137,51 @@ class Wallet extends React.Component {
       });
   }
 
+  handleTableWallet() {
+    const { expenses } = this.props;
+    // console.log(expenses);
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          { expenses.map((expense) => (
+            <tr key={ expense.id }>
+              <td>{ expense.description }</td>
+              <td>{ expense.tag }</td>
+              <td>{ expense.method }</td>
+              <td>{ expense.value }</td>
+
+              <td>{ expense.exchangeRates[expense.currency].name.split('/', 1) }</td>
+              <td>{ Number(expense.exchangeRates[expense.currency].ask).toFixed(2) }</td>
+              <td>
+                {
+                  (Number(expense.exchangeRates[expense.currency].ask)
+               * Number(expense.value)).toFixed(2)
+                }
+              </td>
+
+              <td>Real</td>
+              <td><button type="button">Editar</button></td>
+              <td><button type="button">Exlcuir</button></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
+
   render() {
     return (
       <div>
@@ -155,6 +200,7 @@ class Wallet extends React.Component {
           </button>
         </form>
         TrybeWallet
+        { this.handleTableWallet() }
       </div>
     );
   }
@@ -167,7 +213,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  // expenses: state.wallet.expenses,
+  expenses: state.wallet.expenses,
 });
 
 Wallet.propTypes = {
