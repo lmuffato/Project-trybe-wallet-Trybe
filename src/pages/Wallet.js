@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Proptypes from 'prop-types';
 import Header from '../components/Header';
-// import getCurrency from '../services/FetchApi';
 import { addCurrencyApiThunk } from '../actions/index';
 
 class Wallet extends React.Component {
@@ -32,8 +31,8 @@ class Wallet extends React.Component {
 
   handleDescription() {
     return (
-      <label htmlFor="descrition">
-        Descrição:
+      <label htmlFor="description">
+        Descrição
         <input
           id="description"
           type="text"
