@@ -38,3 +38,9 @@ export const expensesAdd = (state) => async (dispatch) => {
 };
 
 // Ajuda da Nath no Req 08*! UFA!!! ^^
+
+export const DEL_SPENDS = 'DEL_SPENDS';
+export const deleteExpense = (payload) => ({
+  type: DEL_SPENDS,
+  payload,
+});
