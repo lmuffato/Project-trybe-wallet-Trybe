@@ -9,10 +9,10 @@ class Wallet extends React.Component {
       total: 0,
       availableExchange: [],
     };
-    this.currencyList = this.currencyList.bind(this);
-    this.setExchangeList = this.setExchangeList.bind(this);
+    // this.currencyList = this.currencyList.bind(this);
+    // this.setExchangeList = this.setExchangeList.bind(this);
     this.header = this.header.bind(this);
-    this.addCurrency = this.addCurrency.bind(this);
+    // this.addCurrency = this.addCurrency.bind(this);
   }
 
   async setExchangeList() {
@@ -107,36 +107,36 @@ class Wallet extends React.Component {
     );
   }
 
-  tableBody() {
-    const {
-      valor,
-      descri,
-      tag,
-      metodo,
-    } = this.props;
-    return (
-      <tr>
-        <th>{ expenses.valor }</th>
-        <th>{ expenses.descri }</th>
-        <th>{ expenses.tag }</th>
-        <th>{ expenses.metodo }</th>
-        <td>{currencyName[0]}</td>
-        <td>{Math.round(exchangeValue * 100) / 100}</td>
-        <td>Real</td>
-        <td>{Math.round(convertedValue * 100) / 100}</td>
-        <td>
-          <button type="button">Editar</button>
-          <button
-            type="button"
-            data-testid="delete-btn"
-            onClick={ () => deleteOneExpense(expense) }
-          >
-            Excluir
-          </button>
-        </td>
-      </tr>
-    );
-  }
+  // tableBody() {
+  //   const {
+  //     valor,
+  //     descri,
+  //     tag,
+  //     metodo,
+  //   } = this.props;
+  //   return (
+  //     <tr>
+  //       <th>{ expenses.valor }</th>
+  //       <th>{ expenses.descri }</th>
+  //       <th>{ expenses.tag }</th>
+  //       <th>{ expenses.metodo }</th>
+  //       <td>{currencyName[0]}</td>
+  //       <td>{Math.round(exchangeValue * 100) / 100}</td>
+  //       <td>Real</td>
+  //       <td>{Math.round(convertedValue * 100) / 100}</td>
+  //       <td>
+  //         <button type="button">Editar</button>
+  //         <button
+  //           type="button"
+  //           data-testid="delete-btn"
+  //           onClick={ () => deleteOneExpense(expense) }
+  //         >
+  //           Excluir
+  //         </button>
+  //       </td>
+  //     </tr>
+  //   );
+  // }
 
   render() {
     return (

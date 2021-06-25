@@ -10,10 +10,10 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      disabled: false,
+      disabled: true,
     };
     this.handleState = this.handleState.bind(this);
-    // this.showBtn = this.showBtn.bind(this);
+    this.showBtn = this.showBtn.bind(this);
   }
 
   handleState({ target }) {
@@ -21,12 +21,23 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     });
+    this.showBtn();
   }
 
-  //   showBtn() {
-  // Essa função serve a mecanica do button disabled
-
-  //   }
+  showBtn() {
+    const { email, password } = this.state;
+    const regexEmail = /\w+@\w+\.\w+/gi.test(email);
+    const regexPassword = /(.{5,})/gi.test(password);
+    if (regexEmail && regexPassword) {
+      this.setState({
+        disabled: false,
+      });
+    } else {
+      this.setState({
+        disabled: true,
+      });
+    }
+  }
 
   render() {
     const { email, password, disabled } = this.state;
@@ -46,7 +57,6 @@ class Login extends React.Component {
             type="password"
             name="password"
             value={ password }
-            minLength="6"
             onChange={ this.handleState }
             placeholder="password"
             data-testid="password-input"
