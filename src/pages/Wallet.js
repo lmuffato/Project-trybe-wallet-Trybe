@@ -68,7 +68,7 @@ class Wallet extends React.Component {
         </label>
         <label htmlFor="tag">
           Tag
-          <select name="tag" onChange={ this.hundleChange }>
+          <select name="tag" id="tag" onChange={ this.hundleChange }>
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
             <option value="Trabalho">Trabalho</option>
