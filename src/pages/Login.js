@@ -29,33 +29,23 @@ class Login extends React.Component {
   }
 
   // trecho do código realizado com solução encontrada por Gabriel Pereira no link https://www.horadecodar.com.br/2020/09/07/expressao-regular-para-validar-e-mail-javascript-regex/
-  testEmail(email) {
-    const re = /\S+@\S+\.\S+/;
-    return re.test(email);
-  }
+  // testEmail(email) {
+  //   const re = /\S+@\S+\.\S+/;
+  //   return re.test(email);
+  // }
 
   validateLogin() {
     const { email, password } = this.state;
-    if (this.testEmail(email) && this.testPassword(password)) {
-      return this.setState({ buttonDisable: false });
-    }
-    return this.setState({ buttonDisable: true });
-  }
-
-  testPassword() {
-    const { password } = this.state;
     const passwordLength = 5;
-    console.log(password);
-    if (password > passwordLength) return true;
-    return false;
-  }
+    const validPassword = password.length >= passwordLength; // false => true
 
-  // compareLogin() {
-  //   if (this.testPassword() && this.validateLogin()) {
-  //     return this.setState({ buttonDisable: false });
-  //   }
-  //   return this.setState({ buttonDisable: true });
-  // }
+    const emailCondcion = /^([\w.\-_]+)?\w+@[\w-_]+(\.\w+){1,}$/igm; // => https://regexr.com
+    const validEmail = email.match(emailCondcion);
+
+    if (validEmail && validPassword) {
+      this.setState({ buttonDisable: false });
+    }
+  }
 
   render() {
     const { buttonDisable, email, statusLogin } = this.state;
