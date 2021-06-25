@@ -7,21 +7,21 @@ class Form extends Component {
         <form>
           <label htmlFor="value">
             Valor
-            <input type="number" name="value" />
+            <input type="number" name="value" id="value" />
           </label>
           <label htmlFor="description">
             Descrição
-            <input type="text" name="description" />
+            <input type="text" name="description" id="description" />
           </label>
           <label htmlFor="currency">
             Moeda
-            <select>
-              <option value=""></option>
+            <select id="currency">
+              <option value="0">0</option>
             </select>
           </label>
-          <label htmlFor="Payment method">
+          <label htmlFor="Payment-method">
             Método de pagamento
-            <select>
+            <select id="Payment-method">
               <option value="Dinheiro">Dinheiro</option>
               <option value="Cartão de débito">Cartão de débito</option>
               <option value="Cartão de crédito">Cartão de crédito</option>
@@ -29,7 +29,7 @@ class Form extends Component {
           </label>
           <label htmlFor="tag">
             Tag
-            <select>
+            <select id="tag">
               <option value="Alimentação">Alimentação</option>
               <option value="Lazer">Lazer</option>
               <option value="Trabalho">Trabalho</option>
