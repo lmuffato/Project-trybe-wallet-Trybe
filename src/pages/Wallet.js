@@ -1,3 +1,4 @@
+// código realizado com ajuda do Eduardo Costa
 import React from 'react';
 import { connect } from 'react-redux';
 import Proptypes from 'prop-types';
@@ -7,8 +8,8 @@ import { addCurrencyApiThunk,
 import getCurrency from '../services/FetchApi';
 
 class Wallet extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       id: 0,
       value: '',
@@ -20,13 +21,12 @@ class Wallet extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleState = this.handleState(this);
+    this.handleState = this.handleState.bind(this);
   }
 
   componentDidMount() {
     const { getCurrencys } = this.props;
     getCurrencys();
-    // console.log(getCurrency);
   }
 
   handleChange({ target }) {
@@ -107,18 +107,6 @@ class Wallet extends React.Component {
     );
   }
 
-  handleState() {
-    const { id } = this.state;
-    getCurrency()
-      .then((res) => {
-        const { wallets } = this.props;
-        const { ...moeda } = res;
-        this.setState({ id: id + 1, exchangeRates: moeda });
-        wallets({ ...this.state, id });
-      })
-      .catch((error) => error);
-  }
-
   handleCategory() {
     return (
       <label htmlFor="category">
@@ -136,6 +124,17 @@ class Wallet extends React.Component {
         </select>
       </label>
     );
+  }
+
+  handleState() {
+    const { id } = this.state;
+    const { wallets } = this.props;
+    getCurrency()
+      .then((res) => {
+        const { ...coin } = res;
+        this.setState({ id: id + 1, exchangeRates: coin });
+        wallets({ ...this.state, id });
+      });
   }
 
   render() {
@@ -168,6 +167,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  // expenses: state.wallet.expenses,
 });
 
 Wallet.propTypes = {
