@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { apiWalletThunk, apiExpensesThunk } from '../actions';
 
+const d = 'description';
 class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -64,7 +65,7 @@ class Form extends React.Component {
           </label>
           <label htmlFor="description">
             Descrição:
-            <input type="text" id="description" value={ description } onChange={ this.hc } />
+            <input type="text" id={ d } value={ description } onChange={ this.hc } />
           </label>
           <label htmlFor="currency">
             Moeda:
