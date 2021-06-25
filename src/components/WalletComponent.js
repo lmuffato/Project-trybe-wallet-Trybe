@@ -18,7 +18,6 @@ class WalletComponent extends React.Component {
       currency: '',
       paymentMethod: '',
       tag: '',
-
     };
     this.getAPI = this.getAPI.bind(this);
     this.handle = this.handle.bind(this);
@@ -159,9 +158,6 @@ class WalletComponent extends React.Component {
   }
 }
 
-// const mapStateToProps = (state) => ({
-//   expenses: state.wallet
-// });
 const mapStateToProps = (state) => ({
   email: state.user.email,
   expenses: state.wallet.expenses,
