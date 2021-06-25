@@ -34,7 +34,7 @@ class WalletTable extends React.Component {
               </td>
               <td>Real</td>
               <button
-                onClick={ this.remoteExpense }
+                onClick={ this.removeExpense }
                 data-testid="delete-btn"
                 name={ item.id }
                 type="submit"
