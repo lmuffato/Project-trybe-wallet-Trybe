@@ -2,10 +2,21 @@ export const SET_EMAIL = 'SET_EMAIL';
 export const SET_CURRENCIES = 'SET_CURRENCIES';
 export const SET_EXPENSE = 'SET_EXPENSE';
 export const SET_TOTAL_PRICE = 'SET_TOTAL_PRICE';
+export const UPDATE_EXPENSES = 'UPDATE_EXPENSES';
+export const SET_EDIT_MODE = 'SET_EDIT_MODE';
 
 export const setEmail = (email) => ({
   type: SET_EMAIL,
   email,
+});
+
+export const updateExpenses = (expenses) => ({
+  type: UPDATE_EXPENSES,
+  expenses,
+});
+export const setEditExpense = (edit) => ({
+  type: SET_EDIT_MODE,
+  edit,
 });
 
 export const setCurrencies = (currencies) => ({
