@@ -3,39 +3,43 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Header extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      spends: 0,
-    };
+  totalSpends() {
+    const { expenses } = this.props;
+    let sum = 0;
+    console.log(expenses);
+    expenses.forEach((expense) => {
+      sum += expense.value * expense.exchangeRates[expense.currency].ask;
+    });
+    return sum;
   }
 
   render() {
-    const { spends } = this.state;
     const { email } = this.props;
     return (
-      <header>
-        <div>
+      <div>
+        <header>
           <p> Usuário:</p>
           <p data-testid="email-field">
             { email }
           </p>
           <p data-testid="total-field">
-            { spends }
+            { this.totalSpends() }
           </p>
           <p data-testid="header-currency-field"> BRL </p>
-        </div>
-      </header>
+        </header>
+      </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 Header.propTypes = {
-  email: PropTypes.string.isRequired,
-};
+  email: PropTypes.string,
+  expenses: PropTypes.arrayOf(PropTypes.object),
+}.isRequired;
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps)(Header);
