@@ -7,69 +7,76 @@ class Wallet extends React.Component {
     super();
     this.state = {
       total: 0,
-      availableExchange: [],
+      arrExchangeList: [],
     };
     // this.currencyList = this.currencyList.bind(this);
     // this.setExchangeList = this.setExchangeList.bind(this);
     this.header = this.header.bind(this);
+    this.forms = this.forms.bind(this);
     // this.addCurrency = this.addCurrency.bind(this);
+  }
+
+  componentDidMount() {
+    this.setExchangeList();
   }
 
   async setExchangeList() {
     const listExchange = await (await fetch('https://economia.awesomeapi.com.br/json/all')).json();
-    const arrFullExchangeList = Object.values(listExchange);
-    console.log(arrFullExchangeList);
-    const arrFilteredExchange = arrFullExchangeList
+    const arrExchangeList = Object.keys(listExchange)
       .filter((currency) => currency !== 'USDT');
-    this.setState({
-      availableExchange: arrFilteredExchange,
-    });
+    this.setState({ arrExchangeList });
   }
 
   header() {
-    const { total, availableExchange } = this.state;
+    const { total } = this.state;
     const { email } = this.props;
     return (
       <header>
         <p data-testid="email-field">{ email }</p>
         <p data-testid="total-field">{ total }</p>
         <p data-testid="header-currency-field">BRL</p>
-        <form>
-          <label htmlFor="value">
-            Valor
-            <input type="number" id="value" onChange={ this.hundleChange } />
-          </label>
-          <label htmlFor="description">
-            Descrição
-            <input type="text" name="description" onChange={ this.hundleChange } />
-          </label>
-          <label htmlFor="currency">
-            Moeda
-            <select name="currency" onChange={ this.hundleChange }>
-              { availableExchange
-                .map((pix, id) => <option key={ id } value={ pix }>{ pix }</option>) }
-            </select>
-          </label>
-          <label htmlFor="method">
-            Método de pagamento
-            <select name="method" onChange={ this.hundleChange }>
-              <option value="cash">Dinheiro</option>
-              <option value="credit-card">Cartão de crédito</option>
-              <option value="debit-card">Cartão de débito</option>
-            </select>
-          </label>
-          <label htmlFor="tag">
-            Tag
-            <select name="tag" onChange={ this.hundleChange }>
-              <option value="food">Alimentação</option>
-              <option value="leisure">Lazer</option>
-              <option value="work">Trabalho</option>
-              <option value="transport">Transporte</option>
-              <option value="health">Saúde</option>
-            </select>
-          </label>
-        </form>
       </header>
+    );
+  }
+
+  forms() {
+    const { arrExchangeList } = this.state;
+    return (
+      <form>
+        <label htmlFor="value">
+          Valor
+          <input type="number" name="value" id="value" />
+        </label>
+        <label htmlFor="description">
+          Descrição
+          <input type="text" name="description" id="description" />
+        </label>
+        <label htmlFor="currency">
+          Moeda
+          <select name="currency" id="currency">
+            { arrExchangeList
+              .map((pix) => <option key={ pix }>{pix}</option>) }
+          </select>
+        </label>
+        <label htmlFor="method">
+          Método de pagamento
+          <select name="method" id="method" onChange={ this.hundleChange }>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
+          </select>
+        </label>
+        <label htmlFor="tag">
+          Tag
+          <select name="tag" onChange={ this.hundleChange }>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
+          </select>
+        </label>
+      </form>
     );
   }
 
@@ -142,6 +149,7 @@ class Wallet extends React.Component {
     return (
       <div>
         { this.header() }
+        { this.forms() }
         { this.addCurrency() }
       </div>
     );
