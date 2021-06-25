@@ -8,3 +8,10 @@ const userLogin = (email) => ({
 });
 
 export default userLogin;
+
+export const addExpense = (expense) => ({
+  type: 'ADD_EXPENSE',
+  wallet: {
+    expense,
+  },
+});
