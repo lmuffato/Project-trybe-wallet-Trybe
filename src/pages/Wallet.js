@@ -1,48 +1,99 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import ExpensesForm from '../components/ExpensesForm';
+import { addExpense } from '../actions';
 
 class Wallet extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const { stateID } = this.props;
+
+    this.state = {
+      id: stateID,
+      value: '',
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
+      exchangeRates: {},
+    };
+
+    this.fetchCurrencies = this.fetchCurrencies.bind(this);
+    this.filterCurrencies = this.filterCurrencies.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchCurrencies();
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  handleClick() {
+    const { id } = this.state;
+    const { dispatchExpense } = this.props;
+    this.fetchCurrencies();
+    dispatchExpense(this.state);
+    this.setState({
+      id: id + 1,
+      value: '',
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
+      exchangeRates: {},
+    });
+  }
+
+  async fetchCurrencies() {
+    const currAPI = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const response = await currAPI.json();
+    this.setState({
+      exchangeRates: response,
+    });
+  }
+
+  filterCurrencies() {
+    const { exchangeRates } = this.state;
+    const currencies = Object.keys(exchangeRates);
+    const filteredCurrencies = currencies.filter((currency) => currency !== 'USDT');
+    return filteredCurrencies;
+  }
+
   render() {
     return (
       <>
         <Header />
-        <form>
-          <label htmlFor="expense-value">
-            Valor
-            <input type="number" id="expense-value" />
-          </label>
-          <label htmlFor="expense-description">
-            Descrição
-            <input type="text" id="expense-description" />
-          </label>
-          <label htmlFor="expense-currency">
-            Moeda
-            <select id="expense-currency">
-              {}
-            </select>
-          </label>
-          <label htmlFor="expense-payment-method">
-            Método de pagamento
-            <select id="expense-payment-method">
-              <option value="money">Dinheiro</option>
-              <option value="credit-card">Cartão de Crédito</option>
-              <option value="debit-card">Cartão de Débito</option>
-            </select>
-          </label>
-          <label htmlFor="expense-tag">
-            Tag
-            <select id="expense-tag">
-              <option value="food">Alimentação</option>
-              <option value="entertainment">Lazer</option>
-              <option value="work">Trabalho</option>
-              <option value="transport">Transporte</option>
-              <option value="health">Saúde</option>
-            </select>
-          </label>
-        </form>
+        <ExpensesForm
+          currencies={ this.filterCurrencies() }
+          handler={ this.handleChange }
+          submitExpense={ this.handleClick }
+        />
       </>
     );
   }
 }
 
-export default Wallet;
+const mapStateToProps = (state) => ({
+  stateID: state.wallet.id,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchExpense: (expenseData) => dispatch(addExpense(expenseData)),
+});
+
+Wallet.propTypes = {
+  stateID: PropTypes.number.isRequired,
+  dispatchExpense: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
