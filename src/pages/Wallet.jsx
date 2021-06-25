@@ -55,3 +55,10 @@ Wallet.propTypes = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
+
+// REFS:
+// https://github.com/tryber/sd-09-project-trybewallet/pull/62   PR-COLEGA
+// https://github.com/tryber/sd-010-a-project-trybewallet/pull/27  PR-COLEGA
+// https://www.digitalocean.com/community/tutorials/redux-redux-thunk-pt
+// https://redux.js.org/tutorials/essentials/part-5-async-logic
+// https://developer.mozilla.org/pt-BR/docs/Web/HTML/Element/table

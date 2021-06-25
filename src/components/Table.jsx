@@ -4,9 +4,16 @@ import { PropTypes } from 'prop-types';
 import { deleteAction } from '../actions';
 
 class Table extends React.Component {
+  clickDeleter(id) {
+    const { buttonDelete, expenses } = this.props;
+    const filteredExpenses = expenses.filter((expense) => expense.id !== id);
+    const payloader = filteredExpenses || [];
+    buttonDelete(payloader);
+  }
+
   render() {
     const { expenses } = this.props;
-    console.log(expenses);
+
     return (
       <table>
         <thead>
@@ -40,6 +47,7 @@ class Table extends React.Component {
                 <button
                   type="button"
                   data-testid="delete-btn"
+                  onClick={ () => this.clickDeleter(expense.id) }
                 >
                   Delete
                 </button>
@@ -63,6 +71,7 @@ const mapDispachToProps = (dispatch) => ({
 
 Table.propTypes = {
   expenses: PropTypes.shape().isRequired,
+  buttonDelete: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispachToProps)(Table);
