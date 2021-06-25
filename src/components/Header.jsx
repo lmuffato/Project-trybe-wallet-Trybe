@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Header extends React.Component {
   handleSum() {
@@ -36,5 +37,10 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
   exchangeRates: state.wallet.exchangeRates,
 });
+
+Header.propTypes = {
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  emailGot: PropTypes.string.isRequired,
+};
 
 export default connect(mapStateToProps, null)(Header);
