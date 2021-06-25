@@ -17,15 +17,24 @@ class WalletComponent extends React.Component {
       currency: '',
       method: '',
       tag: '',
+      number: 0,
     };
     this.getAPI = this.getAPI.bind(this);
     this.handle = this.handle.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.text = this.text.bind(this);
+    this.getTotalValue = this.getTotalValue.bind(this);
   }
 
   componentDidMount() {
     this.getAPI();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { total } = this.props;
+    if (prevProps.total !== total) {
+      this.getTotalValue();
+    }
   }
 
   async getAPI() {
@@ -33,6 +42,13 @@ class WalletComponent extends React.Component {
     const endPoint = await fetch(baseUrl);
     const resolve = await endPoint.json();
     this.setState({ currencyAPI: resolve });
+  }
+
+  getTotalValue() {
+    const { total } = this.props;
+    this.setState({
+      number: total,
+    });
   }
 
   text(handle, value, description, currencyKeys) {
@@ -109,9 +125,9 @@ class WalletComponent extends React.Component {
   // referência Bruno trouxe a lógica do filter para tirarmos o USDT do array
   render() {
     const { currencyAPI, value,
-      description } = this.state;
+      description, number } = this.state;
     const currencyKeys = Object.keys(currencyAPI);
-    const { expenses, total } = this.props;
+    const { expenses } = this.props;
     return (
       <section>
         <span
@@ -119,7 +135,7 @@ class WalletComponent extends React.Component {
           data-testid="total-field"
           name="totalValue"
         >
-          { total }
+          { `Despesas: ${number}` }
         </span>
         <form>
           {this.text(this.handle, value, description, currencyKeys)}
