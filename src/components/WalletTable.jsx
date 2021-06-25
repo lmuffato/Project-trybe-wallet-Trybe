@@ -17,7 +17,6 @@ class WalletTable extends React.Component {
 
   tableMaker() {
     const { expenses } = this.props;
-    console.log(expenses)
     return (
       <>
         {
