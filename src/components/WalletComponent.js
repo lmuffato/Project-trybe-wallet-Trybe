@@ -124,7 +124,7 @@ class WalletComponent extends React.Component {
               data-testid="total-field"
               id="total"
               value={ total }
-              onChange={ handle }
+              onChange={ this.handle }
               name="totalValue"
             />
           </label>
