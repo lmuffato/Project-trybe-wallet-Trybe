@@ -6,17 +6,19 @@ class Header extends Component {
   render() {
     const { user, currencies1 } = this.props;
     return (
-      <section>
+      <section className="headerMain">
         <img
           name="img"
           width="50px"
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpvs4fUyOMdaFmPeLUKmHImikYC47QxiVcAg&usqp=CAU"
           alt="logo_carteira"
         />
-        <p data-testid="email-field">{ user }</p>
-        <p data-testid="total-field">Despesas totais:</p>
-        <p>{ currencies1 }</p>
-        <p data-testid="header-currency-field">BRL</p>
+        <div className="headerMain">
+          <p data-testid="email-field">{ user }</p>
+          <p data-testid="total-field">Despesas totais:</p>
+          <p>{ currencies1 }</p>
+          <p data-testid="header-currency-field">BRL</p>
+        </div>
       </section>
     );
   }

@@ -1,6 +1,7 @@
 import {
   CURRENCIES,
   WALLET,
+  DELETING,
 } from '../actions/index';
 
 const INITIAL_STATE = {
@@ -18,7 +19,12 @@ const wallet = (state = INITIAL_STATE, action) => {
   case CURRENCIES:
     return {
       ...state,
-      currencies: [...state.currencies, action.payload],
+      currencies: action.payload.toLocaleString('pt-br'),
+    };
+  case DELETING:
+    return {
+      ...state,
+      expenses: [state.expenses.filter((expense) => expense.id !== action.payload)],
     };
   default:
     return state;
