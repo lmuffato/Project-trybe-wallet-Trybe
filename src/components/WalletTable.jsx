@@ -1,0 +1,83 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { removeExpense } from '../actions/index'
+
+class WalletTable extends React.Component {
+    constructor() {
+        super()
+    this.tableMaker = this.tableMaker.bind(this)
+    this.removeExpense = this.removeExpense.bind(this)
+    }
+
+    removeExpense ({target: {name} }) {
+        const {data} = this.props
+        data(name)
+    }
+
+    tableMaker() {
+        const { expenses: {expenses} } = this.props
+        return (
+          <>
+            {
+              expenses.map((item, index) => (
+                <tr key={ index }>
+                  <td>{item.description}</td>
+                  <td>{item.tag}</td>
+                  <td>{item.paymentMethod}</td>
+                  <td>{item.value}</td>
+                  <td>{item.exchangeRates[item.currency].name.split('/')[0]}</td>
+                  <td>{parseFloat(item.exchangeRates[item.currency].ask).toFixed(2)}</td>
+                  <td>
+                    {parseFloat(item.value * item.exchangeRates[item.currency].ask)
+                      .toFixed(2) }
+                  </td>
+                  <td>Real</td>
+                  <button
+                    onClick={ this.remoteExpense }
+                    data-testid="delete-btn"
+                    name={ item.id }
+                    type="submit"
+                  >
+                    Remover
+                  </button>
+                </tr>
+              ))
+            }
+          </>
+        );
+      }
+render(){
+    const { expenses: {expenses} } = this.props
+    console.log(this.props)
+    return(
+        <section>
+        <table>
+            <tr>
+                <th>Descrição</th>
+                <th>Tag</th>
+                <th>Método de pagamento</th>
+                <th>Valor</th>
+                <th>Moeda</th>
+                <th>Câmbio utilizado</th>
+                <th>Valor convertido</th>
+                <th>Moeda de conversão</th>
+            </tr>
+            {
+             expenses.length > 0 && this.tableMaker()
+            }
+        </table>
+        </section>
+    )
+ }
+}
+
+ const mapDispatchToProps = (dispatch) => ({
+    data: (id) => dispatch(removeExpense(id)),
+  });
+
+WalletTable.propTypes = {
+    data: PropTypes.func.isRequired,
+    expenses: PropTypes.arrayOf(PropTypes.string).isRequired };
+
+export default connect(null, mapDispatchToProps)(WalletTable);
