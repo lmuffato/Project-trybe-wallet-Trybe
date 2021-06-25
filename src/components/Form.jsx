@@ -1,20 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { thunkActionCoins } from '../actions/index';
+import { requestAPI, expensesAction } from '../actions/index';
 
-class Wallet extends React.Component {
+class Form extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       id: 0,
       value: '',
-      description: '',
-      currency: 'USD',
+      currency: '',
       method: '',
       tag: '',
-      exchangeRates: [],
+      description: '',
     };
 
     this.renderInputValue = this.renderInputValue.bind(this);
@@ -23,6 +22,7 @@ class Wallet extends React.Component {
     this.renderPaymentSelect = this.renderPaymentSelect.bind(this);
     this.renderTag = this.renderTag.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.addExpense = this.addExpense.bind(this);
   }
 
   componentDidMount() {
@@ -30,16 +30,24 @@ class Wallet extends React.Component {
     getApi();
   }
 
-  setExpense() {
-    const { currency } = this.props;
-    console.log(currency);
-  }
-
   handleChange(event) {
     const { name, value } = event.target;
     this.setState({
       [name]: value,
     });
+  }
+
+  addExpense() {
+    const { currencies, setGlobalExpenses, getApi } = this.props;
+    getApi();
+    console.log(currencies);
+    const payloader = {
+      ...this.state,
+      exchangeRates: currencies,
+    };
+
+    setGlobalExpenses(payloader);
+    this.setState((prevState) => ({ id: prevState.id + 1 }));
   }
 
   renderInputValue() {
@@ -76,7 +84,9 @@ class Wallet extends React.Component {
 
   renderCoinSelect() {
     const { currencies } = this.props;
-    const { currency } = this.state;
+    const keys = Object.keys(currencies);
+    const excluded = 'USDT';
+    const filtered = keys.filter((each) => each !== excluded);
 
     return (
       <label htmlFor="coins">
@@ -84,10 +94,10 @@ class Wallet extends React.Component {
         <select
           id="coins"
           name="currency"
-          value={ currency }
+          value="currency"
           onChange={ this.handleChange }
         >
-          {currencies.map((eachCoin) => (
+          {filtered.map((eachCoin) => (
             <option value={ eachCoin } key={ eachCoin }>
               { eachCoin }
             </option>
@@ -148,23 +158,16 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email } = this.props;
-
     return (
       <div>
-        <header>
-          <p data-testid="email-field">{ email }</p>
-          <p data-testid="total-field">0</p>
-          <p data-testid="header-currency-field">BRL</p>
-        </header>
         <form>
           { this.renderInputValue() }
           { this.renderInputDescription() }
           { this.renderCoinSelect() }
           { this.renderPaymentSelect() }
           { this.renderTag() }
-          <button onClick={ this.setExpense() } type="submit">
-            Adicionar despesas
+          <button onClick={ this.addExpense } type="submit">
+            Adicionar despesa
           </button>
         </form>
       </div>
@@ -172,20 +175,20 @@ class Wallet extends React.Component {
   }
 }
 
-Wallet.propTypes = {
-  email: PropTypes.string.isRequired,
+Form.propTypes = {
   getApi: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
-  currency: PropTypes.string.isRequired,
+  currencies: PropTypes.objectOf(PropTypes.string).isRequired,
+  setGlobalExpenses: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  email: state.user.email,
+  expenses: state.wallet.expenses,
   currencies: state.wallet.currencies,
 });
 
 const mapDispachToProps = (dispatch) => ({
-  getApi: () => dispatch(thunkActionCoins()),
+  getApi: () => dispatch(requestAPI()),
+  setGlobalExpenses: (payload) => dispatch(expensesAction(payload)),
 });
 
-export default connect(mapStateToProps, mapDispachToProps)(Wallet);
+export default connect(mapStateToProps, mapDispachToProps)(Form);

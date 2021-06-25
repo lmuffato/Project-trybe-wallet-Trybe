@@ -1,31 +1,24 @@
-import exchangeAPI from '../services/exchangeAPI';
-
 export const USER_EMAIL = 'USER_EMAIL';
-
-export const WALLET_COINS = 'WALLET_COINS';
-export const WALLET_RATES = 'WALLET_RATES';
-
 export const emailAction = (payload) => ({ type: USER_EMAIL, payload });
 
-export const coinsAction = (payload) => ({ type: WALLET_COINS, payload });
-export const ratesAction = (payload) => ({ type: WALLET_RATES, payload });
+export const WALLET_REQUEST = 'WALLET_REQUEST';
+const requestCurrency = () => ({ type: WALLET_REQUEST });
 
-export const thunkActionCoins = () => (dispacth) => {
-  exchangeAPI()
-    .then(((res) => {
-      dispacth(coinsAction(res));
-    }))
-    .catch(() => {
-      console.log('ErroApi');
-    });
-};
+export const WALLET_CURRENCIES = 'WALLET_CURRENCIES';
+export const currenciesAction = (payload) => ({ type: WALLET_CURRENCIES, payload });
 
-export const thunkActionRates = () => (dispacth) => {
-  exchangeAPI()
-    .then(((res) => {
-      dispacth(ratesAction(res));
-    }))
-    .catch(() => {
-      console.log('ErroApi');
-    });
-};
+export const WALLET_EXPENSES = 'WALLET_EXPENSES';
+export const expensesAction = (payload) => ({ type: WALLET_EXPENSES, payload });
+
+export function requestAPI() {
+  return (dispatch) => {
+    dispatch(requestCurrency());
+    const endpoit = 'https://economia.awesomeapi.com.br/json/all';
+    return fetch(endpoit)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        dispatch(currenciesAction(data));
+      });
+  };
+}
