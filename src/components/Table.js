@@ -10,6 +10,7 @@ class Table extends Component {
 
     this.updateTable = this.updateTable.bind(this);
     this.deleteButton = this.deleteButton.bind(this);
+    this.formatarMoeda = this.formatarMoeda.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +28,23 @@ class Table extends Component {
         Excluir
       </button>
     );
+  }
+
+  formatarMoeda(money) {
+    let valor = money;
+
+    valor += '';
+    valor = parseInt(valor.replace(/[\D]+/g, ''), 10);
+    valor += '';
+    valor = valor.replace(/([0-9]{2})$/g, ',$1');
+
+    if (valor.length > 6) {
+      valor = valor.replace(/([0-9]{3}),([0-9]{2}$)/g, '.$1,$2');
+    }
+
+    console.log(valor);
+
+    return valor;
   }
 
   updateTable() {
@@ -50,9 +68,10 @@ class Table extends Component {
             .find((ev) => ev[e.currency])[e.currency].name;
           const ca = e.exchangeRates
             .find((ev) => ev[e.currency])[e.currency].ask;
-          const caConv = parseFloat(ca).toLocaleString('de');
           const magicN = -2;
-          const val = (Math.round((e.value * 100), magicN) / 100).toLocaleString('de');
+          const caConv = Math.round((parseFloat(ca) * 100), magicN) / 100;
+          this.formatarMoeda(e.value);
+          const val = (Math.round((e.value * 100), magicN) / 100);
           const co = (parseFloat(val) * parseFloat(ca));
           return (
             <tbody key={ i }>
@@ -67,8 +86,8 @@ class Table extends Component {
                 </td>
                 <td>{na.split('/', 1)[0]}</td>
                 <td>{caConv}</td>
-                <td>{(Math.round((co * 100), magicN) / 100).toLocaleString('de')}</td>
-                <td>Real Brasileiro</td>
+                <td>{(Math.round((co * 100), magicN) / 100)}</td>
+                <td>Real</td>
                 <td>{this.deleteButton([e.id, e.value])}</td>
               </tr>
             </tbody>

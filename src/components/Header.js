@@ -39,8 +39,8 @@ class Header extends Component {
         />
         <div className="headerSec">
           <p data-testid="email-field">{ user }</p>
-          <p data-testid="total-field">Despesas totais:</p>
-          <p>{ this.firstValuation() }</p>
+          <p>Despesas totais:</p>
+          <p data-testid="total-field">{ this.firstValuation() }</p>
           <p data-testid="header-currency-field">BRL</p>
         </div>
       </section>
