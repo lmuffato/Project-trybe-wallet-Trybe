@@ -37,8 +37,8 @@ class Table extends Component {
     valor = parseInt(valor.replace(/[\D]+/g, ''), 10);
     valor += '';
     valor = valor.replace(/([0-9]{2})$/g, ',$1');
-
-    if (valor.length > 6) {
+    const magicN3 = 6;
+    if (valor.length > magicN3) {
       valor = valor.replace(/([0-9]{3}),([0-9]{2}$)/g, '.$1,$2');
     }
 
