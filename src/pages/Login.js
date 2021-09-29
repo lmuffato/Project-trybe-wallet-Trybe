@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginAction } from '../actions/index';
-import Header from '../components/Header';
 import './loginCSS.css';
 
 class Login extends React.Component {
@@ -38,49 +37,46 @@ class Login extends React.Component {
     const { disabled, email, password } = this.state;
     const { meudispatch } = this.props;
     return (
-      <section className="loginPage">
-        <Header />
-        <div className="loginBox">
-          <h2>Login</h2>
-          <form>
-            <label htmlFor="user-email">
-              E-mail:
-              <input
-                data-testid="email-input"
-                placeholder="nome@email.com"
-                id="user-email"
-                type="email"
-                name="email"
-                value={ email }
-                onChange={ (event) => this.handleChange(event) }
-              />
-            </label>
-            <br />
-            <label htmlFor="user-passw">
-              Senha :
-              <input
-                data-testid="password-input"
-                placeholder="senha"
-                id="user-passw"
-                type="text"
-                name="password"
-                value={ password }
-                onChange={ (event) => this.handleChange(event) }
-              />
-            </label>
-            <br />
-            <Link to="/carteira">
-              <button
-                type="button"
-                data-testid="edit-btn"
-                disabled={ disabled }
-                onClick={ () => meudispatch(email) }
-              >
-                Entrar
-              </button>
-            </Link>
-          </form>
-        </div>
+      <section className="loginBox">
+        <h2>Login</h2>
+        <form className="formBox">
+          <label htmlFor="user-email">
+            E-mail:
+            <input
+              data-testid="email-input"
+              placeholder="nome@email.com"
+              id="user-email"
+              type="email"
+              name="email"
+              value={ email }
+              onChange={ (event) => this.handleChange(event) }
+            />
+          </label>
+          <br />
+          <label htmlFor="user-passw">
+            Senha :
+            <input
+              data-testid="password-input"
+              placeholder="senha"
+              id="user-passw"
+              type="text"
+              name="password"
+              value={ password }
+              onChange={ (event) => this.handleChange(event) }
+            />
+          </label>
+          <br />
+          <Link to="/carteira">
+            <button
+              type="button"
+              data-testid="edit-btn"
+              disabled={ disabled }
+              onClick={ () => meudispatch(email) }
+            >
+              Entrar
+            </button>
+          </Link>
+        </form>
       </section>
     );
   }

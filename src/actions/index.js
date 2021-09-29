@@ -5,6 +5,7 @@ export const LOADING_REQUEST = 'LOADING_REQUEST';
 export const ERROR_REQUEST = 'ERROR_REQUEST';
 export const SUCCESS_REQUEST = 'SUCCESS_REQUEST';
 export const EXPENSES_SUCESS = 'EXPENSES_SUCESS';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 // action creator > funcao que retorna uma action
 // LOGIN
@@ -71,3 +72,8 @@ export const actionThunkAdd = (payload) => (dispatch) => {
       dispatch(actionExpenses(expensesInfo));
     });
 };
+
+export const removeExpense = (id) => ({
+  type: 'DELETE_EXPENSE',
+  id,
+});

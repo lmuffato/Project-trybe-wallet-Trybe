@@ -7,7 +7,7 @@ class PaymentInput extends React.Component {
     const { localValue, onChange } = this.props;
     return (
       <label htmlFor="method">
-        método de pagamento
+        Método de Pagamento
         <select
           id="method"
           name="method"

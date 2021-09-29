@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Form from '../components/Form';
+import Table from '../components/Table';
 import './headerCSS.css';
 
 class Wallet extends React.Component {
@@ -19,6 +20,7 @@ class Wallet extends React.Component {
       const { exchangeRates, value, currency } = expense;
       console.log('exchangeRates');
       console.log(exchangeRates);
+      console.log(exchangeRates[currency].ask);
       total += parseFloat(exchangeRates[currency].ask) * value;
     });
     return total.toFixed(2);
@@ -27,7 +29,7 @@ class Wallet extends React.Component {
   render() {
     const { emaildoEstado } = this.props;
     return (
-      <div>
+      <section className="WalletPage">
         <header className="HeaderClass">
           <div>TrybeWallet</div>
           <div data-testid="email-field">{ emaildoEstado }</div>
@@ -38,7 +40,8 @@ class Wallet extends React.Component {
           <div data-testid="header-currency-field">BRL</div>
         </header>
         <Form />
-      </div>
+        <Table />
+      </section>
     );
   }
 }

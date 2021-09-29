@@ -7,7 +7,7 @@ import SelectedCoinInput from './FormInputs/SelectedCoinInput';
 import PaymentInput from './FormInputs/PaymentInput';
 import TagInput from './FormInputs/TagInput';
 import { actionThunkAdd } from '../actions/index';
-// import { ThunkAPI } from '../actions/index';
+import '../pages/walletCSS.css';
 
 class Form extends React.Component {
   constructor() {
@@ -43,19 +43,20 @@ class Form extends React.Component {
     const { value, description, currency, method, tag } = this.state;
     return (
       <secttion>
-        <form>
+        <form className="formInputs">
           <ValueInput localValue={ value } onChange={ this.handleChange } />
           <DescriptionInput localValue={ description } onChange={ this.handleChange } />
           <SelectedCoinInput localValue={ currency } onChange={ this.handleChange } />
           <PaymentInput localValue={ method } onChange={ this.handleChange } />
           <TagInput localValue={ tag } onChange={ this.handleChange } />
+          <button
+            className="btnAdd"
+            type="submit"
+            onClick={ this.sendInfo }
+          >
+            Adicionar despesa
+          </button>
         </form>
-        <button
-          type="submit"
-          onClick={ this.sendInfo }
-        >
-          Adicionar despesa
-        </button>
       </secttion>
     );
   }

@@ -1,0 +1,45 @@
+body {
+  width: 100%;
+}
+
+.formInputs {
+  align-items: baseline;
+  background-color: teal;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  padding: 8px;
+}
+
+.formInputs input {
+  margin: 5px;
+  width: 150px;
+}
+
+.formInputs select {
+  margin: 5px;
+  width: 120px;
+}
+
+.btnAdd {
+  display: flex;
+  justify-content: center;
+}
+
+.table {
+  background-color: rgb(64, 143, 143);
+  margin: 10px;
+  padding: 2px;
+
+}
+
+th {
+  background-color: rgb(177, 174, 174);
+  width: 100%;
+}
+
+td {
+  padding: 3px;
+  text-align: center;
+  word-wrap: break-word;
+}

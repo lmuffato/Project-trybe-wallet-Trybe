@@ -5,12 +5,12 @@ import Wallet from './pages/Wallet';
 
 function App() {
   return (
-    <section>
+    <div>
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/carteira" component={ Wallet } />
       </Switch>
-    </section>);
+    </div>);
 }
 
 export default App;

@@ -3,7 +3,8 @@ import {
   LOADING_REQUEST,
   ERROR_REQUEST,
   SUCCESS_REQUEST,
-  EXPENSES_SUCESS } from '../actions/index';
+  EXPENSES_SUCESS,
+  DELETE_EXPENSE } from '../actions/index';
 
 const INITIAL_STATE = {
   loading: false,
@@ -33,6 +34,11 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: [...state.expenses, action.expensesInfo],
+    };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter(({ id }) => id !== action.id),
     };
   default:
     return state;
