@@ -5,6 +5,8 @@ body {
 .HeaderClass {
   align-items: center;
   background-color: rgb(177, 174, 174);
+  border-color: teal;
+  border-style: solid;
   display: flex;
   height: 80px;
   justify-content: flex-end;

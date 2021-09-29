@@ -1,3 +1,7 @@
+#root {
+  width: 100%;
+}
+
 body {
   width: 100%;
 }
@@ -5,6 +9,8 @@ body {
 .formInputs {
   align-items: baseline;
   background-color: teal;
+  border-color: rgb(177, 174, 174);
+  border-style: solid;
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
@@ -39,6 +45,7 @@ th {
 }
 
 td {
+  border: solid 0.4px rgb(177, 174, 174);
   padding: 3px;
   text-align: center;
   word-wrap: break-word;
